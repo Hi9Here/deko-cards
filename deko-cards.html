@@ -11,10 +11,10 @@
         <img src="[[item.cardIcon]]" />
       </deko-card>
     </template>
-    <template is="dom-if" if="{{pagesLength}}">
+    <template is="dom-if" if="[[pagesLength]]">
       <button on-tap="perv"> &lt; </button>
     </template>
-    <template is="dom-if" if="{{nextPageStartAt}}">
+    <template is="dom-if" if="[[nextPageStartAt]]">
       <button on-tap="next"> > </button>
     </template>
   </template>
@@ -26,6 +26,7 @@
       _setItems:{
         computed:"setItems(path, byChild, loadNum, startAt)",
       },
+      end:{value: 999},
       pages:{value: []},
       byChild:{type: String, value:'title'},
       loadNum:{value: 10},
