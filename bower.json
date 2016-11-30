@@ -1,0 +1,13 @@
+{
+  "name": "deko-cards",
+  "version": "1.0.0",
+  "description": "",
+  "main": "deko-cards.html",
+  "keywords": [
+    "polymer",
+    "web-components"
+  ],
+  "dependencies": {
+    "polymer": "*"
+  }
+}
