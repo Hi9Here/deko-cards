@@ -45,7 +45,7 @@
         console.log('a[' + index + '] = ' + element)
       }
       if (Array.isArray(items.value)) {
-        items.value.forEach(logArrayElements).bind(saveRef)
+        items.value.forEach(logArrayElements, saveRef)
       }
     },
     getStartAt: function(pages){
