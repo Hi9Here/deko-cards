@@ -41,7 +41,14 @@
     save: function(items, path) {
       var saveRef = firebase.database().ref(path)
       function logArrayElements(element, index) {
-        debugger
+        if (element.image && element.cardIcon) {
+          var toSave = {}
+          toSave.image = element.image
+          toSave.desc = element.desc
+          toSave.title = element.title
+          toSave.link = element.link
+          this.child(element.__key).set(toSave)
+        }
         console.log('a[' + index + '] = ' + element)
       }
       if (Array.isArray(items.value)) {
