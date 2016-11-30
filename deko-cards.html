@@ -6,11 +6,12 @@
 <dom-module id="deko-cards">
   <template>
     <template is="dom-repeat" items="{{items}}" initial-Count="1">
-      <deko-card item="[[item]]">
+      <deko-card item="[ [ item ] ]">
         <paper-material>
           <a href="[[item.link]]">link</a>
           <h1>[[item.title]]</h1>
-          <input-image big="[[item.cardIcon]]" value="{{item.image}}"></input-image>
+          <input-image big="[[item.cardIcon]]" value="{{item._image}}"></input-image>
+          <img src={{item._image}} />
         </paper-material>
       </deko-card>
     </template>
@@ -36,14 +37,14 @@
       loadNum:{value: 10},
       startAt:{computed:"getStartAt(pages)"},
       pagesLength:{computed:"getPagesLength(pages)"},
-      _save:{computed:"save(items.*, path, items.0.image, items.1.image, items.2.image, items.3.image)"},
+      _save:{computed:"save(items.*, path, items.0.*)"},
     },
-    save: function(items, path) {
+    save: function(items, path, zero) {
       var saveRef = firebase.database().ref(path)
       function logArrayElements(element, index) {
-        if (element.image && element.cardIcon) {
+        if (element._image && element.cardIcon) {
           var toSave = {}
-          toSave.image = element.image
+          toSave.image = element._image
           toSave.desc = element.desc
           toSave.title = element.title
           toSave.link = element.link
