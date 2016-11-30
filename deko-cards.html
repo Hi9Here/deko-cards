@@ -8,8 +8,9 @@
     <template is="dom-repeat" items="[[items]]">
       <deko-card item="[[item]]">
         [[item.title]]
+        <img src="[[item.cardIcon]]" />
       </deko-card>
-    </template>
+    </template
     <template is="dom-if" if="{{pagesLength}}">
       <button on-tap="perv"> &lt; </button>
     </template>
