@@ -44,7 +44,9 @@
         debugger
         console.log('a[' + index + '] = ' + element)
       }
-      items.value.forEach(logArrayElements)
+      if (typeof items.value === "array") {
+        items.value.forEach(logArrayElements)
+      }
     },
     getStartAt: function(pages){
       if (pages.length) {
