@@ -10,9 +10,12 @@
         [[item.title]]
       </deko-card>
     </template>
-    <button on-tap="perv"> p </button>
-    
-    <button on-tap="next"> n </button>
+    <template is="dom-if" if="{{pagesLength}}">
+      <button on-tap="perv"> p </button>
+    </template>
+    <template is="dom-if" if="{{nextPageStartAt}}">
+      <button on-tap="next"> n </button>
+    </template>
   </template>
 </dom-module>
 <script>
@@ -20,11 +23,10 @@
     is: "deko-cards",
     properties:{
       _setItems:{
-        type:Array,
-        computed:"setItems(cardUrl, byChild, loadNum, startAt)",
+        computed:"setItems(path, byChild, loadNum, startAt)",
       },
       pages:{value: []},
-      byChild:{type: String,value:'title'},
+      byChild:{type: String, value:'title'},
       loadNum:{value: 10},
       startAt:{computed:"getStartAt(pages)"},
       pagesLength:{computed:"getPagesLength(pages)"},
