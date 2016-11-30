@@ -7,8 +7,11 @@
   <template>
     <template is="dom-repeat" items="[[items]]">
       <deko-card item="[[item]]">
-        [[item.title]]
-        <img src="[[item.cardIcon]]" />
+        <paper-material>
+          <a href="[[item.link]]">link</a>
+          <h1>[[item.title]]</h1>
+          <img src="[[item.cardIcon]]" />
+        </paper-material>
       </deko-card>
     </template>
     <template is="dom-if" if="[[pagesLength]]">
