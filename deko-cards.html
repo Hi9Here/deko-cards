@@ -36,7 +36,7 @@
       loadNum:{value: 10},
       startAt:{computed:"getStartAt(pages)"},
       pagesLength:{computed:"getPagesLength(pages)"},
-      _save:{computed:"save(items.*, path)"},
+      _save:{computed:"save(items.*, path, items.0.image, items.1.image, items.2.image, items.3.image)"},
     },
     save: function(items, path) {
       var saveRef = firebase.database().ref(path)
