@@ -36,7 +36,7 @@
       loadNum:{value: 10},
       startAt:{computed:"getStartAt(pages)"},
       pagesLength:{computed:"getPagesLength(pages)"},
-      _save:{computed:"save(items, path)"},
+      _save:{computed:"save(items.*, path)"},
     },
     save: function(items, path) {
       var saveRef = firebase.database().ref(path)
@@ -44,7 +44,7 @@
         debugger
         console.log('a[' + index + '] = ' + element)
       }
-      items.forEach(logArrayElements)
+      items.value.forEach(logArrayElements)
     },
     getStartAt: function(pages){
       if (pages.length) {
