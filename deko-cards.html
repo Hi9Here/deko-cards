@@ -64,7 +64,6 @@
       return pages.length
     },
     setItems: function(path, byChild, loadNum, startAt){
-      var nextPageStartAt = ""  
       var that = this
       
       function objectToArray(data) {
@@ -93,11 +92,11 @@
         if (theSnap) {
           that.loaded = Object.keys(theSnap).length 
           that.items = objectToArray(theSnap).sort(sortByChild)
-          if (that.loaded == loadNum) {    
-            that.nextPageStartAt = nextPageStartAt
+          if (that.loaded == loadNum) {
+            that.nextPageStartAt = that.items[loadNum - 1][byChild] + "~"
           } else {
             that.nextPageStartAt = null
-            that.end = 1+that.pagesLength 
+            that.end = 1+that.pagesLength
           }
         } else {
           console.log('no data')
