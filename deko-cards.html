@@ -44,7 +44,7 @@
         debugger
         console.log('a[' + index + '] = ' + element)
       }
-      if (typeof items.value === "array") {
+      if (Array.isArray(items.value)) {
         items.value.forEach(logArrayElements)
       }
     },
