@@ -25,6 +25,7 @@
       byChild:{type: String,value:'title'},
       loadNum:{value: 10},
       startAt:{computed:"getStartAt(pages)"},
+      pagesLength:{computed:"getPagesLength(pages)"},
     },
     getStartAt: function(pages){
       if (pages.length) {
@@ -49,6 +50,9 @@
         return 1
       }
       return 0
+    },
+    getPagesLength: function(pages){
+      return pages.length
     },
     setItems: function(path, byChild, loadNum, startAt){
       var nextPageStartAt = ""  
@@ -79,7 +83,7 @@
         var theSnap = snap.val()
         if (theSnap) {
           that.loaded = Object.keys(theSnap).length 
-          that.items = objectToArray(objectToArray(theSnap).sort(sortByChild)
+          that.items = objectToArray(theSnap).sort(sortByChild)
           if (that.loaded == loadNum) {    
             that.nextPageStartAt = nextPageStartAt
           } else {
