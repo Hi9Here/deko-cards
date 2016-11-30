@@ -5,7 +5,7 @@
 -->
 <dom-module id="deko-cards">
   <template>
-    <template is="dom-repeat" items="[[items]]" initial-Count="1">
+    <template is="dom-repeat" items="{{items}}" initial-Count="1">
       <deko-card item="[[item]]">
         <paper-material>
           <a href="[[item.link]]">link</a>
@@ -30,11 +30,21 @@
         computed:"setItems(path, byChild, loadNum, startAt)",
       },
       end:{value: 999},
+      path:{type: String},
       pages:{value: []},
       byChild:{type: String, value:'title'},
       loadNum:{value: 10},
       startAt:{computed:"getStartAt(pages)"},
       pagesLength:{computed:"getPagesLength(pages)"},
+      _save:{computed:"save(items, path)"},
+    },
+    save: function(items, path) {
+      var saveRef = firebase.database().ref(path)
+      function logArrayElements(element, index) {
+        debugger
+        console.log('a[' + index + '] = ' + element)
+      }
+      items.forEach(logArrayElements)
     },
     getStartAt: function(pages){
       if (pages.length) {
