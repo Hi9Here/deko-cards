@@ -53,8 +53,8 @@
         }
         console.log('a[' + index + '] = ' + element)
       }
-      if (Array.isArray(this.items.value)) {
-        this.items.value.forEach(logArrayElements, saveRef)
+      if (Array.isArray(this.items)) {
+        this.items.forEach(logArrayElements, saveRef)
       }
     },
     getStartAt: function(pages){
