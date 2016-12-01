@@ -12,7 +12,7 @@
           <a href="[[item.link]]">link</a>
           <h1>[[item.title]]</h1>
           <template is="dom-if" if="[[item.cardIcon]]">
-            <input-image big="[[item.cardIcon]]" value="{{item._image}}"></input-image>
+            auto <input-image big="[[item.cardIcon]]" value="{{item._image}}"></input-image>
           </template>
           <template is="dom-if" if="![[item.cardIcon]]">
             <input-image value="{{item.image}}"></input-image>
