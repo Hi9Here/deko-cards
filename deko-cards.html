@@ -10,14 +10,15 @@
       <deko-card item="[ [ item ] ]">
         <paper-material>
           <a href="[[item.link]]">link</a>
-          <h1>[[item.title]]</h1>
+          <paper-input label="Title" value="[[item.title]]"></paper-input>
+          <paper-input label="Desc" value="[[item.desc]]"></paper-input>
           <template is="dom-if" if="[[item.cardIcon]]">
             auto <input-image big="[[item.cardIcon]]" value="{{item._image}}"></input-image>
           </template>
-          <template is="dom-if" if="![[item.cardIcon]]">
+          <template is="dom-if" if="[[!item.cardIcon]]">
             <input-image value="{{item.image}}"></input-image>
           </template>
-          <button data-index="[[index]]" on-tap="edit"> edit </button>
+          <button item="[[item]]" on-tap="edit"> save </button>
         </paper-material>
       </deko-card>
     </template>
