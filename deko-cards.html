@@ -45,10 +45,10 @@
       function logArrayElements(element, index) {
         if (element._image && element.cardIcon) {
           var toSave = {}
-          toSave.image = element._image
-          toSave.desc = element.desc
-          toSave.title = element.title
-          toSave.link = element.link
+          toSave.image = element._image.trim()
+          toSave.desc = element.desc.trim()
+          toSave.title = element.title.trim()
+          toSave.link = element.link.trim()
           this.child(element.__key).set(toSave)
         }
         console.log('a[' + index + '] = ' + element)
