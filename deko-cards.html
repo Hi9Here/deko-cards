@@ -13,12 +13,11 @@
           <h1>[[item.title]]</h1>
           <template is="dom-if" if="[[item.cardIcon]]">
             <input-image big="[[item.cardIcon]]" value="{{item._image}}"></input-image>
-            <button data-index="[[index]]" on-tap="edit"> edit </button>
           </template>
           <template is="dom-if" if="![[item.cardIcon]]">
             <input-image value="{{item.image}}"></input-image>
-            <button data-index="[[index]]" on-tap="edit"> edit </button>
           </template>
+          <button data-index="[[index]]" on-tap="edit"> edit </button>
         </paper-material>
       </deko-card>
     </template>
