@@ -54,6 +54,12 @@
           }
           if (element.title) {
             toSave.title = element.title.trim()
+          } else {
+            if (element.link) {
+              toSave.title = element.link.trim()
+            } else {
+              toSave.title = "~ No Title or Link"
+            }
           }
           if (element.link) {
             toSave.link = element.link.trim()
