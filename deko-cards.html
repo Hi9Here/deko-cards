@@ -70,6 +70,7 @@
       return 1
     },
     next: function(){
+      this.save()
       var start = this.nextPageStartAt
       var end = this.end
       if ((this.pages.length === 0 || start !== this.pages[this.pages.length-1].start) && this.pages.length < end) {
