@@ -46,6 +46,10 @@
       startAt:{computed:"getStartAt(pages)"},
       pagesLength:{computed:"getPagesLength(pages)"},
     },
+    edit: function(e) {
+      var saveRef = firebase.database().ref(this.path)
+      saveRef.child(e.target.item.__key).set(e.target.item)
+    },
     save: function(e) {
       var saveRef = firebase.database().ref(this.path)
       
