@@ -18,14 +18,14 @@
           <template is="dom-if" if="[[!item.cardIcon]]">
             <input-image value="{{item.image}}"></input-image>
           </template>
-          <button item="[[item]]" on-tap="edit"> save </button>
+          <button item="[[item]]" on-tap="save"> save </button>
         </paper-material>
       </deko-card>
     </template>
     <template is="dom-if" if="[[pagesLength]]">
       <button on-tap="perv"> &lt; </button>
     </template>
-    <button on-tap="save"> save </button>
+    <button on-tap="saveAll"> Save All </button>
     <template is="dom-if" if="[[nextPageStartAt]]">
       <button on-tap="next"> > </button>
     </template>
@@ -46,11 +46,11 @@
       startAt:{computed:"getStartAt(pages)"},
       pagesLength:{computed:"getPagesLength(pages)"},
     },
-    edit: function(e) {
+    save: function(e) {
       var saveRef = firebase.database().ref(this.path)
       saveRef.child(e.target.item.__key).set(e.target.item)
     },
-    save: function(e) {
+    saveAll: function() {
       var saveRef = firebase.database().ref(this.path)
       
       function logArrayElements(element, index) {
@@ -76,7 +76,6 @@
           }
           this.child(element.__key).set(toSave)
         }
-        console.log('a[' + index + '] = ' + element)
       }
       if (Array.isArray(this.items)) {
         this.items.forEach(logArrayElements, saveRef)
