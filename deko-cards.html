@@ -11,13 +11,14 @@
           <a href="[[item.link]]">link</a>
           <h1>[[item.title]]</h1>
           <input-image big="[[item.cardIcon]]" value="{{item._image}}"></input-image>
-          <img src={{item._image}} />
+          <button data-index="[[index]]" on-tap="edit"> edit </button>
         </paper-material>
       </deko-card>
     </template>
     <template is="dom-if" if="[[pagesLength]]">
       <button on-tap="perv"> &lt; </button>
     </template>
+    <button on-tap="save"> save </button>
     <template is="dom-if" if="[[nextPageStartAt]]">
       <button on-tap="next"> > </button>
     </template>
@@ -37,10 +38,10 @@
       loadNum:{value: 10},
       startAt:{computed:"getStartAt(pages)"},
       pagesLength:{computed:"getPagesLength(pages)"},
-      _save:{computed:"save(items.*, path, items.0.*)"},
     },
-    save: function(items, path, zero) {
-      var saveRef = firebase.database().ref(path)
+    save: function(e) {
+      var saveRef = firebase.database().ref(this.path)
+      
       function logArrayElements(element, index) {
         if (element._image && element.cardIcon) {
           var toSave = {}
@@ -52,8 +53,8 @@
         }
         console.log('a[' + index + '] = ' + element)
       }
-      if (Array.isArray(items.value)) {
-        items.value.forEach(logArrayElements, saveRef)
+      if (Array.isArray(this.items.value)) {
+        this.items.value.forEach(logArrayElements, saveRef)
       }
     },
     getStartAt: function(pages){
