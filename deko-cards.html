@@ -5,7 +5,7 @@
 -->
 <dom-module id="deko-cards">
   <template>
-    <paper-input label="Start At" value="{{startAt}}"></paper-input>
+    <paper-input label="Start At .." value="{{find}}"></paper-input>
     <template is="dom-repeat" items="{{items}}" initial-Count="1">
       <deko-card item="[ [ item ] ]">
         <paper-material>
@@ -43,7 +43,7 @@
       pages:{value: []},
       byChild:{type: String, value:'title'},
       loadNum:{value: 10},
-      startAt:{computed:"getStartAt(pages)"},
+      startAt:{computed:"getStartAt(pages, find)"},
       pagesLength:{computed:"getPagesLength(pages)"},
     },
     save: function(e) {
@@ -81,8 +81,10 @@
         this.items.forEach(logArrayElements, saveRef)
       }
     },
-    getStartAt: function(pages){
-      if (pages.length) {
+    getStartAt: function(pages, find){
+      if (find) {
+        return find
+      } else if (pages.length) {
         return pages[pages.length - 1].start
       } else {
         return ""
