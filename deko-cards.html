@@ -5,7 +5,7 @@
 -->
 <dom-module id="deko-cards">
   <template>
-    [[startAt]]
+    <paper-input label="Start At" value="{{startAt}}"></paper-input>
     <template is="dom-repeat" items="{{items}}" initial-Count="1">
       <deko-card item="[ [ item ] ]">
         <paper-material>
