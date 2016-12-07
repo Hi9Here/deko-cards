@@ -1,3 +1,4 @@
+<link rel="import" href="../deko-card/deko-card.html">
 <link rel="import" href="../input-image/input-image.html">
 <link rel="import" href="../deko-card-container/deko-card-container.html">
 <!--
@@ -9,20 +10,7 @@
     <paper-input label="Start At .." value="{{find}}"></paper-input>
     <deko-card-container>
       <template is="dom-repeat" items="{{items}}" initial-Count="1">
-        <deko-card item="[ [ item ] ]">
-          <paper-material>
-            <a href="[[item.link]]">link</a>
-            <paper-input label="Title" value="{{item.title}}"></paper-input>
-            <paper-input label="Desc" value="{{item.desc}}"></paper-input>
-            <template is="dom-if" if="[[item.cardIcon]]">
-              auto <input-image big="[[item.cardIcon]]" value="{{item._image}}"></input-image>
-            </template>
-            <template is="dom-if" if="[[!item.cardIcon]]">
-              <input-image value="{{item.image}}"></input-image>
-            </template>
-            <button item="[[item]]" on-tap="save"> save </button>
-          </paper-material>
-        </deko-card>
+        <deko-card item="[[item]]" on-save="save"></deko-card>
       </template>
     </deko-card-container>
     <template is="dom-if" if="[[pagesLength]]">
