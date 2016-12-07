@@ -10,7 +10,7 @@
     <paper-input label="Start At .." value="{{find}}"></paper-input>
     <deko-card-container>
       <template is="dom-repeat" items="{{items}}" initial-Count="1">
-        <deko-card item="[[item]]" on-save="save"></deko-card>
+        <deko-card item="[[item]]"></deko-card>
       </template>
     </deko-card-container>
     <template is="dom-if" if="[[pagesLength]]">
