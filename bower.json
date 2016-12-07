@@ -9,6 +9,7 @@
   ],
   "dependencies": {
     "input-image": "marcus7777/input-image",
-    "deko-card-container": "marcus7777/deko-card-container"
+    "deko-card-container": "marcus7777/deko-card-container",
+    "deko-card": "Hi9Here/deko-card"
   }
 }
