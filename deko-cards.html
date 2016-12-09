@@ -11,6 +11,9 @@
     <deko-card-container>
       <template is="dom-repeat" items="{{items}}" initial-Count="1">
         <deko-card card="[[item]]"></deko-card>
+        <template is="dom-if" if="[[equFive(index)]]">
+          <br />
+        </template>
       </template>
     </deko-card-container>
     <template is="dom-if" if="[[pagesLength]]">
@@ -36,6 +39,9 @@
       loadNum:{value: 10},
       startAt:{computed:"getStartAt(pages, find)"},
       pagesLength:{computed:"getPagesLength(pages)"},
+    },
+    equFive: function(n){
+      return 5 === n
     },
     save: function(e) {
       var saveRef = firebase.database().ref(this.path)
