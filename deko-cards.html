@@ -18,7 +18,7 @@
     <paper-input label="Start At .." value="{{find}}"></paper-input>
     <deko-card-container>
       <template is="dom-repeat" items="{{items}}" initial-Count="1">
-        <deko-card card="[[item]]"></deko-card>
+        <deko-card edit card="[[item]]"></deko-card>
         <template is="dom-if" if="[[equFive(index)]]">
           <br />
         </template>
