@@ -50,7 +50,7 @@
       if (d.hasOwnProperty("target")) {
         if (d.target.attributes.id) {
           console.log(d.target.id)
-          if (this.hasOwnProperty(d.target.id)) {
+          if (typeof this[d.target.id] === "function") {
             this[d.target.id](d)
           }
         }
