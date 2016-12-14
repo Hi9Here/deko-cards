@@ -28,6 +28,7 @@
     <template is="dom-if" if="[[nextPageStartAt]]">
       <paper-button raised on-tap="next"> > </paper-button>
     </template>
+    <deko-card-editor ></deko-card-editor>
   </template>
 </dom-module>
 <script>
@@ -46,10 +47,8 @@
       pagesLength:{computed:"getPagesLength(pages)"},
     },
     cardTapped: function(e, d) {
-      console.log(e, d)
       if (d.hasOwnProperty("target")) {
         if (d.target.attributes.id) {
-          console.log(d.target.id)
           if (typeof this[d.target.id] === "function") {
             this[d.target.id](d)
           }
@@ -61,7 +60,11 @@
     },
     save: function(e) {
       var saveRef = firebase.database().ref(this.path)
-      saveRef.child(e.target.item.__key).set(e.target.item)
+      if (e.hasOwnProperty("target")) {
+        saveRef.child(e.target.item.__key).set(e.target.item)
+      } else if (e.hasOwnProperty("__key")){
+        saveRef.child(e.__key).set(e)
+      }
     },
     saveAll: function() {
       var saveRef = firebase.database().ref(this.path)
