@@ -28,7 +28,7 @@
     <template is="dom-if" if="[[nextPageStartAt]]">
       <paper-button raised on-tap="next"> > </paper-button>
     </template>
-    <deko-card-editor ></deko-card-editor>
+    <deko-card-editor id="editor" card="{{editing}}" on-save="save"></deko-card-editor>
   </template>
 </dom-module>
 <script>
@@ -57,11 +57,12 @@
     },
     edit: function(d) {
       console.log("edit",d)
+      this.$.editor.open(d.card)
     },
     save: function(e) {
       var saveRef = firebase.database().ref(this.path)
       if (e.hasOwnProperty("target")) {
-        saveRef.child(e.target.item.__key).set(e.target.item)
+        saveRef.child(e.target.card.__key).set(e.target.card)
       } else if (e.hasOwnProperty("__key")){
         saveRef.child(e.__key).set(e)
       }
