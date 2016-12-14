@@ -48,7 +48,7 @@
     cardTapped: function(e, d) {
       console.log(e, d)
       if (d.hasOwnProperty("target")) {
-        if (d.target.hasOwnProperty("id")) {
+        if (d.target.attributes.id) {
           console.log(d.target.id)
           if (this.hasOwnProperty(d.target.id)) {
             this[d.target.id](d)
