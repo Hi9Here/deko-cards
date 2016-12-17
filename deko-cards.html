@@ -16,7 +16,7 @@
     }
   </style>
   <template>
-    <paper-input label="Start At .." value="{{find}}"></paper-input>
+    <paper-input label="Start At ..." value="{{find}}"></paper-input>
     <deko-card-container>
       <template is="dom-repeat" items="{{items}}" initial-Count="1">
         <deko-card edit card="[[item]]" on-tapped="cardTapped"></deko-card>
@@ -74,8 +74,8 @@
     },
     closeEditor: function(d) {
       console.log(d.detail)
+      var saveRef = firebase.database().ref(this.path)
       if (d.detail === "save") {
-        var saveRef = firebase.database().ref(this.path)
         if (this.editing.hasOwnProperty("__key")) {
           var key = this.editing.__key + ""
           delete(this.editing.__key)
@@ -86,6 +86,11 @@
             return toSave
           },this.editing)
           saveRef.child(key).set(save)
+        }
+      } else if (d.detail === "delete") {
+        if (this.editing.hasOwnProperty("__key")) {
+          var key = this.editing.__key + ""
+          saveRef.child(key).set(null)
         }
       }
     },
