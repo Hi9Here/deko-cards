@@ -29,7 +29,7 @@
     <template is="dom-if" if="[[nextPageStartAt]]">
       <paper-button raised on-tap="next"> > </paper-button>
     </template>
-    <deko-card-editor id="editor" card="{{editing}}" on-save="save" ></deko-card-editor>
+    <deko-card-editor id="editor" card="{{editing}}" on-close="closeEditor" ></deko-card-editor>
   </template>
 </dom-module>
 <script>
@@ -62,11 +62,23 @@
     },
     save: function(e) {
       var saveRef = firebase.database().ref(this.path)
-      debugger
       if (e.hasOwnProperty("target")) {
         saveRef.child(e.target.card.__key).set(e.target.card)
       } else if (e.hasOwnProperty("__key")){
         saveRef.child(e.__key).set(e)
+      } else if (this.editing.hasOwnProperty("__key")) {
+        var key = this.editing.__key + ""
+        delete(this.editing.__key)
+        saveRef.child(key).set(this.editing)
+      }
+    },
+    closeEditor: function(d) {
+      console.log(d)
+      var saveRef = firebase.database().ref(this.path)
+      if (this.editing.hasOwnProperty("__key")) {
+        var key = this.editing.__key + ""
+        delete(this.editing.__key)
+        saveRef.child(key).set(this.editing)
       }
     },
     saveAll: function() {
