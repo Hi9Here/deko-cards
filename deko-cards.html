@@ -73,12 +73,20 @@
       }
     },
     closeEditor: function(d) {
-      console.log(d)
-      var saveRef = firebase.database().ref(this.path)
-      if (this.editing.hasOwnProperty("__key")) {
-        var key = this.editing.__key + ""
-        delete(this.editing.__key)
-        saveRef.child(key).set(this.editing)
+      console.log(d.detail)
+      if (d.detail === "save") {
+        var saveRef = firebase.database().ref(this.path)
+        if (this.editing.hasOwnProperty("__key")) {
+          var key = this.editing.__key + ""
+          delete(this.editing.__key)
+          var save = Object.keys(this.editing).reduce(function(toSave, currentKey) {
+            if (this.editing[currentKey]) {
+              toSave[currentKey] = this.editing[currentKey]
+            }
+            return toSave
+          },{})
+          saveRef.child(key).set(save)
+        }
       }
     },
     saveAll: function() {
