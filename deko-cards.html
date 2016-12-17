@@ -84,7 +84,7 @@
               toSave[currentKey] = this.editing[currentKey]
             }
             return toSave
-          },{})
+          },{}).bind(this)
           saveRef.child(key).set(save)
         }
       }
