@@ -28,7 +28,9 @@
     <template is="dom-if" if="[[nextPageStartAt]]">
       <paper-button style="float:right" raised on-tap="next"> > </paper-button>
     </template>
-    <deko-card-editor id="editor" card="{{editing}}" on-close="closeEditor" ></deko-card-editor>
+    <template is="dom-if" if="[[editing]]" restamp>
+      <deko-card-editor id="editor" card="{{editing}}" on-close="closeEditor" ></deko-card-editor>
+    </template>
   </template>
 </dom-module>
 <script>
@@ -72,7 +74,6 @@
       }
     },
     closeEditor: function(d) {
-      console.log(d.detail)
       var saveRef = firebase.database().ref(this.path)
       if (d.detail === "save") {
         if (this.editing.hasOwnProperty("__key")) {
@@ -92,37 +93,7 @@
           saveRef.child(key).set(null)
         }
       }
-    },
-    saveAll: function() {
-      var saveRef = firebase.database().ref(this.path)
-      
-      function logArrayElements(element, index) {
-        if (element._image && element.cardIcon) {
-          var toSave = {}
-          if (element._image) {
-            toSave.image = element._image.trim()
-          }
-          if (element.desc) {
-            toSave.desc = element.desc.trim()
-          }
-          if (element.title) {
-            toSave.title = element.title.trim()
-          } else {
-            if (element.link) {
-              toSave.title = element.link.trim()
-            } else {
-              toSave.title = "~ No Title or Link"
-            }
-          }
-          if (element.link) {
-            toSave.link = element.link.trim()
-          }
-          this.child(element.__key).set(toSave)
-        }
-      }
-      if (Array.isArray(this.items)) {
-        this.items.forEach(logArrayElements, saveRef)
-      }
+      this.editing = null
     },
     getStartAt: function(pages, find){
       if (find) {
