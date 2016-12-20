@@ -28,9 +28,7 @@
     <template is="dom-if" if="[[nextPageStartAt]]">
       <paper-button style="float:right" raised on-tap="next"> > </paper-button>
     </template>
-    <template is="dom-if" if="[[editing]]" restamp>
-      <deko-card-editor id="editor" card="{{editing}}" on-close="closeEditor" ></deko-card-editor>
-    </template>
+    <deko-card-editor id="editor" card="{{editing}}" on-close="closeEditor" ></deko-card-editor>
   </template>
 </dom-module>
 <script>
