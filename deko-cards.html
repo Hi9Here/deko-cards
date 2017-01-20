@@ -104,8 +104,8 @@
     },
     perv: function(){
       this.pages.pop()
+      this.find = this.pages[this.pages.length - 1].start
       this.pages = this.pages.map(function(x) {return x}) // update
-      this.find = pages[pages.length - 1].start
       return 1
     },
     next: function(){
