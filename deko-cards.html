@@ -104,7 +104,11 @@
     },
     perv: function(){
       this.pages.pop()
-      this.find = this.pages[this.pages.length - 1].start
+      if (this.pages.length) {
+        this.find = this.pages[this.pages.length - 1].start
+      } else {
+        this.find = ""
+      }
       this.pages = this.pages.map(function(x) {return x}) // update
       return 1
     },
