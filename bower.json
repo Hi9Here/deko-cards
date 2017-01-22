@@ -8,9 +8,10 @@
     "web-components"
   ],
   "dependencies": {
-    "input-image": "marcus7777/input-image",
+    "card-info-link-input":"marcus7777/card-info-link-input",
     "deko-card-container": "marcus7777/deko-card-container",
-    "deko-card": "Hi9Here/deko-card",
-    "deko-card-editor": "Hi9Here/deko-card-editor"
+    "deko-card-editor": "Hi9Here/deko-card-editor",
+    "input-image": "marcus7777/input-image",
+    "deko-card": "Hi9Here/deko-card"
   }
 }
