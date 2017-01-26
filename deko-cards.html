@@ -91,6 +91,13 @@
             return toSave
           },this.editing)
           saveRef.child(key).set(save)
+        } else {
+          this.fire("push",saveRef.push(Object.keys(this.editing).reduce(function(toSave, currentKey) {
+            if (!toSave[currentKey]) {
+              delete(toSave[currentKey])
+            }
+            return toSave
+          }, this.editing))
         }
       } else if (d.detail === "delete") {
         if (this.editing.hasOwnProperty("__key")) {
