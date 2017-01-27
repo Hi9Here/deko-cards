@@ -28,7 +28,7 @@
     <template is="dom-if" if="[[nextPageStartAt]]">
       <paper-button style="float:right" raised on-tap="next"> > </paper-button>
     </template>
-    <deko-card-editor id="editor" card="{{editing}}" on-close="closeEditor" ></deko-card-editor>
+    <deko-card-editor id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-editor>
   </template>
 </dom-module>
 <script>
@@ -40,6 +40,7 @@
       },
       end:{value: 999},
       path:{type: String},
+      deck:{value: ""},
       pages:{value: []},
       byChild:{type: String, value:'title'},
       loadNum:{value: 10},
