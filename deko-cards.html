@@ -16,7 +16,9 @@
     }
   </style>
   <template>
-    <paper-input label="Start At ..." value="{{find}}"></paper-input>
+    <template is="dom-if" if="[[pageing]]" restamp>
+      <paper-input label="Start At ..." value="{{find}}"></paper-input>
+    </template>
     <deko-card-container>
       <template is="dom-repeat" items="{{items}}" initial-Count="1">
         <deko-card edit card="[[getCard(item)]]" on-tapped="cardTapped"></deko-card>
