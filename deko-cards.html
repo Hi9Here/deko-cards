@@ -81,23 +81,18 @@
     closeEditor: function(d) {
       var saveRef = firebase.database().ref(this.path)
       if (d.detail === "save") {
+        var save = Object.keys(this.editing).reduce(function(toSave, currentKey) {
+          if (!toSave[currentKey]) {
+            delete(toSave[currentKey])
+          }
+          return toSave
+        },this.editing)
         if (this.editing.hasOwnProperty("__key")) {
           var key = this.editing.__key + ""
           delete(this.editing.__key)
-          var save = Object.keys(this.editing).reduce(function(toSave, currentKey) {
-            if (!toSave[currentKey]) {
-              delete(toSave[currentKey])
-            }
-            return toSave
-          },this.editing)
           saveRef.child(key).set(save)
         } else {
-          this.fire("push",saveRef.push(Object.keys(this.editing).reduce(function(toSave, currentKey) {
-            if (!toSave[currentKey]) {
-              delete(toSave[currentKey])
-            }
-            return toSave
-          }, this.editing))
+          this.fire("pushCard",saveRef.push(save).key)
         }
       } else if (d.detail === "delete") {
         if (this.editing.hasOwnProperty("__key")) {
