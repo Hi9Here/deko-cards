@@ -66,8 +66,9 @@
         }
       }
     },
-    edit: function(d) {
+    edit: function(e,d) {
       console.log("edit",d)
+      console.log("event",e)
       this.$.editor.open(d.card)
     },
     save: function(e) {
