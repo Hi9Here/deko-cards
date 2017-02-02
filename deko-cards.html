@@ -86,11 +86,11 @@
       }
     },
     closeEditor: function(d) {
+      var saveRef = firebase.database().ref(this.path)
+      if (this.deck) {
+        var saveCardsRef = firebase.database().ref('/Cards/')
+      }
       if (d.detail === "save") {
-        var saveRef = firebase.database().ref(this.path)
-        if (this.deck) {
-          var saveCardsRef = firebase.database().ref('/Cards/')
-        }
         if (this.editing.hasOwnProperty("__key")) {
           var key = this.editing.__key + ""
           delete(this.editing.__key)
@@ -112,6 +112,9 @@
         if (this.editing.hasOwnProperty("__key")) {
           var key = this.editing.__key + ""
           saveRef.child(key).set(null)
+        }
+        if (this.deck) {
+          saveCardsRef.child(key).set(null)
         }
       }
       this.editing = null
