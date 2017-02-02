@@ -49,6 +49,10 @@
       loadNum:{value: 10},
       startAt:{computed:"getStartAt(pages, find)"},
       pagesLength:{computed:"getPagesLength(pages)"},
+      pageing:{
+        type:Boolean,
+        value:false,
+      },
     },
     getCard: function(card) {
       if (card !== true) {
