@@ -71,9 +71,7 @@
       }
     },
     edit: function(e,d) {
-      console.log("edit",d)
-      console.log("event",e)
-      this.$.editor.open(d.card)
+      this.$.editor.open(d)
     },
     save: function(e) {
       var saveRef = firebase.database().ref(this.path)
