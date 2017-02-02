@@ -201,7 +201,12 @@
           that.end = 1+that.pagesLength
         }
       }
-      var listRef = firebase.database().ref(path).orderByChild(byChild)
+      var listRef
+      if (byChild === "__key"){
+        listRef = firebase.database().ref(path).orderByKey()
+      } else {
+        listRef = firebase.database().ref(path).orderByChild(byChild)
+      }
       if (startAt) {
         listRef.startAt(startAt).limitToFirst(loadNum).on("value", setItems)
       } else {
