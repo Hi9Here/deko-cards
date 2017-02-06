@@ -30,7 +30,7 @@
     <template is="dom-if" if="[[nextPageStartAt]]">
       <paper-button style="float:right" raised on-tap="next"> > </paper-button>
     </template>
-    <deko-card-editor id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-editor>
+    <deko-card-editor the-templates="[[theTemplates]]" id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-editor>
   </template>
 </dom-module>
 <script>
