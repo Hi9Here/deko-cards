@@ -14,5 +14,9 @@
     "paper-fab":"PolymerElements/paper-fab",
     "input-image": "marcus7777/input-image",
     "deko-card": "Hi9Here/deko-card"
+  },
+  "devDependencies": {
+    "iron-test-helpers": "*",
+    "web-component-tester": "^5.0.0"
   }
 }
