@@ -13,7 +13,8 @@
     "deko-card-editor": "Hi9Here/deko-card-editor",
     "paper-fab": "PolymerElements/paper-fab",
     "input-image": "marcus7777/input-image",
-    "deko-card": "Hi9Here/deko-card"
+    "deko-card": "Hi9Here/deko-card",
+    "link-display":"Hi9Here/link-display"
   },
   "resolutions": {
     "iron-icon": "^1.0.0",
