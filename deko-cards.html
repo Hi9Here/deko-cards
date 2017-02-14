@@ -30,7 +30,7 @@
     <template is="dom-if" if="[[nextPageStartAt]]">
       <paper-button style="float:right" raised on-tap="next"> > </paper-button>
     </template>
-    <deko-card-editor use-templates="[[useTemplates]]" id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-editor>
+    <deko-card-editor no-add="[[noAdd]]" use-templates="[[useTemplates]]" id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-editor>
   </template>
 </dom-module>
 <script>
@@ -45,6 +45,10 @@
       find:{value: ""},
       deck:{value: ""},
       pages:{value: []},
+      noAdd:{
+        type:Boolean,
+        value:false,
+      },
       byChild:{type: String, value:'title'},
       loadNum:{value: 10},
       startAt:{computed:"getStartAt(pages, find)"},
