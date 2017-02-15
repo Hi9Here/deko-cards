@@ -1,7 +1,7 @@
 {
   "name": "deko-cards",
   "version": "1.0.0",
-  "description": "",
+  "description": "cards cards ",
   "main": "deko-cards.html",
   "keywords": [
     "polymer",
@@ -25,6 +25,5 @@
   "devDependencies": {
     "iron-test-helpers": "*",
     "web-component-tester": "^5.0.0"
-
   }
 }
