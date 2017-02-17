@@ -211,7 +211,11 @@
         listRef = firebase.database().ref(path).orderByChild(byChild)
       }
       if (startAt) {
-        listRef.startAt(startAt).limitToFirst(+loadNum).on("value", setItems)
+        if (startAt === "true") {
+          listRef.equalTo(true).limitToFirst(+loadNum).on("value", setItems)
+        } else {
+          listRef.startAt(startAt).limitToFirst(+loadNum).on("value", setItems)
+        }
       } else {
         listRef.limitToFirst(+loadNum).on("value", setItems)
       }
