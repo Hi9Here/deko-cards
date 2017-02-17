@@ -211,13 +211,13 @@
         listRef = firebase.database().ref(path).orderByChild(byChild)
       }
       if (startAt) {
-        if (startAt === "true") {
-          listRef.equalTo(true).limitToFirst(+loadNum).on("value", setItems)
-        } else if (startAt === "null"){
-          listRef.equalTo(null).limitToFirst(+loadNum).on("value", setItems)
-        } else {
+  //      if (startAt === "true") {
+  //        listRef.equalTo(true).limitToFirst(+loadNum).on("value", setItems)
+  //      } else if (startAt === "null"){
+  //        listRef.equalTo(null).limitToFirst(+loadNum).on("value", setItems)
+  //      } else {
           listRef.startAt(startAt).limitToFirst(+loadNum).on("value", setItems)
-        }
+  //      }
       } else {
         listRef.limitToFirst(+loadNum).on("value", setItems)
       }
