@@ -50,7 +50,7 @@
         value:false,
       },
       byChild:{type: String, value:'title'},
-      loadNum:{value: 10},
+      loadNum:{type: Number, value: 10},
       startAt:{computed:"getStartAt(pages, find)"},
       pagesLength:{computed:"getPagesLength(pages)"},
       useTemplates: Object,
