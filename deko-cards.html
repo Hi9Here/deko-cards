@@ -189,9 +189,9 @@
         if (theSnap) {
           that.loaded = Object.keys(theSnap).length 
           that.items = objectToArray(theSnap).sort(sortByChild)
-          if (that.loaded == loadNum) {
-            if (that.items[loadNum - 1][byChild]) {
-              that.nextPageStartAt = that.items[loadNum - 1][byChild] + "~"
+          if (that.loaded == +loadNum) {
+            if (that.items[+loadNum - 1][byChild]) {
+              that.nextPageStartAt = that.items[+loadNum - 1][byChild] + "~"
             } else {
               that.nextPageStartAt = "A"
             }
@@ -211,9 +211,9 @@
         listRef = firebase.database().ref(path).orderByChild(byChild)
       }
       if (startAt) {
-        listRef.startAt(startAt).limitToFirst(loadNum).on("value", setItems)
+        listRef.startAt(startAt).limitToFirst(+loadNum).on("value", setItems)
       } else {
-        listRef.limitToFirst(loadNum).on("value", setItems)
+        listRef.limitToFirst(+loadNum).on("value", setItems)
       }
     },
   })
