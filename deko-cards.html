@@ -25,6 +25,9 @@
     </template>
     <div id="card-view">
       <deko-card-container>
+        <template is="dom-if" if="[[!items.length]]">
+          <paper-spinner-lite active></paper-spinner-lite>
+        </template>
         <template is="dom-repeat" items="{{items}}" initial-Count="1">
           <deko-card edit card="[[getCard(item)]]" on-tapped="cardTapped" on-edit="edit"></deko-card>
         </template>
