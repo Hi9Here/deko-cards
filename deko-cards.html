@@ -1,7 +1,7 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../deko-card-container/deko-card-container.html">
-<link rel="import" href="../deko-card-editor/deko-card-editor.html">
+<link rel="import" href="../deko-card-adder/deko-card-adder.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../input-image/input-image.html">
 <link rel="import" href="../deko-card/deko-card.html">
@@ -43,7 +43,7 @@
     <template is="dom-if" if="[[nextPageStartAt]]">
       <paper-button style="float:right" raised on-tap="next"> > </paper-button>
     </template>
-    <deko-card-editor no-add="[[noAdd]]" use-templates="[[useTemplates]]" id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-editor>
+    <deko-card-adder no-add="[[noAdd]]" use-templates="[[useTemplates]]" id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-adder>
   </template>
 </dom-module>
 <script>
