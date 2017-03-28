@@ -10,7 +10,7 @@
   "dependencies": {
     "card-info-link-input": "marcus7777/card-info-link-input",
     "deko-card-container": "marcus7777/deko-card-container",
-    "deko-card-editor": "Hi9Here/deko-card-editor",
+    "deko-card-adder": "Hi9Here/deko-card-adder",
     "paper-fab": "PolymerElements/paper-fab",
     "input-image": "marcus7777/input-image",
     "deko-card": "Hi9Here/deko-card",
