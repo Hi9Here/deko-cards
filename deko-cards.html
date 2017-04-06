@@ -14,14 +14,14 @@
 -->
 
 <dom-module id="deko-cards">
- <template>
-   <style>
-    paper-button {
+  <template>
+    <style>
+      paper-button {
         color: #fff;
         background: red;
         padding: 5px;
-    }
-     #card-view {
+      }
+      #card-view {
         @apply(--layout-horizontal);
         @apply(--layout-center-justified);
         @apply(--layout-wrap);
@@ -52,70 +52,55 @@
         -o-transform:scale(3,15); /* Opera */
         transform:scale(3,15); /* W3C */
       }
-  </style>
-
-  <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
-
-  <!-- Start of view that is more than 700px wide  -->
-  <template is="dom-if" if="{{wide}}">
-    <template is="dom-if" if="[[pageing]]" restamp>
-      <paper-input label="Start At ..." value="{{find}}"></paper-input>
+    </style>
+    <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
+    <template is="dom-if" if="{{wide}}">
+      <template is="dom-if" if="[[pageing]]" restamp>
+        <paper-input label="Start At ..." value="{{find}}"></paper-input>
+      </template>
+      <div id="card-view">
+        <div class="pagination" id="pre">
+          <template is="dom-if" if="[[pagesLength]]">
+            <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
+          </template>
+        </div>
+        <deko-card-container>
+          <template is="dom-repeat" items="{{items}}" initial-Count="1">
+            <deko-card id="widecard" edit toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
+          </template>
+        </deko-card-container>
+        <div class="pagination" id="nex">
+          <template is="dom-if" if="[[nextPageStartAt]]">
+            <paper-button on-tap="next"><h6>></h6> </paper-button>
+          </template>
+        </div>
+      </div>
+      <deko-card-adder no-add="[[noAdd]]" use-templates="[[useTemplates]]" id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-adder>
     </template>
-    <div id="card-view">
-      <div class="pagination" id="pre">
-      <template is="dom-if" if="[[pagesLength]]">
-        <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
+    <template is="dom-if" if="{{!wide}}">
+      <template is="dom-if" if="[[pageing]]" restamp>
+        <paper-input label="Start At ..." value="{{find}}"></paper-input>
       </template>
+      <div id="card-view">
+        <div class="pagination" id="pre">
+          <template is="dom-if" if="[[pagesLength]]">
+            <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
+          </template>
+        </div>
+        <deko-card-container>
+          <template is="dom-repeat" items="{{items}}" initial-Count="1">
+            <deko-card id="narrowcard" edit toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
+          </template>
+        </deko-card-container>
+        <div class="pagination" id="nex">
+          <template is="dom-if" if="[[nextPageStartAt]]">
+            <paper-button on-tap="next"><h6>></h6> </paper-button>
+          </template>
+        </div>
       </div>
-      <deko-card-container>
-        <!-- TODO Need fixing  -->
-        <!--<template is="dom-if" if="[[!items.length]]">
-          <paper-spinner-lite active></paper-spinner-lite>
-        </template>-->
-        <template is="dom-repeat" items="{{items}}" initial-Count="1">
-          <deko-card id="widecard" edit toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
-        </template>
-      </deko-card-container>
-      <div class="pagination" id="nex">
-      <template is="dom-if" if="[[nextPageStartAt]]">
-        <paper-button on-tap="next"><h6>></h6> </paper-button>
-      </template>
-      </div>
-    </div>
-    <deko-card-adder no-add="[[noAdd]]" use-templates="[[useTemplates]]" id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-adder>
-  </template>
-  <!-- More than 700px wide end -->
-
-  <!-- Less than 700px wide Start  -->
-  <template is="dom-if" if="{{!wide}}">
-    <template is="dom-if" if="[[pageing]]" restamp>
-      <paper-input label="Start At ..." value="{{find}}"></paper-input>
+      <deko-card-adder no-add="[[noAdd]]" use-templates="[[useTemplates]]" id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-adder>
     </template>
-    <div id="card-view">
-      <div class="pagination" id="pre">
-      <template is="dom-if" if="[[pagesLength]]">
-        <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
-      </template>
-      </div>
-      <deko-card-container>
-        <!-- TODO Need fixing  -->
-        <!--<template is="dom-if" if="[[!items.length]]">
-          <paper-spinner-lite active></paper-spinner-lite>
-        </template>-->
-        <template is="dom-repeat" items="{{items}}" initial-Count="1">
-          <deko-card id="narrowcard" edit toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
-        </template>
-      </deko-card-container>
-      <div class="pagination" id="nex">
-      <template is="dom-if" if="[[nextPageStartAt]]">
-        <paper-button on-tap="next"><h6>></h6> </paper-button>
-      </template>
-      </div>
-    </div>
-    <deko-card-adder no-add="[[noAdd]]" use-templates="[[useTemplates]]" id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-adder>
   </template>
-  <!-- Less than 700px End  -->
-</template>
 </dom-module>
 <script>
   Polymer({
