@@ -125,9 +125,25 @@
         type:Boolean,
         value:false,
       },
+      _setSelectedItem:{
+        computed:"getSelectedItem(items)"
+      }
     },
     getSelectedItem: function(items) {
-      return items.filter(this.selected)[0]
+      if (items.filter(this.selected).length) {
+        this.selectedItem = items.filter(this.selected)[0] 
+      } else {
+        if (this.items[0]) {
+          this.items = this.items.map(function(x,i){
+            if (i=0) {
+              x.selected = true
+            } else {
+              x.selected = false
+            }
+            return x
+          })
+        }
+      }
     },
     cardTapped: function(e, d) {
       if (d.hasOwnProperty("target")) {
