@@ -6,18 +6,15 @@
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../input-image/input-image.html">
 <link rel="import" href="../deko-card/deko-card.html">
-
 <!--
   `deko-cards`
   @demo
 -->
-
 <dom-module id="deko-cards">
   <template>
     <style>
       paper-button {
         color: #fff;
-        background: red;
         padding: 5px;
       }
       #card-view {
@@ -92,9 +89,7 @@
             <div class="title" >[[item.title]]</div>
           </paper-toolbar>
         </template>
-        <template is="dom-repeat" items="{{items}}" filter="selected">
-          <deko-card toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
-        </template>
+        <deko-card toolbar-color="[[selectedItem.deckColor]]" card="[[selectedItem]]" icon="[[selectedItem.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
         <div class="pagination" id="nex">
           <template is="dom-if" if="[[nextPageStartAt]]">
             <paper-button on-tap="next"><h6>></h6> </paper-button>
@@ -130,6 +125,12 @@
         type:Boolean,
         value:false,
       },
+      selectedItem:{
+        computed:"getSelectedItem(items)
+      },
+    },
+    getSelectedItem: function(items) {
+      return items.filter(this.selected)[0]
     },
     cardTapped: function(e, d) {
       if (d.hasOwnProperty("target")) {
