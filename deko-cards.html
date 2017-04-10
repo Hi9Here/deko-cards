@@ -84,7 +84,7 @@
           </template>
         </div>
         <template is="dom-repeat" items="{{items}}" filter="pickable">
-          <paper-toolbar style$="background:[[deckColor]];display:block" >
+          <paper-toolbar on-tap="select" card="[[item]]" style$="background:[[deckColor]]">
             <iron-icon icon="[[item.icon]]" style="height:90%"></iron-icon>
             <div class="title" >[[item.title]]</div>
           </paper-toolbar>
