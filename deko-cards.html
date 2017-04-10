@@ -125,9 +125,6 @@
         type:Boolean,
         value:false,
       },
-      selectedItem:{
-        computed:"getSelectedItem(items)"
-      },
     },
     getSelectedItem: function(items) {
       return items.filter(this.selected)[0]
@@ -302,5 +299,8 @@
     selected: function(item){
       return item.selected || false
     },
+    select: function(e){
+      this.selectedItem = e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
+    }
   })
 </script>
