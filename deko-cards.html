@@ -66,7 +66,7 @@
         </div>
         <deko-card-container>
           <template is="dom-repeat" items="{{items}}" initial-Count="1">
-            <deko-card id="widecard" edit toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
+            <deko-card toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
           </template>
         </deko-card-container>
         <div class="pagination" id="nex">
@@ -88,8 +88,14 @@
           </template>
         </div>
         <deko-card-container>
-          <template is="dom-repeat" items="{{items}}" initial-Count="1">
-            <deko-card id="narrowcard" edit toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
+          <template is="dom-repeat" items="{{items}}">
+            <paper-toolbar style$="background:[[toolbarColor]]" filter="pickable">
+              <iron-icon icon="[[item.icon]]" style="height:90%"></iron-icon>
+              <div class="title" >[[item.title]]</div>
+            </paper-toolbar>
+          </template>
+          <template is="dom-repeat" items="{{items}}" filter="selected">
+            <deko-card toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
           </template>
         </deko-card-container>
         <div class="pagination" id="nex">
@@ -291,6 +297,12 @@
     },
     open: function(e,d){
       this.fire("open-card",{e:e,d:d})
-    }
+    },
+    pickable: function(item){
+      return !item.selected
+    },
+    selected: function(item){
+      return item.selected || false
+    },
   })
 </script>
