@@ -62,7 +62,11 @@
         -o-transform:scale(3,15); /* Opera */
         transform:scale(3,15); /* W3C */
       }
-  
+      .mobi paper-toolbar {
+        --paper-toolbar-sm-height: 35px;
+        --paper-toolbar-height: 35px;
+      }
+
     </style>
     <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
     <!--Wild Layout for Desktop-->
@@ -96,6 +100,7 @@
         </template>
         <div>
           <div class="pre mobile">
+
             <template is="dom-if" if="[[pagesLength]]">
               <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
             </template>
