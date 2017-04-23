@@ -28,15 +28,26 @@
       deko-card-container {
         margin-top: 50px;
       }
-      .pagination {
+      .pre.desktop {
+        left: 80px;
+      }
+      .nex.desktop {
+        right: 80px;
+      }
+      .desktop {
         position: absolute;
         top: 320px;
       }
-      .pre {
-        left: 80px;
+      .nex.mobile {
+        position: absolute;
+        left: 200px;
       }
-      .nex {
-        right: 80px;
+      .pre.mobile {
+        position: absolute;
+        left: 200px;
+      }
+      .mobile {
+        transform: rotate(90deg);     
       }
       paper-button {
         min-width: 2em;
@@ -51,6 +62,7 @@
         -o-transform:scale(3,15); /* Opera */
         transform:scale(3,15); /* W3C */
       }
+  
     </style>
     <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
     <!--Wild Layout for Desktop-->
@@ -59,7 +71,7 @@
         <paper-input label="Start At ..." value="{{find}}"></paper-input>
       </template>
       <div id="card-view">
-        <div class="pagination pre">
+        <div class="pre desktop">
           <template is="dom-if" if="[[pagesLength]]">
             <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
           </template>
@@ -69,7 +81,7 @@
             <deko-card toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
           </template>
         </deko-card-container>
-        <div class="pagination nex">
+        <div class="nex desktop">
           <template is="dom-if" if="[[nextPageStartAt]]">
             <paper-button on-tap="next"><h6>></h6> </paper-button>
           </template>
@@ -83,7 +95,7 @@
           <paper-input label="Start At ..." value="{{find}}"></paper-input>
         </template>
         <div>
-          <div class="pagination pre">
+          <div class="pre mobile">
             <template is="dom-if" if="[[pagesLength]]">
               <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
             </template>
@@ -97,7 +109,7 @@
           <div id="narrow">
             <deko-card toolbar-color="[[selectedItem.deckColor]]" card="[[selectedItem]]" icon="[[selectedItem.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
           </div>
-          <div class="pagination nex">
+          <div class="nex mobile">
             <template is="dom-if" if="[[nextPageStartAt]]">
               <paper-button on-tap="next"><h6>></h6> </paper-button>
             </template>
