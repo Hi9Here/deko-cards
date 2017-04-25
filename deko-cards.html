@@ -71,9 +71,12 @@
           font-size: 18px;
           font-weight: 300;
         }
+        }
+      .toolbarMobile {
+            box-shadow: 0 -2px 0px 0 rgba(0, 0, 0, 0.14),
+               0 -1px 0px 0 rgba(0, 0, 0, 0.12),
+               0 -3px 1px -2px rgba(0, 0, 0, 0.2);0
       }
-
-      
 
     </style>
     <!--Wild Layout for Desktop-->
@@ -108,13 +111,12 @@
         </template>
         <div>
           <div class="pre mobile">
-
             <template is="dom-if" if="[[pagesLength]]">
               <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
             </template>
           </div>
           <template is="dom-repeat" items="{{items}}" filter="pickable">
-            <paper-toolbar on-tap="select" card="[[item]]" style$="background:[[deckColor]]; height: 35px;">
+            <paper-toolbar class="toolbarMobile" on-tap="select" card="[[item]]" style$="background:[[deckColor]]; height: 35px;">
               <iron-icon icon="[[item.icon]]" style="height:90%"></iron-icon>
               <div class="title" >[[item.title]]</div>
             </paper-toolbar>
