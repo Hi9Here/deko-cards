@@ -15,6 +15,7 @@
       #narrow {
         @apply(--layout-horizontal);
         @apply(--layout-center-justified);
+        height: 100%;
       }
       paper-button {
         color: #fff;
@@ -110,7 +111,7 @@
         <template is="dom-if" if="[[pageing]]" restamp>
           <paper-input label="Start At ..." value="{{find}}"></paper-input>
         </template>
-        <div>
+        <div style="height: 100%">
           <div class="pre mobile">
             <template is="dom-if" if="[[pagesLength]]">
               <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
@@ -123,7 +124,7 @@
             </paper-toolbar>
           </template>
           <div id="narrow">
-            <deko-card toolbar-color="[[selectedItem.deckColor]]" card="[[selectedItem]]" icon="[[selectedItem.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
+            <deko-card style="height: 100%; width: 100%" toolbar-color="[[selectedItem.deckColor]]" card="[[selectedItem]]" icon="[[selectedItem.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
           </div>
           <div class="nex mobile">
             <template is="dom-if" if="[[nextPageStartAt]]">
