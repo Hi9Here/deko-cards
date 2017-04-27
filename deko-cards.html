@@ -81,8 +81,8 @@
       }
 
     </style>
-    <!--Wild Layout for Desktop-->
     <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
+    <!--Wide Layout for Desktop-->
     <template is="dom-if" if="{{wide}}">
       <template is="dom-if" if="[[pageing]]" restamp>
         <paper-input label="Start At ..." value="{{find}}"></paper-input>
