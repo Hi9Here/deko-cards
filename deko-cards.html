@@ -1,6 +1,6 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../deko-card-container/deko-card-container.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../deko-card-adder/deko-card-adder.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../input-image/input-image.html">
@@ -307,6 +307,7 @@
         var theSnap = snap.val()
         if (theSnap) {
           that.loaded = Object.keys(theSnap).length 
+          that.items = null
           that.items = objectToArray(theSnap).sort(sortByChild)
           if (that.loaded == +loadNum) {
             if (that.items[+loadNum - 1][byChild]) {
@@ -321,7 +322,7 @@
         } else {
           that.nextPageStartAt = null
           that.end = 1+that.pagesLength
-          that.items = []
+          that.items = null
         }
       }
       var listRef
