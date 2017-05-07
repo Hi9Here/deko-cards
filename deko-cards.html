@@ -165,10 +165,10 @@
       }
     },
     getSelectedItem: function(items) {
-      if (items && item != null && items.filter(this.selected).length) {
+      if (items && items != null && items.filter(this.selected).length) {
         this.selectedItem = items.filter(this.selected)[0] 
       } else {
-        if (this.items[0]) {
+        if (items && items != null && this.items[0]) {
           this.items = this.items.map(function(x,i){
             if (i == 0) {
               x.selected = true
