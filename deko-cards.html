@@ -1,7 +1,6 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../deko-card-container/deko-card-container.html">
 <link rel="import" href="../iron-media-query/iron-media-query.html">
-<link rel="import" href="../deko-card-adder/deko-card-adder.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../content-card/content-view.html">
 <link rel="import" href="../content-card/content-edit.html">
@@ -134,7 +133,9 @@
         </div>
       </div>
     </template>
-    <deko-card-adder no-add="[[noAdd]]" use-templates="[[useTemplates]]" id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-adder>
+    <template is="dom-if" if="[[!noAdd]]">
+      <paper-fab style="position: fixed;right: 25px;bottom: 30px" icon="add" on-tap="addCard"></paper-fab>
+    </template>
   </template>
 </dom-module>
 <script>
