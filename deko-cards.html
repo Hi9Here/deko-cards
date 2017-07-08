@@ -169,6 +169,9 @@
         computed:"getSelectedItem(items)"
       }
     },
+    addCard: function() {
+      this.fire("add-card")
+    },
     render: function() {
       this.go = !this.go
       if (this.$$("#list0")) this.$$("#list0").render()
