@@ -104,7 +104,9 @@
           </template>
         </div>
       </div>
-      <deko-card-adder no-add="[[noAdd]]" use-templates="[[useTemplates]]" id="editor" card="{{editing}}" on-close="closeEditor" deck="[[deck]]"></deko-card-adder>
+      <template is="dom-if" if="[[!noAdd]]">
+        <paper-fab style="position: fixed;right: 25px;bottom: 30px" icon="add" on-tap="addCard"></paper-fab>
+      </template>
     </template>
     <!--Narrow Layout under 700px-->
     <template is="dom-if" if="{{!wide}}">
