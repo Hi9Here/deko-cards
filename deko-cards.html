@@ -172,6 +172,19 @@
       }
     },
     addCard: function() {
+      this.editing = {
+        article:"",
+        bigImage:"",
+        cardType:"",
+        desc:"",
+        exif:"",
+        icon:"",
+        image:"",
+        readable:"",
+        title:"",
+        writable:"",
+        __key:"",
+      }
       this.fire("add-card")
     },
     render: function() {
