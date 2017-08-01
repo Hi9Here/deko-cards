@@ -172,19 +172,6 @@
       }
     },
     addCard: function() {
-      this.editing = {
-        article:"",
-        bigImage:"",
-        cardType:"",
-        desc:"",
-        exif:"",
-        icon:"",
-        image:"",
-        readable:"",
-        title:"",
-        writable:"",
-        __key:"",
-      }
       this.fire("add-card")
     },
     render: function() {
@@ -220,66 +207,6 @@
     edit: function(e,d) {
       this.set("editing",d)
       this.$.editor.open(d)
-    },
-    save: function(e) {
-      var saveRef = firebase.database().ref(this.path)
-      if (e.hasOwnProperty("target")) {
-        saveRef.child(e.target.card.__key).set(e.target.card)
-      } else if (e.hasOwnProperty("__key")){
-        saveRef.child(e.__key).set(e)
-      } else if (this.editing.hasOwnProperty("__key")) {
-        var key = this.editing.__key + ""
-        delete(this.editing.__key)
-        saveRef.child(key).set(this.editing)
-      }
-    },
-    closeEditor: function(d) {
-      var saveRef = firebase.database().ref(this.path)
-      if (this.deck) {
-        var saveCardsRef = firebase.database().ref('/Cards/')
-      }
-      if (d.detail === "save") {
-        if (this.editing.hasOwnProperty("__key")) {
-          var key = this.editing.__key + ""
-          delete(this.editing.__key)
-        } else {
-          var key = firebase.database().ref().child('Cards').push().key
-        }
-        var save = Object.keys(this.editing).reduce(function(toSave, currentKey) {
-          if (!toSave[currentKey]) {
-            delete(toSave[currentKey])
-          }
-          return toSave
-        },this.editing)
-        if (this.deck) {
-          save.deck = this.deck
-          saveCardsRef.child(key).set(save)
-        }
-        saveRef.child(key).set(save)
-      } else if (d.detail === "delete") {
-        if (this.editing.hasOwnProperty("__key")) {
-          var key = this.editing.__key + ""
-          saveRef.child(key).set(null)
-        }
-        if (this.deck) {
-          saveCardsRef.child(key).set(null)
-        }
-      }
-      this.editing = {
-        article:"",
-        bigImage:"",
-        cardType:"",
-        desc:"",
-        exif:"",
-        icon:"",
-        image:"",
-        readable:"",
-        title:"",
-        writable:"",
-        key:"",
-        __key:"",
-      }
-      this.editing = null
     },
     getStartAt: function(pages, find){
       if (find) {
