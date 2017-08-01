@@ -252,6 +252,18 @@
           saveCardsRef.child(key).set(null)
         }
       }
+      this.editing = {
+        article:"",
+        bigImage:"",
+        cardType:"",
+        desc:"",
+        exif:"",
+        icon:"",
+        image:"",
+        readable:"",
+        title:"",
+        writable:"",
+      }
       this.editing = null
     },
     getStartAt: function(pages, find){
