@@ -83,7 +83,7 @@
          margin-left: 2px;
       }
     </style>
-    <app-route route="{{route}}" pattern="/:dek" data="{{routeData}}" tail="{{tail}}"></app-route>
+    <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
     <!--Wide Layout for Desktop-->
     <template is="dom-if" if="{{wide}}">
@@ -172,11 +172,11 @@
         computed:"getSelectedItem(items)"
       },
       _routeData: {
-        computed: "_log(route,routeData,tail)"
+        computed: "_log(route,routeData.data,tail)"
       },
     },
     _log: function(a,b,c) {
-      console.log("route",a,"routeData",b,"tail",c)
+      console.log("route",a,"routeData.data",b,"tail",c)
     },
     addCard: function() {
       this.fire("add-card")
