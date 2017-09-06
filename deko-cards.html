@@ -89,64 +89,66 @@
     
     <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
       <deko-pillar on-tap="openDrawer" selected style="position:fixed;width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
-    </template>    
+    </template>
     
-    <!--Wide Layout for Desktop-->
-    <template is="dom-if" if="{{wide}}">
-      <template is="dom-if" if="[[pageing]]" restamp>
-        <paper-input label="Start At ..." value="{{find}}"></paper-input>
+    <div style="padding-left:48px; height: 100%">
+      <!--Wide Layout for Desktop-->
+      <template is="dom-if" if="{{wide}}">
+        <template is="dom-if" if="[[pageing]]" restamp>
+          <paper-input label="Start At ..." value="{{find}}"></paper-input>
+        </template>
+        <div id="card-view">
+          <div class="pre desktop">
+            <template is="dom-if" if="[[pagesLength]]">
+              <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
+            </template>
+          </div>
+          <deko-card-container>
+            <template is="dom-repeat" items="{{items}}" initial-Count="1" id="list0">
+              <deko-card deck="[[deck]]" toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
+            </template>
+          </deko-card-container>
+          <div class="nex desktop">
+            <template is="dom-if" if="[[nextPageStartAt]]">
+              <paper-button on-tap="next"><h6>></h6> </paper-button>
+            </template>
+          </div>
+        </div>
+        <template is="dom-if" if="[[!noAdd]]">
+          <paper-fab style="position: fixed;right: 25px;bottom: 30px" icon="add" on-tap="addCard"></paper-fab>
+        </template>
       </template>
-      <div id="card-view">
-        <div class="pre desktop">
-          <template is="dom-if" if="[[pagesLength]]">
-            <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
+      <!--Narrow Layout under 700px-->
+      <template is="dom-if" if="{{!wide}}">
+        <template is="dom-if" if="[[pageing]]" restamp>
+          <paper-input label="Start At ..." value="{{find}}"></paper-input>
+        </template>
+        <div style="height: 100%">
+          <div class="pre mobile">
+            <template is="dom-if" if="[[pagesLength]]">
+              <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
+            </template>
+          </div>
+          <template is="dom-repeat" items="{{items}}" filter="pickable"  id="list1">
+            <paper-toolbar class="toolbarMobile" on-tap="select" card="[[item]]" style$="background:[[deckColor]]; height: 35px;">
+              <iron-icon icon="[[item.icon]]" style="height:90%"></iron-icon>
+              <div class="title" >[[item.title]]</div>
+            </paper-toolbar>
           </template>
+          <div id="narrow">
+            <deko-card deck="[[deck]]" style="height:100%;width:100%" toolbar-color="[[deckColor]]" card="[[selectedItem]]" icon="[[selectedItem.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
+          </div>
+          <div class="nex mobile">
+            <template is="dom-if" if="[[nextPageStartAt]]">
+              <paper-button on-tap="next"><h6>></h6> </paper-button>
+            </template>
+          </div>
         </div>
-        <deko-card-container>
-          <template is="dom-repeat" items="{{items}}" initial-Count="1" id="list0">
-            <deko-card deck="[[deck]]" toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
-          </template>
-        </deko-card-container>
-        <div class="nex desktop">
-          <template is="dom-if" if="[[nextPageStartAt]]">
-            <paper-button on-tap="next"><h6>></h6> </paper-button>
-          </template>
-        </div>
-      </div>
+      </template>
       <template is="dom-if" if="[[!noAdd]]">
         <paper-fab style="position: fixed;right: 25px;bottom: 30px" icon="add" on-tap="addCard"></paper-fab>
       </template>
-    </template>
-    <!--Narrow Layout under 700px-->
-    <template is="dom-if" if="{{!wide}}">
-      <template is="dom-if" if="[[pageing]]" restamp>
-        <paper-input label="Start At ..." value="{{find}}"></paper-input>
-      </template>
-      <div style="height: 100%">
-        <div class="pre mobile">
-          <template is="dom-if" if="[[pagesLength]]">
-            <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
-          </template>
-        </div>
-        <template is="dom-repeat" items="{{items}}" filter="pickable"  id="list1">
-          <paper-toolbar class="toolbarMobile" on-tap="select" card="[[item]]" style$="background:[[deckColor]]; height: 35px;">
-            <iron-icon icon="[[item.icon]]" style="height:90%"></iron-icon>
-            <div class="title" >[[item.title]]</div>
-          </paper-toolbar>
-        </template>
-        <div id="narrow">
-          <deko-card deck="[[deck]]" style="height:100%;width:100%" toolbar-color="[[deckColor]]" card="[[selectedItem]]" icon="[[selectedItem.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
-        </div>
-        <div class="nex mobile">
-          <template is="dom-if" if="[[nextPageStartAt]]">
-            <paper-button on-tap="next"><h6>></h6> </paper-button>
-          </template>
-        </div>
-      </div>
-    </template>
-    <template is="dom-if" if="[[!noAdd]]">
-      <paper-fab style="position: fixed;right: 25px;bottom: 30px" icon="add" on-tap="addCard"></paper-fab>
-    </template>
+    </div> 
   </template>
 </dom-module>
 <script>
