@@ -182,14 +182,14 @@
         computed:"getSelectedItem(items)"
       },
       _routeData: {
-        computed: "_log(routeData.data)"
+        computed: "_log('routeData.data',routeData.data)"
       },
       _profile: {
-        computed: "_log(profileRef)"
+        computed: "_log('ref',ref)"
       },
     },
-    _log: function(a) {
-      console.log("routeData.data",a)
+    _log: function(a,b) {
+      console.log(a,b)
     },
     addCard: function() {
       this.fire("add-card")
