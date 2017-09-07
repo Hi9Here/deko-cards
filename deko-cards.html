@@ -89,15 +89,6 @@
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
     
-    <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
-      <deko-pillar on-tap="openDrawer" selected style="position:fixed;width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
-    </template>
-    
-    <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
-      <deko-pillar on-tap="openDrawer" selected style="position:fixed;width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
-    </template>
-    
-    <div style="padding-left:48px; height: 100%">
       <!--Wide Layout for Desktop-->
       <template is="dom-if" if="{{wide}}">
         <template is="dom-if" if="[[pageing]]" restamp>
@@ -154,7 +145,6 @@
       <template is="dom-if" if="[[!noAdd]]">
         <paper-fab style="position: fixed;right: 25px;bottom: 30px" icon="add" on-tap="addCard"></paper-fab>
       </template>
-    </div> 
   </template>
 </dom-module>
 <script>
