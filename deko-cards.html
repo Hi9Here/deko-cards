@@ -93,6 +93,10 @@
       <deko-pillar on-tap="openDrawer" selected style="position:fixed;width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
     </template>
     
+    <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
+      <deko-pillar on-tap="openDrawer" selected style="position:fixed;width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
+    </template>
+    
     <div style="padding-left:48px; height: 100%">
       <!--Wide Layout for Desktop-->
       <template is="dom-if" if="{{wide}}">
