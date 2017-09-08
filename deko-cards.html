@@ -183,6 +183,9 @@
       },
     },
     _log: function(a,b) {
+      b.collection("cards").add({
+        foo: "bar"
+      })
       console.log(a,b)
     },
     addCard: function() {
