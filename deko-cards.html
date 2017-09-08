@@ -183,7 +183,7 @@
       },
     },
     _log: function(a,b) {
-      b.collection("cards").add({
+      b.collection("cards").doc("First Card!").set({
         foo: "bar"
       })
       console.log(a,b)
