@@ -178,18 +178,17 @@
       _routeData: {
         computed: "_log('routeData.data',routeData.data)"
       },
-      _profile: {
-        computed: "_log('ref',ref)"
+      cards: {
+        computed: "getCards(ref)"
       },
     },
-    _log: function(a,b) {
-      b.collection("cards").doc("First Card!").set({
-        foo: "bar"
-      })
-      console.log(a,b)
+    getCards: function(dek) {
+      return dek.collection("cards")
     },
     addCard: function() {
-      this.fire("add-card")
+      this.cards.doc("First Card!").set({
+        foo: "bar"
+      })
     },
     render: function() {
       this.go = !this.go
