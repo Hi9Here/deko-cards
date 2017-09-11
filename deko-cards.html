@@ -317,9 +317,9 @@
         listRef = ref.orderBy(byChild)
       }
       if (startAt) {
-        listRef.startAt(startAt).limitTo(+loadNum).onSnapshot(setItems)
+        listRef.startAt(startAt).limit(+loadNum).onSnapshot(setItems)
       } else {
-        listRef.onSnapshot(setItems) // TODO .limitTo(+loadNum)
+        listRef.limit(+loadNum).onSnapshot(setItems) // TODO 
       }
     },
     open: function(e,d){
