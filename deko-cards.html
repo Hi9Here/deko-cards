@@ -290,8 +290,8 @@
       var setItems = function(snap) {
         var theSnap = snap.docs
         if (theSnap && !snap.empty ) {
-           that.loaded = theSnap.length
-          // that.items = theSnap.sort(sortByChild)
+          that.set("loaded", theSnap.length)
+          // that.items = theSnap.sort(sortByChild) 
           that.set("items". theSnap)
           that.render()
           if (that.loaded == +loadNum) {
