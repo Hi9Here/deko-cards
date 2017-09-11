@@ -292,7 +292,14 @@
         if (theSnap && !snap.empty ) {
           that.set("loaded", theSnap.length)
           // that.items = theSnap.sort(sortByChild) 
-          that.set("items". theSnap)
+          var cards = [];
+          theSnap.forEach(function(doc) {
+            cards.push({
+              title: doc.data().title,
+              ref: doc.data().ref,
+            })
+          })
+          that.set("items". cards)
           that.render()
           if (that.loaded == +loadNum) {
             if (that.items[+loadNum - 1][byChild]) {
