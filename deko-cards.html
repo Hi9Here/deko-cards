@@ -152,10 +152,9 @@
     is: "deko-cards",
     properties:{
       _setItems:{
-        computed:"setItems(path, byChild, loadNum, startAt, wide)",
+        computed:"setItems(cards, byChild, loadNum, startAt, wide)",
       },
       end:{value: 999},
-      path:{type: String},
       find:{value: ""},
       deck:{value: ""},
       pages:{value: []},
@@ -260,7 +259,7 @@
     getPagesLength: function(pages){
       return pages.length
     },
-    setItems: function(path, byChild, loadNum, startAt, wide){
+    setItems: function(ref, byChild, loadNum, startAt, wide){
       var that = this
       if (!wide) {
         loadNum = 5
@@ -289,7 +288,7 @@
         return 0
       }
       var setItems = function(snap) {
-        var theSnap = snap.val()
+        var theSnap = snap.data()
         if (theSnap) {
           that.loaded = Object.keys(theSnap).length
           that.items = objectToArray(theSnap).sort(sortByChild)
@@ -312,14 +311,14 @@
       }
       var listRef
       if (byChild === "__key"){
-        listRef = firebase.database().ref(path).orderByKey()
+        listRef = ref
       } else {
-        listRef = firebase.database().ref(path).orderByChild(byChild)
+        listRef = ref.orderBy(byChild)
       }
       if (startAt) {
-        listRef.startAt(startAt).limitToFirst(+loadNum).on("value", setItems)
+        listRef.startAt(startAt).limitToFirst(+loadNum).onSnapshot(setItems)
       } else {
-        listRef.limitToFirst(+loadNum).on("value", setItems)
+        listRef.limitToFirst(+loadNum).onSnapshot(setItems)
       }
     },
     open: function(e,d){
