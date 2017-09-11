@@ -184,7 +184,7 @@
       return dek.collection("cards")
     },
     addCard: function() {
-      this.cards.doc("First Card!" + new Date.now() ).set({
+      this.cards.doc("First Card!" + Date.now() ).set({
         title: "foobar"
       })
     },
