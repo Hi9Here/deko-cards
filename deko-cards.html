@@ -288,7 +288,7 @@
         return 0
       }
       var setItems = function(snap) {
-        var theSnap = snap.data()
+        var theSnap = snap.docs()
         if (theSnap) {
           that.loaded = Object.keys(theSnap).length
           that.items = objectToArray(theSnap).sort(sortByChild)
