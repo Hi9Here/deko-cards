@@ -88,7 +88,6 @@
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
-   debug: loaded:[[loaded]] <<
       <!--Wide Layout for Desktop-->
       <template is="dom-if" if="{{wide}}">
         <template is="dom-if" if="[[pageing]]" restamp>
@@ -299,7 +298,7 @@
               ref: doc.data().ref,
             })
           })
-          that.set("items". cards)
+          that.set("items", cards)
           that.render()
           if (that.loaded == +loadNum) {
             if (that.items[+loadNum - 1][byChild]) {
