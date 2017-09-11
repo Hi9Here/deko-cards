@@ -318,7 +318,7 @@
       if (startAt) {
         listRef.startAt(startAt).limitToFirst(+loadNum).onSnapshot(setItems)
       } else {
-        listRef.limitToFirst(+loadNum).onSnapshot(setItems)
+        listRef.limitTo(+loadNum).onSnapshot(setItems)
       }
     },
     open: function(e,d){
