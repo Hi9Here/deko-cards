@@ -316,10 +316,13 @@
       } else {
         listRef = ref.orderBy(byChild)
       }
+      if (this.unsub) {
+        this.unsub()
+      }
       if (startAt) {
-        listRef.startAt(startAt).limit(+loadNum).onSnapshot(setItems)
+        this.unsub = listRef.startAt(startAt).limit(+loadNum).onSnapshot(setItems)
       } else {
-        listRef.limit(+loadNum).onSnapshot(setItems) // TODO 
+        this.unsub = listRef.limit(+loadNum).onSnapshot(setItems) // TODO 
       }
     },
     open: function(e,d){
