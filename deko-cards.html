@@ -101,7 +101,7 @@
           </div>
           <deko-card-container>
             <template is="dom-repeat" items="{{items}}" initial-Count="1" id="list0">
-              <deko-card deck="[[deck]]" toolbar-color="[[deckColor]]" card="[[item]]" icon="[[item.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
+              <deko-card ref="[[item.ref]]"></deko-card>
             </template>
           </deko-card-container>
           <div class="nex desktop">
@@ -132,7 +132,7 @@
             </paper-toolbar>
           </template>
           <div id="narrow">
-            <deko-card deck="[[deck]]" style="height:100%;width:100%" toolbar-color="[[deckColor]]" card="[[selectedItem]]" icon="[[selectedItem.icon]]" on-tapped="cardTapped" on-edit="edit" on-open="open"></deko-card>
+            <deko-card ref="[[item.ref]]"></deko-card>
           </div>
           <div class="nex mobile">
             <template is="dom-if" if="[[nextPageStartAt]]">
