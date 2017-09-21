@@ -145,7 +145,9 @@
       <template is="dom-if" if="[[!noAdd]]">
         <add-card on-done="addCard" >
           <quill-js theme='bubble' value="{{addingStuff}}"></quill-js>
-          <input-image height="100px" width="300px" max-height="100" max-width="300" value="{{addingImage}}" ></input-image>
+          <div style="text-align: center;">
+            <input-image height="100px" width="300px" max-height="100" max-width="300" value="{{addingImage}}" ></input-image>
+          </div>
           <paper-input label="name" value="{{addingName}}"></paper-input>
         </add-card>
       </template>
