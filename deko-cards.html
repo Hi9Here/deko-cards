@@ -189,9 +189,13 @@
       return dek.collection("cards")
     },
     addCard: function() {
-      this.cards.doc("First Card!" + Date.now() ).set({
-        title: "foobar"
-      })
+      if (this) {
+        this.cards.doc("First Card!" + Date.now() ).set({
+          title: this.addingName,
+          quill: this.addingStuff,
+          image: this.addingImage,
+        })
+      }
     },
     render: function() {
       this.go = !this.go
