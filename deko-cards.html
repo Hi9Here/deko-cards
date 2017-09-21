@@ -143,10 +143,10 @@
         </div>
       </template>
       <template is="dom-if" if="[[!noAdd]]">
-        <add-card>
+        <add-card on-done="addCard" >
           <quill-js theme='bubble' value="{{addingStuff}}"></quill-js>
-          <input-image height="100px" width="300px" max-height="100" max-width="300" value="{{addingStuff}}" ></input-image>
-          <paper-input label="name" value="{{addingStuff}}"></paper-input>
+          <input-image height="100px" width="300px" max-height="100" max-width="300" value="{{addingImage}}" ></input-image>
+          <paper-input label="name" value="{{addingName}}"></paper-input>
         </add-card>
       </template>
   </template>
