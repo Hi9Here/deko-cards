@@ -189,7 +189,7 @@
       return dek.collection("cards")
     },
     addCard: function() {
-      if (this.addingName || JSON.stringify(this.addingStuff) !== '[{"insert":"\n"}]' || this.addingImage) {
+      if (this.addingName || JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}]) || this.addingImage) {
         
         this.cards.doc("First Card!" + Date.now() ).set({
           title: this.addingName,
