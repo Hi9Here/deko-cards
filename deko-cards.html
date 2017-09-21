@@ -189,11 +189,16 @@
       return dek.collection("cards")
     },
     addCard: function() {
-      if (this) {
+      if (this.addingName || this.addingStuff || this.addingImage) {
+        var that = this
         this.cards.doc("First Card!" + Date.now() ).set({
           title: this.addingName,
           quill: this.addingStuff,
           image: this.addingImage,
+        }).than(function() {
+          that.addingName = ""
+          that.addingStuff = ""
+          that.addingImage = ""
         })
       }
     },
