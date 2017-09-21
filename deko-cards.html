@@ -142,7 +142,11 @@
         </div>
       </template>
       <template is="dom-if" if="[[!noAdd]]">
-        <paper-fab style="position: fixed;right: 25px;bottom: 30px" icon="add" on-tap="addCard"></paper-fab>
+        <add-card>
+          <quill-js></quill-js>
+          <input-image height="100px" width="300px" ></input-image>
+          <paper-input label="name"></paper-input>
+        </add-card>
       </template>
   </template>
 </dom-module>
