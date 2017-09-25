@@ -186,6 +186,12 @@
       cards: {
         computed: "getCards(ref)"
       },
+      addingStuff: {
+        observer: "testStuff"
+      },
+    },
+    testStuff: function(stuff){
+      debugger
     },
     getCards: function(dek) {
       return dek.collection("cards")
