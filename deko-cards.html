@@ -213,7 +213,7 @@
     addCard: function() {
       if (this.addingName || JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}]) || this.addingImage) {
 
-        var cardRef = this.cards.doc(this.addingName + " " + Date.now()name)
+        var cardRef = this.cards.doc(this.addingName + " " + Date.now())
         cardRef.set({
           title: this.addingName,
         }, { merge: true }).then(function() {
