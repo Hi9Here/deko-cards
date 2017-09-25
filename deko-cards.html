@@ -194,8 +194,14 @@
       var name = stuff[0].insert.replace( ["\n"] ,'').trim()
       if (name) {
         this.addingName = name
-      }
+      } 
       for (var op in stuff) {
+        if (!name) {
+          name = stuff[op].insert.replace( ["\n"] ,'').trim()
+          if (name) {
+            this.addingName = name
+          }
+        }
         if (stuff[op].insert && stuff[op].insert.image) {
           this.addingImage = stuff[op].insert.image
         }
