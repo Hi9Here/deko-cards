@@ -194,7 +194,7 @@
       var name 
       for (var op in stuff) {
         if (!name) {
-          name = stuff[op].insert.replace( ["\n"] ,'').trim()
+          name = stuff[op].insert.split("\n")[0].trim()
           if (name) {
             this.addingName = name
           }
