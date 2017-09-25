@@ -209,26 +209,27 @@
     },
     addCard: function() {
       if (this.addingName || JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}]) || this.addingImage) {
-
+        var that = this
         var cardRef = this.cards.doc(this.addingName + " " + Date.now())
         cardRef.set({
-          title: this.addingName,
+          title: that.addingName,
         }).then(function() {
+          that.set("addingName", "")
           cardRef.collection("quill").add({
-            value: this.addingStuff,
+            value: that.addingStuff,
             time: firebase.database.ServerValue.TIMESTAMP,
             user: firebase.User.uid,
+          }).then(function() {
+            that.set("addingStuff", [{"insert":"\n"}])
           })
           cardRef.collection("image").add({
-            value: this.addingImage,
+            value: that.addingImage,
             time: firebase.database.ServerValue.TIMESTAMP,
             user: firebase.User.uid,
+          }).then(function() {
+            that.set("addingImage", "")
           })
         })
-        
-        this.addingName = ""
-        this.addingStuff = [{"insert":"\n"}]
-        this.addingImage = ""
       }
     },
     render: function() {
