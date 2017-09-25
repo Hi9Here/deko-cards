@@ -213,7 +213,7 @@
         var cardRef = this.cards.doc(this.addingName + " " + Date.now())
         cardRef.set({
           title: this.addingName,
-        }, { merge: true }).then(function() {
+        }).then(function() {
           cardRef.collection("quill").add({
             value: this.addingStuff,
             time: firebase.database.ServerValue.TIMESTAMP,
