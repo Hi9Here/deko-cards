@@ -191,10 +191,7 @@
       },
     },
     testStuff: function(stuff){
-      var name = stuff[0].insert.replace( ["\n"] ,'').trim()
-      if (name) {
-        this.addingName = name
-      } 
+      var name 
       for (var op in stuff) {
         if (!name) {
           name = stuff[op].insert.replace( ["\n"] ,'').trim()
