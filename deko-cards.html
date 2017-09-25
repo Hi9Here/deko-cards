@@ -225,7 +225,7 @@
           cardRef.collection("image").add({
             value: that.addingImage,
             time: firebase.database.ServerValue.TIMESTAMP,
-            user: firebase.User.uid,
+            user: firebase.auth().currentUser.uid,
           }).then(function() {
             that.set("addingImage", "")
           })
