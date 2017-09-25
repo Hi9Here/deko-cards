@@ -218,7 +218,7 @@
           cardRef.collection("quill").add({
             value: that.addingStuff,
             time: firebase.database.ServerValue.TIMESTAMP,
-            user: firebase.User.uid,
+            user: firebase.auth().currentUser.uid,
           }).then(function() {
             that.set("addingStuff", [{"insert":"\n"}])
           })
