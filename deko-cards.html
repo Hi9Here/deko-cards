@@ -212,11 +212,21 @@
     },
     addCard: function() {
       if (this.addingName || JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}]) || this.addingImage) {
-        
-        this.cards.doc("First Card!" + Date.now() ).set({
+
+        var cardRef = this.cards.doc(this.addingName + " " + Date.now()name)
+        cardRef.set({
           title: this.addingName,
-          quill: this.addingStuff,
-          image: this.addingImage,
+        }, { merge: true }).then(function() {
+          cardRef.collection("quill").add({
+            value: this.addingStuff,
+            time: firebase.database.ServerValue.TIMESTAMP,
+            user: firebase.User.uid,
+          })
+          cardRef.collection("image").add({
+            value: this.addingImage,
+            time: firebase.database.ServerValue.TIMESTAMP,
+            user: firebase.User.uid,
+          })
         })
         
         this.addingName = ""
