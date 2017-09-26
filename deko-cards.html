@@ -191,13 +191,21 @@
     },
     testStuff: function(stuff){
       var name
+      var head 
       var titleImage
       for (var op in stuff) {
         if (!name && stuff[op].insert && typeof stuff[op].insert  === 'string') {
           name = stuff[op].insert.split("\n")[0].replace(/[^0-9a-z-A-Z ]/g, "").trim()
           if (name) {
             if (!stuff[op].attributes) {
-              // stuff[op].attributes = {header:1}
+              var notName = stuff[op].insert.split("\n").splice(1).join("\n")
+              if (notName.replace(/[^0-9a-z-A-Z ]/g, "").trim()) {
+                head = [
+                  {insert: name},
+                  {insert: "\n", attributes: {header:1}},
+                  {insert: notName},
+                ]
+              }
             }
             this.addingName = name
           }
@@ -213,7 +221,14 @@
           }
         }
       }
-      
+      if (head) {
+        this.set("addingStuff", stuff.reduce(function(allOps, value, currentIndex) {
+          if (currentIndex) {
+            allOps.push(value)
+          }
+          return allOps
+        }, head)
+      }
     },
     resizeImage: function(stuff, opForImage) {
       var that = this
