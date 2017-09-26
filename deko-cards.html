@@ -2,9 +2,6 @@
 <link rel="import" href="../deko-card-container/deko-card-container.html">
 <link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../content-card/content-card.html">
-<link rel="import" href="../content-card/content-view.html">
-<link rel="import" href="../content-card/content-edit.html">
 <link rel="import" href="../deko-opened-card/deko-opened-card.html">
 <link rel="import" href="../deko-deck-editor/deko-deck-editor.html">
 <link rel="import" href="../deko-pillar/deko-pillar.html">
@@ -133,7 +130,7 @@
             </paper-toolbar>
           </template>
           <div id="narrow">
-            <deko-card ref="{{item.ref}}"></deko-card>
+            <deko-card ref="{{selectedItem.ref}}"></deko-card>
           </div>
           <div class="nex mobile">
             <template is="dom-if" if="[[nextPageStartAt]]">
