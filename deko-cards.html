@@ -245,9 +245,9 @@
               that.addingStuff
             }
             cardRef.collection("quill").add({
-              value: that.resizedStuff,
-              time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-              user: firebase.auth().currentUser.uid,
+              value: that.addingStuff,
+              time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+              user:  firebase.auth().currentUser.uid,
             }).then(function() {
               that.set("addingStuff", [{"insert":"\n"}])
             })
@@ -255,8 +255,8 @@
           if (that.addingImage) {
             cardRef.collection("image").add({
               value: that.addingImage,
-              time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-              user: firebase.auth().currentUser.uid,
+              time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+              user:  firebase.auth().currentUser.uid,
             }).then(function() {
               that.set("addingImage", "")
             })
