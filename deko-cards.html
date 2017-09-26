@@ -192,6 +192,7 @@
     testStuff: function(stuff){
       var name
       var titleImage
+      var that = this
       for (var op in stuff) {
         if (!name && stuff[op].insert && typeof stuff[op].insert  === 'string') {
           name = stuff[op].insert.split("\n")[0].replace(/[^0-9a-z-A-Z ]/g, "").trim()
@@ -215,6 +216,7 @@
               function (canvas) {
                 if (canvas.toDataURL) {
                   stuff[opForImage].insert.image = canvas.toDataURL()
+                  that.set("addingStuff", stuff)
                 }
               }, {  
                 canvas:      true,
