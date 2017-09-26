@@ -192,7 +192,7 @@
       var name
       var titleImage
       for (var op in stuff) {
-        if (!name) {
+        if (!name && stuff[op].insert && typeof stuff[op].insert  === 'string') {
           name = stuff[op].insert.split("\n")[0].replace(/[^0-9a-z-A-Z ]/g, "").trim()
           if (name) {
             if (!stuff[op].attributes) {
@@ -202,13 +202,25 @@
           }
         }
         
-        if (!titleImage && stuff[op].insert && stuff[op].insert.image) {
-          titleImage = "done"
-          this.addingImage = stuff[op].insert.image
+        if (stuff[op].insert && stuff[op].insert.image) {
+          if (!titleImage) {
+            titleImage = "done"
+            this.addingImage = stuff[op].insert.image
+          }
+          loadImage(
+            stuff[op].insert.image,
+            function (canvas) {
+              if (canvas.toDataURL) {
+                stuff[op].insert.image = canvas.toDataURL()
+              }
+            }, {  
+              canvas:      true,
+              maxHeight:   1024,
+              maxWidth:    1024,
+              crop:        true,
+            }
+          )       
         }
-        
-        //TODO save getSelection update then setSelection
-        
       }
     },
     getCards: function(dek) {
