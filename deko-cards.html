@@ -191,7 +191,8 @@
     },
     testStuff: function(stuff){
       var name
-      var head 
+      var head
+      var headAt
       var titleImage
       for (var op in stuff) {
         if (!name && stuff[op].insert && typeof stuff[op].insert  === 'string') {
@@ -205,6 +206,7 @@
                   {insert: "\n", attributes: {header:1}},
                   {insert: notName},
                 ]
+                headAt = op
               }
             }
             this.addingName = name
@@ -223,7 +225,9 @@
       }
       if (head) {
         this.set("addingStuff", stuff.reduce(function(allOps, value, currentIndex) {
-          if (currentIndex) {
+          if (currentIndex < headAt) {
+            allOps.unshift(value)
+          } else if (currentIndex > headAt) {
             allOps.push(value)
           }
           return allOps
