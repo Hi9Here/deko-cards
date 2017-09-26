@@ -192,7 +192,6 @@
     testStuff: function(stuff){
       var name
       var titleImage
-      var that = this
       for (var op in stuff) {
         if (!name && stuff[op].insert && typeof stuff[op].insert  === 'string') {
           name = stuff[op].insert.split("\n")[0].replace(/[^0-9a-z-A-Z ]/g, "").trim()
@@ -205,29 +204,35 @@
         }
         
         if (stuff[op].insert && stuff[op].insert.image) {
+          if (stuff[op].insert.image.length > 1000*1000) {
+            if (this.resizedStuff && this.resizedStuff[op].insert.image > 1000*1000) {
+              this.resizeImage(stuff, op)
+            }
+          }
           if (!titleImage) {
             titleImage = "done"
             this.addingImage = stuff[op].insert.image
           }
-          if (stuff[op].insert.image.length > 1000*1000) {
-            var opForImage = +op
-            loadImage(
-              stuff[opForImage].insert.image,
-              function (canvas) {
-                if (canvas.toDataURL) {
-                  stuff[opForImage].insert.image = canvas.toDataURL()
-                  that.set("addingStuff", stuff)
-                }
-              }, {  
-                canvas:      true,
-                maxHeight:   300,
-                maxWidth:    500,
-               // crop:        true,
-              }
-            )
-          }
         }
       }
+      
+    },
+    resizeImage: function(stuff, opForImage) {
+      var that = this
+      loadImage(
+        stuff[opForImage].insert.image,
+        function (canvas) {
+          if (canvas.toDataURL) {
+            stuff[opForImage].insert.image = canvas.toDataURL()
+            that.set("resizedStuff", stuff)
+          }
+        }, {  
+          canvas:      true,
+          maxHeight:   300,
+          maxWidth:    500,
+               // crop:        true,
+        }
+      )
     },
     getCards: function(dek) {
       return dek.collection("cards")
