@@ -236,17 +236,23 @@
     },
     resizeImage: function(stuff, opForImage) {
       var that = this
+      if (!that.resizing) {
+        that.resizing = {}
+      }
+      that.resizing("resizing."+opForImage,1)
+      
       loadImage(
         stuff[opForImage].insert.image,
         function (canvas) {
           if (canvas.toDataURL) {
             stuff[opForImage].insert.image = canvas.toDataURL()
             that.set("addingStuff", stuff.map(function(x) {return x}) )
+            that.resizing("resizing."+opForImage,0)
           }
         }, {
           canvas: true,
-          maxHeight: 230,
-          maxWidth: 400,
+          maxHeight: 330,
+          maxWidth: 500,
           orientation: true,
         }
       )
