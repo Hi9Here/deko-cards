@@ -224,7 +224,9 @@
         function (canvas) {
           if (canvas.toDataURL) {
             stuff[opForImage].insert.image = canvas.toDataURL()
+            
             that.set("resizedStuff", stuff)
+            that.set("resizedTo", canvas.toDataURL().length)
           }
         }, {  
           canvas:      true,
