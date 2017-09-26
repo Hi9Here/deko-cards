@@ -208,7 +208,7 @@
             titleImage = "done"
             this.addingImage = stuff[op].insert.image
           }
-          if (stuff[op].insert.image.length > 7870) {
+          if (stuff[op].insert.image.length > 1000*1000) {
             var opForImage = +op
             loadImage(
               stuff[opForImage].insert.image,
@@ -218,8 +218,8 @@
                 }
               }, {  
                 canvas:      true,
-                maxHeight:   1024,
-                maxWidth:    1024,
+                maxHeight:   500,
+                maxWidth:    800,
                 crop:        true,
               }
             )
