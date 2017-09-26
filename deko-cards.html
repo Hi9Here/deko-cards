@@ -199,8 +199,8 @@
           if (name) {
             if (!stuff[op].attributes) {
               stuff[op].attributes = {header:1}
+              this.set("addingStuff", stuff)
             }
-            this.set("addingStuff", stuff)
             this.addingName = name
           }
         }
@@ -227,14 +227,14 @@
           that.set("addingName", "")
           cardRef.collection("quill").add({
             value: that.addingStuff,
-            time: firebase.database.ServerValue.TIMESTAMP,
+            time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
             user: firebase.auth().currentUser.uid,
           }).then(function() {
             that.set("addingStuff", [{"insert":"\n"}])
           })
           cardRef.collection("image").add({
             value: that.addingImage,
-            time: firebase.database.ServerValue.TIMESTAMP,
+            time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
             user: firebase.auth().currentUser.uid,
           }).then(function() {
             that.set("addingImage", "")
