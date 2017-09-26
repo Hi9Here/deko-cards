@@ -209,11 +209,12 @@
             this.addingImage = stuff[op].insert.image
           }
           if (stuff[op].insert.image.length > 7870) {
+            var opForImage = +op
             loadImage(
-              stuff[op].insert.image,
+              stuff[opForImage].insert.image,
               function (canvas) {
                 if (canvas.toDataURL) {
-                  stuff[op].insert.image = canvas.toDataURL()
+                  stuff[opForImage].insert.image = canvas.toDataURL()
                 }
               }, {  
                 canvas:      true,
