@@ -224,20 +224,24 @@
           title: that.addingName,
         }).then(function() {
           that.set("addingName", "")
-          cardRef.collection("quill").add({
-            value: that.addingStuff,
-            time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-            user: firebase.auth().currentUser.uid,
-          }).then(function() {
-            that.set("addingStuff", [{"insert":"\n"}])
-          })
-          cardRef.collection("image").add({
-            value: that.addingImage,
-            time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-            user: firebase.auth().currentUser.uid,
-          }).then(function() {
-            that.set("addingImage", "")
-          })
+          if (JSON.stringify(that.addingStuff) != JSON.stringify([{"insert":"\n"}])) {
+            cardRef.collection("quill").add({
+              value: that.addingStuff,
+              time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+              user: firebase.auth().currentUser.uid,
+            }).then(function() {
+              that.set("addingStuff", [{"insert":"\n"}])
+            })
+          }
+          if (that.addingImage) {
+            cardRef.collection("image").add({
+              value: that.addingImage,
+              time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+              user: firebase.auth().currentUser.uid,
+            }).then(function() {
+              that.set("addingImage", "")
+            })
+          }
         })
       }
     },
