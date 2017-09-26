@@ -6,6 +6,7 @@
 <link rel="import" href="../deko-deck-editor/deko-deck-editor.html">
 <link rel="import" href="../deko-pillar/deko-pillar.html">
 <link rel="import" href="../input-image/input-image.html">
+<link rel="import" href="../image-base64/image-base64.html">
 <link rel="import" href="../paper-fab/paper-fab.html">
 <link rel="import" href="../deko-card/deko-card.html">
 <link rel="import" href="../quill-js/quill-js.html">
@@ -207,19 +208,21 @@
             titleImage = "done"
             this.addingImage = stuff[op].insert.image
           }
-          loadImage(
-            stuff[op].insert.image,
-            function (canvas) {
-              if (canvas.toDataURL) {
-                stuff[op].insert.image = canvas.toDataURL()
+          if (stuff[op].insert.image.length > 7870) {
+            loadImage(
+              stuff[op].insert.image,
+              function (canvas) {
+                if (canvas.toDataURL) {
+                  stuff[op].insert.image = canvas.toDataURL()
+                }
+              }, {  
+                canvas:      true,
+                maxHeight:   1024,
+                maxWidth:    1024,
+                crop:        true,
               }
-            }, {  
-              canvas:      true,
-              maxHeight:   1024,
-              maxWidth:    1024,
-              crop:        true,
-            }
-          )       
+            )
+          }
         }
       }
     },
