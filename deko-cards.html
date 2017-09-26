@@ -191,17 +191,27 @@
       },
     },
     testStuff: function(stuff){
-      var name 
+      var name
+      var titleImage
       for (var op in stuff) {
         if (!name) {
           name = stuff[op].insert.split("\n")[0].replace(/[^0-9a-z-A-Z ]/g, "").trim()
           if (name) {
+            if (!stuff[op].attributes) {
+              stuff[op].attributes = {header:1}
+            }
+            this.set("addingStuff", stuff)
             this.addingName = name
           }
         }
-        if (stuff[op].insert && stuff[op].insert.image) {
+        
+        if (!titleImage && stuff[op].insert && stuff[op].insert.image) {
+          titleImage = "done"
           this.addingImage = stuff[op].insert.image
         }
+        
+        //TODO save getSelection update then setSelection
+        
       }
     },
     getCards: function(dek) {
