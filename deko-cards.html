@@ -222,7 +222,7 @@
         function (canvas) {
           if (canvas.toDataURL) {
             stuff[opForImage].insert.image = canvas.toDataURL()
-            that.set("addingStuff", stuff)
+            that.set("addingStuff", stuff.map(function(x) {return x}) )
           }
         }, {
           canvas: true,maxHeight: 230,maxWidth: 400,
