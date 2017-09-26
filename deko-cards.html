@@ -205,9 +205,7 @@
         
         if (stuff[op].insert && stuff[op].insert.image) {
           if (stuff[op].insert.image.length > 1000*1000) {
-            if (this.resizedStuff && this.resizedStuff[op].insert.image > 1000*1000) {
-              this.resizeImage(stuff, op)
-            }
+            this.resizeImage(stuff, op)
           }
           if (!titleImage) {
             titleImage = "done"
@@ -224,15 +222,10 @@
         function (canvas) {
           if (canvas.toDataURL) {
             stuff[opForImage].insert.image = canvas.toDataURL()
-            
-            that.set("resizedStuff", stuff)
-            that.set("resizedTo", canvas.toDataURL().length)
+            that.set("addingStuff", stuff)
           }
-        }, {  
-          canvas:      true,
-          maxHeight:   300,
-          maxWidth:    500,
-               // crop:        true,
+        }, {
+          canvas: true,maxHeight: 300,maxWidth: 500,
         }
       )
     },
@@ -248,8 +241,11 @@
         }).then(function() {
           that.set("addingName", "")
           if (JSON.stringify(that.addingStuff) != JSON.stringify([{"insert":"\n"}])) {
+            if (!that.resizedStuff) {
+              that.addingStuff
+            }
             cardRef.collection("quill").add({
-              value: that.addingStuff,
+              value: that.resizedStuff,
               time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
               user: firebase.auth().currentUser.uid,
             }).then(function() {
