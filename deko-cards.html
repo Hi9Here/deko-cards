@@ -148,10 +148,15 @@
             <input-image height="100px" width="300px" max-height="100" max-width="300" value="{{addingImage}}" ></input-image>
           </div>
           <paper-input label="name" value="{{addingName}}"></paper-input>
+          
+          <deko-card ref="{{selectedItem.ref}}"></deko-card>
+          
+          <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
+          
         </add-card>
       </template>
     
-    <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
+    
     
   </template>
 </dom-module>
