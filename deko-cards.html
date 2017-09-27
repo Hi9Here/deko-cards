@@ -141,20 +141,15 @@
         </div>
       </template>
       <template is="dom-if" if="[[!noAdd]]">
-        <open-card on-done="addCard" selected="{{}}">
+        <open-card selected="{{cardPart}}">
           <quill-js theme='bubble' value="{{addingStuff}}"></quill-js>
           <div style="display: flex;justify-content: center;">
             <input-image height="100px" width="300px" max-height="100" max-width="300" value="{{addingImage}}" ></input-image>
           </div>
           <paper-input label="name" value="{{addingName}}"></paper-input>
-          
           <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
-          
         </open-card>
       </template>
-    
-    
-    
   </template>
 </dom-module>
 <script>
@@ -193,6 +188,9 @@
       addingStuff: {
         observer: "testStuff"
       },
+      cardPart: {
+        observer: "addToCard"
+      }
     },
     testStuff: function(stuff){
       var name
@@ -266,8 +264,8 @@
     getCards: function(dek) {
       return dek.collection("cards")
     },
-    addCard: function() {
-      if (this.addingName || JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}]) || this.addingImage) {
+    addToCard: function(part, partFrom) {
+      if (part == 3 && partFrom == 2 && this.addingName || JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}]) || this.addingImage) {
         var that = this
         var cardRef = this.cards.doc(this.addingName + " " + Date.now())
         cardRef.set({
