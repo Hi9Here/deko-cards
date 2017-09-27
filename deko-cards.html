@@ -144,7 +144,10 @@
     <open-card selected="{{cardPart}}" heading="[[cardHeading]]">
       <quill-js theme='bubble' value="{{addingStuff}}"></quill-js>
       <div style="display: flex;justify-content: center;">
-        <input-image height="100px" width="300px" max-height="100" max-width="300" value="{{addingImage}}" ></input-image>
+        <input-image height="100px" width="300px" max-height="500" max-width="500" value="{{addingBigImage}}" ></input-image>
+        <template is="dom-if" if="[[addingBigImage]]">
+          <image-base64 url="[[addingBigImage]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
+        </template>
       </div>
       <paper-input label="name" value="{{addingName}}"></paper-input>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
@@ -238,10 +241,6 @@
     },
     resizeImage: function(stuff, opForImage) {
       var that = this
-      if (!that.resizing) {
-        that.resizing = {}
-      }
-      that.set("resizing."+opForImage,1)
       
       loadImage(
         stuff[opForImage].insert.image,
@@ -249,12 +248,10 @@
           if (canvas.toDataURL) {
             stuff[opForImage].insert.image = canvas.toDataURL()
             that.set("addingStuff", stuff.map(function(x) {return x}) )
-            that.set("resizing."+opForImage,0)
-            
           }
         }, {
           canvas: true,
-          maxHeight: 330,
+          maxHeight: 500,
           maxWidth: 500,
           orientation: true,
         }
@@ -303,6 +300,15 @@
               user:  firebase.auth().currentUser.uid,
             }).then(function() {
               that.set("addingStuff", [{"insert":"\n"}])
+            })
+          }
+          if (that.addingBigImage) {
+            cardRef.collection("big image").add({
+              value: that.addingBigImage,
+              time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+              user:  firebase.auth().currentUser.uid,
+            }).then(function() {
+              that.set("addingImage", "")
             })
           }
           if (that.addingImage) {
