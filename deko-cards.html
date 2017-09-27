@@ -263,35 +263,37 @@
       return dek.collection("cards")
     },
     addToCard: function(part, partFrom) {
-      if (part == 3 && partFrom == 2 && this.addingName || JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}]) || this.addingImage) {
-        var that = this
-        var cardRef = this.cards.doc(this.addingName + " " + Date.now())
-        cardRef.set({
-          title: that.addingName,
-        }).then(function() {
-          that.set("addingName", "")
-          if (JSON.stringify(that.addingStuff) != JSON.stringify([{"insert":"\n"}])) {
-            if (!that.resizedStuff) {
-              that.addingStuff
+      if (part == 3 && partFrom == 2){ 
+        if (this.addingName || JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}]) || this.addingImage) {
+          var that = this
+          var cardRef = this.cards.doc(this.addingName + " " + Date.now())
+          cardRef.set({
+            title: that.addingName,
+          }).then(function() {
+            that.set("addingName", "")
+            if (JSON.stringify(that.addingStuff) != JSON.stringify([{"insert":"\n"}])) {
+              if (!that.resizedStuff) {
+                that.addingStuff
+              }
+              cardRef.collection("quill").add({
+                value: that.addingStuff,
+                time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+                user:  firebase.auth().currentUser.uid,
+              }).then(function() {
+                that.set("addingStuff", [{"insert":"\n"}])
+              })
             }
-            cardRef.collection("quill").add({
-              value: that.addingStuff,
-              time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-              user:  firebase.auth().currentUser.uid,
-            }).then(function() {
-              that.set("addingStuff", [{"insert":"\n"}])
-            })
-          }
-          if (that.addingImage) {
-            cardRef.collection("image").add({
-              value: that.addingImage,
-              time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-              user:  firebase.auth().currentUser.uid,
-            }).then(function() {
-              that.set("addingImage", "")
-            })
-          }
-        })
+            if (that.addingImage) {
+              cardRef.collection("image").add({
+                value: that.addingImage,
+                time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+                user:  firebase.auth().currentUser.uid,
+              }).then(function() {
+                that.set("addingImage", "")
+              })
+            }
+          })
+        }
       }
     },
     render: function() {
