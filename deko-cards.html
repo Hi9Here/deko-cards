@@ -196,7 +196,7 @@
       var titleImage
       for (var op in stuff) {
         if (!name && stuff[op].insert && typeof stuff[op].insert  === 'string') {
-          name = stuff[op].insert.split("\n")[0].replace(/[^0-9a-z-A-Z ]/g, "").trim()
+          name = stuff[op].insert.split("\n")[0]
           if (name) {
             if (!stuff[op].attributes) {
               var notName = stuff[op].insert.split("\n").splice(1).join("\n")
@@ -209,7 +209,7 @@
                 headAt = op
               }
             }
-            this.addingName = name
+            this.addingName = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
           }
         }
         
