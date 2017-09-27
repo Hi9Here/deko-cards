@@ -266,6 +266,11 @@
       if (part == 0) {
         this.cardHeading = "let's get started" 
       }
+      if (part == 0 && partFrom == 1){
+        if (JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}])) {
+          this.cardHeading = "Updates"
+        }
+      }
       if (part == 1) {
         this.cardHeading = "Add Image" 
       }
