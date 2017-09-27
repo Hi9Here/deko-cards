@@ -100,7 +100,7 @@
         </div>
         <deko-card-container>
           <template is="dom-repeat" items="{{items}}" initial-Count="1" id="list0">
-            <deko-card ref="{{item.ref}}"></deko-card>
+            <deko-card ref="{{item.ref}}" on-tap="selectOpen"></deko-card>
           </template>
         </deko-card-container>
         <div class="nex desktop">
@@ -131,7 +131,7 @@
           </paper-toolbar>
         </template>
         <div id="narrow">
-          <deko-card ref="{{selectedItem.ref}}"></deko-card>
+          <deko-card ref="{{selectedItem.ref}}" on-tap="selectOpen"></deko-card>
         </div>
         <div class="nex mobile">
           <template is="dom-if" if="[[nextPageStartAt]]">
@@ -479,6 +479,11 @@
         }
         return x
       })
-    }
+    },
+    selectOpen: function(e){
+      this.select(e)
+      this.cardPart = 3
+      this.$$("open-card").open()
+    },
   })
 </script>
