@@ -9,8 +9,8 @@
 <link rel="import" href="../image-base64/image-base64.html">
 <link rel="import" href="../paper-fab/paper-fab.html">
 <link rel="import" href="../deko-card/deko-card.html">
+<link rel="import" href="../open-card/open-card.html">
 <link rel="import" href="../quill-js/quill-js.html">
-<link rel="import" href="../add-card/add-card.html">
 <!--
   `deko-cards`
   @demo
@@ -142,18 +142,16 @@
         </div>
       </template>
       <template is="dom-if" if="[[!noAdd]]">
-        <add-card on-done="addCard" >
+        <open-card on-done="addCard" selected="{{}}">
           <quill-js theme='bubble' value="{{addingStuff}}"></quill-js>
           <div style="display: flex;justify-content: center;">
             <input-image height="100px" width="300px" max-height="100" max-width="300" value="{{addingImage}}" ></input-image>
           </div>
           <paper-input label="name" value="{{addingName}}"></paper-input>
           
-          <deko-card ref="{{selectedItem.ref}}"></deko-card>
-          
           <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
           
-        </add-card>
+        </open-card>
       </template>
     
     
