@@ -101,7 +101,7 @@
         </div>
         <deko-card-container>
           <template is="dom-repeat" items="{{items}}" initial-Count="1" id="list0">
-            <deko-card ref="{{item.ref}}" on-tap="selectOpen" title="[[item.title]]"></deko-card>
+            <deko-card ref="{{item.ref}}" on-tap="selectOpen" card="{{item}}" title="[[item.title]]"></deko-card>
           </template>
         </deko-card-container>
         <div class="nex desktop">
@@ -126,13 +126,13 @@
           </template>
         </div>
         <template is="dom-repeat" items="{{items}}" filter="pickable"  id="list1">
-          <paper-toolbar class="toolbarMobile" on-tap="select" title="[[item.title]]" style$="background:[[deckColor]]; height: 35px;">
+          <paper-toolbar class="toolbarMobile" on-tap="select" title="[[item.title]]" card="{{item}}" style$="background:[[deckColor]]; height: 35px;">
             <iron-icon icon="[[item.icon]]" style="height:90%"></iron-icon>
-            <div class="title" >[[item.title]]</div>
+            <div class="title">[[item.title]]</div>
           </paper-toolbar>
         </template>
         <div id="narrow">
-          <deko-card ref="{{selectedItem.ref}}" on-tap="selectOpen"></deko-card>
+          <deko-card ref="{{selectedItem.ref}}" on-tap="selectOpen" card="{{selectedItem}}"></deko-card>
         </div>
         <div class="nex mobile">
           <template is="dom-if" if="[[nextPageStartAt]]">
