@@ -266,14 +266,36 @@
       }
       if (part == 0 && partFrom == 1){
         if (JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}])) {
+          
           this.cardHeading = "Updates"
         }
       }
       if (part == 1) {
         this.cardHeading = "Add Image" 
       }
+      if (part == 1 && partFrom == 2){
+        var that = this
+        if (this.selectedItem.ref) {
+          that.unsubImage = ref.collection("big image").orderBy("time").limit(1).onSnapshot(function(image) {
+            if (image && image.size) {
+              that.set("addingBigImage", image.docs[0].data().value)
+              that.set("cardHeading", "Change Image") 
+            } else {
+              that.set("addingBigImage", "")
+              that.set("cardHeading", "Add Image") 
+            }
+          })
+          this. = this.selectedItem.title
+        }
+      }
       if (part == 2) {
         this.cardHeading = "Name it" 
+      }
+      if (part == 2 && partFrom == 3){
+        this.cardHeading  = "Update Name" 
+        if (this.selectedItem.title) {
+          this.addingName = this.selectedItem.title
+        }
       }
       if (part == 3) {
         this.cardHeading = "" 
