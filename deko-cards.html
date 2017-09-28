@@ -268,8 +268,10 @@
     },
     changingPart: function(part, partFrom) {
       var that = this
-      var ref = this.selectedItem.ref
-      
+      var ref
+      if (this.selectedItem) {
+        ref = this.selectedItem.ref
+      }
       if (part == 0) {
         this.cardHeading = "Let's get started" 
       }
