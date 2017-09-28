@@ -275,7 +275,8 @@
       }
       if (part == 1 && partFrom == 2){
         var that = this
-        if (this.selectedItem.ref) {
+        var ref = this.selectedItem.ref
+        if (ref) {
           that.unsubImage = ref.collection("big image").orderBy("time").limit(1).onSnapshot(function(image) {
             if (image && image.size) {
               that.set("addingBigImage", image.docs[0].data().value)
