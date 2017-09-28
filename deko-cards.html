@@ -198,15 +198,18 @@
     },
     newCard: function() {
       var that = this
-      
-      this.selectedItem.ref.delete().then(function() {
-        that.selectedItem = ""
+      this.cards.add().then(function(doc) {
         that.addingStuff = ""
         that.addingName = ""
         that.addingImage = ""
         that.addingBigImage = ""
+        
+        that.selectedItem = {}
+        that.selectedItem.ref = doc.ref
+        that.selectedItem.id = doc.id
+
       }).catch(function(error) {
-        console.error("Error removing card: ", error);
+        console.error("Error adding card: ", error);
       })
     },
     deleteCard: function() {
@@ -335,10 +338,8 @@
       }
       if (part == 2 && partFrom == 3){
         if (this.selectedItem.title) {
-          this.selectedItem.title
-        }
-        if (this.selectedItem.title) {
           this.addingName = this.selectedItem.title
+          this.cardHeading = "Name"
         }
       }
       if (part == 3) {
@@ -351,8 +352,8 @@
     addToCard: function() {
       if (this.addingName || JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}]) || this.addingImage) {
         var that = this
-        var cardRef = this.cards.doc(this.addingName + " " + Date.now())
-        
+        var cardRef
+        cardRef = this.
         cardRef.set({
           title: that.addingName,
         }).then(function() {
