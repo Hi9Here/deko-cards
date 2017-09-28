@@ -199,14 +199,15 @@
     newCard: function() {
       var that = this
       this.cards.add({title:""}).then(function(doc) {
-        that.addingStuff = ""
-        that.addingName = ""
-        that.addingImage = ""
-        that.addingBigImage = ""
         
-        that.selectedItem = {}
-        that.selectedItem.ref = doc.ref
-        that.selectedItem.id = doc.id
+        that.set("addingStuff", "")
+        that.set("addingName", "")
+        that.set("addingImage", "")
+        that.set("addingBigImage", "")
+        
+        that.set("selectedItem", {})
+        that.set("selectedItem.ref", doc.ref)
+        that.set("selectedItem.id", doc.id)
 
       }).catch(function(error) {
         console.error("Error adding card: ", error);
