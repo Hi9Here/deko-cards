@@ -192,6 +192,9 @@
       },
       cardPart: {
         observer: "changingPart"
+      },
+      addingName: {
+        observer: "changingName"
       }
     },
     newCard: function() {
@@ -205,11 +208,17 @@
         
         that.set("selectedItem", {})
         that.set("selectedItem.ref", doc)
-        that.set("selectedItem.id", doc.id)
 
       }).catch(function(error) {
         console.error("Error adding card: ", error);
       })
+    },
+    changingName: function(name) {
+      this.debounce("save", function () {
+        if (this.selectedItem && this.selectedItem.ref) {
+          this.selectedItem.ref.set({title:name})
+        }
+      }, 2000)
     },
     deleteCard: function() {
       var that = this
