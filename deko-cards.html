@@ -141,7 +141,7 @@
         </div>
       </div>
     </template>
-    <open-card selected="{{cardPart}}" heading="[[cardHeading]]">
+    <open-card selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard">
       <quill-js theme='bubble' value="{{addingStuff}}"></quill-js>
       <div style="display: flex;justify-content: center;">
         <input-image height="100px" width="300px" max-height="500" max-width="500" value="{{addingBigImage}}" ></input-image>
@@ -193,6 +193,9 @@
       cardPart: {
         observer: "changingPart"
       }
+    },
+    deleteCard: function() {
+      this.selectedItem.ref.delete()
     },
     testStuff: function(stuff){
       var name
