@@ -200,7 +200,7 @@
       var that = this
       this.cards.add({title:""}).then(function(doc) {
         
-        that.set("addingStuff", "")
+        that.set("addingStuff", [{"insert":"\n"}])
         that.set("addingName", "")
         that.set("addingImage", "")
         that.set("addingBigImage", "")
@@ -218,7 +218,7 @@
       if (this.selectedItem && this.selectedItem.ref) {
         this.selectedItem.ref.delete().then(function() {
 
-          that.set("addingStuff", "")
+          that.set("addingStuff", [{"insert":"\n"}])
           that.set("addingName", "")
           that.set("addingImage", "")
           that.set("addingBigImage", "")
