@@ -318,7 +318,10 @@
         if (ref) {
           ref.collection("quill").orderBy("time").limit(1).get().then(function(data) {
             if (data && data.size) {
-              that.set("addingStuff", data.docs[0].data().value)
+              var value = data.docs[0].data().value
+              if (JSON.stringify(that.addingStuff) !== JSON.stringify(value)) {
+                that.set("addingStuff", value)
+              }
               that.set("cardHeading", "Change Card") 
             } else {
               that.set("addingStuff", [{"insert":"\n"}])
@@ -343,7 +346,7 @@
       }
       if (part == 1 && partFrom == 2){
         if (ref) {
-          ref.collection("big image").orderBy("time").limit(1).get().then(function(image) {
+          ref.collection("big image").orderBy("time", "desc").limit(1).get().then(function(image) {
             if (image && image.size) {
               that.set("addingBigImage", image.docs[0].data().value)
               that.set("cardHeading", "Change Image") 
@@ -358,6 +361,9 @@
         this.cardHeading = "Name it" 
       }
       if (part == 2 && partFrom == 3){
+        this.selectedItem.ref.get().then(function(){
+          that.cardHeading = "Name"
+        }
         if (this.selectedItem.title) {
           this.cardHeading = "Name"
         }
