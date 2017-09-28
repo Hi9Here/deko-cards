@@ -364,7 +364,7 @@
       }
     },
     addToCard: function() {
-      if (this.addingName || JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}]) || this.addingImage) {
+      if (this.addingName || this.addingImage) {
         var that = this
         var cardRef
         if (this.selectedItem) {
@@ -374,20 +374,12 @@
           title: that.addingName,
         }).then(function() {
           that.set("addingName", "")
+          that.set("addingStuff", [{"insert":"\n"}])
           that.set("selectedItem", {
             ref:   cardRef,
             title: that.addingName,
             selected: true,
           })
-          if (JSON.stringify(that.addingStuff) != JSON.stringify([{"insert":"\n"}])) {
-            cardRef.collection("quill").add({
-              value: that.addingStuff,
-              time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-              user:  firebase.auth().currentUser.uid,
-            }).then(function() {
-              that.set("addingStuff", [{"insert":"\n"}])
-            })
-          }
           if (that.addingBigImage) {
             cardRef.collection("big image").add({
               value: that.addingBigImage,
