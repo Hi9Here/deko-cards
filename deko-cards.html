@@ -353,7 +353,9 @@
       if (this.addingName || JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}]) || this.addingImage) {
         var that = this
         var cardRef
-        cardRef = this.
+        if (this.selectedItem) {
+          cardRef = this.selectedItem.ref
+        }
         cardRef.set({
           title: that.addingName,
         }).then(function() {
