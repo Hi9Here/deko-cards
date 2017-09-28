@@ -370,8 +370,6 @@
         cardRef.set({
           title: that.addingName,
         }).then(function() {
-          that.set("addingName", "")
-          that.set("addingStuff", [{"insert":"\n"}])
           that.set("selectedItem", {
             ref:   cardRef,
             title: that.addingName,
