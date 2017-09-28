@@ -316,7 +316,7 @@
           this.cardHeading = "Tell me more"
         }
         if (ref) {
-          ref.collection("quill").orderBy("time").limit(1).get().then(function(data) {
+          ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
             if (data && data.size) {
               var value = data.docs[0].data().value
               if (JSON.stringify(that.addingStuff) !== JSON.stringify(value)) {
