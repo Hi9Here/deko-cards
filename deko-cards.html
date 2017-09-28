@@ -217,11 +217,13 @@
       var that = this
       if (this.selectedItem && this.selectedItem.ref) {
         this.selectedItem.ref.delete().then(function() {
-          that.selectedItem = ""
-          that.addingStuff = ""
-          that.addingName = ""
-          that.addingImage = ""
-          that.addingBigImage = ""
+
+          that.set("addingStuff", "")
+          that.set("addingName", "")
+          that.set("addingImage", "")
+          that.set("addingBigImage", "")
+        
+          that.set("selectedItem", {})
         }).catch(function(error) {
           console.error("Error removing card: ", error);
         })
