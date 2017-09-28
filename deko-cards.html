@@ -290,7 +290,7 @@
       )
     },
     getCards: function(dek) {
-      return dek.collection("cards")
+      return dek.collection("cards").where("deleted", "==", undefined)
     },
     changingPart: function(part, partFrom) {
       var that = this
