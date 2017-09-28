@@ -283,7 +283,6 @@
           if (canvas.toDataURL) {
             stuff[opForImage].insert.image = canvas.toDataURL()
             that.set("addingStuff", stuff.map(function(x) {return x}) )
-            
           }
         }, {
           canvas: true,
@@ -323,6 +322,17 @@
       }
       if (part == 1) {
         this.cardHeading = "Add Image" 
+      }
+      if (part == 1 && partFrom == 0){
+        if (ref) {
+          ref.collection("quill").add({
+            value: that.addingStuff,
+            time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+            user:  firebase.auth().currentUser.uid,
+          }).then(function(data) {
+            that.set("savedQuill",true)
+          })
+        }
       }
       if (part == 1 && partFrom == 2){
         if (ref) {
