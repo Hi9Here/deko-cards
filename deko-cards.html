@@ -386,7 +386,7 @@
               time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
               user:  firebase.auth().currentUser.uid,
             }).then(function() {
-              that.set("addingImage", "")
+              that.set("addingBigImage", "")
             })
           }
           if (that.addingImage) {
