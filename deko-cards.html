@@ -198,7 +198,7 @@
     },
     newCard: function() {
       var that = this
-      this.cards.add().then(function(doc) {
+      this.cards.add({title:""}).then(function(doc) {
         that.addingStuff = ""
         that.addingName = ""
         that.addingImage = ""
