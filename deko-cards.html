@@ -379,22 +379,23 @@
             title: that.addingName,
             selected: true,
           })
+
           if (that.addingBigImage) {
             cardRef.collection("big image").add({
               value: that.addingBigImage,
               time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
               user:  firebase.auth().currentUser.uid,
             }).then(function() {
-              that.set("addingBigImage", "")
-            })
-          }
-          if (that.addingImage) {
-            cardRef.collection("image").add({
-              value: that.addingImage,
-              time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-              user:  firebase.auth().currentUser.uid,
-            }).then(function() {
-              that.set("addingImage", "")
+              if (that.addingImage) {
+                cardRef.collection("image").add({
+                  value: that.addingImage,
+                  time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+                  user:  firebase.auth().currentUser.uid,
+                }).then(function() {
+                  that.set("addingBigImage", "")
+                  that.set("addingImage", "")
+                })
+              }
             })
           }
         })
