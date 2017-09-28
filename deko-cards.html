@@ -264,23 +264,34 @@
       return dek.collection("cards")
     },
     changingPart: function(part, partFrom) {
+      var that = this
+      var ref = this.selectedItem.ref
+      
       if (part == 0) {
-        this.cardHeading = "let's get started" 
+        this.cardHeading = "Let's get started" 
       }
       if (part == 0 && partFrom == 1){
-        if (JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}])) {
-          
-          this.cardHeading = "Updates"
+        if (!ref && JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}])) {
+          this.cardHeading = "Tell me more"
+        }
+        if (ref) {
+          ref.collection("quill").orderBy("time").limit(1).get().then(function(data) {
+            if (data && data.size) {
+              that.set("addingStuff", data.docs[0].data().value)
+              that.set("cardHeading", "Change Image") 
+            } else {
+              that.set("addingStuff", [{"insert":"\n"}])
+              that.set("cardHeading", "Let's add some text") 
+            }
+          })
         }
       }
       if (part == 1) {
         this.cardHeading = "Add Image" 
       }
       if (part == 1 && partFrom == 2){
-        var that = this
-        var ref = this.selectedItem.ref
         if (ref) {
-          that.unsubImage = ref.collection("big image").orderBy("time").limit(1).onSnapshot(function(image) {
+          ref.collection("big image").orderBy("time").limit(1).get().then(function(image) {
             if (image && image.size) {
               that.set("addingBigImage", image.docs[0].data().value)
               that.set("cardHeading", "Change Image") 
