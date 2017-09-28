@@ -197,8 +197,17 @@
       }
     },
     deleteCard: function() {
-      this.selectedItem.ref.delete()
-      this.selectedItem = ""
+      var that = this
+      
+      this.selectedItem.ref.delete().then(function() {
+        that.selectedItem = ""
+        that.addingStuff = ""
+        that.addingName = ""
+        that.addingImage = ""
+        that.addingBigImage = ""
+      }).catch(function(error) {
+        console.error("Error removing card: ", error);
+      })
     },
     testStuff: function(stuff){
       var name
