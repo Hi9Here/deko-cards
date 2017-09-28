@@ -147,9 +147,7 @@
       <quill-js theme='bubble' value="{{addingStuff}}"></quill-js>
       <div style="display: flex;justify-content: center;">
         <input-image height="100px" width="300px" max-height="500" max-width="500" value="{{addingBigImage}}" ></input-image>
-        <template is="dom-if" if="[[addingBigImage]]">
-          <image-base64 url="[[addingBigImage]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
-        </template>
+        <image-base64 url="[[addingBigImage]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
       </div>
       <paper-input label="name" value="{{addingName}}"></paper-input>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
