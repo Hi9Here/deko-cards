@@ -131,9 +131,11 @@
             <div class="title">[[item.title]]</div>
           </paper-toolbar>
         </template>
-        <div id="narrow">
-          <deko-card ref="{{selectedItem.ref}}" on-tap="selectOpen" card="{{selectedItem}}"></deko-card>
-        </div>
+        <template is="dom-if" if="[[selectedItem]]">
+          <div id="narrow">
+            <deko-card ref="{{selectedItem.ref}}" on-tap="selectOpen" card="{{selectedItem}}"></deko-card>
+          </div>
+        </template>
         <div class="nex mobile">
           <template is="dom-if" if="[[nextPageStartAt]]">
             <paper-button on-tap="next"><h6>></h6> </paper-button>
@@ -196,6 +198,7 @@
     },
     deleteCard: function() {
       this.selectedItem.ref.delete()
+      this.selectedItem = ""
     },
     testStuff: function(stuff){
       var name
