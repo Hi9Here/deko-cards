@@ -361,12 +361,12 @@
         this.cardHeading = "Name it" 
       }
       if (part == 2 && partFrom == 3){
-        this.selectedItem.ref.get().then(function(){
-          that.cardHeading = "Name"
-        }
-        if (this.selectedItem.title) {
-          this.cardHeading = "Name"
-        }
+        this.selectedItem.ref.get().then(function(doc){
+          var name = doc.data().title
+          that.set("addingName", name)
+          that.set("selectedItem.title", name)
+          that.set("cardHeading", "Name")
+        })
       }
       if (part == 3) {
         this.cardHeading = "" 
