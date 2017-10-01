@@ -336,12 +336,14 @@
       }
       if (part == 1 && partFrom == 0){
         if (ref) {
+          this.loading = true
           ref.collection("quill").add({
             value: that.addingStuff,
             time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
             user:  firebase.auth().currentUser.uid,
           }).then(function(data) {
             that.set("savedQuill",true)
+            that.set("loading", false)
           })
         }
       }
@@ -374,7 +376,7 @@
         })
       }
       if (part == 3) {
-        that.set("loading", false)
+        this.loading = false
         this.cardHeading = "" 
       }
       if (part == 3 && partFrom == 2){
