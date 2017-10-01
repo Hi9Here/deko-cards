@@ -419,8 +419,9 @@
       if (this.$$("#list1")) this.$$("#list1").render()
     },
     getSelectedItem: function(items) {
+      this.loading = true
       if (items && items != null && items.filter(this.selected).length) {
-        this.selectedItem = items.filter(this.selected)[0] 
+        this.selectedItem = items.filter(this.selected)[0]
       } else {
         if (items && items != null && this.items[0]) {
           this.items = this.items.map(function(x,i){
@@ -568,8 +569,10 @@
     select: function(e){
       this.selectedItem = e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
       var cardTitle = this.selectedItem.title || this.selectedItem.name
+      var id  = this.selectedItem.id
+      
       this.items = this.items.map(function(x,i){
-        if (x.title == cardTitle || x.name == cardTitle) {
+        if (x.title == cardTitle || x.name == cardTitle || x.id === id) {
           x.selected = true
         } else {
           x.selected = false
