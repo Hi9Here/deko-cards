@@ -349,10 +349,10 @@
         if (ref) {
           this.loading = true
           ref.collection("big image").orderBy("time", "desc").limit(1).get().then(function(image) {
+            that.set("loading", false)
             if (image && image.size) {
               that.set("addingBigImage", image.docs[0].data().value)
-              that.set("cardHeading", "Change Image") 
-              that.set("loading", false)
+              that.set("cardHeading", "Change Image")
             } else {
               that.set("addingBigImage", "")
               that.set("cardHeading", "Add Image") 
@@ -374,6 +374,7 @@
         })
       }
       if (part == 3) {
+        that.set("loading", false)
         this.cardHeading = "" 
       }
       if (part == 3 && partFrom == 2){
