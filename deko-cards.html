@@ -143,7 +143,7 @@
         </div>
       </div>
     </template>
-    <open-card selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="newCard">
+    <open-card loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="newCard">
       <quill-js theme='bubble' value="{{addingStuff}}"></quill-js>
       <div style="display: flex;justify-content: center;">
         <input-image height="100px" width="300px" max-height="500" max-width="500" value="{{addingBigImage}}" ></input-image>
@@ -208,7 +208,8 @@
         
         that.set("selectedItem", {})
         that.set("selectedItem.ref", doc)
-
+        
+        that.set("selectedItem.id", doc.id)
       }).catch(function(error) {
         console.error("Error adding card: ", error);
       })
@@ -346,10 +347,12 @@
       }
       if (part == 1 && partFrom == 2){
         if (ref) {
+          this.loading = true
           ref.collection("big image").orderBy("time", "desc").limit(1).get().then(function(image) {
             if (image && image.size) {
               that.set("addingBigImage", image.docs[0].data().value)
               that.set("cardHeading", "Change Image") 
+              that.set("loading", false)
             } else {
               that.set("addingBigImage", "")
               that.set("cardHeading", "Add Image") 
@@ -361,11 +364,13 @@
         this.cardHeading = "Name it" 
       }
       if (part == 2 && partFrom == 3){
+        this.loading = true
         this.selectedItem.ref.get().then(function(doc){
           var name = doc.data().title
           that.set("addingName", name)
           that.set("selectedItem.title", name)
           that.set("cardHeading", "Name")
+          that.set("loading", false)
         })
       }
       if (part == 3) {
