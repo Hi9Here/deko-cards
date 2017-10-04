@@ -213,17 +213,11 @@
       var that = this
       
       that.set("loading", true)      
-      that.cards.add({title:""}).then(function(doc) {
-        
-        that.set("addingStuff", [{"insert":"\n"}])
-        that.set("addingName", "")
-        that.set("addingImage", "")
-        that.set("addingBigImage", "")
+      that.cards.add({title:that.addingName}).then(function(doc) {
         
         that.set("selectedItem", {})
         that.set("selectedItem.ref", doc)
         
-        // that.set("selectedItem.id", doc.id)
         if (toAddQuill) {
           doc.collection("quill").add(toAddQuill).then().catch()
         }
@@ -304,7 +298,6 @@
     },
     resizeImage: function(stuff, opForImage) {
       var that = this
-      
       loadImage(
         stuff[opForImage].insert.image,
         function (canvas) {
