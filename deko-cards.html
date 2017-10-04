@@ -143,7 +143,7 @@
         </div>
       </div>
     </template>
-    <open-card loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard">
+    <open-card loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
       <quill-js theme='bubble' value="{{addingStuff}}"></quill-js>
       <div style="display: flex;justify-content: center;">
         <input-image height="100px" width="300px" max-height="500" max-width="500" value="{{addingBigImage}}" ></input-image>
@@ -197,10 +197,18 @@
         observer: "changingName"
       }
     },
+    new: function() {
+      this.set("addingStuff", [{"insert":"\n"}])
+      this.set("addingName", "")
+      this.set("addingImage", "")
+      this.set("addingBigImage", "")
+      this.set("selectedItem", "")
+      this.set("loading", true)
+    },
     newCard: function(toAddQuill) {
       var that = this
-      this.loading = true
       
+      this.set("loading", true)      
       this.cards.add({title:""}).then(function(doc) {
         
         that.set("addingStuff", [{"insert":"\n"}])
