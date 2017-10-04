@@ -354,7 +354,7 @@
       if (part == 1) {
         this.cardHeading = "Add Image" 
       }
-      if (part == 1 && partFrom == 0){
+      if (part == 1 && partFrom == 0 && JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}])){
         var quill = {
           value: that.addingStuff,
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
