@@ -198,6 +198,8 @@
       }
     },
     new: function() {
+      
+      this.set("loading", true)
       this.set("selectedItem", "")
       
       this.set("addingStuff", [{"insert":"\n"}])
@@ -210,8 +212,8 @@
     newCard: function(toAddQuill) {
       var that = this
       
-      this.set("loading", true)      
-      this.cards.add({title:""}).then(function(doc) {
+      that.set("loading", true)      
+      that.cards.add({title:""}).then(function(doc) {
         
         that.set("addingStuff", [{"insert":"\n"}])
         that.set("addingName", "")
@@ -239,8 +241,8 @@
     },
     deleteCard: function() {
       var that = this
-      if (this.selectedItem && this.selectedItem.ref) {
-        this.selectedItem.ref.delete().then(function() {
+      if (that.selectedItem && that.selectedItem.ref) {
+        that.selectedItem.ref.delete().then(function() {
 
           that.set("addingStuff", [{"insert":"\n"}])
           that.set("addingName", "")
@@ -324,16 +326,13 @@
     changingPart: function(part, partFrom) {
       var that = this
       var ref 
-      if (this.selectedItem) {
-        ref = this.selectedItem.ref
+      if (that.selectedItem) {
+        ref = that.selectedItem.ref
       }
       if (part == 0) {
         this.cardHeading = "Let's get started" 
       }
       if (part == 0 && partFrom == 1){
-        if (!ref && JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}])) {
-          this.cardHeading = "Tell me more"
-        }
         if (ref) {
           that.set("loading", true)
           ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
@@ -361,14 +360,14 @@
           user:  firebase.auth().currentUser.uid,
         }
         if (ref) {
-          this.loading = true
+          that.set("loading", true)
           ref.collection("quill").add(quill).then(function(data) {
             that.set("savedQuill",true)
             that.set("loading", false)
           })
         } else {
-          this.newCard(quill)
-          this.$$("open-card").close()
+          that.newCard(quill)
+          that.$$("open-card").close()
         }
       }
       if (part == 1 && partFrom == 2){
@@ -393,7 +392,7 @@
         this.cardHeading = "Name it" 
       }
       if (part == 2 && partFrom == 3){
-        this.loading = true
+        this.set("loading", true)
         this.selectedItem.ref.get().then(function(doc){
           var name = doc.data().title
           that.set("addingName", name)
