@@ -143,7 +143,7 @@
         </div>
       </div>
     </template>
-    <open-card loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="newCard">
+    <open-card loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard">
       <quill-js theme='bubble' value="{{addingStuff}}"></quill-js>
       <div style="display: flex;justify-content: center;">
         <input-image height="100px" width="300px" max-height="500" max-width="500" value="{{addingBigImage}}" ></input-image>
@@ -197,8 +197,10 @@
         observer: "changingName"
       }
     },
-    newCard: function() {
+    newCard: function(toAddQuill) {
       var that = this
+      this.loading = true
+      
       this.cards.add({title:""}).then(function(doc) {
         
         that.set("addingStuff", [{"insert":"\n"}])
@@ -210,6 +212,9 @@
         that.set("selectedItem.ref", doc)
         
         that.set("selectedItem.id", doc.id)
+        if (toAddQuill) {
+          doc.collection("quill").add(toAddQuill)
+        }
       }).catch(function(error) {
         console.error("Error adding card: ", error);
       })
@@ -305,7 +310,7 @@
     },
     changingPart: function(part, partFrom) {
       var that = this
-      var ref
+      var ref 
       if (this.selectedItem) {
         ref = this.selectedItem.ref
       }
@@ -318,6 +323,7 @@
         }
         if (ref) {
           ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
+            that.set("loading", false)
             if (data && data.size) {
               var value = data.docs[0].data().value
               if (JSON.stringify(that.addingStuff) !== JSON.stringify(value)) {
@@ -335,16 +341,19 @@
         this.cardHeading = "Add Image" 
       }
       if (part == 1 && partFrom == 0){
+        var toAdd = {
+          value: that.addingStuff,
+          time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+          user:  firebase.auth().currentUser.uid,
+        }
         if (ref) {
           this.loading = true
-          ref.collection("quill").add({
-            value: that.addingStuff,
-            time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-            user:  firebase.auth().currentUser.uid,
-          }).then(function(data) {
+          ref.collection("quill").add(toAdd).then(function(data) {
             that.set("savedQuill",true)
             that.set("loading", false)
           })
+        } else {
+          this.newCard(toAdd)
         }
       }
       if (part == 1 && partFrom == 2){
