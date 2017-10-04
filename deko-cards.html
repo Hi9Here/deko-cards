@@ -213,7 +213,7 @@
         
         that.set("selectedItem.id", doc.id)
         if (toAddQuill) {
-          doc.collection("quill").add(toAddQuill)
+          doc.collection("quill").add(toAddQuill).then().catch()
         }
       }).catch(function(error) {
         console.error("Error adding card: ", error);
@@ -341,19 +341,20 @@
         this.cardHeading = "Add Image" 
       }
       if (part == 1 && partFrom == 0){
-        var toAdd = {
+        var quill = {
           value: that.addingStuff,
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user:  firebase.auth().currentUser.uid,
         }
         if (ref) {
           this.loading = true
-          ref.collection("quill").add(toAdd).then(function(data) {
+          ref.collection("quill").add(quill).then(function(data) {
             that.set("savedQuill",true)
             that.set("loading", false)
           })
         } else {
-          this.newCard(toAdd)
+          this.newCard(quill)
+          this.$$
         }
       }
       if (part == 1 && partFrom == 2){
