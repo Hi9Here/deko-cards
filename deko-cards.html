@@ -198,11 +198,13 @@
       }
     },
     new: function() {
+      this.set("selectedItem", "")
+      
       this.set("addingStuff", [{"insert":"\n"}])
       this.set("addingName", "")
       this.set("addingImage", "")
       this.set("addingBigImage", "")
-      this.set("selectedItem", "")
+      
       this.set("loading", true)
     },
     newCard: function(toAddQuill) {
