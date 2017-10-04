@@ -221,7 +221,7 @@
         that.set("selectedItem", {})
         that.set("selectedItem.ref", doc)
         
-        that.set("selectedItem.id", doc.id)
+        // that.set("selectedItem.id", doc.id)
         if (toAddQuill) {
           doc.collection("quill").add(toAddQuill).then().catch()
         }
@@ -373,7 +373,7 @@
       }
       if (part == 1 && partFrom == 2){
         if (ref) {
-          this.loading = true
+          that.set("loading", true)
           ref.collection("big image").orderBy("time", "desc").limit(1).get().then(function(image) {
             that.set("loading", false)
             if (image && image.size) {
@@ -383,6 +383,9 @@
               that.set("addingBigImage", "")
               that.set("cardHeading", "Add Image") 
             }
+          }).catch(function(e) {
+            console.log(e)
+            that.set("loading", false)
           })
         }
       }
@@ -396,6 +399,9 @@
           that.set("addingName", name)
           that.set("selectedItem.title", name)
           that.set("cardHeading", "Name")
+          that.set("loading", false)
+        }).catch(function(e) {
+          console.log(e)
           that.set("loading", false)
         })
       }
