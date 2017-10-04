@@ -248,6 +248,8 @@
           that.set("addingBigImage", "")
         
           that.set("selectedItem", {})
+          
+          that.set("loading", false)
         }).catch(function(error) {
           console.error("Error removing card: ", error);
         })
@@ -333,6 +335,7 @@
           this.cardHeading = "Tell me more"
         }
         if (ref) {
+          that.set("loading", true)
           ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
             that.set("loading", false)
             if (data && data.size) {
