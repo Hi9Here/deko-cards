@@ -386,6 +386,9 @@
             console.log(e)
             that.set("loading", false)
           })
+        } else {
+          that.newCard()
+          that.$$("open-card").close()
         }
       }
       if (part == 2) {
@@ -393,32 +396,33 @@
       }
       if (part == 2 && partFrom == 3){
         this.set("loading", true)
-        this.selectedItem.ref.get().then(function(doc){
-          var name = doc.data().title
-          that.set("addingName", name)
-          that.set("selectedItem.title", name)
-          that.set("cardHeading", "Name")
-          that.set("loading", false)
-        }).catch(function(e) {
-          console.log(e)
-          that.set("loading", false)
-        })
+        if (ref) {
+          ref.get().then(function(doc){
+            var name = doc.data().title
+            that.set("addingName", name)
+            that.set("selectedItem.title", name)
+            that.set("cardHeading", "Name")
+            that.set("loading", false)
+          }).catch(function(e) {
+            console.log(e)
+            that.set("loading", false)
+          })
+        } 
       }
       if (part == 3) {
         this.loading = false
         this.cardHeading = "" 
       }
       if (part == 3 && partFrom == 2){
-        this.addToCard()
+        if (ref){
+          that.newCard()
+        }
+        that.addToCard(ref)
       }
     },
-    addToCard: function() {
+    addToCard: function(cardRef) {
       if (this.addingName || this.addingImage) {
         var that = this
-        var cardRef
-        if (this.selectedItem) {
-          cardRef = this.selectedItem.ref
-        }
         cardRef.set({
           title: that.addingName,
         }).then(function() {
