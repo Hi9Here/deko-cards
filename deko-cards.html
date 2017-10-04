@@ -205,7 +205,7 @@
       this.set("addingImage", "")
       this.set("addingBigImage", "")
       
-      this.set("loading", true)
+      this.set("loading", false)
     },
     newCard: function(toAddQuill) {
       var that = this
@@ -225,6 +225,7 @@
         if (toAddQuill) {
           doc.collection("quill").add(toAddQuill).then().catch()
         }
+        that.set("loading", false)
       }).catch(function(error) {
         console.error("Error adding card: ", error);
       })
