@@ -302,7 +302,7 @@
               }
               for (var trick in tricks) {
                 var regex = new RegExp(tricks[trick].regex)
-                var matchs = toAdd.match(regex, 'i'))
+                var matchs = toAdd.match(regex, 'i')
                 while ((matchs = regex.exec(str)) !== null) {
                   // This is necessary to avoid infinite loops with zero-width matches
                   if (m.index === regex.lastIndex) {
