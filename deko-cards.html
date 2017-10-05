@@ -238,7 +238,7 @@
           that.set("addingName", "")
           that.set("addingImage", "")
           that.set("addingBigImage", "")
-        
+          
           that.set("selectedItem", {})
           
           that.set("loading", false)
@@ -251,6 +251,9 @@
       var name
       var head
       var headAt
+      var add
+      var addAt
+      
       var titleImage
       for (var op in stuff) {
         if (!name && stuff[op].insert && typeof stuff[op].insert  === 'string') {
@@ -290,6 +293,9 @@
           }
           return allOps
         }, head))
+      }
+      if (add) {
+        
       }
     },
     resizeImage: function(stuff, opForImage) {
@@ -338,9 +344,6 @@
             }
           })
         }
-      }
-      if (part == 1) {
-        this.cardHeading = "Add Image" 
       }
       if (part == 1 && partFrom == 0 && JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}])){
         var quill = {
