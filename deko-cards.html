@@ -301,7 +301,7 @@
                 },
               }
               for (var trick in tricks) {
-                var matchs = toAdd.match(new RegExp(tricks[trick].words, 'i'))
+                var matchs = toAdd.match(new RegExp(tricks[trick].regex, 'i'))
                 if (matchs[0]) {
                   var addBefore = lines.splice(0, +line  ).join("\n")
                   addAt = op
