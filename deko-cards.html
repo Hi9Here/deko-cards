@@ -286,19 +286,39 @@
             var lines = stuff[op].insert.split("\n")
             for (var line in lines) {
               var toAdd = lines[line]
-              if (toAdd.startsWith("image")) {
-                var addBefore = lines.splice(0, +line  ).join("\n")
-                var addAfter = lines.splice(1 + +(line)).join("\n")
-                
-                addAt = op
-                
-                add = [
-                  {insert: addBefore},
-                  {insert: {
-                    image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400)
-                  }},
-                  {insert: addAfter},
-                ]
+              var tricks = {
+                kitten:{
+                  regex:"^image of (cat|kitten)",
+                  action:{
+                    insert: {
+                      image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400)
+                    }
+                  },
+                },
+                accreditation:{
+                  regex:"^Signed(?:[ -])?off(?: by )?([\w ]*)(?:\s|$)?",
+                  addSection: "signedOff",
+                },
+              }
+              for (var trick in tricks) {
+                var matchs = toAdd.match(new RegExp(tricks[trick].words, 'i'))
+                if (matchs[0]) {
+                  var addBefore = lines.splice(0, +line  ).join("\n")
+                  addAt = op
+                  var addAfter = lines.splice(1 + +(line)).join("\n")
+                  if (!tricks[trick].action) {
+                    add = [
+                      {insert: addBefore},
+                      {insert: addAfter},
+                    ]
+                  } else {
+                    add = [
+                      {insert: addBefore},
+                      tricks[trick].action,
+                      {insert: addAfter},
+                    ]
+                  }
+                }
               }
             }
           }
