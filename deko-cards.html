@@ -276,7 +276,7 @@
                   ]
                   headAt = op
                 }
-              } 
+              }
               this.addingName = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
             } else if (stuff[op].insert.split("\n").join("") || !this.addingName) {
               this.addingName = stuff[op].insert.split("\n").join("")
@@ -301,7 +301,19 @@
                 },
               }
               for (var trick in tricks) {
-                var matchs = toAdd.match(new RegExp(tricks[trick].regex, 'i'))
+                var regex = new RegExp(tricks[trick].regex)
+                var matchs = toAdd.match(regex, 'i'))
+                while ((matchs = regex.exec(str)) !== null) {
+                  // This is necessary to avoid infinite loops with zero-width matches
+                  if (m.index === regex.lastIndex) {
+                    regex.lastIndex++;
+                  }
+    
+                  // The result can be accessed through the `m`-variable.
+                  m.forEach((match, groupIndex) => {
+                    console.log(`Found match, group ${groupIndex}: ${match}`);
+                  });
+                }
                 if (matchs) {
                   console.log(matchs)
                   var addBefore = lines.splice(0, +line  ).join("\n")
