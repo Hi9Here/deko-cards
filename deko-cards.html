@@ -269,6 +269,25 @@
                 ]
                 headAt = op
               }
+            } 
+            this.addingName = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
+          } else if (stuff[op].insert || !this.addingName) {
+            this.addingName = stuff[op].insert
+          }
+        }
+        if (stuff[op].insert && typeof stuff[op].insert  === 'string') {
+          name = stuff[op].insert.split("\n")[0]
+          if (name) {
+            if (!stuff[op].attributes) {
+              var notName = stuff[op].insert.split("\n").splice(1).join("\n")
+              if (notName.replace(/[^0-9a-z-A-Z ]/g, "").trim()) {
+                head = [
+                  {insert: name},
+                  {insert: "\n", attributes: {header:1}},
+                  {insert: notName},
+                ]
+                headAt = op
+              }
             }
             this.addingName = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
           }
@@ -285,17 +304,27 @@
         }
       }
       if (head) {
-        this.set("addingStuff", stuff.reduce(function(allOps, value, currentIndex) {
+        stuff = stuff.reduce(function(allOps, value, currentIndex) {
           if (currentIndex < headAt) {
             allOps.unshift(value)
           } else if (currentIndex > headAt) {
             allOps.push(value)
           }
           return allOps
-        }, head))
-      }
+        }, head)
+      } 
       if (add) {
-        
+         stuff = stuff.reduce(function(allOps, value, currentIndex) {
+          if (currentIndex < addAt) {
+            allOps.unshift(value)
+          } else if (currentIndex > headAt) {
+            allOps.push(value)
+          }
+          return allOps
+        }, add)
+      }
+      if (add || head) {
+        this.set("addingStuff", stuff)
       }
     },
     resizeImage: function(stuff, opForImage) {
