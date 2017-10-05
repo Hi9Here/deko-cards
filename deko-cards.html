@@ -239,7 +239,7 @@
           that.set("addingImage", "")
           that.set("addingBigImage", "")
           
-          that.set("selectedItem", {})
+          that.set("selectedItem", null)
           
           that.set("loading", false)
         }).catch(function(error) {
@@ -271,8 +271,8 @@
               }
             } 
             this.addingName = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
-          } else if (stuff[op].insert || !this.addingName) {
-            this.addingName = stuff[op].insert
+          } else if (stuff[op].insert.split("\n").join("") || !this.addingName) {
+            this.addingName = stuff[op].insert.split("\n").join("")
           }
         }
         if (stuff[op].insert && typeof stuff[op].insert  === 'string') {
