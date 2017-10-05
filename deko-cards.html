@@ -302,7 +302,8 @@
               }
               for (var trick in tricks) {
                 var matchs = toAdd.match(new RegExp(tricks[trick].regex, 'i'))
-                if (matchs[0]) {
+                if (matchs) {
+                  console.log(matchs)
                   var addBefore = lines.splice(0, +line  ).join("\n")
                   addAt = op
                   var addAfter = lines.splice(1 + +(line)).join("\n")
