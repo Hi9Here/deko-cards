@@ -143,7 +143,7 @@
         </div>
       </div>
     </template>
-    <open-card loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
+    <open-card on-tap="[[noDrag]]" loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
       <quill-js theme='bubble' value="{{addingStuff}}" editor="{{quill}}"></quill-js>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
     </open-card>
@@ -193,6 +193,9 @@
         observer: "changingName"
       },
     },
+    noDrag: function(e) {
+      e.stopPropagation()
+    }, 
     new: function() {
       
       this.set("loading", true)
