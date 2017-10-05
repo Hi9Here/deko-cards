@@ -144,7 +144,7 @@
       </div>
     </template>
     <open-card loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
-      <quill-js theme='bubble' value="{{addingStuff}}"></quill-js>
+      <quill-js theme='bubble' value="{{addingStuff}}" editor="{{quill}}"></quill-js>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
     </open-card>
     <image-base64 url="[[addingBigImage]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
@@ -256,43 +256,45 @@
       
       var titleImage
       for (var op in stuff) {
-        if (!name && stuff[op].insert && typeof stuff[op].insert  === 'string') {
-          name = stuff[op].insert.split("\n")[0]
-          if (name) {
-            if (!stuff[op].attributes) {
-              var notName = stuff[op].insert.split("\n").splice(1).join("\n")
-              if (notName.replace(/[^0-9a-z-A-Z ]/g, "").trim()) {
-                head = [
-                  {insert: name},
-                  {insert: "\n", attributes: {header:1}},
-                  {insert: notName},
-                ]
-                headAt = op
-              }
-            } 
-            this.addingName = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
-          } else if (stuff[op].insert.split("\n").join("") || !this.addingName) {
-            this.addingName = stuff[op].insert.split("\n").join("")
-          }
-        }
         if (stuff[op].insert && typeof stuff[op].insert  === 'string') {
-          name = stuff[op].insert.split("\n")[0]
-          if (name) {
-            if (!stuff[op].attributes) {
-              var notName = stuff[op].insert.split("\n").splice(1).join("\n")
-              if (notName.replace(/[^0-9a-z-A-Z ]/g, "").trim()) {
-                head = [
-                  {insert: name},
-                  {insert: "\n", attributes: {header:1}},
-                  {insert: notName},
-                ]
-                headAt = op
-              }
+          if (!name) { 
+            name = stuff[op].insert.split("\n")[0]
+            if (name) {
+              if (!stuff[op].attributes) {
+                var notName = stuff[op].insert.split("\n").splice(1).join("\n")
+                if (notName.replace(/[^0-9a-z-A-Z ]/g, "").trim()) {
+                  head = [
+                    {insert: name},
+                    {insert: "\n", attributes: {header:1}},
+                    {insert: notName},
+                  ]
+                  headAt = op
+                }
+              } 
+              this.addingName = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
+            } else if (stuff[op].insert.split("\n").join("") || !this.addingName) {
+              this.addingName = stuff[op].insert.split("\n").join("")
             }
-            this.addingName = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
+          }
+          if (!add) {
+            var toAdd = stuff[op].insert.split("\n")[0]
+            if (toAdd == "image") {
+              var notAdd = stuff[op].insert.split("\n").splice(1).join("\n")
+              addAt = op
+              add = [
+                {insert: {
+                  image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400)
+                }},
+                {insert: notAdd},
+              ]
+            }
           }
         }
-        
+        function getRandom(min, max) {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min)) + min;
+        }
         if (stuff[op].insert && stuff[op].insert.image) {
           if (stuff[op].insert.image.length > 1000*1000) {
             this.resizeImage(stuff, op)
