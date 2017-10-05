@@ -146,6 +146,9 @@
     <open-card on-tap="[[noDrag]]" loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
       <quill-js theme='bubble' value="{{addingStuff}}" editor="{{quill}}"></quill-js>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
+      <template is="dom-if" if="[[signedOff]]">
+        <h3>signedOff</h3>
+      </template>
     </open-card>
     <image-base64 url="[[addingBigImage]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
   </template>
@@ -280,16 +283,23 @@
             }
           }
           if (!add) {
-            var toAdd = stuff[op].insert.split("\n")[0]
-            if (toAdd == "image") {
-              var notAdd = stuff[op].insert.split("\n").splice(1).join("\n")
-              addAt = op
-              add = [
-                {insert: {
-                  image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400)
-                }},
-                {insert: notAdd},
-              ]
+            var lines = stuff[op].insert.split("\n")
+            for (var line in lines) {
+              var toAdd = lines[line]
+              if (toAdd.startsWith("image")) {
+                var addBefore = lines.splice(0, +line  ).join("\n")
+                var addAfter = lines.splice(1 + +(line)).join("\n")
+                
+                addAt = op
+                
+                add = [
+                  {insert: addBefore},
+                  {insert: {
+                    image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400)
+                  }},
+                  {insert: addAfter},
+                ]
+              }
             }
           }
         }
