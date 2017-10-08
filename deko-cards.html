@@ -259,6 +259,11 @@
       var headAt
       var add
       var addAt
+      var getRandom = function (min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+      }
       var tricks = {
         kitten:{
           regex: "^image of (cat|kitten)",
@@ -335,11 +340,6 @@
               }
             }
           }
-        }
-        function getRandom(min, max) {
-          min = Math.ceil(min);
-          max = Math.floor(max);
-          return Math.floor(Math.random() * (max - min)) + min;
         }
         if (stuff[op].insert && stuff[op].insert.image) {
           if (stuff[op].insert.image.length > 1000*1000) {
