@@ -259,7 +259,24 @@
       var headAt
       var add
       var addAt
-      
+      var tricks = {
+        kitten:{
+          regex: "^image of (cat|kitten)",
+          action:{
+            insert: {
+              image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400)
+            }
+          },
+        },
+        accreditation:{
+          regex:"^Signed(?:[ -])?off(?: by )?([\w ]*)(?:\s|$)?",
+          action:{
+            insert: " signedOff"
+          },
+          addSection: "signedOff",
+          suffix: " by ",
+        },
+      }
       var titleImage
       for (var op in stuff) {
         if (stuff[op].insert && typeof stuff[op].insert  === 'string') {
@@ -286,24 +303,6 @@
             var lines = stuff[op].insert.split("\n")
             for (var line in lines) {
               var toAdd = lines[line]
-              var tricks = {
-                kitten:{
-                  regex:"^image of (cat|kitten)",
-                  action:{
-                    insert: {
-                      image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400)
-                    }
-                  },
-                },
-                accreditation:{
-                  regex:"^Signed(?:[ -])?off(?: by )?([\w ]*)(?:\s|$)?",
-                  action:{
-                    insert: " signedOff"
-                  },
-                  addSection: "signedOff",
-                  suffix: " by ",
-                },
-              }
               for (var trick in tricks) {
                 var regex = new RegExp(tricks[trick].regex)
                 
