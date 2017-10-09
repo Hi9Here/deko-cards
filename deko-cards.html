@@ -267,14 +267,14 @@
       var tricks = {
         kitten:{
           regex: "^image of (cat|kitten|Cat|Kitten)",
-          action:{
-            insert: {
-              "/n",
+          action:[
+            {
+              insert: "/n",
             },
-            insert: {
-              image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400),
+            {
+              insert: {image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400),}
             },
-          },
+          ],
         },
         accreditation:{
           regex:"^Signed(?:[ -])?off(?: by )?([\w ]*)(?:\s|$)?",
