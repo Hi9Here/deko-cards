@@ -273,22 +273,25 @@
             {
               insert: {image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400),}
             },
+            {
+              insert: "\n",
+            },
           ],
         },
         accreditation:{
           regex:"^Signed(?:[ -])?off(?: by )([\w]*)$",
           addSection: "signedOff",
-          subst: `>>Signed Off By $1<<`,
+          subst: `\n>>Signed Off By $1<<\n`,
         },
         deck:{
           regex:"^add to de[ck]+$",
           addSection: "deck",
-          subst: `>>In a deck<<`,
+          subst: `\n>>In a deck<<\n`,
         },
         newDeck:{
           regex:"^add to new de[ck]+$",
           addSection: "newDeck",
-          subst: `>>In new deck<<`,
+          subst: `\n>>In new deck<<\n`,
         },
       }
       var titleImage
