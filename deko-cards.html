@@ -280,7 +280,7 @@
           ],
         },
         list:{
-          intent: "^(?:add|in a) list([\w ]*)$",
+          intent: "^(?:add|in a) list([\w ]*)",
           action: [
             {
               insert: "\n",
@@ -384,9 +384,10 @@
                       var action
                       if (tricks[trick].subst) {
                         action = JSON.parse(
+                          
                           JSON.stringify(
                             tricks[trick].action
-                          ).replace(regex, tricks[trick].subst)
+                          ).replace(regex, tricks[trick].action)
                         )
                       } else {
                         action = tricks[trick].action
