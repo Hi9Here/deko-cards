@@ -266,7 +266,7 @@
       var tricks = {
         image:{
           intent: "^(add|with) image",
-          ask: "for",
+          ask: "for url",
           action:[
             {
               insert: "\n",
@@ -280,7 +280,7 @@
           ],
         },
         list:{
-          intent: "^(add|in a) list",
+          intent: "^(?:add|in a) list$",
           action: [
             { 
               attributes: {
@@ -291,18 +291,18 @@
           ],
         },
         heading: {
-          intent: "^(add|in a) (heading|title)",
+          intent: "^(?:add|in a) (?:heading|title) ([\w]*)$",
           action: [
             { 
               attributes: {
                 header: 2
               },
-              insert: "\n",
+              insert: "{{1}}\n",
             },
           ],
         },
         signedOff:{
-          intent:"^(add|with)  Signed(?:[ -])?off(?: by )([\w]*)$",
+          intent:"^(?:add|with)  Signed(?:[ -])?off(?: by )([\w]*)$",
           search: `$1`,
         },
         dek:{
