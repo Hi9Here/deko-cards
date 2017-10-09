@@ -382,9 +382,7 @@
                   
                     if (tricks[trick].action) {
                       var action = JSON.parse(
-                        JSON.stringify(
-                          tricks[trick].action
-                        ).replace(regex, tricks[trick].action)
+                        toAdd.replace(regex, JSON.stringify(tricks[trick].action)).replace(/\n/gm,"\\n")
                       )
                       
                       add = [{insert: addBefore}].concat(action, [{insert: addAfter}])
