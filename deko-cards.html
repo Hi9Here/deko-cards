@@ -289,7 +289,7 @@
               attributes: {
                 list: "bullet"
               },
-              insert: "{{1}}\n",
+              insert: `$1\n`,
             },
           ],
         },
@@ -300,7 +300,7 @@
               attributes: {
                 header: 2
               },
-              insert: "{{1}}\n",
+              insert: "$1\n",
             },
           ],
         },
@@ -380,18 +380,25 @@
                     var addAfter = lines.splice(1 + +(line)).join("\n")
                   
                     if (tricks[trick].action) {
-                      add = [{insert: addBefore}].concat(tricks[trick].action, [{insert: addAfter}])
-                    } else if (tricks[trick].subst) {
-                      add = [{insert: addBefore}].concat(
-                        [{insert: lines[line].replace(regex, tricks[trick].subst)}],
-                        [{insert: addAfter}]
-                      )
+                      var action
+                      if (tricks[trick].subst) {
+                        action = JSON.parse(
+                          JSON.stringify(
+                            tricks[trick].action
+                          ).replace(regex, tricks[trick].subst)
+                        )
+                      } else {
+                        action = tricks[trick].action
+                      }
+                      add = [{insert: addBefore}].concat(action, [{insert: addAfter}])
+
                     } else {
                       add = [
                         {insert: addBefore},
                         {insert: addAfter },
                       ]
                     }
+                    
                   }
                 }
               }
