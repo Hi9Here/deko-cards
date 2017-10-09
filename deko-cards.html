@@ -280,7 +280,7 @@
           ],
         },
         list:{
-          intent: "^(?:add|in a) list([\w ]*)*",
+          intent: "^(?:add|in a) list (.+)",
           action: [
             {
               insert: "\n",
@@ -294,7 +294,7 @@
           ],
         },
         heading: {
-          intent: "^(?:add|in a) (?:heading|title) ([\w]*)*$",
+          intent: "^(?:add|in a) (?:heading|title) (.+)$",
           action: [
             { 
               attributes: {
