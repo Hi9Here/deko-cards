@@ -3,7 +3,6 @@
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../deko-opened-card/deko-opened-card.html">
 <link rel="import" href="../deko-card-container/deko-card-container.html">
-<link rel="import" href="../deko-pillar/deko-pillar.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../input-image/input-image.html">
 <link rel="import" href="../image-base64/image-base64.html">
@@ -277,7 +276,7 @@
           ],
         },
         accreditation:{
-          regex:"^Signed(?:[ -])?off(?: by )?([\w ]*)(?:\s|$)?",
+          regex:"^Signed(?:[ -])?off(?: by | By )?([\w]*)(?:\s|$)?",
           action:{
             insert: "\n >>signed Off<< \n"
           },
