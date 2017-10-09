@@ -320,35 +320,37 @@
             var lines = stuff[op].insert.split("\n")
             for (var line in lines) {
               var toAdd = lines[line]
-              for (var trick in tricks) {
-                var regex = new RegExp(tricks[trick].regex, "i")
+              if (toAdd) {
+                for (var trick in tricks) {
+                  var regex = new RegExp(tricks[trick].regex, "i")
                 
-                while ((matchs = regex.exec(toAdd)) !== null && !add) {
+                  while ((matchs = regex.exec(toAdd)) !== null && !add) {
                   
-                  if (matchs.index === regex.lastIndex) {
-                    regex.lastIndex++
-                  }
+                    if (matchs.index === regex.lastIndex) {
+                      regex.lastIndex++
+                    }
+                    
+                    matchs.forEach((match, groupIndex) => {
+                      console.log(`Found match, group ${groupIndex}: ${match}`)
+                    })
+                   
+                    var addBefore = lines.splice(0, +line  ).join("\n")
+                    addAt = op
+                    var addAfter = lines.splice(1 + +(line)).join("\n")
                   
-                  matchs.forEach((match, groupIndex) => {
-                    console.log(`Found match, group ${groupIndex}: ${match}`)
-                  })
-                  
-                  var addBefore = lines.splice(0, +line  ).join("\n")
-                  addAt = op
-                  var addAfter = lines.splice(1 + +(line)).join("\n")
-                  
-                  if (tricks[trick].action) {
-                    add = [{insert: addBefore}].concat(tricks[trick].action, [{insert: addAfter}])
-                  } else if (tricks[trick].subst) {
-                    add = [{insert: addBefore}].concat(
-                      [{insert: lines[line].replace(regex, tricks[trick].subst)}],
-                      [{insert: addAfter}]
-                    )
-                  } else {
-                    add = [
-                      {insert: addBefore},
-                      {insert: addAfter },
-                    ]
+                    if (tricks[trick].action) {
+                      add = [{insert: addBefore}].concat(tricks[trick].action, [{insert: addAfter}])
+                    } else if (tricks[trick].subst) {
+                      add = [{insert: addBefore}].concat(
+                        [{insert: lines[line].replace(regex, tricks[trick].subst)}],
+                        [{insert: addAfter}]
+                      )
+                    } else {
+                      add = [
+                        {insert: addBefore},
+                        {insert: addAfter },
+                      ]
+                    }
                   }
                 }
               }
