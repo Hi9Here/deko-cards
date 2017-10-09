@@ -387,7 +387,7 @@
                           
                           JSON.stringify(
                             tricks[trick].action
-                          ).replace(regex, tricks[trick].action)
+                          ).replace(/[-\/\\^*+?.()|[\]{}]/g, '\\$&').replace(regex, tricks[trick].action)
                         )
                       } else {
                         action = tricks[trick].action
