@@ -266,20 +266,23 @@
       }
       var tricks = {
         kitten:{
-          regex: "^image of (cat|kitten)",
+          regex: "^image of (cat|kitten|Cat|Kitten)",
           action:{
             insert: {
-              image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400)
-            }
+              "/n",
+            },
+            insert: {
+              image: 'https://placekitten.com/'+getRandom(100,400)+ '/' +getRandom(100,400),
+            },
           },
         },
         accreditation:{
           regex:"^Signed(?:[ -])?off(?: by )?([\w ]*)(?:\s|$)?",
           action:{
-            insert: " signedOff"
+            insert: "/n >>signed Off<<"
           },
           addSection: "signedOff",
-          suffix: " by ",
+          suffix: " by [[1]]",
         },
       }
       var titleImage
@@ -330,11 +333,7 @@
                       {insert: addAfter},
                     ]
                   } else {
-                    add = [
-                      {insert: addBefore},
-                      tricks[trick].action,
-                      {insert: addAfter},
-                    ]
+                    add = [{insert: addBefore}].concat(tricks[trick].action, [{insert: addAfter}])
                   }
                 }
               }
