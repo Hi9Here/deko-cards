@@ -280,13 +280,16 @@
           ],
         },
         list:{
-          intent: "^(?:add|in a) list$",
+          intent: "^(?:add|in a) list([\w ]*)$",
           action: [
+            {
+              insert: "\n",
+            },
             { 
               attributes: {
                 list: "bullet"
               },
-              insert: "\n",
+              insert: "{{1}}\n",
             },
           ],
         },
