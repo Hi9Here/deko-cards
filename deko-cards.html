@@ -312,7 +312,7 @@
             for (var line in lines) {
               var toAdd = lines[line]
               for (var trick in tricks) {
-                var regex = new RegExp(tricks[trick].regex)
+                var regex = new RegExp(tricks[trick].regex, "i")
                 
                 while ((matchs = regex.exec(toAdd)) !== null && !add) {
                   
