@@ -280,6 +280,11 @@
           addSection: "signedOff",
           subst: `>>Signed Off By $1<<`,
         },
+        decks:{
+          regex:"^add to de[ck]+$",
+          addSection: "deck",
+          subst: `>>in a deck<<`,
+        },
       }
       var titleImage
       for (var op in stuff) {
