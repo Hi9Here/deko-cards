@@ -276,12 +276,9 @@
           ],
         },
         accreditation:{
-          regex:"^Signed(?:[ -])?off(?: by | By )?([\w]*)$",
-          action:{
-            insert: "\n >>signed Off<< \n"
-          },
+          regex:"^Signed(?:[ -])?off(?: by )([\w]*)$",
           addSection: "signedOff",
-          suffix: " by [[1]]",
+          subst: `>>Signed Off By $1<<`,
         },
       }
       var titleImage
@@ -326,13 +323,23 @@
                   var addBefore = lines.splice(0, +line  ).join("\n")
                   addAt = op
                   var addAfter = lines.splice(1 + +(line)).join("\n")
-                  if (!tricks[trick].action) {
+                  if (!tricks[trick].action && !tricks[trick].subst) {
                     add = [
                       {insert: addBefore},
-                      {insert: addAfter},
+                      {insert: addAfter },
                     ]
-                  } else {
+                  }
+                  
+                  if (tricks[trick].action) {
                     add = [{insert: addBefore}].concat(tricks[trick].action, [{insert: addAfter}])
+                  }
+                  
+                  if (tricks[trick].subst) {
+                    add = [
+                      {insert: addBefore}].concat(
+                        lines[line].replace(tricks[trick].regex, tricks[trick].subst)
+                      ),
+                      [{insert: addAfter}])
                   }
                 }
               }
