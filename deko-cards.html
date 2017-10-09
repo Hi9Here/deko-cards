@@ -265,7 +265,7 @@
       }
       var tricks = {
         kitten:{
-          regex: "^image of (cat|kitten)",
+          regex: "^(add|with) image of (cat|kitten)",
           action:[
             {
               insert: "\n",
@@ -279,7 +279,7 @@
           ],
         },
         accreditation:{
-          regex:"^Signed(?:[ -])?off(?: by )([\w]*)$",
+          regex:"^(add|with)  Signed(?:[ -])?off(?: by )([\w]*)$",
           addSection: "signedOff",
           subst: `\n>>Signed Off By $1<<\n`,
         },
