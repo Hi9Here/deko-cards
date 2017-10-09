@@ -294,7 +294,7 @@
           ],
         },
         heading: {
-          intent: "^(?:add|in a) (?:heading|title) ([\w]*)$",
+          intent: "^(?:add|in a) (?:heading|title) ([\w]*)*$",
           action: [
             { 
               attributes: {
@@ -306,7 +306,7 @@
           subst: `\n>>1<<\n`,
         },
         signedOff:{
-          intent:"^(?:add|with)  Signed(?:[ -])?off(?: by )([\w]*)$",
+          intent:"^(?:add|with)  Signed(?:[ -])?off(?: by )([\w]*)*$",
           search: `$1`,
         },
         dek:{
@@ -381,16 +381,12 @@
                     var addAfter = lines.splice(1 + +(line)).join("\n")
                   
                     if (tricks[trick].action) {
-                      var action
-                      if (tricks[trick].subst) {
-                        action = JSON.parse(
-                          JSON.stringify(
-                            tricks[trick].action
-                          ).replace(regex, tricks[trick].action)
-                        )
-                      } else {
-                        action = tricks[trick].action
-                      }
+                      var action = JSON.parse(
+                        JSON.stringify(
+                          tricks[trick].action
+                        ).replace(regex, tricks[trick].action)
+                      )
+                      
                       add = [{insert: addBefore}].concat(action, [{insert: addAfter}])
 
                     } else {
