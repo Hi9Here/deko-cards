@@ -335,11 +335,10 @@
                   }
                   
                   if (tricks[trick].subst) {
-                    add = [
-                      {insert: addBefore}].concat(
-                        lines[line].replace(tricks[trick].regex, tricks[trick].subst)
-                      ),
-                      [{insert: addAfter}])
+                    add = [{insert: addBefore}].concat(
+                      [{insert: lines[line].replace(tricks[trick].regex, tricks[trick].subst)}],
+                      [{insert: addAfter}]
+                    )
                   }
                 }
               }
