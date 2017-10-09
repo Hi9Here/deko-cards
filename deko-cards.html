@@ -323,22 +323,19 @@
                   var addBefore = lines.splice(0, +line  ).join("\n")
                   addAt = op
                   var addAfter = lines.splice(1 + +(line)).join("\n")
-                  if (!tricks[trick].action && !tricks[trick].subst) {
-                    add = [
-                      {insert: addBefore},
-                      {insert: addAfter },
-                    ]
-                  }
                   
                   if (tricks[trick].action) {
                     add = [{insert: addBefore}].concat(tricks[trick].action, [{insert: addAfter}])
-                  }
-                  
-                  if (tricks[trick].subst) {
+                  } else if (tricks[trick].subst) {
                     add = [{insert: addBefore}].concat(
                       [{insert: lines[line].replace(tricks[trick].regex, tricks[trick].subst)}],
                       [{insert: addAfter}]
                     )
+                  } else {
+                    add = [
+                      {insert: addBefore},
+                      {insert: addAfter },
+                    ]
                   }
                 }
               }
