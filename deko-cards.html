@@ -284,12 +284,12 @@
           subst: `\n>>Signed Off By $1<<\n`,
         },
         deck:{
-          regex:"^add to de[ck]+$",
+          regex:"^add (?:this )?to de[ck]+$",
           addSection: "deck",
           subst: `\n>>In a deck<<\n`,
         },
         newDeck:{
-          regex:"^add to new de[ck]+$",
+          regex:"^add (?:this )?to new de[ck]+$",
           addSection: "newDeck",
           subst: `\n>>In new deck<<\n`,
         },
