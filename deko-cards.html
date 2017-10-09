@@ -338,7 +338,7 @@
                     add = [{insert: addBefore}].concat(tricks[trick].action, [{insert: addAfter}])
                   } else if (tricks[trick].subst) {
                     add = [{insert: addBefore}].concat(
-                      [{insert: lines[line].replace(tricks[trick].regex, tricks[trick].subst)}],
+                      [{insert: lines[line].replace(regex, tricks[trick].subst)}],
                       [{insert: addAfter}]
                     )
                   } else {
