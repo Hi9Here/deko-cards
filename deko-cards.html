@@ -142,7 +142,7 @@
         </div>
       </div>
     </template>
-    <open-card on-touchstart="noDrag" on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
+    <open-card on-touchstart="noDrag" icons='["tick"]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
       <quill-js theme='bubble' value="{{addingStuff}}" editor="{{quill}}"></quill-js>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
       <template is="dom-if" if="[[signedOff]]">
@@ -328,6 +328,7 @@
           intent: "^(add|make) timer (?:for )?([\d]+) min(?:utes)?$",
           minutes: `$1`,
         },
+        
       }
       var titleImage
       for (var op in stuff) {
