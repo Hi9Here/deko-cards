@@ -267,10 +267,10 @@
         image:{
           intent: "^(add|with) image",
           ask: "for url",
-          action:[
-            {insert: "\n",},
-            {insert: {image: `{{url}}`,}},
-            {insert: "\n",},
+          action: [
+            {insert: "\n"},
+            {insert: {image: `{{url}}`}},
+            {insert: "\n"},
           ],
         },
         list:{
@@ -299,7 +299,7 @@
           ],
         },
         signedOff:{
-          intent:"^(?:add|with)  Signed(?:[ -])?off(?: by )([\w]*)*$",
+          intent:"^(?:add|with)  Signed(?:[ -])?off(?: by )?([\w ]*)?$",
           search: `$1`,
         },
         dek:{
@@ -386,7 +386,7 @@
                     } else {
                       add = [
                         {insert: addBefore + "\n"},
-                        {insert: addAfter + "\n"},
+                        {insert: addAfter  + "\n"},
                       ]
                     }
                     
