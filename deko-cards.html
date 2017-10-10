@@ -142,7 +142,7 @@
         </div>
       </div>
     </template>
-    <open-card on-touchstart="noDrag" icons='["assignment-turned-in","check-circle"]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
+    <open-card on-touchstart="noDrag" icons='[[cardIcons]]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
       <quill-js theme='bubble' value="{{addingStuff}}" editor="{{quill}}"></quill-js>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
       <template is="dom-if" if="[[signedOff]]">
@@ -193,6 +193,9 @@
       },
       addingName: {
         observer: "changingName"
+      },
+      cardIcons: {
+        value: []
       },
     },
     noDrag: function(e) {
@@ -299,8 +302,9 @@
           ],
         },
         signedOff:{
-          intent:"^(?:add|with)  Signed(?:[ -])?off(?: by )?([\w ]*)?$",
+          intent: "^(?:add|with)  Signed(?:[ -])?off(?: by )?([\w ]*)?$",
           search: `$1`,
+          icon: "assignment-turned-in",
         },
         dek:{
           intent:"^add (?:this )?to (new)? de[ck]+$",
@@ -328,7 +332,6 @@
           intent: "^(add|make) timer (?:for )?([\d]+) min(?:utes)?$",
           minutes: `$1`,
         },
-        
       }
       var titleImage
       for (var op in stuff) {
@@ -390,7 +393,9 @@
                         {insert: addAfter  + "\n"},
                       ]
                     }
-                    
+                    if (!tricks[trick].icon) {
+                      this.push("cardIcons", tricks[trick].icon)
+                    }
                   }
                 }
               }
