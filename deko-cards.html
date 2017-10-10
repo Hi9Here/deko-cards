@@ -385,12 +385,12 @@
                         toAdd.replace(regex, JSON.stringify(tricks[trick].action)).replace(/\n/gm,"\\n")
                       )
                       
-                      add = [{insert: addBefore}].concat(action, [{insert: addAfter}])
+                      add = [{insert: addBefore}].concat(action, [{insert: addAfter + "\n"}])
 
                     } else {
                       add = [
                         {insert: addBefore},
-                        {insert: addAfter },
+                        {insert: addAfter + "\n"},
                       ]
                     }
                     
