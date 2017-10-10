@@ -350,8 +350,7 @@
             } else if (stuff[op].insert.split("\n").join("") || !this.addingName) {
               this.addingName = stuff[op].insert.split("\n").join("")
             }
-          }
-          if (!add) {
+          } else if (!add) {
             var lines = stuff[op].insert.split("\n")
             for (var line in lines) {
               var toAdd = lines[line]
@@ -409,8 +408,7 @@
       }
       if (head) {
         stuff = stuff.splice(0, +headAt).concat(head, stuff.splice(1 + +(headAt)))
-      } 
-      if (add) {
+      } else if (add) {
         stuff = stuff.splice(0, +addAt ).concat(add,  stuff.splice(1 + +(addAt) ))
       }
       if (add || head) {
