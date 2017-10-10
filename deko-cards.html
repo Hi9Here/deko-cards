@@ -403,7 +403,11 @@
                         this.push("cardIcons", tricks[trick].icon)
                         var theTrick = {}
                         theTrick[trick] = tricks[trick]
-                        this.selectedItem.ref.set(theTrick)
+                        if (this.selectedItem) {
+                          this.selectedItem.ref.set(theTrick)
+                        } else {
+                          this.push("tricksToSave", theTrick)
+                        }
                       }
                       this.set(trick, true)
                     }
