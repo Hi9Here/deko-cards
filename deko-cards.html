@@ -370,12 +370,16 @@
                     var addAfter = lines.splice(1 + +(line)).join("\n")
                   
                     if (tricks[trick].action) {
+                      var action
                       
-                      var action = JSON.parse(
-                        toAdd.replace(regex, JSON.stringify(tricks[trick].action)).replace(/(\n|\t)/gm,"\\n")
-                      )
-                      if (tricks[trick].split) {
-                        action = action.replace(new RegExp(tricks[trick].split), "\\n")
+                      if (!tricks[trick].split) {
+                        action = JSON.parse(
+                          toAdd.replace(regex, JSON.stringify(tricks[trick].action)).replace(/(\n|\t)/gm,"\\n")
+                        )
+                      } else {
+                        action = JSON.parse(
+                          toAdd.replace(regex, JSON.stringify(tricks[trick].action)).replace(/(\n|\t)/gm,"\\n").replace(new RegExp(tricks[trick].split), "\\n")
+                        )
                       }
                       
                       add = [{insert: addBefore}].concat(action, [{insert: addAfter + "\n"}])
