@@ -309,28 +309,33 @@
         dek:{
           intent:"^add (?:this )?to (new)? de[ck]+$",
           subst: `\n>>In a deck<<\n`,
+          icon: "content-copy",
         },
         files: {
           intent: "^add (file|document)$",
           ask: ["for files"],
-          subst: `\n>>files<<\n`,
+          icon: "editor:insert-drive-file",
         },
         reminder: {
           intent: "^add reminder$",
           ask: ["for date/time"],
           subst: `\n>>reminding<<\n`,
+          icon: "alarm-on",
         },
         give: {
           intent: "^give( )?$",
           subst: `\n>>giving<<\n`,
+          icon: "file-upload",
         },
         show: {
           intent: "^show( )?$",
           subst: `\n>>showing<<\n`,
+          icon: "image:remove-red-eye",
         },
         timer: {
           intent: "^(add|make) timer (?:for )?([\d]+) min(?:utes)?$",
           minutes: `$1`,
+          icon: "alarm",
         },
       }
       var titleImage
