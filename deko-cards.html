@@ -268,23 +268,15 @@
           intent: "^(add|with) image",
           ask: "for url",
           action:[
-            {
-              insert: "\n",
-            },
-            {
-              insert: {image: `{{url}}`,}
-            },
-            {
-              insert: "\n",
-            },
+            {insert: "\n",},
+            {insert: {image: `{{url}}`,}},
+            {insert: "\n",},
           ],
         },
         list:{
           intent: "^(?:add|in a) list (.+)",
           action: [
-            {
-              insert: "\n",
-            },
+            {insert: "\n",},
             { 
               attributes: {
                 list: "bullet"
@@ -365,17 +357,13 @@
               if (toAdd) {
                 for (var trick in tricks) {
                   var regex = new RegExp(tricks[trick].intent, "i")
-                
                   while ((matchs = regex.exec(toAdd)) !== null && !add) {
-                  
                     if (matchs.index === regex.lastIndex) {
                       regex.lastIndex++
                     }
-                    
                     matchs.forEach((match, groupIndex) => {
                       console.log(`Found match, group ${groupIndex}: ${match}`)
                     })
-                   
                     var addBefore = lines.splice(0, +line  ).join("\n")
                     addAt = op
                     var addAfter = lines.splice(1 + +(line)).join("\n")
@@ -384,9 +372,7 @@
                       var action = JSON.parse(
                         toAdd.replace(regex, JSON.stringify(tricks[trick].action)).replace(/\n/gm,"\\n")
                       )
-                      
                       add = [{insert: addBefore}].concat(action, [{insert: addAfter + "\n"}])
-
                     } else {
                       add = [
                         {insert: addBefore},
@@ -411,24 +397,10 @@
         }
       }
       if (head) {
-        stuff = stuff.reduce(function(allOps, value, currentIndex) {
-          if (currentIndex < headAt) {
-            allOps.unshift(value)
-          } else if (currentIndex > headAt) {
-            allOps.push(value)
-          }
-          return allOps
-        }, head)
+        stuff = stuff.splice(0, +headAt).concat(head, stuff.splice(1 + +(headAt)))
       } 
       if (add) {
-         stuff = stuff.reduce(function(allOps, value, currentIndex) {
-          if (currentIndex < addAt) {
-            allOps.unshift(value)
-          } else if (currentIndex > headAt) {
-            allOps.push(value)
-          }
-          return allOps
-        }, add)
+        stuff = stuff.splice(0, +addAt ).concat(add,  stuff.splice(1 + +(addAt) ))
       }
       if (add || head) {
         this.set("addingStuff", stuff)
