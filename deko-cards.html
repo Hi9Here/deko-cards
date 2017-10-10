@@ -281,9 +281,10 @@
               attributes: {
                 list: "bullet"
               },
-              insert: "$1\n \n  \n  \n  \n  \n  \n  \n",
+              insert: "$1\n",
             },
           ],
+          split: ",",
         },
         heading: {
           intent: "^(?:add|in a) (?:heading|title) (.+)$",
@@ -369,9 +370,14 @@
                     var addAfter = lines.splice(1 + +(line)).join("\n")
                   
                     if (tricks[trick].action) {
+                      
                       var action = JSON.parse(
                         toAdd.replace(regex, JSON.stringify(tricks[trick].action)).replace(/(\n|\t)/gm,"\\n")
                       )
+                      if (tricks[trick].split) {
+                        action = action.replace(new RegExp(tricks[trick].split), "\\n")
+                      }
+                      
                       add = [{insert: addBefore}].concat(action, [{insert: addAfter + "\n"}])
                     } else {
                       add = [
