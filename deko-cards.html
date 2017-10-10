@@ -365,9 +365,7 @@
                     if (matchs.index === regex.lastIndex) {
                       regex.lastIndex++
                     }
-                    matchs.forEach((match, groupIndex) => {
-                      console.log(`Found match, group ${groupIndex}: ${match}`)
-                    })
+                    
                     var addBefore = lines.splice(0, +line   ).join("\n")
                     addAt = op
                     var addAfter  = lines.splice(1 + +(line)).join("\n")
@@ -388,6 +386,7 @@
                       add = [{insert: addBefore + "\n"}].concat(action, [{insert: addAfter + "\n"}])
                       
                     } else {
+                      
                       add = [
                         {insert: addBefore + "\n"},
                         {insert: addAfter  + "\n"},
@@ -395,6 +394,7 @@
                     }
                     if (tricks[trick].icon) {
                       this.push("cardIcons", tricks[trick].icon)
+                      this.set(trick, true)
                     }
                   }
                 }
