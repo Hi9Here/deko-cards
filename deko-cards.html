@@ -401,6 +401,9 @@
                     if (tricks[trick].icon) {
                       this.push("cardIcons", tricks[trick].icon)
                       this.set(trick, true)
+                      var theTrick = {}
+                      theTrick[trick] = true
+                      this.selectedItem.ref.set(theTrick)
                     }
                   }
                 }
