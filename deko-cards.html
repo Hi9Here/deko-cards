@@ -378,7 +378,7 @@
                         )
                       } else {
                         action = JSON.parse(
-                          toAdd.replace(regex, JSON.stringify(tricks[trick].action)).replace(/(\n|\t)/gm,"\\n").replace(new RegExp(tricks[trick].split, "gm"), "\\n")
+                          toAdd.replace(new RegExp(tricks[trick].split, "gm"), "\\n").replace(regex, JSON.stringify(tricks[trick].action)).replace(/(\n|\t)/gm,"\\n")
                         )
                       }
                       
