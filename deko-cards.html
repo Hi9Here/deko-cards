@@ -297,7 +297,6 @@
               insert: "$1\n",
             },
           ],
-          subst: `\n>>1<<\n`,
         },
         signedOff:{
           intent:"^(?:add|with)  Signed(?:[ -])?off(?: by )([\w]*)*$",
@@ -366,9 +365,9 @@
                     matchs.forEach((match, groupIndex) => {
                       console.log(`Found match, group ${groupIndex}: ${match}`)
                     })
-                    var addBefore = lines.splice(0, +line  ).join("\n")
+                    var addBefore = lines.splice(0, +line   ).join("\n")
                     addAt = op
-                    var addAfter = lines.splice(1 + +(line)).join("\n")
+                    var addAfter  = lines.splice(1 + +(line)).join("\n")
                   
                     if (tricks[trick].action) {
                       var action
@@ -384,6 +383,7 @@
                       }
                       
                       add = [{insert: addBefore + "\n"}].concat(action, [{insert: addAfter + "\n"}])
+                      
                     } else {
                       add = [
                         {insert: addBefore + "\n"},
