@@ -289,6 +289,7 @@
         heading: {
           intent: "^(?:add|in a) (?:heading|title) (.+)$",
           action: [
+            {insert: "\n"},
             { 
               attributes: {
                 header: 2
@@ -382,10 +383,10 @@
                         )
                       }
                       
-                      add = [{insert: addBefore}].concat(action, [{insert: addAfter + "\n"}])
+                      add = [{insert: addBefore + "\n"}].concat(action, [{insert: addAfter + "\n"}])
                     } else {
                       add = [
-                        {insert: addBefore},
+                        {insert: addBefore + "\n"},
                         {insert: addAfter + "\n"},
                       ]
                     }
