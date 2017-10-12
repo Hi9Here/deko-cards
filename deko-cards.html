@@ -183,9 +183,6 @@
       _routeData: {
         computed: "_log('routeData.data',routeData.data)"
       },
-      cards: {
-        computed: "getCards(ref)"
-      },
       addingStuff: {
         observer: "testStuff"
       },
@@ -452,9 +449,6 @@
           orientation: true,
         }
       )
-    },
-    getCards: function(dek) {
-      return dek.collection("cards")
     },
     changingPart: function(part, partFrom) {
       var that = this
