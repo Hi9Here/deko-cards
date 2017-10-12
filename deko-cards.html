@@ -141,7 +141,13 @@
       </div>
     </template>
     <open-card on-touchstart="noDrag" icons='[[cardIcons]]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
-      <quill-js value="{{addingStuff}}" editor="{{quill}}"></quill-js>
+      <quill-js value="{{addingStuff}}" editor="{{quill}}">
+        <div slot="toolbar">
+          <template is="dom-repeat" items="[[tricks]]">
+             <button class="ql-bold"></button>
+          </template>
+        </div>
+      </quill-js>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
       <template is="dom-if" if="[[signedOff]]">
         <h3>signedOff</h3>
@@ -271,6 +277,7 @@
             {insert: {image: `{{url}}`}},
             {insert: "\n"},
           ],
+          quillClass: ""
         },
         list:{
           intent: "^(?:add|in a) list (.+)",
