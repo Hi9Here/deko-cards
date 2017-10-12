@@ -110,9 +110,6 @@
           </template>
         </div>
       </div>
-      <template is="dom-if" if="[[!noAdd]]">
-        <paper-fab style="position: fixed;right: 25px;bottom: 30px" icon="android" on-tap="addCard"></paper-fab>
-      </template>
     </template>
     <!--Narrow Layout under 700px-->
     <template is="dom-if" if="{{!wide}}">
@@ -203,11 +200,12 @@
       
       this.set("loading", true)
       this.set("selectedItem", "")
-      
       this.set("addingStuff", [{"insert":"\n"}])
       this.set("addingName", "")
       this.set("addingImage", "")
       this.set("addingBigImage", "")
+      
+      this.set("signedOff", null)
       
       this.set("loading", false)
     },
