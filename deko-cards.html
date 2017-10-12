@@ -279,11 +279,10 @@
       },
     },
     getIconTricks: function(tricks) {
-      var icons = []
-      return Object.keys(tricks).reduce(function(tricks, value) {
+      return Object.keys(tricks).reduce(function(icons, value) {
           icons.push(tricks[value])
         return icons
-      }, icons)
+      }, [])
     }, 
     noDrag: function(e) {
       e.stopPropagation()
