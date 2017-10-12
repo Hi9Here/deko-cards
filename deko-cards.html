@@ -280,8 +280,9 @@
     getIconTricks: function(tricks) {
       var icons = []
       return Object.keys(tricks).reduce(function(tricks, value) {
-        return icons.push(tricks[value])
-      }, icons))
+          icons.push(tricks[value])
+        return icons
+      }, icons)
     }, 
     noDrag: function(e) {
       e.stopPropagation()
