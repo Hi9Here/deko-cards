@@ -141,13 +141,14 @@
       </div>
     </template>
     <open-card on-touchstart="noDrag" icons='[[cardIcons]]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
-      <quill-js value="{{addingStuff}}" editor="{{quill}}">
-        <div slot="toolbar">
-          <template is="dom-repeat" items="[[tricks]]">
-             <button class="ql-bold"></button>
+      <div>
+        <template is="dom-repeat" items="[[iconTricks]]">
+          <template is="dom-if" if="[[item.icon]]">
+            <iron-icon icon="[[item.icon]]"></iron-icon>
           </template>
-        </div>
-      </quill-js>
+        </template>
+        <quill-js value="{{addingStuff}}" editor="{{quill}}" toolbar="[[]]"></quill-js>
+      </div>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
       <template is="dom-if" if="[[signedOff]]">
         <h3>signedOff</h3>
@@ -198,7 +199,90 @@
       cardIcons: {
         value: []
       },
+      tricks:{
+        value:{
+          image:{
+            intent: "^(add|with) image",
+            ask: "for url",
+            action: [
+              {insert: "\n"},
+              {insert: {image: `{{url}}`}},
+              {insert: "\n"},
+            ],
+          },
+          list:{
+            intent: "^(?:add|in a) list (.+)",
+            action: [
+              {insert: "\n"},
+              { 
+                attributes: {
+                  list: "bullet"
+                },
+                insert: "$1\n",
+              },
+            ],
+            split: "\\s?,\\s?",
+          },
+          heading: {
+            intent: "^(?:add|in a) (?:heading|title) (.+)$",
+            action: [
+              {insert: "\n"},
+              { 
+                attributes: {
+                  header: 2
+                },
+                insert: "$1\n",
+              },
+            ],
+          },
+          signedOff:{
+            intent: "^(add|with) signed([- ]?)off(?: by )*([\w ])*",
+            search: `$1`,
+            icon: "assignment-turned-in",
+          },
+          dek:{
+            intent:"^add (?:this )?to (new)? de[ck]+$",
+            subst: `\n>>In a deck<<\n`,
+            icon: "content-copy",
+          },
+          files: {
+            intent: "^add (file|document)$",
+            ask: ["for files"],
+            icon: "editor:insert-drive-file",
+          },
+          reminder: {
+            intent: "^add reminder$",
+            ask: ["for date/time"],
+            subst: `\n>>reminding<<\n`,
+            icon: "alarm-on",
+          },
+          give: {
+            intent: "^give( )?$",
+            subst: `\n>>giving<<\n`,
+            icon: "file-upload",
+          },
+          show: {
+            intent: "^show( )?$",
+            subst: `\n>>showing<<\n`,
+            icon: "image:remove-red-eye",
+          },
+          timer: {
+            intent: "^(add|make) timer (?:for )?([\d]+) min(?:utes)?$",
+            minutes: `$1`,
+            icon: "alarm",
+          },
+        },
+      },
+      iconTricks: {
+        computed:"getIconTricks(tricks)"
+      },
     },
+    getIconTricks: function(tricks) {
+      var icons = []
+      return Object.keys(tricks).reduce(function(tricks, value) {
+        return icons.push(tricks[value])
+      }, icons))
+    }, 
     noDrag: function(e) {
       e.stopPropagation()
     }, 
@@ -257,7 +341,7 @@
         })
       }
     },
-    testStuff: function(stuff){
+    testStuff: function(stuff, tricks){
       var name
       var head
       var headAt
@@ -267,79 +351,6 @@
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min;
-      }
-      var tricks = {
-        image:{
-          intent: "^(add|with) image",
-          ask: "for url",
-          action: [
-            {insert: "\n"},
-            {insert: {image: `{{url}}`}},
-            {insert: "\n"},
-          ],
-          quillClass: ""
-        },
-        list:{
-          intent: "^(?:add|in a) list (.+)",
-          action: [
-            {insert: "\n"},
-            { 
-              attributes: {
-                list: "bullet"
-              },
-              insert: "$1\n",
-            },
-          ],
-          split: "\\s?,\\s?",
-        },
-        heading: {
-          intent: "^(?:add|in a) (?:heading|title) (.+)$",
-          action: [
-            {insert: "\n"},
-            { 
-              attributes: {
-                header: 2
-              },
-              insert: "$1\n",
-            },
-          ],
-        },
-        signedOff:{
-          intent: "^(add|with) signed([- ]?)off(?: by )*([\w ])*",
-          search: `$1`,
-          icon: "assignment-turned-in",
-        },
-        dek:{
-          intent:"^add (?:this )?to (new)? de[ck]+$",
-          subst: `\n>>In a deck<<\n`,
-          icon: "content-copy",
-        },
-        files: {
-          intent: "^add (file|document)$",
-          ask: ["for files"],
-          icon: "editor:insert-drive-file",
-        },
-        reminder: {
-          intent: "^add reminder$",
-          ask: ["for date/time"],
-          subst: `\n>>reminding<<\n`,
-          icon: "alarm-on",
-        },
-        give: {
-          intent: "^give( )?$",
-          subst: `\n>>giving<<\n`,
-          icon: "file-upload",
-        },
-        show: {
-          intent: "^show( )?$",
-          subst: `\n>>showing<<\n`,
-          icon: "image:remove-red-eye",
-        },
-        timer: {
-          intent: "^(add|make) timer (?:for )?([\d]+) min(?:utes)?$",
-          minutes: `$1`,
-          icon: "alarm",
-        },
       }
       var titleImage
       for (var op in stuff) {
