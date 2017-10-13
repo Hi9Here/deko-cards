@@ -407,7 +407,7 @@
                         var theTrick = {}
                         theTrick[trick] = tricks[trick]
                         if (this.selectedItem) {
-                          this.selectedItem.ref.set(theTrick)
+                          this.selectedItem.ref.set(theTrick, { merge: true })
                         } else {
                           this.push("tricksToSave", theTrick)
                         }
