@@ -243,7 +243,7 @@
             icon: "assignment-turned-in",
           },
           dek:{
-            intent:"^add to (?:this )?de[ck]+?([ \w])*$",
+            intent:"^(?:put|add)(?: this)? (to|in) de[ck]+?([ \w])*$",
             icon: "content-copy",
           },
           files: {
@@ -257,7 +257,7 @@
             icon: "alarm-on",
           },
           timer: {
-            intent: "^(add|make) timer (?:for )?([\d]+) min(?:utes)?$",
+            intent: "^(add|make|setup a|start) timer (?:for )?([\d]+) min(?:utes)?$",
             minutes: `$1`,
             icon: "alarm",
           },
