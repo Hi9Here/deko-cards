@@ -151,7 +151,7 @@
         <quill-js value="{{addingStuff}}" editor="{{quill}}" toolbar="false"></quill-js>
       </div>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
-      <template is="dom-if" if="[[signedOff]]">
+      <template is="dom-if" if="[[selectedItem.signedOff]]">
         <h3>signedOff</h3>
       </template>
       
@@ -412,7 +412,7 @@
                           this.push("tricksToSave", theTrick)
                         }
                       }
-                      this.set(trick, true)
+                      this.set("selectedItem." + trick, true)
                     }
                   }
                 }
