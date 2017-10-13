@@ -154,9 +154,7 @@
       <template is="dom-if" if="[[signedOff]]">
         <h3>signedOff</h3>
       </template>
-      <template is="dom-if" if="[[give]]">
-        <give-card></give-card>
-      </template>
+      
     </open-card>
     <image-base64 url="[[addingBigImage]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
   </template>
@@ -246,7 +244,6 @@
           },
           dek:{
             intent:"^add (?:this )?to (new)? de[ck]+$",
-            subst: `\n>>In a deck<<\n`,
             icon: "content-copy",
           },
           files: {
@@ -257,18 +254,7 @@
           reminder: {
             intent: "^add reminder$",
             ask: ["for date/time"],
-            subst: `\n>>reminding<<\n`,
             icon: "alarm-on",
-          },
-          give: {
-            intent: "^give( )?$",
-            subst: `\n>>giving<<\n`,
-            icon: "file-upload",
-          },
-          show: {
-            intent: "^show( )?$",
-            subst: `\n>>showing<<\n`,
-            icon: "image:remove-red-eye",
           },
           timer: {
             intent: "^(add|make) timer (?:for )?([\d]+) min(?:utes)?$",
