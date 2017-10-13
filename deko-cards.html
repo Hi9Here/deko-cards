@@ -309,7 +309,7 @@
     changingName: function(name) {
       this.debounce("save", function () {
         if (this.selectedItem && this.selectedItem.ref) {
-          this.selectedItem.ref.set({title:name})
+          this.selectedItem.ref.set({title:name},{merge: true})
         }
       }, 2000)
     },
@@ -687,7 +687,6 @@
             cards.push({
               title: doc.data().title,
               dek: doc.data().dek,
-              give: doc.data().give,
               show: doc.data().show,
               timer: doc.data().timer,
               reminder: doc.data().reminder,
