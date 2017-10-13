@@ -9,6 +9,7 @@
 <link rel="import" href="../image-base64/image-base64.html">
 <link rel="import" href="../paper-fab/paper-fab.html">
 <link rel="import" href="../deko-card/deko-card.html">
+<link rel="import" href="../give-card/give-card.html">
 <link rel="import" href="../open-card/open-card.html">
 <link rel="import" href="../quill-js/quill-js.html">
 <!--
@@ -152,6 +153,9 @@
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
       <template is="dom-if" if="[[signedOff]]">
         <h3>signedOff</h3>
+      </template>
+      <template is="dom-if" if="[[give]]">
+        <give-card></give-card>
       </template>
     </open-card>
     <image-base64 url="[[addingBigImage]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
