@@ -700,6 +700,12 @@
           theSnap.forEach(function(doc) {
             cards.push({
               title: doc.data().title,
+              dek: doc.data().dek,
+              give: doc.data().give,
+              show: doc.data().show,
+              timer: doc.data().timer,
+              reminder: doc.data().reminder,
+              signedOff: doc.data().signedOff,
               ref: doc.ref,
             })
           })
