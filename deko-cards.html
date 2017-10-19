@@ -88,17 +88,16 @@
          margin-left: 2px;
       }
       *, *:before, *:after {
-  box-sizing: border-box;
-}
+        box-sizing: border-box; 
+      }
 
-/* make a grid */
-#narrow .wrapper {
-  max-width: 700px;
-  margin: 0 auto;
-  display: grid;
-  grid-gap: 1px;
-}
-      
+      /* make a grid */
+      #narrow .wrapper {
+        max-width: 700px;
+        margin: 0 auto;
+        display: grid;
+        grid-gap: 1px;
+      }
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
@@ -162,7 +161,7 @@
           </template>
         </template>
         <quill-js value="{{addingStuff}}" editor="{{quill}}" toolbar="false"></quill-js>
-        <q-card line="[[addingLine]]" tricks="[[tricks]]" card-name="[[addingName]]" prompt="{{prompt}}" chips="{{chips}}"></q-card>
+        <q-card line="[[addingLine]]" tricks="[[tricks]]" card="[[selectedItem]]" prompt="{{prompt}}" chips="{{chips}}"></q-card>
       </div>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
       <template is="dom-if" if="[[selectedItem.signedOff]]">
@@ -204,9 +203,6 @@
       },
       cardPart: {
         observer: "changingPart"
-      },
-      addingName: {
-        observer: "changingName"
       },
       cardIcons: {
         value: []
@@ -307,7 +303,6 @@
       this.set("loading", true)
       this.set("selectedItem", "")
       this.set("addingStuff", [{"insert":"\n"}])
-      this.set("addingName", "")
       this.set("addingImage", "")
       this.set("addingBigImage", "")
       
@@ -319,7 +314,7 @@
       var that = this
       
       that.set("loading", true)      
-      that.cards.add({title:that.addingName}).then(function(doc) {
+      that.cards.add({title:that.selectedItem.name}).then(function(doc) {
         
         that.set("selectedItem", {})
         that.set("selectedItem.ref", doc)
@@ -345,7 +340,6 @@
         that.selectedItem.ref.delete().then(function() {
 
           that.set("addingStuff", [{"insert":"\n"}])
-          that.set("addingName", "")
           that.set("addingImage", "")
           that.set("addingBigImage", "")
           
@@ -385,9 +379,12 @@
                   headAt = op
                 }
               }
-              this.addingName = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
-            } else if (stuff[op].insert.split("\n").join("") || !this.addingName) {
-              this.addingName = stuff[op].insert.split("\n").join("")
+              if (!this.selectedItem) {
+                this.selectedItem = {}
+              }
+              this.selectedItem.name = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
+            } else if (stuff[op].insert.split("\n").join("") || !this.selectedItem.name) {
+              this..selectedItem.name = stuff[op].insert.split("\n").join("")
             }
           } else if (!add) {
             var lines = stuff[op].insert.split("\n")
@@ -555,8 +552,11 @@
         if (ref) {
           ref.get().then(function(doc){
             var name = doc.data().title
-            that.set("addingName", name)
+            if (!that.selectedItem){
+              that.selectedItem = {}
+            }
             that.set("selectedItem.title", name)
+            that.set("selectedItem.name", name)
             that.set("cardHeading", "Name")
             that.set("loading", false)
           }).catch(function(e) {
@@ -577,14 +577,14 @@
       }
     },
     addToCard: function(cardRef) {
-      if (this.addingName || this.addingImage) {
+      if (this.selectedItem.name || this.addingImage) {
         var that = this
         cardRef.set({
-          title: that.addingName,
+          title: that.selectedItem.name,
         }).then(function() {
           that.set("selectedItem", {
             ref:   cardRef,
-            title: that.addingName,
+            title: that.selectedItem.name,
             selected: true,
           })
           cardRef.collection("big image").add({
