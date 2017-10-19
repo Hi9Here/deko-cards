@@ -161,13 +161,12 @@
           </template>
         </template>
         <quill-js value="{{addingStuff}}" editor="{{quill}}" toolbar="false"></quill-js>
-        <q-card ref="{{selectedItem.ref}}" prompt="{{prompt}}" chips="{{chips}}" tricks="[[tricks]]"></q-card>
+        <q-card line="[[addingLine]]" tricks="[[tricks]]" card-name="[[addingName]]" prompt="{{prompt}}" chips="{{chips}}"></q-card>
       </div>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
       <template is="dom-if" if="[[selectedItem.signedOff]]">
         <h3>signedOff</h3>
       </template>
-      
     </open-card>
     <image-base64 url="[[addingBigImage]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
   </template>
@@ -213,6 +212,9 @@
       },
       _runTricks: {
         computed: "testStuff(addingStuff,tricks)"
+      },
+      _addingLine: {
+        computed: "setAddingLine(quill)"
       },
       tricks:{
         value:{
@@ -279,6 +281,12 @@
       iconTricks: {
         computed:"getIconTricks(tricks)"
       },
+    },
+    setAddingLine: function(quill) {
+      var that = this 
+      quill.on('text-change', function(theDelta, oldDelta, theSource) {
+        that.addingLine = quill.getLines()
+      })
     },
     getIconTricks: function(tricks) {
       return Object.keys(tricks).reduce(function(icons, value) {
