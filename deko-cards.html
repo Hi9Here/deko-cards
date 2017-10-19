@@ -285,7 +285,7 @@
     setAddingLine: function(quill) {
       var that = this 
       quill.on('text-change', function(theDelta, oldDelta, theSource) {
-        that.addingLine = quill.getLines()
+        that.addingLine = quill.getLine(quill.getSelection().index)[0].domNode.outerText
       })
     },
     getIconTricks: function(tricks) {
