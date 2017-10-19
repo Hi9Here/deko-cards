@@ -383,7 +383,7 @@
                 this.selectedItem = {}
               }
               this.selectedItem.name = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
-            } else if (stuff[op].insert.split("\n").join("") || !this.selectedItem.name) {
+            } else if (stuff[op].insert.split("\n").join("") || (this.selectedItem && !this.selectedItem.name)) {
               this.selectedItem.name = stuff[op].insert.split("\n").join("")
             }
           } else if (!add) {
