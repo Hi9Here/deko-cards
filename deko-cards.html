@@ -153,7 +153,7 @@
         </div>
       </div>
     </template>
-    <open-card on-touchstart="noDrag" icons='[[cardIcons]]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
+    <open-card on-touchstart="noDrag" prompt="[[prompt]]" chips="[[chips]]" icons='[[cardIcons]]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
       <div>
         <template is="dom-repeat" items="[[iconTricks]]">
           <template is="dom-if" if="[[item.icon]]">
@@ -161,6 +161,7 @@
           </template>
         </template>
         <quill-js value="{{addingStuff}}" editor="{{quill}}" toolbar="false"></quill-js>
+        <q-card ref="{{selectedItem.ref}}" prompt="{{prompt}}" chips="{{chips}}" tricks="[[tricks]]"></q-card>
       </div>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
       <template is="dom-if" if="[[selectedItem.signedOff]]">
@@ -289,7 +290,6 @@
       e.stopPropagation()
     }, 
     new: function() {
-      
       this.set("loading", true)
       this.set("selectedItem", "")
       this.set("addingStuff", [{"insert":"\n"}])
