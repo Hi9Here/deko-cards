@@ -212,40 +212,6 @@
       },
       tricks:{
         value:{
-          image:{
-            intent: "^(add|with) image",
-            ask: "for url",
-            action: [
-              {insert: "\n"},
-              {insert: {image: `{{url}}`}},
-              {insert: "\n"},
-            ],
-          },
-          list:{
-            intent: "^(?:add|in a) list (.+)",
-            action: [
-              {insert: "\n"},
-              { 
-                attributes: {
-                  list: "bullet"
-                },
-                insert: "$1\n",
-              },
-            ],
-            split: "\\s?,\\s?",
-          },
-          heading: {
-            intent: "^(?:add|in a) (?:heading|title) (.+)$",
-            action: [
-              {insert: "\n"},
-              { 
-                attributes: {
-                  header: 2
-                },
-                insert: "$1\n",
-              },
-            ],
-          },
           signedOff:{
             intent: "^(add|with) signed([- ]?)off(?: by )*([\w ])*",
             search: `$1`,
