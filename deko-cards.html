@@ -168,7 +168,7 @@
         <h3>signedOff</h3>
       </template>
     </open-card>
-    <image-base64 url="[[addingBigImage]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
+    <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
   </template>
 </dom-module>
 <script>
@@ -754,7 +754,7 @@
       }
     },
     open: function(e,d){
-      this.fire("open-card",{e:e,d:d})
+      this.fire("open-card", {e:e,d:d})
     },
     pickable: function(item){
       return !item.selected
