@@ -150,7 +150,7 @@
         </div>
       </div>
     </template>
-    <open-card on-touchstart="noDrag" prompt="[[prompt]]" on-fire-chip="addTextSetPrompt" chips="[[chips]]" icons='[[cardIcons]]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
+    <open-card on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" icons='[[cardIcons]]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
       <div>
         <template is="dom-repeat" items="[[iconTricks]]">
           <template is="dom-if" if="[[item.icon]]">
