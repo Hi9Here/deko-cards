@@ -361,7 +361,8 @@
               if (toAdd) {
                 for (var trick in tricks) {
                   var regex = new RegExp(tricks[trick].intent, "i")
-                  while ((var matchs = regex.exec(toAdd)) !== null && !add) {
+                  var matchs
+                  while ((matchs = regex.exec(toAdd)) !== null && !add) {
                     if (matchs.index === regex.lastIndex) {
                       regex.lastIndex++
                     }
