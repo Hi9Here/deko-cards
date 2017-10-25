@@ -243,6 +243,9 @@
       iconTricks: {
         computed:"getIconTricks(tricks)"
       },
+      commands: {
+        computed:"getCommands(cardPart)"
+      },
     },
     getCommands: function(cardPart) {
       if (cardPart === 0) {
