@@ -248,7 +248,7 @@
       var textToAdd = "\n" + d.detail.chip.trim() + " "
       this.quill.insertText(cur + 1, textToAdd)
       this.quill.setSelection(cur + 1 + textToAdd.length)
-      
+      this.line = d.detail.chip.trim() + " "
     },
     setAddingLine: function(quill) {
       var that = this 
