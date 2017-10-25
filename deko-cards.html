@@ -245,7 +245,10 @@
     addTextSetPrompt: function(d) {
       this.quill.focus()
       var cur = this.quill.getSelection().index
-      this.quill.insertText(cur + 1, "\n" + d.detail.chip.trim() + " ")
+      var textToAdd = "\n" + d.detail.chip.trim() + " "
+      this.quill.insertText(cur + 1, textToAdd)
+      this.quill.setSelection(cur + 1 + textToAdd.length)
+      
     },
     setAddingLine: function(quill) {
       var that = this 
