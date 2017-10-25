@@ -158,7 +158,9 @@
           </template>
         </template>
         <quill-js value="{{addingStuff}}" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
-        <q-card line="[[addingLine]]" editor="[[quill]]" tricks="[[tricks]]" card="{{selectedItem}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
+        <template is="dom-if" if="[[!cardPart]]">
+          <q-card line="[[addingLine]]" editor="[[quill]]" tricks="[[tricks]]" card="{{selectedItem}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
+        </template>
       </div>
       <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
       <template is="dom-if" if="[[selectedItem.signedOff]]">
