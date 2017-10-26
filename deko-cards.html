@@ -4,6 +4,7 @@
 <link rel="import" href="../deko-opened-card/deko-opened-card.html">
 <link rel="import" href="../deko-card-container/deko-card-container.html">
 <link rel="import" href="../icon-icons/editor-icons.html">
+<link rel="import" href="../icon-icons/places-icons.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../input-image/input-image.html">
 <link rel="import" href="../image-base64/image-base64.html">
@@ -240,7 +241,7 @@
           },
           sets: {
             intent: "^([\\d]+) (?:set(?:s)? )?of ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?: second(?:s)?)?(?: rest(?:s)?)?",
-            icon: "gavel",
+            icon: "places:fitness-center",
             action: [
               {insert: "\n $1 sets of $2 at $3kg $4secs rest \n"},
             ],
