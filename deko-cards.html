@@ -167,6 +167,15 @@
       <template is="dom-if" if="[[selectedItem.signedOff]]">
         <h3>signedOff</h3>
       </template>
+      <template is="dom-if" if="[[selectedItem.setsReps]]">
+        <h3>setsReps</h3>
+      </template>
+      <template is="dom-if" if="[[selectedItem.timer]]">
+        <h3>Timer</h3>
+      </template>
+      <template is="dom-if" if="[[selectedItem.reminder]]">
+        <h3>Reminder</h3>
+      </template>
     </open-card>
     <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
   </template>
