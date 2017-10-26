@@ -215,12 +215,12 @@
       tricks:{
         value:{
           signedOff:{
-            intent: "^(add|with) signed([- ]?)off(?: by )*([\w ])*",
+            intent: "^(add|with) signed([- ]?)off(?: by )*([\\w ])*",
             search: `$1`,
             icon: "assignment-turned-in",
           },
           dek:{
-            intent:"^(?:put|add)(?: this)? (?:to|in) de[ck]+?([ \w])*$",
+            intent:"^(?:put|add)(?: this)? (?:to|in) de[ck]+?([ \\w])*$",
             icon: "content-copy",
           },
           files: {
@@ -234,10 +234,14 @@
             icon: "alarm-on",
           },
           timer: {
-            intent: "^(add|make|setup a|start) timer (?:for )?([\d]+) min(?:utes)?$",
+            intent: "^(add|make|setup a|start) timer (?:for )?([\\d]+) min(?:utes)?$",
             minutes: `$1`,
             icon: "alarm",
           },
+          sets: {
+            intent: "^([\\d]+) (?:set(?:s)? )?of ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?: second(?:s)?)?(?: rest(?:s)?)?",
+            icon: "gavel",
+          }
         },
       },
       iconTricks: {
