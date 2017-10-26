@@ -241,6 +241,9 @@
           sets: {
             intent: "^([\\d]+) (?:set(?:s)? )?of ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?: second(?:s)?)?(?: rest(?:s)?)?",
             icon: "gavel",
+            action: [
+              {insert: "\n $1 sets of $2 at $3kg $4secs rest \n"},
+            ],
           }
         },
       },
