@@ -343,7 +343,7 @@
         var tricks = that.tricks
         for (var trick in tricks) {
           if (that.selectedItem.hasOwnProperty(trick)) {
-            doc.collection(trick).set(that.selectedItem[trick]).then(function() {
+            doc.collection(trick).add({value: that.selectedItem[trick]}).then(function() {
               console.log(trick +" saved")
             }).catch()
           }
