@@ -437,15 +437,8 @@
                     if (tricks[trick].icon) {
                       if (this.cardIcons.indexOf(tricks[trick].icon) === -1) {
                         this.push("cardIcons", tricks[trick].icon)
-                        var theTrick = {}
-                        theTrick[trick] = tricks[trick]
-                        if (this.selectedItem) {
-                          this.selectedItem.ref.set(theTrick, { merge: true })
-                        } else {
-                          this.push("tricksToSave", theTrick)
-                        }
+                        this.push("selectedItem."+ trick, theTrick)
                       }
-                      this.set("selectedItem." + trick, true)
                     }
                   }
                 }
