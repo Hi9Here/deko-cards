@@ -239,9 +239,13 @@
             minutes: `$1`,
             icon: "alarm",
           },
-          sets: {
+          setsReps: {
+            sets:   "$1",
+            reps:   "$2",
+            weigth: "$3",
+            rest:   "$4",
             intent: "^([\\d]+) (?:set(?:s)? )?of ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?: second(?:s)?)?(?: rest(?:s)?)?",
-            icon: "places:fitness-center",
+            icon:   "places:fitness-center",
             action: [
               {insert: "\n $1 sets of $2 at $3kg $4secs rest \n"},
             ],
