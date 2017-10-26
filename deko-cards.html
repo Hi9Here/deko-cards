@@ -168,7 +168,7 @@
         <h3>signedOff</h3>
       </template>
       <template is="dom-if" if="[[selectedItem.setsReps]]">
-        <h3>setsReps</h3>
+        <sets-reps value="[[selectedItem.setsReps.value]]"></sets-reps>
       </template>
       <template is="dom-if" if="[[selectedItem.timer]]">
         <h3>Timer</h3>
@@ -258,6 +258,7 @@
             action: [
               {insert: "\n $1 sets of $2 at $3kg $4secs rest \n"},
             ],
+            value:"$1 sets of $2 reps at $3kg and $4 rests",
           }
         },
       },
