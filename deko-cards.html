@@ -456,7 +456,7 @@
                     }
                     if (tricks[trick].icon) {
                       if (this.cardIcons.indexOf(tricks[trick].icon) === -1) {
-                        this.set("cardIcons", tricks[trick].icon)
+                        this.push("cardIcons", tricks[trick].icon)
                         this.set("selectedItem."+ trick, theTrick)
                       }
                     }
