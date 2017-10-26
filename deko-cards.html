@@ -322,12 +322,23 @@
     newCard: function(toAddQuill) {
       var that = this
       
-      that.set("loading", true)      
+      that.set("loading", true)
+      var toAdd = {
+        title:that.selectedItem.name,
+      }
       that.cards.add({title:that.selectedItem.name}).then(function(doc) {
         
-        that.set("selectedItem", {})
+        // that.set("selectedItem", {})
         that.set("selectedItem.ref", doc)
         
+        var tricks = that.tricks
+        for (var trick in tricks) {
+          if (that.selectedItem.hasOwnProperty(trick)) {
+            doc.collection(trick).set(that.selectedItem[trick]).then(function() {
+              console.log(trick +" saved")
+            }).catch()
+          }
+        }
         if (toAddQuill) {
           doc.collection("quill").add(toAddQuill).then().catch()
         }
@@ -436,8 +447,8 @@
                     }
                     if (tricks[trick].icon) {
                       if (this.cardIcons.indexOf(tricks[trick].icon) === -1) {
-                        this.push("cardIcons", tricks[trick].icon)
-                        this.push("selectedItem."+ trick, theTrick)
+                        this.set("cardIcons", tricks[trick].icon)
+                        this.set("selectedItem."+ trick, theTrick)
                       }
                     }
                   }
