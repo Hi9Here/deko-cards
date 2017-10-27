@@ -256,7 +256,7 @@
             intent: "^([\\d]+) (?:set(?:s)? )?of ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?: second(?:s)?)?(?: rest(?:s)?)?",
             icon:   "places:fitness-center",
             action: [
-              {insert: "\n $1 sets of $2 at $3kg $4secs rest \n"},
+              {insert: "\n $1 sets of $2 at $3kg $4s rests \n"},
             ],
             value:"$1 sets of $2 reps at $3kg and $4 rests",
           }
@@ -271,7 +271,7 @@
     },
     getCommands: function(cardPart) {
       if (cardPart === 0) {
-        if (this.selectedItem.ref) {
+        if (this.selectedItem && this.selectedItem.ref) {
           return ["Delete","Show it"]
         } else {
           return ["Disregard","Save"]
