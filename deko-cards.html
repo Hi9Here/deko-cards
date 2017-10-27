@@ -333,10 +333,8 @@
       var that = this
       
       that.set("loading", true)
-      var toAdd = {
-        title:that.selectedItem.name,
-      }
-      that.cards.add({title:that.selectedItem.name}).then(function(doc) {
+      
+      that.cards.add({selectedItem).then(function(doc) {
         
         // that.set("selectedItem", {})
         that.set("selectedItem.ref", doc)
