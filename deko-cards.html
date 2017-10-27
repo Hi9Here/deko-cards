@@ -207,19 +207,19 @@
       _setSelectedItem:{
         computed:"getSelectedItem(items)"
       },
-      _routeData: {
+      _routeData:{
         computed: "_log('routeData.data',routeData.data)"
       },
-      cardPart: {
+      cardPart:{
         observer: "changingPart"
       },
-      cardIcons: {
+      cardIcons:{
         value: []
       },
-      _runTricks: {
+      _runTricks:{
         computed: "testStuff(addingStuff,tricks)"
       },
-      _addingLine: {
+      _addingLine:{
         computed: "setAddingLine(quill)"
       },
       tricks:{
@@ -245,7 +245,7 @@
           },
           timer: {
             intent: "^(add|make|setup a|start) timer (?:for )?([\\d]+) min(?:utes)?$",
-            minutes: `$1`,
+            minutes: "$1",
             icon: "alarm",
           },
           setsReps: {
@@ -328,8 +328,6 @@
       this.set("addingStuff", [{"insert":"\n"}])
       this.set("addingImage", "")
       this.set("addingBigImage", "")
-      
-      this.set("signedOff", null)
       
       this.set("loading", false)
     },
@@ -602,20 +600,13 @@
             title: that.selectedItem.name,
             selected: true,
           })
-          cardRef.collection("big image").add({
-            value: that.addingBigImage,
-            time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-            user:  firebase.auth().currentUser.uid,
-          }).then(function() {
+          if (that.selectedItem.image) {
             cardRef.collection("image").add({
-              value: that.addingImage,
+              value: that.selectedItem.image,
               time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
               user:  firebase.auth().currentUser.uid,
-            }).then(function() {
-              that.set("addingBigImage", "")
-              that.set("addingImage", "")
-            })
-          })
+            }).then()
+          }
         })
       }
     },
