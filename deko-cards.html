@@ -335,18 +335,7 @@
       that.set("loading", true)
       
       that.cards.add(this.selectedItem).then(function(doc) {
-        
-        // that.set("selectedItem", {})
         that.set("selectedItem.ref", doc)
-        
-        var tricks = that.tricks
-        for (var trick in tricks) {
-          if (that.selectedItem.hasOwnProperty(trick) && that.selectedItem[trick]) {
-            doc.collection(trick).add({value: that.selectedItem[trick]}).then(function() {
-              console.log(trick +" saved")
-            }).catch()
-          }
-        }
         if (toAddQuill) {
           doc.collection("quill").add(toAddQuill).then().catch()
         }
