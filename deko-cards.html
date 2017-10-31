@@ -346,10 +346,10 @@
         console.error("Error adding card: ", error);
       })
     },
-    changingName: function(name) {
+    changingTitle: function(title) {
       this.debounce("save", function () {
         if (this.selectedItem && this.selectedItem.ref) {
-          this.selectedItem.ref.set({title:name},{merge: true})
+          this.selectedItem.ref.set({title:title},{merge: true})
         }
       }, 2000)
     },
@@ -562,8 +562,6 @@
               that.selectedItem = {}
             }
             that.set("selectedItem.title", name)
-            that.set("selectedItem.name", name)
-            that.set("cardHeading", "Name")
             that.set("loading", false)
           }).catch(function(e) {
             that.set("loading", false)
@@ -582,14 +580,14 @@
       }
     },
     addToCard: function(cardRef) {
-      if (this.selectedItem.name || this.addingImage) {
+      if (this.selectedItem.title || this.addingImage) {
         var that = this
         cardRef.set({
-          title: that.selectedItem.name,
+          title: that.selectedItem.title,
         }).then(function() {
           that.set("selectedItem", {
             ref:   cardRef,
-            title: that.selectedItem.name,
+            title: that.selectedItem.title,
             selected: true,
           })
           if (that.selectedItem.image) {
@@ -762,11 +760,11 @@
     },
     select: function(e){
       this.selectedItem = e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
-      var cardTitle = this.selectedItem.title || this.selectedItem.name || this.selectedItem.ref.data().title
+      var cardTitle = this.selectedItem.title || this.selectedItem.ref.data().title
       var id  = this.selectedItem.ref.id
       
       this.items = this.items.map(function(x,i){
-        if (x.title == cardTitle || x.name == cardTitle || x.id === id) {
+        if (x.id === id) {
           x.selected = true
         } else {
           x.selected = false
