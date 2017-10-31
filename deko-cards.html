@@ -533,15 +533,9 @@
           })
         } else {
           that.newCard(quill)
-          that.$$("open-card").close()
         }
       }
       if (part == 1 && partFrom == 2){
-        if (!ref) {
-          that.newCard()
-          that.$$("open-card").close()
-        }
-          
         that.set("loading", true)
         ref.collection("big image").orderBy("time", "desc").limit(1).get().then(function(image) {
           that.set("loading", false)
@@ -553,7 +547,6 @@
             that.set("cardHeading", "Add Image") 
           }
         }).catch(function(e) {
-          console.log(e)
           that.set("loading", false)
         })
       }
@@ -573,7 +566,6 @@
             that.set("cardHeading", "Name")
             that.set("loading", false)
           }).catch(function(e) {
-            console.log(e)
             that.set("loading", false)
           })
         } 
