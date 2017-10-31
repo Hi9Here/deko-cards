@@ -760,7 +760,6 @@
     },
     select: function(e){
       this.selectedItem = e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
-      var cardTitle = this.selectedItem.title || this.selectedItem.ref.data().title
       var id  = this.selectedItem.ref.id
       
       this.items = this.items.map(function(x,i){
