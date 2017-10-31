@@ -401,9 +401,9 @@
               if (!this.selectedItem) {
                 this.selectedItem = {}
               }
-              this.selectedItem.name = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
-            } else if (stuff[op].insert.split("\n").join("") || (this.selectedItem && !this.selectedItem.name)) {
-              this.selectedItem.name = stuff[op].insert.split("\n").join("")
+              this.selectedItem.title = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
+            } else if (stuff[op].insert.split("\n").join("") || (this.selectedItem && !this.selectedItem.title)) {
+              this.selectedItem.title = stuff[op].insert.split("\n").join("")
             }
           } else if (!add) {
             var lines = stuff[op].insert.split("\n")
