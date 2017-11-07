@@ -285,6 +285,12 @@
     },
     getFirstImage: function(quill) {
       console.log(quill)
+      var index;
+      for (index = 0; index < quill.length; ++index) {
+        if (quill[index].insert && quill[index].insert.image) {
+          return this.selectedItem.image = quill[index].insert.image
+        }
+      }
     },
     addTextSetPrompt: function(d) {
       if (this.cardPart == 0) {
