@@ -184,7 +184,7 @@
   Polymer({
     is: "deko-cards",
     properties:{
-      _getFirstImage: {computed:"getFirstImage(quill.editor.delta.ops, quill.*, quill.editor.delta.ops.*)"},
+      _getFirstImage: {computed:"getFirstImage(addingStuff, addingStuff.*)"},
       _setItems:{
         computed:"setItems(cards, byChild, loadNum, startAt, wide)",
       },
