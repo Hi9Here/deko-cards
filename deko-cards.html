@@ -177,7 +177,8 @@
         <h3>Reminder</h3>
       </template>
     </open-card>
-    <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
+    <!-- <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
+    -->
   </template>
 </dom-module>
 <script>
@@ -185,6 +186,7 @@
     is: "deko-cards",
     properties:{
       _getFirstImage: {computed:"getFirstImage(addingStuff, addingStuff.*)"},
+      _changingImage: {computed:"changingImage(selectedItem.image)"},
       _setItems:{
         computed:"setItems(cards, byChild, loadNum, startAt, wide)",
       },
@@ -284,7 +286,6 @@
       }
     },
     getFirstImage: function(quill) {
-      console.log(quill)
       var index;
       for (index = 0; index < quill.length; ++index) {
         if (quill[index].insert && quill[index].insert.image) {
@@ -360,6 +361,13 @@
       this.debounce("save", function () {
         if (this.selectedItem && this.selectedItem.ref) {
           this.selectedItem.ref.set({title:title},{merge: true})
+        }
+      }, 2000)
+    },
+    changingImage: function(image) {
+      this.debounce("save", function () {
+        if (this.selectedItem && this.selectedItem.ref) {
+          this.selectedItem.ref.set({image:image},{merge: true})
         }
       }, 2000)
     },
