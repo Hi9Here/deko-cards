@@ -184,6 +184,7 @@
   Polymer({
     is: "deko-cards",
     properties:{
+      _getFirstImage: {computed:"getFirstImage(quill)"},
       _setItems:{
         computed:"setItems(cards, byChild, loadNum, startAt, wide)",
       },
@@ -281,6 +282,9 @@
       } else {
         // get tricks
       }
+    },
+    getFirstImage: function(quill) {
+      console.log(quill)
     },
     addTextSetPrompt: function(d) {
       if (this.cardPart == 0) {
