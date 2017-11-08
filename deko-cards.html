@@ -784,6 +784,7 @@
       return item.selected || false
     },
     select: function(e){
+      this.selectedItem = ""
       this.selectedItem = e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
       var id  = this.selectedItem.ref.id
       
