@@ -20,7 +20,8 @@
     "image-base64": "marcus7777/image-base64",
     "open-card":"marcus7777/open-card",
     "deko-card-container": "marcus7777/deko-card-container",
-    "q-card":"Hi9Here/q-card"
+    "q-card": "Hi9Here/q-card",
+    "file-upload": "marcus7777/file-upload"
   },
   "resolutions": {
     "iron-icon": "^1.0.0",
