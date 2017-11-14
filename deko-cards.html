@@ -356,7 +356,7 @@
         }
         that.set("loading", false)
       }).catch(function(error) {
-        console.error("Error adding card: ", error);
+        console.error("Error adding card: ", error)
       })
     },
     changingTitle: function(title) {
@@ -782,8 +782,10 @@
       return item.selected || false
     },
     select: function(e){
-      this.selectedItem = ""
-      this.selectedItem = e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
+      var pick = e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
+      if (pick) {
+        this.selectedItem = pick
+      }
       var id  = this.selectedItem.ref.id
       
       this.items = this.items.map(function(x,i){
