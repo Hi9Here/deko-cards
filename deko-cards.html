@@ -340,7 +340,6 @@
       this.set("selectedItem", "")
       this.set("addingStuff", [{"insert":"\n"}])
       this.set("addingImage", "")
-      this.set("addingBigImage", "")
       
       this.set("loading", false)
     },
@@ -717,13 +716,14 @@
           // that.items = theSnap.sort(sortByChild) 
           var cards = [];
           theSnap.forEach(function(doc) {
+            var docData = doc.data()
             cards.push({
-              title: doc.data().title,
-              dek: doc.data().dek,
-              show: doc.data().show,
-              timer: doc.data().timer,
-              reminder: doc.data().reminder,
-              signedOff: doc.data().signedOff,
+              title: docData.title,
+              dek: docData.dek,
+              show: docData.show,
+              timer: docData.timer,
+              reminder: docData.reminder,
+              signedOff: docData.signedOff,
               ref: doc.ref,
             })
           })
