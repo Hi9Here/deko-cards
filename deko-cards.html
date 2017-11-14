@@ -559,19 +559,7 @@
         }
       }
       if (part == 1 && partFrom == 2){
-        that.set("loading", true)
-        ref.collection("image").orderBy("time", "desc").limit(1).get().then(function(image) {
-          that.set("loading", false)
-          if (image && image.size) {
-            that.set("addingImage", image.docs[0].data().value)
-            that.set("cardHeading", "Change Image")
-          } else {
-            that.set("addingImage", "")
-            that.set("cardHeading", "Add Image") 
-          }
-        }).catch(function(e) {
-          that.set("loading", false)
-        })
+
       }
       if (part == 2) {
         this.cardHeading = "Name it" 
