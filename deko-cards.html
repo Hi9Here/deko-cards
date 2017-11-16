@@ -366,7 +366,7 @@
     },
     changingImage: function(image) {
       this.debounce("save", function () {
-        if (this.selectedItem && this.selectedItem.ref) {
+        if (image && this.selectedItem && this.selectedItem.ref) {
           this.selectedItem.ref.set({image:image},{merge: true})
         }
       }, 2000)
