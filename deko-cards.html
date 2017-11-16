@@ -379,7 +379,6 @@
 
           that.set("addingStuff", [{"insert":"\n"}])
           that.set("addingImage", "")
-          that.set("addingBigImage", "")
           
           that.set("selectedItem", null)
           
@@ -400,7 +399,6 @@
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min;
       }
-      var titleImage
       for (var op in stuff) {
         if (stuff[op].insert && typeof stuff[op].insert  === 'string') {
           if (!name) { 
@@ -420,7 +418,7 @@
               if (!this.selectedItem) {
                 this.selectedItem = {}
               }
-              this.selectedItem.title = name.replace(/[^0-9a-z-A-Z ]/g, "").trim()
+              this.selectedItem.title = name.replace(/[^0-9a-z-A-Z ]/g, " ").trim()
             } else if (stuff[op].insert.split("\n").join("") || (this.selectedItem && !this.selectedItem.title)) {
               this.selectedItem.title = stuff[op].insert.split("\n").join("")
             }
@@ -478,10 +476,6 @@
         if (stuff[op].insert && stuff[op].insert.image) {
           if (stuff[op].insert.image.length > 1000*1000) {
             this.resizeImage(stuff, op)
-          }
-          if (!titleImage) {
-            titleImage = "done"
-            this.addingBigImage = stuff[op].insert.image
           }
         }
       }
