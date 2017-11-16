@@ -339,7 +339,6 @@
       this.set("loading", true)
       this.set("selectedItem", "")
       this.set("addingStuff", [{"insert":"\n"}])
-      this.set("addingImage", "")
       
       this.set("loading", false)
     },
@@ -584,7 +583,7 @@
       }
     },
     addToCard: function(cardRef) {
-      if (this.selectedItem.title || this.addingImage) {
+      if (this.selectedItem.title) {
         var that = this
         cardRef.set({
           title: that.selectedItem.title,
