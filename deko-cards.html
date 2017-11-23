@@ -112,7 +112,7 @@
         </div>
         <deko-card-container>
           <template is="dom-repeat" items="{{items}}" initial-Count="1" id="list0">
-            <deko-card ref="{{item.ref}}" on-tap="selectOpen" card="{{item}}" title="[[item.title]]"></deko-card>
+            <deko-card toolbar-color="[[item.toolbarColor]]" ref="{{item.ref}}" on-tap="selectOpen" card="{{item}}" title="[[item.title]]"></deko-card>
           </template>
         </deko-card-container>
         <div class="nex desktop">
@@ -134,14 +134,14 @@
           </template>
         </div>
         <template is="dom-repeat" items="{{items}}" filter="pickable"  id="list1">
-          <paper-toolbar class="toolbarMobile" on-tap="select" title="[[item.title]]" card="{{item}}" style$="background:[[deckColor]]; height: 35px;">
+          <paper-toolbar class="toolbarMobile" on-tap="select" title="[[item.title]]" card="{{item}}" style$="background:[[item.toolbarColor]]; height: 35px;">
             <iron-icon icon="[[item.icon]]" style="height:90%"></iron-icon>
             <div class="title">[[item.title]]</div>
           </paper-toolbar>
         </template>
         <template is="dom-if" if="[[selectedItem]]">
           <div id="narrow">
-            <deko-card ref="{{selectedItem.ref}}" on-tap="selectOpen" card="{{selectedItem}}"></deko-card>
+            <deko-card ref="{{selectedItem.ref}}" toolbar-color="[[selectedItem.toolbarColor]]" on-tap="selectOpen" card="{{selectedItem}}"></deko-card>
           </div>
         </template>
         <div class="nex mobile">
@@ -379,7 +379,7 @@
                 function rgbToHex(r, g, b) {
                   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
                 }
-                that.selectedItem.ref.set({color:rgbToHex(colour.red, colour.green, colour.blue)},{merge: true})
+                that.selectedItem.ref.set({toolbarColor:rgbToHex(colour.red, colour.green, colour.blue)},{merge: true})
               }
             })
           }
