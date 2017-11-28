@@ -784,8 +784,9 @@
     select: function(e){
       var pick = e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
       if (pick) {
-        this.selectedItem = {}
-        this.selectedItem = pick
+        this.set("selectedItem" ,{})
+        this.set("selectedItem.ref","")
+        this.set("selectedItem", pick)
       }
       var id  = this.selectedItem.ref.id
       
