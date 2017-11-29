@@ -161,19 +161,7 @@
         <quill-js value="{{addingStuff}}" text={{selectedItem.text}} no-resize editor="{{quill}}" theme="bubble" ></quill-js>
         <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{selectedItem}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
       </div>
-      <deko-opened-card ref="{{selectedItem.ref}}"></deko-opened-card>
-      <template is="dom-if" if="[[selectedItem.signedOff]]">
-        <h3>signedOff</h3>
-      </template>
-      <template is="dom-if" if="[[selectedItem.setsReps]]">
-        <sets-reps value="[[selectedItem.setsReps.value]]"></sets-reps>
-      </template>
-      <template is="dom-if" if="[[selectedItem.timer]]">
-        <h3>Timer</h3>
-      </template>
-      <template is="dom-if" if="[[selectedItem.reminder]]">
-        <h3>Reminder</h3>
-      </template>
+      <quill-js value="[[addingStuff]]" show ></quill-js>
     </open-card>
     <!-- <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
     -->
