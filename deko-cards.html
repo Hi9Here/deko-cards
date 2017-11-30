@@ -777,7 +777,17 @@
         this.set("selectedItem", pick)
       }
       var id  = this.selectedItem.ref.id
-      
+      // load quill
+      var that = this
+      this.selectedItem.ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
+        if (data && data.size) {
+          var value = data.docs[0].data().value
+          that.set("addingStuff", value)
+          that.set("cardHeading", that.selectedItem.title) 
+        } else {
+          that.set("addingStuff", [{"insert":"\n"}])
+        }
+      })
       this.items = this.items.map(function(x,i){
         if (x.ref.id === id) {
           x.selected = true
