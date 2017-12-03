@@ -171,8 +171,9 @@
   Polymer({
     is: "deko-cards",
     properties:{
-      _getFirstImage: {computed:"getFirstImage(addingStuff, addingStuff.*)"},
+      _getFirstImage: {computed:"getFirstImage(selectedItem.quill, selectedItem.quill.*)"},
       _changingImage: {computed:"changingImage(selectedItem.image)"},
+      _changingCard: {computed:"changingCard(selectedItem, selectedItem.*)"},
       _setItems:{
         computed:"setItems(cards, byChild, loadNum, startAt, wide)",
       },
@@ -277,7 +278,6 @@
         if (quill[index].insert && quill[index].insert.image) {
           if (this.selectedItem.image !== quill[index].insert.image) {
             this.selectedItem.image = quill[index].insert.image
-            this.changingImage(this.selectedItem.image)
           }
           return
         }
@@ -300,6 +300,17 @@
         // tricks
         
       }
+    },
+    changingCard: function(selectedItem) {
+      this.debounce("saveCard", function () {
+        if (this.selectedItem && this.selectedItem.ref) {
+          this.selectedItem.ref.set({
+            title:selectedItem.title,
+            text:selectedItem.text,
+            image:selectedItem.image,
+          },{merge: true})
+        }
+      }, 2000)
     },
     setAddingLine: function(quill) {
       var that = this 
@@ -325,8 +336,8 @@
     }, 
     new: function() {
       this.set("loading", true)
-      this.set("selectedItem", "")
-      this.set("addingStuff", [{"insert":"\n"}])
+      this.set("selectedItem", {})
+      this.set("selectedItem.quill", [{"insert":"\n"}])
       
       this.set("loading", false)
     },
