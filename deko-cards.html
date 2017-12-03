@@ -207,7 +207,7 @@
         value: []
       },
       _runTricks:{
-        computed: "testStuff(addingStuff,tricks)"
+        computed: "testStuff(selectedItem.quill,tricks)"
       },
       _addingLine:{
         computed: "setAddingLine(quill)"
@@ -390,12 +390,7 @@
       var that = this
       if (that.selectedItem && that.selectedItem.ref) {
         that.selectedItem.ref.delete().then(function() {
-
-          that.set("addingStuff", [{"insert":"\n"}])
-          that.set("addingImage", "")
-          
           that.set("selectedItem", null)
-          
           that.set("loading", false)
         }).catch(function(error) {
           console.error("Error removing card: ", error);
@@ -499,7 +494,10 @@
         stuff = stuff.splice(0, +addAt ).concat(add,  stuff.splice(1 + +(addAt) ))
       }
       if (add || head) {
-        this.set("addingStuff", stuff)
+        if (!this.selectedItem) {
+          this.selectedItem = {}
+        }
+        this.set("selectedItem.quill", stuff)
       }
     },
     resizeImage: function(stuff, opForImage) {
