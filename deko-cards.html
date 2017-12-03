@@ -500,23 +500,23 @@
         this.set("selectedItem.quill", stuff)
       }
     },
-    resizeImage: function(stuff, opForImage) {
-      var that = this
-      loadImage(
-        stuff[opForImage].insert.image,
-        function (canvas) {
-          if (canvas.toDataURL) {
-            stuff[opForImage].insert.image = canvas.toDataURL()
-            that.set("addingStuff", stuff.map(function(x) {return x}) )
-          }
-        }, {
-          canvas: true,
-          maxHeight: 500,
-          maxWidth: 500,
-          orientation: true,
-        }
-      )
-    },
+//    resizeImage: function(stuff, opForImage) {
+//      var that = this
+//      loadImage(
+//        stuff[opForImage].insert.image,
+//        function (canvas) {
+//          if (canvas.toDataURL) {
+//            stuff[opForImage].insert.image = canvas.toDataURL()
+//            that.set("selectedItem.quill", stuff.map(function(x) {return x}) )
+//          }
+//        }, {
+//          canvas: true,
+//          maxHeight: 500,
+//          maxWidth: 500,
+//          orientation: true,
+//        }
+//      )
+//    },
     changingPart: function(part, partFrom) {
       var that = this
       var ref 
@@ -536,13 +536,11 @@
             that.set("loading", false)
             if (data && data.size) {
               var value = data.docs[0].data().value
-              if (JSON.stringify(that.addingStuff) !== JSON.stringify(value)) {
-                that.set("addingStuff", value)
+              if (JSON.stringify(that.selectedItem.quill) !== JSON.stringify(value)) {
+                that.set("selectedItem.quill", value)
               }
-              that.set("cardHeading", "Change Card") 
             } else {
-              that.set("addingStuff", [{"insert":"\n"}])
-              that.set("cardHeading", "Let's add some text") 
+              that.set("selectedItem.quill", [{"insert":"\n"}])
             }
           })
         }
@@ -761,10 +759,10 @@
       this.selectedItem.ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
         if (data && data.size) {
           var value = data.docs[0].data().value
-          that.set("addingStuff", value)
+          that.set("selectedItem.quill", value)
           that.set("cardHeading", that.selectedItem.title) 
         } else {
-          that.set("addingStuff", [{"insert":"\n"}])
+          that.set("selectedItem.quill", [{"insert":"\n"}])
         }
       })
       this.items = this.items.map(function(x,i){
