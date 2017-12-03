@@ -158,10 +158,10 @@
             <iron-icon icon="[[item.icon]]"></iron-icon>
           </template>
         </template>
-        <quill-js value="{{addingStuff}}" text="{{selectedItem.text}}" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
+        <quill-js value="{{selectedItem.quill}}" text="{{selectedItem.text}}" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
         <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{selectedItem}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
       </div>
-      <quill-js value="[[addingStuff]]" show ></quill-js>
+      <quill-js value="[[selectedItem.quill]]" show ></quill-js>
     </open-card>
     <!-- <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
     -->
@@ -538,9 +538,9 @@
           })
         }
       }
-      if (part == 1 && partFrom == 0 && JSON.stringify(this.addingStuff) != JSON.stringify([{"insert":"\n"}])){
+      if (part == 1 && partFrom == 0 && JSON.stringify(this.selectedItem.quill) != JSON.stringify([{"insert":"\n"}])){
         var quill = {
-          value: that.addingStuff,
+          value: that.selectedItem.quill,
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user:  firebase.auth().currentUser.uid,
         }
@@ -553,37 +553,6 @@
         } else {
           that.newCard(quill)
         }
-      }
-      if (part == 1 && partFrom == 2){
-
-      }
-      if (part == 2) {
-        this.cardHeading = "Name it" 
-      }
-      if (part == 2 && partFrom == 3){
-        this.set("loading", true)
-        if (ref) {
-          ref.get().then(function(doc){
-            var name = doc.data().title
-            if (!that.selectedItem){
-              that.selectedItem = {}
-            }
-            that.set("selectedItem.title", name)
-            that.set("loading", false)
-          }).catch(function(e) {
-            that.set("loading", false)
-          })
-        } 
-      }
-      if (part == 3) {
-        this.loading = false
-        this.cardHeading = "" 
-      }
-      if (part == 3 && partFrom == 2){
-        if (ref){
-          that.newCard()
-        }
-        that.addToCard(ref)
       }
     },
     addToCard: function(cardRef) {
