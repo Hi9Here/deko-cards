@@ -303,12 +303,18 @@
     },
     changingCard: function(selectedItem) {
       this.debounce("saveCard", function () {
-        if (this.selectedItem && this.selectedItem.ref) {
-          this.selectedItem.ref.set({
-            title:selectedItem.title,
-            text:selectedItem.text,
-            image:selectedItem.image,
-          },{merge: true})
+        if (selectedItem && selectedItem.ref) {
+          var toSave  = {}
+          if (selectedItem.title) {
+            toSave.title = selectedItem.title
+          }
+          if (selectedItem.text) {
+            toSave.text = selectedItem.text
+          }
+          if (selectedItem.image) {
+            toSave.image = selectedItem.image
+          }
+          selectedItem.ref.set(toSave,{merge: true})
         }
       }, 2000)
     },
