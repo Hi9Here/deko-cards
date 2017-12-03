@@ -500,10 +500,12 @@
         stuff = stuff.splice(0, +addAt ).concat(add,  stuff.splice(1 + +(addAt) ))
       }
       if (add || head) {
-        if (!this.selectedItem) {
-          this.selectedItem = {}
+        if (JSON.stringify(this.selectedItem.quill) !== JSON.stringify(stuff)) {
+          if (!this.selectedItem) {
+            this.selectedItem = {}
+          }
+          this.set("selectedItem.quill", stuff)
         }
-        this.set("selectedItem.quill", stuff)
       }
     },
 //    resizeImage: function(stuff, opForImage) {
