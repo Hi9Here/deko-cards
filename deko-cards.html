@@ -232,7 +232,7 @@
               var insert = []
               
               for (index = 0; index < +setsReps.sets; ++index) {
-                insert.push({insert: "\n" + setsReps.reps + " reps at " + setsReps.weigth + "kg\n"})
+                insert.push({insert: setsReps.reps + " reps at " + setsReps.weigth + "kg\n"})
                 if (index !== (+setsReps.sets) - 1) {
                   insert.push({insert: setsReps.rest + " seconds rest \n"})
                 }
@@ -240,7 +240,22 @@
  
               return insert
             },
+            chips: {
+              next: function (quill) {
+                // Look for n reps at n kg
+                // set next to heading 3 (first if no set)
+                // if n seconds rest n = n - 1 and 
+                
+                // this.tricks.setsReps.timeout = setTimeout(this.tricks.setsReps.chips.next,1000)
+                
+                console.log(quill)
+              },
+              start: function(quill) {
+                // next
+              },
+            },
             value:"$1 sets of $2 reps at $3kg and $4 rests",
+            timeout: 0,
           },
         },
       },
