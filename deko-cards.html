@@ -367,7 +367,14 @@
       
       that.set("loading", true)
       
-      that.cards.add(this.selectedItem).then(function(doc) {
+      var save = {}
+      for (var key in this.selectedItem) {
+        if (key !== "quill") {
+          save[key] = this.selectedItem[key]
+        }
+      }
+      
+      that.cards.add(save).then(function(doc) {
         that.set("selectedItem.ref", doc)
         if (toAddQuill) {
           doc.collection("quill").add(toAddQuill).then().catch()
