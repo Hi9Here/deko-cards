@@ -248,6 +248,11 @@
                 
                 // this.tricks.setsReps.timeout = setTimeout(this.tricks.setsReps.chips.next,1000)
                 
+                this.audioDing = document.createElement('audio')
+                this.audioDing.setAttribute('src', 'https://firebasestorage.googleapis.com/v0/b/deko-app-one.appspot.com/o/d2toEcKIcJceNsdI3l4v8CPYGdo1%2Fc541bee81fce7019fad4eab46e7c3531%2Fding.mp3?alt=media&token=c41b2746-9f1c-4f2a-85f3-80c58f5fcc4c')
+                this.audioDing.setAttribute('autoplay:false', 'autoplay')
+                this.audioDing.play()
+                
                 console.log(quill)
               },
               start: function(quill) {
@@ -274,6 +279,9 @@
           return ["Disregard","Save"]
         }
       } else if (cardPart === 1) {
+        if (this.selectedItem) {
+          debugger
+        }
         return ["Edit","Done"] // if no tricks
       } else {
         // get tricks
