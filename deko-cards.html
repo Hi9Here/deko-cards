@@ -325,7 +325,7 @@
         icons.push(tricks[value])
         return icons
       }, [])
-    }, 
+    },
     noDrag: function(e) {
       e.stopPropagation()
     }, 
@@ -456,7 +456,7 @@
                         )
                       }
                       
-                      add = [{insert: addBefore + "\n"}].concat(theTrick.action(toAdd), [{insert: addAfter + "\n"}])
+                      add = [{insert: addBefore + "\n"}].concat(theTrick.action(theTrick), [{insert: addAfter + "\n"}])
                       
                     } else if (tricks[trick].action) {
                       var theTrick
