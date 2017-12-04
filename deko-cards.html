@@ -140,11 +140,6 @@
     </template>
     <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" _heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
       <div>
-        <template is="dom-repeat" items="[[iconTricks]]">
-          <template is="dom-if" if="[[item.icon]]">
-            <iron-icon icon="[[item.icon]]"></iron-icon>
-          </template>
-        </template>
         <quill-js value="{{selectedItem.quill}}" text="{{selectedItem.text}}" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
         <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{selectedItem}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
       </div>
