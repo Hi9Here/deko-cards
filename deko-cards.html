@@ -456,7 +456,7 @@
                         )
                       }
                       
-                      add = [{insert: addBefore + "\n"}].concat(theTrick.action(theTrick), [{insert: addAfter + "\n"}])
+                      add = [{insert: addBefore + "\n"}].concat(tricks[trick].action(theTrick), [{insert: addAfter + "\n"}])
                       
                     } else if (tricks[trick].action) {
                       var theTrick
