@@ -617,19 +617,6 @@
         }
       }
     },
-    cardTapped: function(e, d) {
-      if (d.hasOwnProperty("target")) {
-        if (d.target.attributes.id) {
-          if (typeof this[d.target.id] === "function") {
-            this[d.target.id](d)
-          }
-        }
-      }
-    },
-    edit: function(e,d) {
-      this.set("editing",d)
-      this.$.editor.open(d)
-    },
     getStartAt: function(pages, find){
       if (find) {
         return find
