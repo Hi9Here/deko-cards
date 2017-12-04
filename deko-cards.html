@@ -483,6 +483,7 @@
                       }
                       
                       add = [{insert: addBefore + "\n"}].concat(tricks[trick].action(theTrick), [{insert: addAfter + "\n"}])
+                      this.set("selectedItem."+ trick, theTrick)
                       
                     } else if (tricks[trick].action) {
                       var theTrick
@@ -498,9 +499,8 @@
                       }
                       
                       add = [{insert: addBefore + "\n"}].concat(theTrick.action, [{insert: addAfter + "\n"}])
-                      
+                      this.set("selectedItem."+ trick, theTrick)
                     } else {
-                      
                       add = [
                         {insert: addBefore + "\n"},
                         {insert: addAfter  + "\n"},
@@ -509,9 +509,9 @@
                     if (tricks[trick].icon) {
                       if (this.cardIcons.indexOf(tricks[trick].icon) === -1) {
                         this.push("cardIcons", tricks[trick].icon)
-                        this.set("selectedItem."+ trick, theTrick)
                       }
                     }
+                    this.set("selectedItem."+ trick, tricks[trick])
                   }
                 }
               }
