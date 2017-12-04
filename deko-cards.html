@@ -587,7 +587,7 @@
       }
       if (part == 1 && partFrom == 0 && JSON.stringify(this.selectedItem.quill) != JSON.stringify([{"insert":"\n"}])){
         var quill = {
-          value: that.selectedItem.quill,
+          value: this.quill.getContents().ops,
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user:  firebase.auth().currentUser.uid,
         }
