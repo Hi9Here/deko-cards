@@ -232,8 +232,8 @@
               var insert = []
               
               for (index = 0; index < +setsReps.sets; ++index) {
-                insert.push({insert: "\n" + setsReps.reps + " reps at " + setsReps.weigth + "kg $4s rests \n"})
-                if (index !== +setsReps.sets) {
+                insert.push({insert: "\n" + setsReps.reps + " reps at " + setsReps.weigth + "kg\n"})
+                if (index !== (+setsReps.sets) - 1) {
                   insert.push({insert: setsReps.rest + " seconds rest \n"})
                 }
               }
