@@ -228,9 +228,17 @@
             intent: "^([\\d]+) (?:set(?:s)? )?of ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?: second(?:s)?)?(?: rest(?:s)?)?",
             icon:   "places:fitness-center",
             action: function (setsReps) {
-              return [
-                {insert: "\n" + setsReps.sets + "sets of $2 at $3kg $4s rests \n"},
-              ]
+              var index
+              var insert = []
+              
+              for (index = 0; index < +setsReps.sets; ++index) {
+                insert.push({insert: "\n" + setsReps.reps + " reps at " + setsReps.weigth + "kg $4s rests \n"})
+                if (index !== +setsReps.sets) {
+                  insert.push({insert: setsReps.rest + " seconds rest \n"})
+                }
+              }
+ 
+              return insert
             },
             value:"$1 sets of $2 reps at $3kg and $4 rests",
           },
