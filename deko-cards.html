@@ -58,19 +58,6 @@
       .mobile {
         transform: rotate(90deg);   
       }
-      paper-button {
-        min-width: 2em;
-        min-height: 8em;
-        background: none;
-        color: #ff5722;
-      }
-      h6 {
-        -webkit-transform:scale(3,15); /* Safari and Chrome */
-        -moz-transform:scale(3,15); /* Firefox */
-        -ms-transform:scale(3,15); /* IE 9 */
-        -o-transform:scale(3,15); /* Opera */
-        transform:scale(3,15); /* W3C */
-      }
       paper-toolbar {
         --paper-toolbar-height: 35px;
         --paper-toolbar-sm-height: 35px;
@@ -245,9 +232,11 @@
             rest:   "$4",
             intent: "^([\\d]+) (?:set(?:s)? )?of ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?: second(?:s)?)?(?: rest(?:s)?)?",
             icon:   "places:fitness-center",
-            action: [
-              {insert: "\n $1 sets of $2 at $3kg $4s rests \n"},
-            ],
+            action: function (setsReps) {
+              return [
+                {insert: "\n" + setsReps.sets + "sets of $2 at $3kg $4s rests \n"},
+              ]
+            },
             value:"$1 sets of $2 reps at $3kg and $4 rests",
           },
         },
@@ -454,7 +443,22 @@
                     addAt = op
                     var addAfter  = lines.splice(1 + +(line)).join("\n")
                   
-                    if (tricks[trick].action) {
+                    if (typeof tricks[trick].action === "function") {
+                      var theTrick
+                      
+                      if (!tricks[trick].split) {
+                        theTrick = JSON.parse(
+                          toAdd.replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm,"\\n")
+                        )
+                      } else {
+                        theTrick = JSON.parse(
+                          toAdd.replace(new RegExp(tricks[trick].split, "gm"), "\\n").replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm,"\\n")
+                        )
+                      }
+                      
+                      add = [{insert: addBefore + "\n"}].concat(theTrick.action(toAdd), [{insert: addAfter + "\n"}])
+                      
+                    } else if (tricks[trick].action) {
                       var theTrick
                       
                       if (!tricks[trick].split) {
