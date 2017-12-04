@@ -249,7 +249,7 @@
               {insert: "\n $1 sets of $2 at $3kg $4s rests \n"},
             ],
             value:"$1 sets of $2 reps at $3kg and $4 rests",
-          }
+          },
         },
       },
       iconTricks: {
@@ -333,7 +333,7 @@
     },
     getIconTricks: function(tricks) {
       return Object.keys(tricks).reduce(function(icons, value) {
-          icons.push(tricks[value])
+        icons.push(tricks[value])
         return icons
       }, [])
     }, 
@@ -750,18 +750,21 @@
         this.set("selectedItem.ref","")
         this.set("selectedItem", pick)
       }
-      var id  = this.selectedItem.ref.id
-      // load quill
-      var that = this
-      this.selectedItem.ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
-        if (data && data.size) {
-          var value = data.docs[0].data().value
-          that.set("selectedItem.quill", value)
-          that.set("cardHeading", that.selectedItem.title) 
-        } else {
-          that.set("selectedItem.quill", [{"insert":"\n"}])
-        }
-      })
+      var id = ""
+      if (this.selectedItem.ref){
+        id = this.selectedItem.ref.id
+        var that = this
+        this.selectedItem.ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
+          if (data && data.size) {
+            var value = data.docs[0].data().value
+            that.set("selectedItem.quill", value)
+            that.set("cardHeading", that.selectedItem.title) 
+          } else {
+            that.set("selectedItem.quill", [{"insert":"\n"}])
+          }
+        })
+      }
+
       this.items = this.items.map(function(x,i){
         if (x.ref.id === id) {
           x.selected = true
