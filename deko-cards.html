@@ -374,7 +374,7 @@
         }
       }
       
-      that.cards.add(save).then(function(doc) {
+      that.cards.add(JSON.parse(JSON.stringify(save))).then(function(doc) {
         that.set("selectedItem.ref", doc)
         if (toAddQuill) {
           doc.collection("quill").add(toAddQuill).then().catch()
