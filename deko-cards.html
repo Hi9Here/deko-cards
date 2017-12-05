@@ -573,9 +573,6 @@
       if (that.selectedItem) {
         ref = that.selectedItem.ref
       }
-      if (part == 0) {
-        this.cardHeading = "Let's get started" 
-      }
       if (part == 0 && partFrom == 1){
         if (ref) {
           that.set("loading", true)
@@ -615,7 +612,7 @@
         cardRef.set({
           title: that.selectedItem.title,
           toolbarColor: that.selectedItem.toolbarColor,
-        }).then(function() {
+        },{merge:true}).then(function() {
           that.set("selectedItem", {
             ref:   cardRef,
             title: that.selectedItem.title,
