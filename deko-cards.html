@@ -140,10 +140,10 @@
     </template>
     <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" _heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
       <div>
-        <quill-js value="{{selectedItem.quill}}" text="{{selectedItem.text}}" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
+        <quill-js style="max-width: 500px;margin: auto;" value="{{selectedItem.quill}}" text="{{selectedItem.text}}" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
         <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{selectedItem}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
       </div>
-      <quill-js value="[[selectedItem.quill]]" show ></quill-js>
+      <quill-js value="[[selectedItem.quill]]" show style="max-width: 500px;margin: auto;" ></quill-js>
     </open-card>
     <!-- <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
     -->
