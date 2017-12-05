@@ -259,6 +259,40 @@
                 // next
               },
             },
+            numberOfSets: function (str) {
+              var regex = /^[\d]+ reps at [\d]+kg( done)?/gmi
+              var m
+              var n = 0
+              while ((m = regex.exec(str)) !== null) {
+                // This is necessary to avoid infinite loops with zero-width matches
+                if (m.index === regex.lastIndex) {
+                  regex.lastIndex++;
+                }
+    
+                // The result can be accessed through the `m`-variable.
+                m.forEach((match, groupIndex) => {
+                  n++
+                })
+              }
+              return n
+            },
+            numberOfDone: function (str) {
+              var regex = /^[\d]+ reps at [\d]+kg done/gmi
+              var m
+              var n = 0
+              while ((m = regex.exec(str)) !== null) {
+                // This is necessary to avoid infinite loops with zero-width matches
+                if (m.index === regex.lastIndex) {
+                  regex.lastIndex++;
+                }
+    
+                // The result can be accessed through the `m`-variable.
+                m.forEach((match, groupIndex) => {
+                  n++
+                })
+              }
+              return n
+            },
             value:"$1 sets of $2 reps at $3kg and $4 rests",
             timeout: 0,
           },
