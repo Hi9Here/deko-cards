@@ -130,6 +130,13 @@
           <div id="narrow">
             <deko-card ref="{{selectedItem.ref}}" toolbar-color="[[selectedItem.toolbarColor]]" on-tap="selectOpen" card="{{selectedItem}}"></deko-card>
           </div>
+          <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-new="new">
+            <div>
+              <quill-js style="max-width: 500px;margin: auto;" value="{{selectedItem.quill}}" text="{{selectedItem.text}}" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
+              <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{selectedItem}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
+            </div>
+            <quill-js value="[[selectedItem.quill]]" show style="max-width: 500px;margin: auto;" ></quill-js>
+          </open-card>
         </template>
         <div class="nex mobile">
           <template is="dom-if" if="[[nextPageStartAt]]">
@@ -138,15 +145,9 @@
         </div>
       </div>
     </template>
-    <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" rem-loading="[[loading]]" selected="{{cardPart}}" _heading="[[cardHeading]]" on-cancel="deleteCard" on-new="new">
-      <div>
-        <quill-js style="max-width: 500px;margin: auto;" value="{{selectedItem.quill}}" text="{{selectedItem.text}}" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
-        <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{selectedItem}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
-      </div>
-      <quill-js value="[[selectedItem.quill]]" show style="max-width: 500px;margin: auto;" ></quill-js>
-    </open-card>
     <!-- <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
     -->
+    <img on-tap="new" style="position: fixed;bottom: 17px;margin-left: -30px;left: 50%;height: 60px;" src="/images/deko.svg" autofocus/>
   </template>
 </dom-module>
 <script>
