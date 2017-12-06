@@ -126,17 +126,10 @@
             <div class="title">[[item.title]]</div>
           </paper-toolbar>
         </template>
-        <template is="dom-if" if="[[selectedItem]]">
+        <template is="dom-repeat" items="{{items}}" filter="selected" id="list4">
           <div id="narrow">
-            <deko-card ref="{{selectedItem.ref}}" toolbar-color="[[selectedItem.toolbarColor]]" on-tap="selectOpen" card="{{selectedItem}}"></deko-card>
+            <deko-card ref="{{item.ref}}" toolbar-color="[[item.toolbarColor]]" on-tap="selectOpen" card="{{item}}"></deko-card>
           </div>
-          <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-new="new">
-            <div>
-              <quill-js style="max-width: 500px;margin: auto;" value="{{selectedItem.quill}}" text="{{selectedItem.text}}" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
-              <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{selectedItem}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
-            </div>
-            <quill-js value="[[selectedItem.quill]]" show style="max-width: 500px;margin: auto;" ></quill-js>
-          </open-card>
         </template>
         <div class="nex mobile">
           <template is="dom-if" if="[[nextPageStartAt]]">
@@ -144,6 +137,15 @@
           </template>
         </div>
       </div>
+    </template>
+    <template is="dom-repeat" items="{{items}}" filter="selected"  id="list5">
+      <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-new="new">
+        <div>
+          <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" text="{{item.text}}" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
+          <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
+        </div>
+        <quill-js value="[[item.quill]]" show style="max-width: 500px;margin: auto;" ></quill-js>
+      </open-card>
     </template>
     <!-- <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
     -->
@@ -190,7 +192,7 @@
         value: []
       },
       _runTricks:{
-        computed: "testStuff(selectedItem.quill,tricks)"
+        computed: "testStuff(quill,tricks)"
       },
       _addingLine:{
         computed: "setAddingLine(quill)"
@@ -441,7 +443,7 @@
                 function rgbToHex(r, g, b) {
                   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
                 }
-                that.selectedItem.ref.set({toolbarColor:rgbToHex(colour.red, colour.green, colour.blue)},{merge: true})
+                that.items..ref.set({toolbarColor:rgbToHex(colour.red, colour.green, colour.blue)},{merge: true})
               }
             })
           }
@@ -815,20 +817,24 @@
     },
     select: function(e){
       var pick = e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
-      if (pick) {
-        this.set("selectedItem" ,{})
-        this.set("selectedItem.ref","")
-        this.set("selectedItem", pick)
+      var that = this
+      var selected = (accumulator, card, currentIndex) => { 
+        if (card.selected) {
+          accumulator = currentIndex
+        }
+        return accumulator
       }
+      
       var id = ""
-      if (this.selectedItem.ref){
-        id = this.selectedItem.ref.id
-        var that = this
-        this.selectedItem.ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
+      
+      if (pick.ref){
+        id = pick.ref.id
+        pick.ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
           if (data && data.size) {
             var value = data.docs[0].data().value
-            that.set("selectedItem.quill", value)
-            that.set("cardHeading", that.selectedItem.title) 
+            
+            var selectedItem = that.items.reduce(selected, 0)
+            that.set("items."+ selectedItem +".quill", value)
           } else {
             that.set("selectedItem.quill", [{"insert":"\n"}])
           }
