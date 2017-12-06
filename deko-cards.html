@@ -305,9 +305,9 @@
       },
     },
     getCommands: function(cardPart) {
-      
+      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
       if (cardPart === 0) {
-        if (this.items[selectedItem] && this.items[selectedItem].ref) {
+        if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
           return ["Delete","Show it"]
         } else {
           return ["Disregard","Save"]
@@ -422,7 +422,7 @@
     changingTitle: function(title) {
       this.debounce("save", function () {
         var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
-        if (selectedItem && this.items[selectedItem] && this.items[selectedItem].ref) {
+        if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
           this.items[selectedItem].ref.set({title:title}, {merge: true})
         }
       }, 2000)
@@ -454,7 +454,7 @@
     deleteCard: function() {
       var that = this
       var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
-      if (selectedItem && that.items[selectedItem] && that.items[selectedItem].ref) {
+      if (selectedItem !== false && that.items[selectedItem] && that.items[selectedItem].ref) {
         that.items[selectedItem].ref.delete().then(function() {
           that.set("selectedItem", null)
           that.set("loading", false)
