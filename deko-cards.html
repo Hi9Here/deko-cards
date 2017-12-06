@@ -430,7 +430,8 @@
     },
     changingImage: function(image) {
       this.debounce("save", function () {
-        if (image && this.selectedItem && this.selectedItem.ref) {
+        var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+        if (image && selectedItem === false && this.items[selectedItem].ref) {
           if (image.split("%2F")[1]) {
             var that = this
             db.collection("files").doc(image.split("%2F")[1]).get().then(function(doc) {
@@ -443,18 +444,19 @@
                 function rgbToHex(r, g, b) {
                   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
                 }
-                that.items..ref.set({toolbarColor:rgbToHex(colour.red, colour.green, colour.blue)},{merge: true})
+                that.items[selectedItem].ref.set({toolbarColor:rgbToHex(colour.red, colour.green, colour.blue)},{merge: true})
               }
             })
           }
-          this.selectedItem.ref.set({image:image},{merge: true})
+          this.items[selectedItem].ref.set({image:image},{merge: true})
         }
       }, 2000)
     },
     deleteCard: function() {
       var that = this
-      if (that.selectedItem && that.selectedItem.ref) {
-        that.selectedItem.ref.delete().then(function() {
+      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+      if (selectedItem && that.items[selectedItem] && that.items[selectedItem].ref) {
+        that.items[selectedItem].ref.delete().then(function() {
           that.set("selectedItem", null)
           that.set("loading", false)
         }).catch(function(error) {
@@ -463,6 +465,10 @@
       }
     },
     testStuff: function(stuff, tricks){
+      
+      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+      stuff = this.quill.getContents().ops
+      
       var name
       var head
       var headAt
@@ -489,12 +495,12 @@
                   headAt = op
                 }
               }
-              if (!this.selectedItem) {
-                this.selectedItem = {}
+              if (!this.items[selectedItem]) {
+                this.items[selectedItem] = {}
               }
-              this.selectedItem.title = name.replace(/[^0-9a-z-A-Z ]/g, " ").trim()
-            } else if (stuff[op].insert.split("\n").join("") || (this.selectedItem && !this.selectedItem.title)) {
-              this.selectedItem.title = stuff[op].insert.split("\n").join("")
+              this.items[selectedItem].title = name.replace(/[^0-9a-z-A-Z ]/g, " ").trim()
+            } else if (stuff[op].insert.split("\n").join("") || (this.items[selectedItem] && !this.items[selectedItem].title)) {
+              this.items[selectedItem].title = stuff[op].insert.split("\n").join("")
             }
           } else if (!add) {
             var lines = stuff[op].insert.split("\n")
@@ -527,7 +533,7 @@
                       }
                       
                       add = [{insert: addBefore + "\n"}].concat(tricks[trick].action(theTrick), [{insert: addAfter + "\n"}])
-                      this.set("selectedItem."+ trick, theTrick)
+                      this.set(["items",selectedItem,trick], theTrick)
                       
                     } else if (tricks[trick].action) {
                       var theTrick
@@ -543,7 +549,7 @@
                       }
                       
                       add = [{insert: addBefore + "\n"}].concat(theTrick.action, [{insert: addAfter + "\n"}])
-                      this.set("selectedItem."+ trick, theTrick)
+                      this.set(["items",selectedItem,trick], theTrick)
                     } else {
                       add = [
                         {insert: addBefore + "\n"},
@@ -555,7 +561,7 @@
                         this.push("cardIcons", tricks[trick].icon)
                       }
                     }
-                    this.set("selectedItem."+ trick, tricks[trick])
+                    this.set(["items",selectedItem,trick], theTrick)
                   }
                 }
               }
@@ -575,11 +581,11 @@
       }
       if (add || head) {
         this.debounce("updateCard", function () {
-          if (JSON.stringify(this.selectedItem.quill) !== JSON.stringify(stuff)) {
-            if (!this.selectedItem) {
-              this.selectedItem = {}
+          if (JSON.stringify(this.items[selectedItem].quill) !== JSON.stringify(stuff)) {
+            if (!this.items[selectedItem]) {
+              this.items[selectedItem] = {}
             }
-            this.set("selectedItem.quill", stuff)
+            this.set(["items",selectedItem,"quill"], stuff)
           }
         }, 2000)
       }
@@ -602,13 +608,14 @@
 //      )
 //    },
     changingPart: function(part, partFrom) {
+      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
       var that = this
-      var ref 
+      var ref
       if (part == 1) {
         this.chips = []
       }
-      if (that.selectedItem) {
-        ref = that.selectedItem.ref
+      if (that.items[selectedItem]) {
+        ref = that.items[selectedItem].ref
       }
       if (part == 0 && partFrom == 1){
         if (ref) {
@@ -617,7 +624,7 @@
             that.set("loading", false)
             if (data && data.size) {
               var value = data.docs[0].data().value
-              if (JSON.stringify(that.selectedItem.quill) !== JSON.stringify(value)) {
+              if (JSON.stringify(that.items[selectedItem].quill) !== JSON.stringify(value)) {
                 that.set("selectedItem.quill", value)
               }
             } else {
@@ -626,7 +633,7 @@
           })
         }
       }
-      if (part == 1 && partFrom == 0 && JSON.stringify(this.selectedItem.quill) != JSON.stringify([{"insert":"\n"}])){
+      if (part == 1 && partFrom == 0 && JSON.stringify(this.items[selectedItem].quill) != JSON.stringify([{"insert":"\n"}])){
         var quill = {
           value: this.quill.getContents().ops,
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
@@ -644,21 +651,22 @@
       }
     },
     addToCard: function(cardRef) {
-      if (this.selectedItem.title) {
+      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+      if (this.items[selectedItem].title) {
         var that = this
         cardRef.set({
-          title: that.selectedItem.title,
-          toolbarColor: that.selectedItem.toolbarColor,
+          title: that.items[selectedItem].title,
+          toolbarColor: that.items[selectedItem].toolbarColor,
         },{merge:true}).then(function() {
           that.set("selectedItem", {
             ref:   cardRef,
-            title: that.selectedItem.title,
-            toolbarColor: that.selectedItem.toolbarColor,
+            title: that.items[selectedItem].title,
+            toolbarColor: that.items[selectedItem].toolbarColor,
             selected: true,
           })
-          if (that.selectedItem.image) {
+          if (that.items[selectedItem].image) {
             cardRef.collection("image").add({
-              value: that.selectedItem.image,
+              value: that.items[selectedItem].image,
               time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
               user:  firebase.auth().currentUser.uid,
             }).then()
@@ -673,19 +681,15 @@
     },
     getSelectedItem: function(items) {
       this.loading = true
-      if (items && items != null && items.filter(this.selected).length) {
-        this.selectedItem = items.filter(this.selected)[0]
-      } else {
-        if (items && items != null && this.items[0]) {
-          this.items = this.items.map(function(x,i){
-            if (i == 0) {
-              x.selected = true
-            } else {
-              x.selected = false
-            }
-            return x
-          })
-        }
+      if (items && items != null && this.items[0]) {
+        this.items = this.items.map(function(x,i){
+          if (i == 0) {
+            x.selected = true
+          } else {
+            x.selected = false
+          }
+          return x
+        })
       }
     },
     getStartAt: function(pages, find){
@@ -815,15 +819,15 @@
     selected: function(item){
       return item.selected || false
     },
+    reduceToIndexOfSelected: function(accumulator, card, currentIndex){
+      if (card.selected) {
+        accumulator = currentIndex
+      }
+      return accumulator
+    },
     select: function(e){
       var pick = e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
       var that = this
-      var selected = (accumulator, card, currentIndex) => { 
-        if (card.selected) {
-          accumulator = currentIndex
-        }
-        return accumulator
-      }
       
       var id = ""
       
@@ -832,11 +836,10 @@
         pick.ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
           if (data && data.size) {
             var value = data.docs[0].data().value
-            
-            var selectedItem = that.items.reduce(selected, 0)
+            var selectedItem = that.items.reduce(that.reduceToIndexOfSelected, 0)
             that.set("items."+ selectedItem +".quill", value)
           } else {
-            that.set("selectedItem.quill", [{"insert":"\n"}])
+            that.set("items."+ selectedItem +".quill", [{"insert":"\n"}])
           }
         })
       }
