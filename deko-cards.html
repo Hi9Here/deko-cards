@@ -156,9 +156,9 @@
   Polymer({
     is: "deko-cards",
     properties:{
-      _getFirstImage: {computed:"getFirstImage(selectedItem.quill, selectedItem.quill.*)"},
-      _changingImage: {computed:"changingImage(selectedItem.image)"},
-      _changingCard: {computed:"changingCard(selectedItem, selectedItem.*)"},
+      // _getFirstImage: {computed:"getFirstImage(selectedItem.quill, selectedItem.quill.*)"},
+      // _changingImage: {computed:"changingImage(selectedItem.image)"},
+      // _changingCard: {computed:"changingCard(selectedItem, selectedItem.*)"},
       _setItems:{
         computed:"setItems(cards, byChild, loadNum, startAt, wide)",
       },
@@ -309,14 +309,15 @@
       },
     },
     getCommands: function(cardPart) {
+      
       if (cardPart === 0) {
-        if (this.selectedItem && this.selectedItem.ref) {
+        if (this.items[selectedItem] && this.items[selectedItem].ref) {
           return ["Delete","Show it"]
         } else {
           return ["Disregard","Save"]
         }
       } else if (cardPart === 1) {
-        if (this.selectedItem) {
+        if (this.items[selectedItem]) {
           debugger
         }
         return ["Edit","Done"] // if no tricks
@@ -353,20 +354,20 @@
         
       }
     },
-    changingCard: function(selectedItem) {
+    changingCard: function(item) {
       this.debounce("saveCard", function () {
-        if (selectedItem && selectedItem.ref) {
+        if (item && item.ref) {
           var toSave  = {}
-          if (selectedItem.title) {
-            toSave.title = selectedItem.title
+          if (item.title) {
+            toSave.title = item.title
           }
-          if (selectedItem.text) {
-            toSave.text = selectedItem.text
+          if (item.text) {
+            toSave.text = item.text
           }
-          if (selectedItem.image) {
-            toSave.image = selectedItem.image
+          if (item.image) {
+            toSave.image = item.image
           }
-          selectedItem.ref.set(toSave,{merge: true})
+          item.ref.set(toSave,{merge: true})
         }
       }, 2000)
     },
@@ -393,26 +394,27 @@
       e.stopPropagation()
     }, 
     new: function() {
-      this.set("loading", true)
-      this.set("selectedItem", {})
-      this.set("selectedItem.quill", [{"insert":"\n"}])
-      
-      this.set("loading", false)
+      this.items = this.items.map(function(x){ 
+        x.selected = false
+        return x
+      }).concat([{
+        selected: true,
+        quill: [{"insert":"\n"}],
+      }])
     },
     newCard: function(toAddQuill) {
       var that = this
-      
-      that.set("loading", true)
+      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
       
       var save = {}
-      for (var key in this.selectedItem) {
+      for (var key in this.items[selectedItem]) {
         if (key !== "quill") {
-          save[key] = this.selectedItem[key]
+          save[key] = this.items[selectedItem][key]
         }
       }
       
       that.cards.add(JSON.parse(JSON.stringify(save))).then(function(doc) {
-        that.set("selectedItem.ref", doc)
+        that.set("items."+ selectedItem +".ref", doc)
         if (toAddQuill) {
           doc.collection("quill").add(toAddQuill).then().catch()
         }
@@ -423,8 +425,9 @@
     },
     changingTitle: function(title) {
       this.debounce("save", function () {
-        if (this.selectedItem && this.selectedItem.ref) {
-          this.selectedItem.ref.set({title:title},{merge: true})
+        var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+        if (selectedItem && this.items[selectedItem] && this.items[selectedItem].ref) {
+          this.items[selectedItem].ref.set({title:title}, {merge: true})
         }
       }, 2000)
     },
@@ -444,11 +447,11 @@
                 function rgbToHex(r, g, b) {
                   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
                 }
-                that.items[selectedItem].ref.set({toolbarColor:rgbToHex(colour.red, colour.green, colour.blue)},{merge: true})
+                that.items[selectedItem].ref.set({toolbarColor:rgbToHex(colour.red, colour.green, colour.blue)}, {merge: true})
               }
             })
           }
-          this.items[selectedItem].ref.set({image:image},{merge: true})
+          this.items[selectedItem].ref.set({image:image}, {merge: true})
         }
       }, 2000)
     },
