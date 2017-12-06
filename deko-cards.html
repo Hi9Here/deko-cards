@@ -322,11 +322,13 @@
       }
     },
     getFirstImage: function(quill) {
-      var index;
-      for (index = 0; index < quill.length; ++index) {
-        if (quill[index].insert && quill[index].insert.image) {
-          if (this.selectedItem.image !== quill[index].insert.image) {
-            this.selectedItem.image = quill[index].insert.image
+      var index
+      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+      
+      for (index = 0; index < this.items[selectedItem].quill.length; ++index) {
+        if (this.items[selectedItem].quill[index].insert && this.items[selectedItem].quill[index].insert.image) {
+          if (this.selectedItem.image !== this.items[selectedItem].quill[index].insert.image) {
+            this.items[selectedItem].image = this.items[selectedItem].quill[index].insert.image
           }
           return
         }
