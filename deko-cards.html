@@ -155,7 +155,7 @@
   Polymer({
     is: "deko-cards",
     properties:{
-      _getFirstImage: {computed:"getFirstImage(items.*, items.*.quill.*)"},
+      _getFirstImage: {computed:"getFirstImage(items.*, quill)"},
       // _changingImage: {computed:"changingImage(selectedItem.image)"},
       // _changingCard: {computed:"changingCard(selectedItem, selectedItem.*)"},
       _setItems:{
@@ -188,7 +188,7 @@
         value: []
       },
       _runTricks:{
-        computed: "testStuff(items.*,tricks)"
+        computed: "testStuff(items.*, tricks, quill)"
       },
       _addingLine:{
         computed: "setAddingLine(quill)"
@@ -465,10 +465,9 @@
         })
       }
     },
-    testStuff: function(stuff, tricks){
-      
+    testStuff: function(stuff, tricks, quill){
       var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
-      stuff = this.quill.getContents().ops
+      stuff = quill.getContents().ops
       
       var name
       var head
