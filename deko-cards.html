@@ -155,7 +155,7 @@
   Polymer({
     is: "deko-cards",
     properties:{
-      _getFirstImage: {computed:"getFirstImage(items.*, quill)"},
+      // _getFirstImage: {computed:"getFirstImage(items.*, quill, selectedItemIndex)"},
       // _changingImage: {computed:"changingImage(selectedItem.image)"},
       // _changingCard: {computed:"changingCard(selectedItem, selectedItem.*)"},
       _setItems:{
@@ -188,7 +188,7 @@
         value: []
       },
       _runTricks:{
-        computed: "testStuff(items.*, tricks, quill)"
+        computed: "testStuff(items.*, tricks, selectedItemIndex, quill)"
       },
       _addingLine:{
         computed: "setAddingLine(quill)"
@@ -301,12 +301,11 @@
         computed:"getIconTricks(tricks)"
       },
       commands: {
-        computed:"getCommands(cardPart)"
+        computed:"getCommands(cardPart,selectedItemIndex)"
       },
-      __items: {computed:"_items(items)"},
+      selectedItemIndex: {computed:"_items(items)"},
     },
-    getCommands: function(cardPart) {
-      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+    getCommands: function(cardPart, selectedItem) {
       if (cardPart === 0) {
         if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
           return ["Delete","Show it"]
@@ -322,16 +321,16 @@
         // get tricks
       }
     },
-    getFirstImage: function(quill) {
+    getFirstImage: function(quill, selectedItem) {
       var index
-      var selectedItem = this._items(this.items)
-      
-      for (index = 0; index < this.items[selectedItem].quill.length; ++index) {
-        if (this.items[selectedItem].quill[index].insert && this.items[selectedItem].quill[index].insert.image) {
-          if (this.selectedItem.image !== this.items[selectedItem].quill[index].insert.image) {
-            this.items[selectedItem].image = this.items[selectedItem].quill[index].insert.image
+      if (selectedItem !== false) {
+        for (index = 0; index < this.items[selectedItem].quill.length; ++index) {
+          if (this.items[selectedItem].quill[index].insert && this.items[selectedItem].quill[index].insert.image) {
+            if (this.selectedItem.image !== this.items[selectedItem].quill[index].insert.image) {
+              this.items[selectedItem].image = this.items[selectedItem].quill[index].insert.image
+            }
+            return
           }
-          return
         }
       }
     },
@@ -466,8 +465,7 @@
         })
       }
     },
-    testStuff: function(stuff, tricks, quill){
-      var selectedItem = this._items(this.items)
+    testStuff: function(stuff, tricks, selectedItem, quill){
       stuff = quill.getContents().ops
       
       var name
