@@ -328,13 +328,13 @@
         // get tricks
       }
     },
-    getFirstImage: function(quill, selectedCard) {
+    getFirstImage: function(quill, selectedCardIndex, selectedCard) {
       var index
       if (selectedCard !== false) {
         for (index = 0; index < selectedCard.quill.length; ++index) {
-          if (selectedCard.quill[index].insert && this.items[selectedItem].quill[index].insert.image) {
-            if (this.selectedItem.image !== this.items[selectedItem].quill[index].insert.image) {
-              this.items[selectedItem].image = this.items[selectedItem].quill[index].insert.image
+          if (selectedCard.quill[index].insert && selectedCard.quill[index].insert.image) {
+            if (selectedCard.image !== selectedCard.quill[index].insert.image) {
+              this.items[selectedCardIndex].image = selectedCard.quill[index].insert.image
             }
             return
           }
@@ -436,11 +436,10 @@
         }
       }, 2000)
     },
-    changingImage: function(image) {
+    changingImage: function(image, selectedCard) {
       this.debounce("save", function () {
-        var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
-        if (image && selectedItem === false && this.items[selectedItem].ref) {
-          if (image.split("%2F")[1]) {
+        if (image && selectedCard === false && selectedCard.ref) {
+          if (image.split("%2F")[1]) { //TODO what
             var that = this
             db.collection("files").doc(image.split("%2F")[1]).get().then(function(doc) {
               if (doc.exists && doc.data() && doc.data().vision && doc.data().vision[0].imagePropertiesAnnotation) {
@@ -452,11 +451,11 @@
                 function rgbToHex(r, g, b) {
                   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
                 }
-                that.items[selectedItem].ref.set({toolbarColor:rgbToHex(colour.red, colour.green, colour.blue)}, {merge: true})
+                selectedCard.ref.set({toolbarColor:rgbToHex(colour.red, colour.green, colour.blue)}, {merge: true})
               }
             })
           }
-          this.items[selectedItem].ref.set({image:image}, {merge: true})
+          selectedCard.ref.set({image:image}, {merge: true})
         }
       }, 2000)
     },
@@ -465,8 +464,12 @@
       var selectedItem = this._items(this.items)
       if (selectedItem !== false && that.items[selectedItem] && that.items[selectedItem].ref) {
         that.items[selectedItem].ref.delete().then(function() {
-          that.set("selectedItem", null)
-          that.set("loading", false)
+          that.set("items", that.items.reduce(function(accumulator, currentValue, currentIndex) {
+            if (selectedItem === currentIndex) {
+              accumulator.push(currentValue)
+            }
+            return accumulator
+          },[])
         }).catch(function(error) {
           console.error("Error removing card: ", error);
         })
