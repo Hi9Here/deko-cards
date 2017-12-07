@@ -152,9 +152,9 @@
   Polymer({
     is: "deko-cards",
     properties:{
-      _getFirstImage: {computed:"getFirstImage(selectedItemIndex,selectedCard.quill)"},
-      _changingImage: {computed:"changingImage(selectedCard.image, selectedCard)"},
-      _changingCard: {computed: "changingCard(selectedCard, selectedCard.*, items.*)"},
+      _getFirstImage: {computed:"getFirstImage(selectedItemIndex,selectedCard.quill, line)"},
+      _changingImage: {computed:"changingImage(selectedCard.image, selectedCard, line)"},
+      _changingCard: {computed: "changingCard(selectedCard, selectedCard.*, items.*, line)"},
       _setItems:{
         computed: "setItems(cards, byChild, loadNum, startAt, wide)",
       },
@@ -185,7 +185,7 @@
         value: []
       },
       _runTricks:{
-        computed: "testStuff(selectedCard.quill, tricks, selectedItemIndex, quill)"
+        computed: "testStuff(selectedCard.quill, tricks, selectedItemIndex, quill, line)"
       },
       _addingLine:{
         computed: "setAddingLine(quill)"
