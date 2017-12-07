@@ -839,6 +839,9 @@
         }
         return x
       })
+      if (this.items.length && this.items.filter(this.selected).length === 0) {
+        this.items[0].selected
+      }
     },
     selectOpen: function(e){
       this.select(e)
