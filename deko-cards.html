@@ -306,8 +306,12 @@
       _reset: {computed:"reset(selectedItemIndex)"},
     },
     reset: function(){
-      this.$$("#show").reset()
-      this.$$("#editor").reset()
+      if (this.$$("#show")) {
+        this.$$("#show").reset()
+      }
+      if (this.$$("#editor")) {
+        this.$$("#editor").reset()
+      }
     },
     getItem: function(items, selectedItemIndex) {
       if (selectedItemIndex !== false) {
