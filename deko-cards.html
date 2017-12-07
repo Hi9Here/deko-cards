@@ -650,7 +650,7 @@
       }
       if (part == 1 && partFrom == 0 && JSON.stringify(this.items[selectedItem].quill) != JSON.stringify([{"insert":"\n"}])){
         var quill = {
-          value: this.selectedCard._quill.getContents().ops,
+          value: this.items[selectedItem]._quill.getContents().ops,
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user:  firebase.auth().currentUser.uid,
         }
