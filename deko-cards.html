@@ -840,7 +840,7 @@
         return x
       })
       if (this.items.length && this.items.filter(this.selected).length === 0) {
-        this.items[0].selected
+        this.items[this.items.length - 1].selected
       }
     },
     selectOpen: function(e){
