@@ -155,11 +155,11 @@
   Polymer({
     is: "deko-cards",
     properties:{
-      _getFirstImage: {computed:"getFirstImage(items.*, quill, selectedItemIndex,selectedCard)"},
-      _changingImage: {computed:"changingImage(selectedCard.image)"},
-      _changingCard: {computed:"changingCard(selectedCard, selectedCard.*)"},
+      _getFirstImage: {computed:"getFirstImage(selectedItemIndex,selectedCard)"},
+      _changingImage: {computed:"changingImage(selectedCard.image, selectedCard)"},
+      _changingCard: {computed: "changingCard(selectedCard, selectedCard.*)"},
       _setItems:{
-        computed:"setItems(cards, byChild, loadNum, startAt, wide)",
+        computed: "setItems(cards, byChild, loadNum, startAt, wide)",
       },
       end:{value: 999},
       find:{value: ""},
@@ -320,21 +320,25 @@
           return ["Disregard","Save"]
         }
       } else if (cardPart === 1) {
-        if (selectedCard) {
-          debugger
+        this.prompt = ""
+        if (selectedCard.setsReps) {
+          if (selectedCard.setsReps === "Done") {
+            return ["Share","Done"]
+          }
+          return ["Start","Done","Edit"] 
         }
-        return ["Edit","Done"] // if no tricks
+        return ["Edit","Done"] 
       } else {
         // get tricks
       }
     },
-    getFirstImage: function(quill, selectedCardIndex, selectedCard) {
+    getFirstImage: function(selectedItemIndex,selectedCard) {
       var index
       if (selectedCard !== false) {
         for (index = 0; index < selectedCard.quill.length; ++index) {
           if (selectedCard.quill[index].insert && selectedCard.quill[index].insert.image) {
             if (selectedCard.image !== selectedCard.quill[index].insert.image) {
-              this.items[selectedCardIndex].image = selectedCard.quill[index].insert.image
+              this.items[selectedItemIndex].image = selectedCard.quill[index].insert.image
             }
             return
           }
