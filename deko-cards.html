@@ -674,7 +674,7 @@
           title: that.items[selectedItem].title,
           toolbarColor: that.items[selectedItem].toolbarColor,
         },{merge:true}).then(function() {
-          that.set("selectedItem", {
+          that.set(["items",selectedItem], {
             ref:   cardRef,
             title: that.items[selectedItem].title,
             toolbarColor: that.items[selectedItem].toolbarColor,
