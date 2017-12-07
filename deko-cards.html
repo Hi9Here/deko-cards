@@ -324,7 +324,7 @@
     },
     getFirstImage: function(quill) {
       var index
-      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+      var selectedItem = this._items(this.items)
       
       for (index = 0; index < this.items[selectedItem].quill.length; ++index) {
         if (this.items[selectedItem].quill[index].insert && this.items[selectedItem].quill[index].insert.image) {
@@ -403,7 +403,7 @@
     },
     newCard: function(toAddQuill) {
       var that = this
-      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+      var selectedItem = this._items(this.items)
       
       var save = {}
       for (var key in this.items[selectedItem]) {
@@ -424,7 +424,7 @@
     },
     changingTitle: function(title) {
       this.debounce("save", function () {
-        var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+        var selectedItem = this._items(this.items)
         if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
           this.items[selectedItem].ref.set({title:title}, {merge: true})
         }
@@ -456,7 +456,7 @@
     },
     deleteCard: function() {
       var that = this
-      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+      var selectedItem = this._items(this.items)
       if (selectedItem !== false && that.items[selectedItem] && that.items[selectedItem].ref) {
         that.items[selectedItem].ref.delete().then(function() {
           that.set("selectedItem", null)
@@ -467,7 +467,7 @@
       }
     },
     testStuff: function(stuff, tricks, quill){
-      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+      var selectedItem = this._items(this.items)
       stuff = quill.getContents().ops
       
       var name
@@ -609,7 +609,7 @@
 //      )
 //    },
     changingPart: function(part, partFrom) {
-      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
+      var selectedItem = this._items(this.items)
       var that = this
       var ref
       if (part == 1) {
@@ -652,8 +652,8 @@
       }
     },
     addToCard: function(cardRef) {
-      var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
-      if (this.items[selectedItem].title) {
+      var selectedItem = this._items(this.items)
+      if (selectedItem !== false && this.items[selectedItem].title) {
         var that = this
         cardRef.set({
           title: that.items[selectedItem].title,
@@ -824,7 +824,7 @@
         pick.ref.collection("quill").orderBy("time", "desc").limit(1).get().then(function(data) {
           if (data && data.size) {
             var value = data.docs[0].data().value
-            var selectedItem = that.items.reduce(that.reduceToIndexOfSelected, 0)
+            var selectedItem = that._items(that.items)
             that.set("items."+ selectedItem +".quill", value)
           } else {
             that.set("items."+ selectedItem +".quill", [{"insert":"\n"}])
@@ -840,9 +840,7 @@
         }
         return x
       })
-      if (this.items.length && this.items.filter(this.selected).length === 0) {
-        this.items[this.items.length - 1].selected = true
-      }
+      this._items(this.items)
     },
     selectOpen: function(e){
       this.select(e)
@@ -853,6 +851,7 @@
       if (items.length && items.filter(this.selected).length === 0) {
         this.items[items.length - 1].selected = true
       }
+      return this.items.reduce(this.reduceToIndexOfSelected, false)
     },
   })
 </script>
