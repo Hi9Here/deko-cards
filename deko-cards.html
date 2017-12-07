@@ -861,7 +861,10 @@
       if (items && items !== null && items.length && items.filter(this.selected).length === 0) {
         this.items[items.length - 1].selected = true
       }
-      return this.items.reduce(this.reduceToIndexOfSelected, false)
+      if (items && items !== null && items.length) {
+        return this.items.reduce(this.reduceToIndexOfSelected, false)
+      }
+      return false
     },
   })
 </script>
