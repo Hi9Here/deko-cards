@@ -382,7 +382,7 @@
     },
     setAddingLine: function(quill) {
       var that = this 
-      quill._quill.on('text-change', function(theDelta, oldDelta, theSource) {
+      quill.on('text-change', function(theDelta, oldDelta, theSource) {
         if (quill.getSelection() && quill.getSelection().index) {
           var onLine = quill.getLine(quill.getSelection().index)[0].domNode.outerText
           if (that.addingLine !== onLine) {
