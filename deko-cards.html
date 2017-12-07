@@ -154,7 +154,7 @@
     properties:{
       _getFirstImage: {computed:"getFirstImage(selectedItemIndex,selectedCard.quill)"},
       _changingImage: {computed:"changingImage(selectedCard.image, selectedCard)"},
-      _changingCard: {computed: "changingCard(selectedCard, selectedCard.*)"},
+      _changingCard: {computed: "changingCard(selectedCard, selectedCard.*, selectedCard.text, selectedCard.title)"},
       _setItems:{
         computed: "setItems(cards, byChild, loadNum, startAt, wide)",
       },
