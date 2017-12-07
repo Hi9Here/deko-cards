@@ -301,9 +301,9 @@
         computed:"getCommands(cardPart,selectedCard)"
       },
       selectedItemIndex: {computed:"_items(items)"},
-      selectedCard: {computed:"getitem(items, selectedItemIndex)"},
+      selectedCard: {computed:"getItem(items, selectedItemIndex)"},
     },
-    getitem: function(items, selectedItemIndex) {
+    getItem: function(items, selectedItemIndex) {
       if (selectedItemIndex !== false) {
         return items[selectedItemIndex]
       }
@@ -433,7 +433,7 @@
       this.debounce("save", function () {
         var selectedItem = this._items(this.items)
         if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
-          this.items[selectedItem].ref.set({title:title}, {merge: true})
+          this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
         }
       }, 2000)
     },
@@ -456,7 +456,7 @@
               }
             })
           }
-          selectedCard.ref.set({image:image}, {merge: true})
+          selectedCard.ref.set({image:selectedCard.image}, {merge: true})
         }
       }, 2000)
     },
@@ -649,11 +649,12 @@
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user:  firebase.auth().currentUser.uid,
         }
+        
+        this.items[selectedItem].quill = this.quill.getContents().ops
+        
         if (ref) {
-          that.set("loading", true)
           ref.collection("quill").add(quill).then(function(data) {
             that.set("savedQuill",true)
-            that.set("loading", false)
           })
         } else {
           that.newCard(quill)
