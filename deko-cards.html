@@ -832,7 +832,7 @@
       }
 
       this.items = this.items.map(function(x,i){
-        if (x.ref.id === id) {
+        if (x.ref && x.ref.id === id) {
           x.selected = true
         } else {
           x.selected = false
