@@ -154,7 +154,6 @@
     properties:{
       _getFirstImage: {computed:"getFirstImage(selectedItemIndex,selectedCard.quill, line)"},
       _changingImage: {computed:"changingImage(selectedCard.image, selectedCard, line)"},
-      _changingCard: {computed: "changingCard(selectedCard, selectedCard.*, items.*, line)"},
       _setItems:{
         computed: "setItems(cards, byChild, loadNum, startAt, wide)",
       },
@@ -369,23 +368,6 @@
         // tricks
         
       }
-    },
-    changingCard: function(item) {
-      this.debounce("saveCard", function () {
-        if (item && item.ref) {
-          var toSave  = {}
-          if (item.title) {
-            toSave.title = item.title
-          }
-          if (item.text) {
-            toSave.text = item.text
-          }
-          if (item.image) {
-            toSave.image = item.image
-          }
-          item.ref.set(toSave,{merge: true})
-        }
-      }, 2000)
     },
     setAddingLine: function(quill) {
       if (quill) {
