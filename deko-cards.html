@@ -303,6 +303,7 @@
       commands: {
         computed:"getCommands(cardPart)"
       },
+      __items: {computed:"_items(items)"},
     },
     getCommands: function(cardPart) {
       var selectedItem = this.items.reduce(this.reduceToIndexOfSelected, false)
@@ -840,13 +841,18 @@
         return x
       })
       if (this.items.length && this.items.filter(this.selected).length === 0) {
-        this.items[this.items.length - 1].selected
+        this.items[this.items.length - 1].selected = true
       }
     },
     selectOpen: function(e){
       this.select(e)
       this.cardPart = 1
       this.$$("open-card").open()
+    },
+    _items: function(items){
+      if (items.length && items.filter(this.selected).length === 0) {
+        this.items[items.length - 1].selected = true
+      }
     },
   })
 </script>
