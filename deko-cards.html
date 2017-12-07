@@ -152,7 +152,7 @@
   Polymer({
     is: "deko-cards",
     properties:{
-      _getFirstImage: {computed:"getFirstImage(selectedItemIndex,selectedCard)"},
+      _getFirstImage: {computed:"getFirstImage(selectedItemIndex,selectedCard.quill)"},
       _changingImage: {computed:"changingImage(selectedCard.image, selectedCard)"},
       _changingCard: {computed: "changingCard(selectedCard, selectedCard.*)"},
       _setItems:{
@@ -329,13 +329,13 @@
         // get tricks
       }
     },
-    getFirstImage: function(selectedItemIndex,selectedCard) {
+    getFirstImage: function(selectedItemIndex,quill) {
       var index
-      if (selectedCard !== false && selectedCard.quill && selectedCard.quill.length) {
-        for (index = 0; index < selectedCard.quill.length; ++index) {
-          if (selectedCard.quill[index].insert && selectedCard.quill[index].insert.image) {
-            if (selectedCard.image !== selectedCard.quill[index].insert.image) {
-              this.items[selectedItemIndex].image = selectedCard.quill[index].insert.image
+      if ( quill && quill.length) {
+        for (index = 0; index < quill.length; ++index) {
+          if (quill[index].insert && quill[index].insert.image) {
+            if (this.items[selectedItemIndex].image !== quill[index].insert.image) {
+              this.items[selectedItemIndex].image = quill[index].insert.image
             }
             return
           }
