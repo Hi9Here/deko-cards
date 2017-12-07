@@ -334,7 +334,7 @@
     },
     getFirstImage: function(selectedItemIndex,selectedCard) {
       var index
-      if (selectedCard !== false) {
+      if (selectedCard !== false && selectedCard.quill && selectedCard.quill.length) {
         for (index = 0; index < selectedCard.quill.length; ++index) {
           if (selectedCard.quill[index].insert && selectedCard.quill[index].insert.image) {
             if (selectedCard.image !== selectedCard.quill[index].insert.image) {
