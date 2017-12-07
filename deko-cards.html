@@ -137,8 +137,8 @@
     <template is="dom-repeat" items="{{items}}" filter="selected"  id="list5">
       <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-new="new">
         <div>
-          <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" text="{{item.text}}" no-resize editor="{{item._quill}}" theme="bubble" ></quill-js>
-          <q-card part="[[cardPart]]" line="[[line]]" editor="[[item._quill]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
+          <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" text="{{item.text}}" id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
+          <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
         </div>
         <quill-js value="[[item.quill]]" show style="max-width: 500px;margin: auto;" ></quill-js>
       </open-card>
@@ -186,10 +186,10 @@
         value: []
       },
       _runTricks:{
-        computed: "testStuff(selectedCard.quill, tricks, selectedItemIndex,selectedCard._quill, line)"
+        computed: "testStuff(selectedCard.quill, tricks, selectedItemIndex, quill, line)"
       },
       _addingLine:{
-        computed: "setAddingLine(selectedCard._quill)"
+        computed: "setAddingLine(quill)"
       },
       tricks:{
         value:{
@@ -650,12 +650,12 @@
       }
       if (part == 1 && partFrom == 0 && JSON.stringify(this.items[selectedItem].quill) != JSON.stringify([{"insert":"\n"}])){
         var quill = {
-          value: this.items[selectedItem]._quill.getContents().ops,
+          value: this.quill.getContents().ops,
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user:  firebase.auth().currentUser.uid,
         }
         
-        this.items[selectedItem].quill = this.selectedItem._quill.getContents().ops
+        this.items[selectedItem].quill = this.quill.getContents().ops
         
         if (ref) {
           ref.collection("quill").add(quill).then(function(data) {
