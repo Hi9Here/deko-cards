@@ -155,9 +155,9 @@
   Polymer({
     is: "deko-cards",
     properties:{
-      // _getFirstImage: {computed:"getFirstImage(items.*, quill, selectedItemIndex)"},
-      // _changingImage: {computed:"changingImage(selectedItem.image)"},
-      // _changingCard: {computed:"changingCard(selectedItem, selectedItem.*)"},
+      _getFirstImage: {computed:"getFirstImage(items.*, quill, selectedItemIndex,selectedCard)"},
+      _changingImage: {computed:"changingImage(selectedCard.image)"},
+      _changingCard: {computed:"changingCard(selectedCard, selectedCard.*)"},
       _setItems:{
         computed:"setItems(cards, byChild, loadNum, startAt, wide)",
       },
@@ -301,19 +301,26 @@
         computed:"getIconTricks(tricks)"
       },
       commands: {
-        computed:"getCommands(cardPart,selectedItemIndex)"
+        computed:"getCommands(cardPart,selectedCard)"
       },
       selectedItemIndex: {computed:"_items(items)"},
+      selectedCard: {computed:"getitem(items, selectedItemIndex)"},
     },
-    getCommands: function(cardPart, selectedItem) {
+    getitem: function(items, selectedItemIndex) {
+      if (selectedItemIndex !== false) {
+        return items[selectedItemIndex]
+      }
+      return false
+    },
+    getCommands: function(cardPart, selectedCard) {
       if (cardPart === 0) {
-        if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
+        if (selectedCard !== false && selectedCard && selectedCard.ref) {
           return ["Delete","Show it"]
         } else {
           return ["Disregard","Save"]
         }
       } else if (cardPart === 1) {
-        if (this.items[selectedItem]) {
+        if (selectedCard) {
           debugger
         }
         return ["Edit","Done"] // if no tricks
@@ -321,11 +328,11 @@
         // get tricks
       }
     },
-    getFirstImage: function(quill, selectedItem) {
+    getFirstImage: function(quill, selectedCard) {
       var index
-      if (selectedItem !== false) {
-        for (index = 0; index < this.items[selectedItem].quill.length; ++index) {
-          if (this.items[selectedItem].quill[index].insert && this.items[selectedItem].quill[index].insert.image) {
+      if (selectedCard !== false) {
+        for (index = 0; index < selectedCard.quill.length; ++index) {
+          if (selectedCard.quill[index].insert && this.items[selectedItem].quill[index].insert.image) {
             if (this.selectedItem.image !== this.items[selectedItem].quill[index].insert.image) {
               this.items[selectedItem].image = this.items[selectedItem].quill[index].insert.image
             }
