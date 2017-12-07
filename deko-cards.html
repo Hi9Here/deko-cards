@@ -858,7 +858,7 @@
       this.$$("open-card").open()
     },
     _items: function(items){
-      if (items.length && items.filter(this.selected).length === 0) {
+      if (items && items !== null && items.length && items.filter(this.selected).length === 0) {
         this.items[items.length - 1].selected = true
       }
       return this.items.reduce(this.reduceToIndexOfSelected, false)
