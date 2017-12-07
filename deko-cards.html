@@ -138,9 +138,9 @@
       <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-new="new">
         <div>
           <template is="dom-if" items="{{item.quill}}" restamp>
-            <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" text="{{item.text}}" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
+            <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" text="{{item.text}}" no-resize editor="{{item._quill}}" theme="bubble" ></quill-js>
           </template>
-          <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
+          <q-card part="[[cardPart]]" line="[[line]]" editor="[[item._quill]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
         </div>
         <quill-js value="[[item.quill]]" show style="max-width: 500px;margin: auto;" ></quill-js>
       </open-card>
@@ -188,10 +188,10 @@
         value: []
       },
       _runTricks:{
-        computed: "testStuff(selectedCard.quill, tricks, selectedItemIndex, quill, line)"
+        computed: "testStuff(selectedCard.quill, tricks, selectedItemIndex,selectedCard._quill, line)"
       },
       _addingLine:{
-        computed: "setAddingLine(quill)"
+        computed: "setAddingLine(selectedCard._quill)"
       },
       tricks:{
         value:{
@@ -382,7 +382,7 @@
     },
     setAddingLine: function(quill) {
       var that = this 
-      quill.on('text-change', function(theDelta, oldDelta, theSource) {
+      quill._quill.on('text-change', function(theDelta, oldDelta, theSource) {
         if (quill.getSelection() && quill.getSelection().index) {
           var onLine = quill.getLine(quill.getSelection().index)[0].domNode.outerText
           if (that.addingLine !== onLine) {
@@ -650,12 +650,12 @@
       }
       if (part == 1 && partFrom == 0 && JSON.stringify(this.items[selectedItem].quill) != JSON.stringify([{"insert":"\n"}])){
         var quill = {
-          value: this.quill.getContents().ops,
+          value: this.selectedItem._quill.getContents().ops,
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user:  firebase.auth().currentUser.uid,
         }
         
-        this.items[selectedItem].quill = this.quill.getContents().ops
+        this.items[selectedItem].quill = this.selectedItem._quill.getContents().ops
         
         if (ref) {
           ref.collection("quill").add(quill).then(function(data) {
