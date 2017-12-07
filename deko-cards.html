@@ -303,6 +303,11 @@
       },
       selectedItemIndex: {computed:"_items(items)"},
       selectedCard: {computed:"getItem(items, selectedItemIndex)"},
+      _reset: {computed:"reset(selectedItemIndex)"},
+    },
+    reset: function(){
+      this.$.show.reset()
+      this.$.editor.reset()
     },
     getItem: function(items, selectedItemIndex) {
       if (selectedItemIndex !== false) {
