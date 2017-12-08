@@ -387,7 +387,9 @@
         return x
       }).concat([{
         selected: true,
-        quill: [{"insert":"\n"}],
+        quill: [
+          {insert: "\n", attributes: {header:1}},
+        ],
         title: "new",
       }]))
       this.cardPart = 0
