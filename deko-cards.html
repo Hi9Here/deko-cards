@@ -394,7 +394,7 @@
       this.debounce("open", this.open, 2000)
     },
     open: function() {
-      this.$$("open-card").open
+      this.$$("open-card").open()
     },
     newCard: function(toAddQuill) {
       var that = this
