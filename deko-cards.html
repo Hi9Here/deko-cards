@@ -382,13 +382,14 @@
       e.stopPropagation()
     }, 
     new: function() {
-      this.items = this.items.map(function(x){ 
+      this.set("items", this.items.map(function(x){ 
         x.selected = false
         return x
       }).concat([{
         selected: true,
         quill: [{"insert":"\n"}],
-      }])
+        title: "new",
+      }]))
       this.cardPart = 0
       this.debounce("open", this.open, 2000)
     },
@@ -463,9 +464,9 @@
         })
       }
     },
-    testStuff: function(stuff, tricks, selectedItem, quill){
-      stuff = quill.getContents().ops
+    testStuff: function(line, tricks, selectedItem, quill){
       
+      var stuff = quill.getContents().ops
       var name
       var head
       var headAt
