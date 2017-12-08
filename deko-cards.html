@@ -380,7 +380,7 @@
     },
     noDrag: function(e) {
       e.stopPropagation()
-    }, 
+    },
     new: function() {
       this.set("items", this.items.map(function(x){ 
         x.selected = false
@@ -391,10 +391,9 @@
         title: "new",
       }]))
       this.cardPart = 0
-      this.debounce("open", this.open, 2000)
-    },
-    open: function() {
-      this.$$("open-card").open()
+      this.debounce("open", function() {
+        this.$$("open-card").open()
+      }, 700)
     },
     newCard: function(toAddQuill) {
       var that = this
