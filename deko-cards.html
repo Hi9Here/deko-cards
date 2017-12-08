@@ -570,8 +570,8 @@
               }
             }
           }
-        } else if (JSON.stringify(this.items[selectedItem].quill) !== JSON.stringify([{"insert":"\n"}])){
-          stuff
+        } else {
+          var that = this
           var quill = {
             value: this.quill.getContents().ops,
             time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
@@ -582,7 +582,7 @@
         
           if (this.items[selectedItem].ref) {
             this.items[selectedItem].ref.collection("quill").add(quill).then(function(data) {
-              this.set("savedQuill",true)
+              that.set("savedQuill",true)
             })
           } else {
             this.newCard(quill)
