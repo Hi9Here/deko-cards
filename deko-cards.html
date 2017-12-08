@@ -395,7 +395,10 @@
       this.cardPart = 0
       this.debounce("open", function() {
         this.$$("open-card").open()
-      }, 700)
+        this.debounce("focus", function() {
+          this.quill.focus()
+        },200)
+      }, 600)
     },
     newCard: function(toAddQuill) {
       var that = this
