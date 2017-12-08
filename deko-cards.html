@@ -402,8 +402,9 @@
         quill: [{"insert":"\n"}],
       }])
       this.cardPart = 0
-      this.async(this.$$("open-card").open, 250)
+      this.async(this.open, 250)
     },
+    open: function() {this.$$("open-card").open},
     newCard: function(toAddQuill) {
       var that = this
       var selectedItem = this._items(this.items)
