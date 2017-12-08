@@ -302,15 +302,6 @@
       },
       selectedItemIndex: {computed:"_items(items)"},
       selectedCard: {computed:"getItem(items, selectedItemIndex)"},
-      _reset: {computed:"reset(selectedItemIndex)"},
-    },
-    reset: function(){
-      if (this.$$("#show")) {
-        this.$$("#show").reset()
-      }
-      if (this.$$("#editor")) {
-        this.$$("#editor").reset()
-      }
     },
     getItem: function(items, selectedItemIndex) {
       if (selectedItemIndex !== false) {
@@ -363,9 +354,6 @@
         this.chips = []
       } else if (this.cardPart == 1) {
         // display
-        
-      } else {
-        // tricks
         
       }
     },
@@ -569,11 +557,29 @@
                       }
                     }
                     this.set(["items",selectedItem,trick], theTrick)
+                    
                   }
                 }
               }
             }
           }
+        } else if (JSON.stringify(this.items[selectedItem].quill) !== JSON.stringify([{"insert":"\n"}])){
+          stuff
+          var quill = {
+            value: this.quill.getContents().ops,
+            time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+            user:  firebase.auth().currentUser.uid,
+          }
+        
+          this.items[selectedItem].quill = this.quill.getContents().ops
+        
+          if (this.items[selectedItem].ref) {
+            this.items[selectedItem].ref.collection("quill").add(quill).then(function(data) {
+              this.set("savedQuill",true)
+            })
+          } else {
+            this.newCard(quill)
+          } 
         }
         if (stuff[op].insert && stuff[op].insert.image) {
           if (stuff[op].insert.image.length > 1000*1000) {
