@@ -398,12 +398,20 @@
         title: "new",
       }]))
       this.cardPart = 0
-      this.debounce("open", function() {
+      var n = 0
+      var open = function() {
         this.$$("open-card").open()
         this.debounce("focus", function() {
-          this.quill.focus()
-        },600)
-      }, 300)
+          try {
+            this.quill.focus()
+          } catch (e) {
+            if (++n < 100) {
+              open()
+            }
+          }
+        },100)
+      }
+      this.debounce("open", open, 300)
     },
     newCard: function(toAddQuill) {
       var that = this
