@@ -17,6 +17,10 @@
 <dom-module id="deko-cards">
   <template>
     <style>
+      paper-chip {
+        --paper-chip-background-color:red;
+        --paper-chip-secondary-text-color:#fff;
+      }
       #narrow {
         @apply(--layout-horizontal);
         @apply(--layout-center-justified);
@@ -68,6 +72,7 @@
       *, *:before, *:after {
         box-sizing: border-box; 
       }
+      
 
       /* make a grid */
       #narrow .wrapper {
