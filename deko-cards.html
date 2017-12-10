@@ -306,7 +306,7 @@
         computed:"getCommands(cardPart,selectedCard)"
       },
       selectedItemIndex: {computed:"_items(items)"},
-      selectedCard: {computed:"getItem(items, selectedItemIndex)"},
+      selectedCard: {computed:"getItem(items, selectedItemIndex, items.*)"},
     },
     getItem: function(items, selectedItemIndex) {
       if (selectedItemIndex !== false) {
@@ -590,9 +590,9 @@
             time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
             user:  firebase.auth().currentUser.uid,
           }
-        
+
           this.items[selectedItem].quill = this.quill.getContents().ops
-        
+
           if (this.items[selectedItem].ref) {
             this.items[selectedItem].ref.collection("quill").add(quill).then(function(data) {
               that.set("savedQuill",true)
