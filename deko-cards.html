@@ -158,9 +158,8 @@
   Polymer({
     is: "deko-cards",
     properties:{
-      _getFirstImage: {computed:"getFirstImage(selectedItemIndex,selectedCard.quill, line)"},
+      _getFirstImage: {computed:"getFirstImage(selectedItemIndex, selectedCard.quill, cardPart, line)"},
       _changingImage: {computed:"changingImage(selectedCard.image, selectedCard, line)"},
-      _changingText: {computed:"changingText(selectedCard.text, selectedCard.*, line)"},
       _setItems:{
         computed: "setItems(cards, byChild, loadNum, startAt, wide)",
       },
@@ -336,9 +335,9 @@
         // get tricks
       }
     },
-    getFirstImage: function(selectedItemIndex,quill) {
+    getFirstImage: function(selectedItemIndex,quill,part) {
       var index
-      if ( quill && quill.length) {
+      if ( quill && quill.length && part === 0) {
         for (index = 0; index < quill.length; ++index) {
           if (quill[index].insert && quill[index].insert.image) {
             if (this.items[selectedItemIndex].image !== quill[index].insert.image) {
@@ -351,7 +350,7 @@
     },
     addTextSetPrompt: function(d) {
       if (this.cardPart == 0) {
-        // edit
+        //edit
         this.quill.focus()
         var cur = this.quill.getSelection().index
         var textToAdd = "\n" + d.detail.chip.trim() + " "
@@ -414,7 +413,7 @@
               open()
             }
           }
-        }, 10)
+        },10)
       }
       this.debounce("open", open, 10)
     },
@@ -440,13 +439,16 @@
       })
     },
     changingTitle: function(title) {
-      var selectedItem = this._items(this.items)
-      if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
-        this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
-      }
+      this.debounce("save", function () {
+        var selectedItem = this._items(this.items)
+        if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
+          this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
+        }
+      }, 2000)
     },
     changingImage: function(image, selectedCard) {
-      if (image && selectedCard === false && selectedCard.ref) {
+      this.debounce("save", function () {
+        if (image && selectedCard === false && selectedCard.ref) {
           if (image.split("%2F")[1]) { //TODO what
             var that = this
             db.collection("files").doc(image.split("%2F")[1]).get().then(function(doc) {
@@ -464,13 +466,8 @@
             })
           }
           selectedCard.ref.set({image:selectedCard.image}, {merge: true})
-      }
-    },
-    changingText: function(text) {
-      var selectedItem = this._items(this.items)
-      if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
-        this.items[selectedItem].ref.set({text:this.items[selectedItem].text}, {merge: true})
-      }
+        }
+      }, 2000)
     },
     deleteCard: function() {
       var that = this
