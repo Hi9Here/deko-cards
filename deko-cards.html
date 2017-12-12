@@ -405,7 +405,7 @@
         this.debounce("focus", function() {
           try {
             this.quill.focus()
-            this.quill.setContent( [
+            this.quill.setContents([
               {insert: "\n", attributes: {header:1}},
             ])
           } catch (e) {
