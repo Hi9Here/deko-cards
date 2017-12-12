@@ -632,7 +632,7 @@
 //        function (canvas) {
 //          if (canvas.toDataURL) {
 //            stuff[opForImage].insert.image = canvas.toDataURL()
-//            that.set("selectedItem.quill", stuff.map(function(x) {return x}) )
+//            that.set(["items",selectedItem,"quill"], stuff.map(function(x) {return x}) )
 //          }
 //        }, {
 //          canvas: true,
@@ -660,10 +660,10 @@
             if (data && data.size) {
               var value = data.docs[0].data().value
               if (JSON.stringify(that.items[selectedItem].quill) !== JSON.stringify(value)) {
-                that.set("selectedItem.quill", value)
+                that.set(["items",selectedItem,"quill"], value)
               }
             } else {
-              that.set("selectedItem.quill", [{"insert":"\n"}])
+//              that.set(["items",selectedItem,"quill"], [{"insert":"\n"}])
             }
           })
         }
