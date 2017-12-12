@@ -668,7 +668,7 @@
           })
         }
       }
-      if (part == 1 && partFrom == 0 && JSON.stringify(this.items[selectedItem].quill) != JSON.stringify([{"insert":"\n"}])){
+      if (part == 1 && partFrom == 0 && this.items[selectedItem].quill && JSON.stringify(this.items[selectedItem].quill) != JSON.stringify([{"insert":"\n"}])){
         var quill = {
           value: this.quill.getContents().ops,
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
