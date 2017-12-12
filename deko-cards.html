@@ -296,10 +296,10 @@
         },
       },
       iconTricks: {
-        computed:"getIconTricks(tricks)"
+        computed:"getIconTricks(tricks)",
       },
       commands: {
-        computed:"getCommands(cardPart,items,selectedItemIndex)"
+        computed:"getCommands(cardPart,items,selectedItemIndex)",
       },
       selectedItemIndex: {computed:"_items(items)"},
     },
@@ -421,6 +421,7 @@
     },
     changingImage: function(image, selectedCard) {
       this.debounce("save", function () {
+        selectedCard = 
         if (image && selectedCard === false && selectedCard.ref) {
           if (image.split("%2F")[1]) { //TODO what
             var that = this
@@ -464,13 +465,9 @@
       var name
       var head
       var headAt
+      var image
       var add
       var addAt
-      var getRandom = function (min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
-      }
       for (var op in stuff) {
         if (stuff[op].insert && typeof stuff[op].insert  === 'string') {
           if (!name) { 
@@ -570,7 +567,12 @@
                 }
               }
             }
-          }
+          } 
+        } else if (!image) {
+          if (stuff[op].insert && typeof stuff[op].insert  === 'object') {
+            debugger
+            // TODO Save image
+          }    
         } else {
           var that = this
           var quill = {
