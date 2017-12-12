@@ -73,7 +73,6 @@
         box-sizing: border-box; 
       }
       
-
       /* make a grid */
       #narrow .wrapper {
         max-width: 700px;
@@ -81,9 +80,11 @@
         display: grid;
         grid-gap: 1px;
       }
+      
       .title {
         margin-left: none;
       }
+      
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
@@ -143,6 +144,7 @@
       <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-new="new">
         <div>
           <quill-js style="max-width: 500px;margin: auto;" value="[[item.quill]]" text="{{item.text}}" id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
+          <quill-js value="[[item.quill]]" id="show" show style="max-width: 500px;margin: auto;" ></quill-js>
           <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
         </div>
         <quill-js value="[[item.quill]]" id="show" show style="max-width: 500px;margin: auto;" ></quill-js>
