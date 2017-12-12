@@ -405,6 +405,9 @@
         this.debounce("focus", function() {
           try {
             this.quill.focus()
+            this.quill.setContent( [
+              {insert: "\n", attributes: {header:1}},
+            ])
           } catch (e) {
             if (++n < 100) {
               open()
