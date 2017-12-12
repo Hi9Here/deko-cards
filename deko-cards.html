@@ -160,6 +160,7 @@
     properties:{
       _getFirstImage: {computed:"getFirstImage(selectedItemIndex,selectedCard.quill, line)"},
       _changingImage: {computed:"changingImage(selectedCard.image, selectedCard, line)"},
+      _changingText: {computed:"changingText(selectedCard.text, selectedCard.*, line)"},
       _setItems:{
         computed: "setItems(cards, byChild, loadNum, startAt, wide)",
       },
@@ -350,7 +351,7 @@
     },
     addTextSetPrompt: function(d) {
       if (this.cardPart == 0) {
-        //edit
+        // edit
         this.quill.focus()
         var cur = this.quill.getSelection().index
         var textToAdd = "\n" + d.detail.chip.trim() + " "
@@ -413,7 +414,7 @@
               open()
             }
           }
-        },10)
+        }, 10)
       }
       this.debounce("open", open, 10)
     },
@@ -466,6 +467,14 @@
             })
           }
           selectedCard.ref.set({image:selectedCard.image}, {merge: true})
+        }
+      }, 2000)
+    },
+    changingText: function(text) {
+      this.debounce("save", function () {
+        var selectedItem = this._items(this.items)
+        if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
+          this.items[selectedItem].ref.set({text:this.items[selectedItem].text}, {merge: true})
         }
       }, 2000)
     },
