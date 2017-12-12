@@ -337,7 +337,7 @@
     },
     getFirstImage: function(selectedItemIndex,quill,part) {
       var index
-      if ( quill && quill.length && part === 0) {
+      if (selectedItemIndex !== false && quill && quill.length && part === 0) {
         for (index = 0; index < quill.length; ++index) {
           if (quill[index].insert && quill[index].insert.image) {
             if (this.items[selectedItemIndex].image !== quill[index].insert.image) {
