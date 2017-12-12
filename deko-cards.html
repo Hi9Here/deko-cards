@@ -421,7 +421,8 @@
     },
     changingImage: function(image, selectedCard) {
       this.debounce("save", function () {
-        selectedCard = 
+        var si = this._items(this.items)
+        selectedCard = this.items[si]
         if (image && selectedCard === false && selectedCard.ref) {
           if (image.split("%2F")[1]) { //TODO what
             var that = this
