@@ -439,12 +439,10 @@
       })
     },
     changingTitle: function(title) {
-      this.debounce("save", function () {
-        var selectedItem = this._items(this.items)
-        if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
-          this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
-        }
-      }, 2000)
+      var selectedItem = this._items(this.items)
+      if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
+        this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
+      }
     },
     changingImage: function(image, selectedCard) {
       this.debounce("save", function () {
