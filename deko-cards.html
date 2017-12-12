@@ -440,16 +440,13 @@
       })
     },
     changingTitle: function(title) {
-      this.debounce("save", function () {
-        var selectedItem = this._items(this.items)
-        if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
-          this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
-        }
-      }, 2000)
+      var selectedItem = this._items(this.items)
+      if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
+        this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
+      }
     },
     changingImage: function(image, selectedCard) {
-      this.debounce("save", function () {
-        if (image && selectedCard === false && selectedCard.ref) {
+      if (image && selectedCard === false && selectedCard.ref) {
           if (image.split("%2F")[1]) { //TODO what
             var that = this
             db.collection("files").doc(image.split("%2F")[1]).get().then(function(doc) {
@@ -467,16 +464,13 @@
             })
           }
           selectedCard.ref.set({image:selectedCard.image}, {merge: true})
-        }
-      }, 2000)
+      }
     },
     changingText: function(text) {
-      this.debounce("save", function () {
-        var selectedItem = this._items(this.items)
-        if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
-          this.items[selectedItem].ref.set({text:this.items[selectedItem].text}, {merge: true})
-        }
-      }, 2000)
+      var selectedItem = this._items(this.items)
+      if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
+        this.items[selectedItem].ref.set({text:this.items[selectedItem].text}, {merge: true})
+      }
     },
     deleteCard: function() {
       var that = this
