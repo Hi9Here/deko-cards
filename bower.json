@@ -8,20 +8,20 @@
     "web-components"
   ],
   "dependencies": {
-    "card-info-link-input": "marcus7777/card-info-link-input",
-    "paper-fab": "PolymerElements/paper-fab#~1.2.2",
-    "input-image": "marcus7777/input-image",
+    "polymer": "Polymer/polymer#~1.11.1",
+    "q-card": "Hi9Here/q-card",
     "deko-card": "Hi9Here/deko-card",
     "link-display": "Hi9Here/link-display",
     "deko-opened-card": "Hi9Here/deko-opened-card",
-    "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.3.7",
-    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^1.1.5",
-    "iron-media-query": "PolymerElements/iron-media-query#^1.0.8",
+    "open-card": "marcus7777/open-card",
+    "input-image": "marcus7777/input-image",
     "image-base64": "marcus7777/image-base64",
-    "open-card":"marcus7777/open-card",
+    "file-upload": "marcus7777/file-upload",
     "deko-card-container": "marcus7777/deko-card-container",
-    "q-card": "Hi9Here/q-card",
-    "file-upload": "marcus7777/file-upload"
+    "card-info-link-input": "marcus7777/card-info-link-input",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.3.7",
+    "iron-media-query": "PolymerElements/iron-media-query#^1.0.8",
+    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^1.1.5"
   },
   "resolutions": {
     "iron-icon": "^1.0.0",
