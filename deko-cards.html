@@ -158,8 +158,6 @@
   Polymer({
     is: "deko-cards",
     properties:{
-      _getFirstImage: {computed:"getFirstImage(selectedItemIndex, selectedCard.quill, cardPart, line)"},
-      _changingImage: {computed:"changingImage(selectedCard.image, selectedCard, line)"},
       _setItems:{
         computed: "setItems(cards, byChild, loadNum, startAt, wide)",
       },
@@ -180,9 +178,6 @@
       pageing:{
         type:Boolean,
         value:false,
-      },
-      _routeData:{
-        computed: "_log('routeData.data',routeData.data)"
       },
       cardPart:{
         observer: "changingPart"
@@ -304,10 +299,9 @@
         computed:"getIconTricks(tricks)"
       },
       commands: {
-        computed:"getCommands(cardPart,selectedCard)"
+        computed:"getCommands(cardPart,items,selectedItemIndex)"
       },
       selectedItemIndex: {computed:"_items(items)"},
-      selectedCard: {computed:"getItem(items, selectedItemIndex, items.*)"},
     },
     getItem: function(items, selectedItemIndex) {
       if (selectedItemIndex !== false) {
@@ -333,19 +327,6 @@
         return ["Edit","Done"] 
       } else {
         // get tricks
-      }
-    },
-    getFirstImage: function(selectedItemIndex,quill,part) {
-      var index
-      if (selectedItemIndex !== false && quill && quill.length && part === 0) {
-        for (index = 0; index < quill.length; ++index) {
-          if (quill[index].insert && quill[index].insert.image) {
-            if (this.items[selectedItemIndex].image !== quill[index].insert.image) {
-              this.items[selectedItemIndex].image = quill[index].insert.image
-            }
-            return
-          }
-        }
       }
     },
     addTextSetPrompt: function(d) {
@@ -438,12 +419,6 @@
         console.error("Error adding card: ", error)
       })
     },
-    changingTitle: function(title) {
-      var selectedItem = this._items(this.items)
-      if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) {
-        this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
-      }
-    },
     changingImage: function(image, selectedCard) {
       this.debounce("save", function () {
         if (image && selectedCard === false && selectedCard.ref) {
@@ -515,9 +490,15 @@
               if (!this.items[selectedItem]) {
                 this.items[selectedItem] = {}
               }
-              this.items[selectedItem].title = name.replace(/[^0-9a-z-A-Z ]/g, " ").trim()
+              this.items[selectedItem].title = name.replace(/[^0-9a-z-A-Z\/ ]/g, " ").trim()
+              if (this.items[selectedItem].ref) {
+                this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
+              }
             } else if (stuff[op].insert.split("\n").join("") || (this.items[selectedItem] && !this.items[selectedItem].title)) {
               this.items[selectedItem].title = stuff[op].insert.split("\n").join("")
+              if (this.items[selectedItem].ref) {
+                this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
+              }
             }
           } else if (!add) {
             var lines = stuff[op].insert.split("\n")
@@ -552,6 +533,7 @@
                       add = [{insert: addBefore + "\n"}].concat(tricks[trick].action(theTrick), [{insert: addAfter + "\n"}])
                       this.set(["items",selectedItem,trick], theTrick)
                       
+                      
                     } else if (tricks[trick].action) {
                       var theTrick
                       
@@ -579,7 +561,11 @@
                       }
                     }
                     this.set(["items",selectedItem,trick], theTrick)
-                    
+                    if (this.items[selectedItem].ref) {
+                      var toSave = {}
+                      toSave[trick] = theTrick
+                      this.items[selectedItem].ref.set(toSave, {merge: true})
+                    }
                   }
                 }
               }
