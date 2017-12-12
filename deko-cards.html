@@ -582,12 +582,12 @@
         } else {
           var that = this
           var quill = {
-            value: this.quill.getContents().ops,
+            value: this.items[selectedItem].quillEditor.getContents().ops,
             time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
             user:  firebase.auth().currentUser.uid,
           }
 
-          this.items[selectedItem].quill = this.quill.getContents().ops
+          this.items[selectedItem].quill = this.items[selectedItem].quillEditor.getContents().ops
 
           if (this.items[selectedItem].ref) {
             this.items[selectedItem].ref.collection("quill").add(quill).then(function(data) {
@@ -664,12 +664,12 @@
       }
       if (part == 1 && partFrom == 0 && this.items[selectedItem].quill && JSON.stringify(this.items[selectedItem].quill) != JSON.stringify([{"insert":"\n"}])){
         var quill = {
-          value: this.quill.getContents().ops,
+          value: this.items[selectedItem].quillEditor.getContents().ops,
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user:  firebase.auth().currentUser.uid,
         }
         
-        this.items[selectedItem].quill = this.quill.getContents().ops
+        this.items[selectedItem].quill = this.items[selectedItem].quillEditor..getContents().ops
         
         if (ref) {
           ref.collection("quill").add(quill).then(function(data) {
