@@ -570,9 +570,14 @@
             }
           } 
         } else if (!image) {
-          if (stuff[op].insert && typeof stuff[op].insert  === 'object') {
-            debugger
-            // TODO Save image
+          if (stuff[op].insert && typeof stuff[op].insert  === 'object' && stuff[op].insert.image) {
+            image = stuff[op].insert.image
+            if (this.items[selectedItem].image !== image) {
+              this.set(["items",selectedItem,"image"], image)
+              if (this.items[selectedItem].ref) {
+                this.items[selectedItem].ref.set({image: image}, {merge: true})
+              }
+            }
           }    
         } else {
           var that = this
