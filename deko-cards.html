@@ -669,7 +669,7 @@
           user:  firebase.auth().currentUser.uid,
         }
         
-        this.items[selectedItem].quill = this.items[selectedItem].quillEditor..getContents().ops
+        this.items[selectedItem].quill = this.items[selectedItem].quillEditor.getContents().ops
         
         if (ref) {
           ref.collection("quill").add(quill).then(function(data) {
