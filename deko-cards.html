@@ -468,6 +468,9 @@
       this.resub()
     },
     testStuff: function(line, tricks, selectedItem, quill){
+      if (!this.editing) {
+        return
+      }
       selectedItem = this._items(this.items)
       
       var stuff = quill.getContents().ops
