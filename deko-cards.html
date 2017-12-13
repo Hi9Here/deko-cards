@@ -386,6 +386,10 @@
         title: "",
       }]))
       this.cardPart = 0
+      this.editing = true
+      if (this.unsub) {
+        this.unsub()
+      }
       var n = 0
       var that = this
       var open = function() {
