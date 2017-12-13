@@ -469,6 +469,13 @@
       var image
       var add
       var addAt
+      var text = quill.getText()
+      if (!this.items[selectedItem]) {
+        this.items[selectedItem] = {}
+      }
+      if (this.items[selectedItem].text === text) {
+        this.items[selectedItem].text = text
+      }
       for (var op in stuff) {
         if (stuff[op].insert && typeof stuff[op].insert  === 'string') {
           if (!name) { 
@@ -485,9 +492,7 @@
                   headAt = op
                 }
               }
-              if (!this.items[selectedItem]) {
-                this.items[selectedItem] = {}
-              }
+
               this.items[selectedItem].title = name.replace(/[^0-9a-z-A-Z\/ ]/g, " ").trim()
               if (this.items[selectedItem].ref) {
                 this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
