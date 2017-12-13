@@ -143,7 +143,7 @@
     <template is="dom-repeat" items="{{items}}" filter="selected"  id="list5">
       <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
         <div>
-          <template is="dom-if" if="[[editing]]">
+          <template is="dom-if" if="[[editing]]" restamp >
             <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" text="{{item.text}}" id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
             <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
           </template>
