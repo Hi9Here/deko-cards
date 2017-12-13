@@ -903,6 +903,7 @@
       if (this.unsub) {
         this.unsub()
       }
+      this.editing = true
     },
     resub: function(e){
       this.setItems(this.ref, this.byChild, this.loadNum, this.startAt, this.wide)
