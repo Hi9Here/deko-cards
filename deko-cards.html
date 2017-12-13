@@ -774,11 +774,13 @@
       return pages.length
     },
     setItems: function(ref, byChild, loadNum, startAt, wide){
+      if (this.editing) {
+        return
+      }
       var that = this
       if (!wide) {
         loadNum = 5
       }
-      this.editing = false
       function objectToArray(data) {
         var output = []
         if (data) {
