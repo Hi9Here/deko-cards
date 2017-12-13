@@ -141,7 +141,7 @@
       </div>
     </template>
     <template is="dom-repeat" items="{{items}}" filter="selected"  id="list5">
-      <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-new="new">
+      <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
         <div>
           <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" text="{{item.text}}" id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
           <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
@@ -459,6 +459,7 @@
           console.error("Error removing card: ", error);
         })
       }
+      this.resub()
     },
     testStuff: function(line, tricks, selectedItem, quill){
       selectedItem = this._items(this.items)
@@ -888,6 +889,12 @@
       this.select(e)
       this.cardPart = 1
       this.$$("open-card").open()
+      if (this.unsub) {
+        this.unsub()
+      }
+    },
+    resub: function(e){
+      this.setItems(this.ref, this.byChild, this.loadNum, this.startAt, this.wide)
     },
     _items: function(items){
       if (items && items !== null && items.length && items.filter(this.selected).length === 0) {
