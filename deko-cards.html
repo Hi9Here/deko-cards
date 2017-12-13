@@ -143,8 +143,8 @@
     <template is="dom-repeat" items="{{items}}" filter="selected"  id="list5">
       <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-new="new">
         <div>
-          <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" text="{{item.text}}" id="editor" no-resize editor="{{quillEditor}}" theme="bubble" ></quill-js>
-          <q-card part="[[cardPart]]" line="[[line]]" editor="[[quillEditor]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
+          <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" text="{{item.text}}" id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
+          <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
         </div>
         <quill-js value="[[item.quill]]" id="show" show style="max-width: 500px;margin: auto;" ></quill-js>
       </open-card>
@@ -582,12 +582,12 @@
         } else {
           var that = this
           var quill = {
-            value: this.quillEditor.getContents().ops,
+            value: this.quill.getContents().ops,
             time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
             user:  firebase.auth().currentUser.uid,
           }
 
-          this.items[selectedItem].quill = this.quillEditor.getContents().ops
+          this.items[selectedItem].quill = this.quill.getContents().ops
 
           if (this.items[selectedItem].ref) {
             this.items[selectedItem].ref.collection("quill").add(quill).then(function(data) {
@@ -664,12 +664,12 @@
       }
       if (part == 1 && partFrom == 0 && this.items[selectedItem].quill && JSON.stringify(this.items[selectedItem].quill) != JSON.stringify([{"insert":"\n"}])){
         var quill = {
-          value: this.items[selectedItem].quillEditor.getContents().ops,
+          value: this.quill.getContents().ops,
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user:  firebase.auth().currentUser.uid,
         }
         
-        this.items[selectedItem].quill = this.items[selectedItem].quillEditor.getContents().ops
+        this.items[selectedItem].quill = this.quill.getContents().ops
         
         if (ref) {
           ref.collection("quill").add(quill).then(function(data) {
