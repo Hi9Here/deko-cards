@@ -914,7 +914,7 @@
       this.editing = true
     },
     resub: function(e){
-      this.setItems(this.ref, this.byChild, this.loadNum, this.startAt, this.wide)
+      this.setItems(this.cards, this.byChild, this.loadNum, this.startAt, this.wide)
     },
     _items: function(items){
       if (items && items !== null && items.length && items.filter(this.selected).length === 0) {
