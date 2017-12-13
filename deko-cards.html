@@ -415,7 +415,7 @@
       
       var save = {}
       for (var key in this.items[selectedItem]) {
-        if (key !== "quill") {
+        if (key !== "quill" && key !== "selected") {
           save[key] = this.items[selectedItem][key]
         }
       }
