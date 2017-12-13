@@ -495,11 +495,15 @@
                   headAt = op
                 }
               }
-
-              this.items[selectedItem].title = name.replace(/[^0-9a-z-A-Z\/ ]/g, " ").trim()
-              if (this.items[selectedItem].ref) {
-                this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
+              var title = name.replace(/[^0-9a-z-A-Z\/ ]/g, " ").trim()
+              
+              if (this.items[selectedItem].title !== title) {
+                this.items[selectedItem].title = title
+                if (this.items[selectedItem].ref) {
+                  this.items[selectedItem].ref.set({title: title}, {merge: true})
+                }
               }
+              
             } else if (stuff[op].insert.split("\n").join("") || (this.items[selectedItem] && !this.items[selectedItem].title)) {
               this.items[selectedItem].title = stuff[op].insert.split("\n").join("")
               if (this.items[selectedItem].ref) {
@@ -605,11 +609,11 @@
             this.newCard(quill)
           } 
         }
-        if (stuff[op].insert && stuff[op].insert.image) {
-          if (stuff[op].insert.image.length > 1000*1000) {
-            this.resizeImage(stuff, op)
-          }
-        }
+//        if (stuff[op].insert && stuff[op].insert.image) {
+//          if (stuff[op].insert.image.length > 1000*1000) {
+//            this.resizeImage(stuff, op)
+//          }
+//        }
       }
       if (head) {
         stuff = stuff.splice(0, +headAt).concat(head, stuff.splice(1 + +(headAt)))
