@@ -387,12 +387,13 @@
       }]))
       this.cardPart = 0
       var n = 0
+      var that = this
       var open = function() {
-        this.$$("open-card").open()
-        this.debounce("focus", function() {
+        that.$$("open-card").open()
+        that.debounce("focus", function() {
           try {
-            this.quill.focus()
-            this.quill.setContents([
+            that.quill.focus()
+            that.quill.setContents([
               {insert: "\n", attributes: {header:1}},
             ])
           } catch (e) {
