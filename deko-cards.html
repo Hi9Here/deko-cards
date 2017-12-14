@@ -317,7 +317,7 @@
       commands: {
         computed:"getCommands(cardPart,items,selectedItemIndex)",
       },
-      tableCommands: {
+      _tableCommands: {
         computed:"getTableCommands(items,selectedItemIndex)",
       },
       selectedItemIndex: {computed:"_items(items)"},
@@ -355,10 +355,10 @@
     getTableCommands: function(items, selectedItemIndex) {
       if (selectedItemIndex === false) {
         if (items.length === 0) {
-          return ["Welcome,😎 tap here and I'll give you a card"]
+          this.set("tableCommands",["Welcome,😎 tap here and I'll give you a card"])
         }
       }
-      return []
+      this.set("tableCommands",[])
     },
     getCommands: function(cardPart, items, selectedItemIndex) {
       var selectedCard = items[selectedItemIndex]
