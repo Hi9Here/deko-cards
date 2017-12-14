@@ -460,12 +460,12 @@
       var selectedItem = this._items(this.items)
       if (selectedItem !== false && that.items[selectedItem] && that.items[selectedItem].ref) {
         that.items[selectedItem].ref.delete().then(function() {
-//          that.set("items", that.items.reduce(function(accumulator, currentValue, currentIndex) {
-//            if (selectedItem !== currentIndex) {
-//              accumulator.push(currentValue)
-//            }
-//            return accumulator
-//          },[]))
+          that.set("items", that.items.reduce(function(accumulator, currentValue, currentIndex) {
+            if (selectedItem !== currentIndex) {
+              accumulator.push(currentValue)
+            }
+            return accumulator
+          },[]))
         }).catch(function(error) {
           console.error("Error removing card: ", error);
         })
