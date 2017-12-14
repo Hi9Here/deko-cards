@@ -321,10 +321,17 @@
         computed:"getTableCommands(items,selectedItemIndex)",
       },
       selectedItemIndex: {computed:"_items(items)"},
+      apiURL: {
+        value: "https://us-central1-deko-app-one.cloudfunctions.net/god/"
+      }
     },
     fireChip: function(e,d){
       console.log( e.currentTarget.innerText.replace("\n","") )
+      console.log(encodeURIComponent(e.currentTarget.innerText.replace("\n","")))
       
+      fetch(this.apiURL + "users").then(function(response) {
+        console.log( response )
+      })
     },
     getItem: function(items, selectedItemIndex) {
       if (selectedItemIndex !== false) {
