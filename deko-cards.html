@@ -332,8 +332,10 @@
         that.tableCommands = ["Still Getting"]
         return
       }
+      
+      that.tableCommands = ["Getting"]
+      
       fetch(this.apiURL + "pik/deko/" + chipText).then(function(response) {
-        that.tableCommands = ["Getting"]
         return response.json()
       }).then(function(response) {
         that.tableCommands = ["Got it"]
