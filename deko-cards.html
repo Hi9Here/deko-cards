@@ -153,6 +153,12 @@
     </template>
     <!-- <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
     -->
+    <template is="dom-repeat" items="[[chips]]">
+      <paper-chip on-tap="fireChip" Single-line value="[[index]]" style="z-index: 400;">
+        <div class="label">[[item]]</div>
+      </paper-chip>
+    </template>
+    
     <img on-tap="new" style="position: fixed;bottom: 17px;margin-left: -30px;left: 50%;height: 60px;cursor:pointer;" src="/images/deko.svg" autofocus/>
   </template>
 </dom-module>
@@ -308,6 +314,10 @@
         computed:"getCommands(cardPart,items,selectedItemIndex)",
       },
       selectedItemIndex: {computed:"_items(items)"},
+    },
+    fireChip: function(e,d){
+      console.log( e.currentTarget.innerText.replace("\n","") )
+      
     },
     getItem: function(items, selectedItemIndex) {
       if (selectedItemIndex !== false) {
