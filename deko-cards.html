@@ -330,7 +330,9 @@
       console.log(encodeURIComponent(e.currentTarget.innerText.replace("\n","")))
       
       fetch(this.apiURL + "users").then(function(response) {
-        console.log( response )
+        return response.json()
+      }).then(function(response) {
+        console.log(response)
       })
     },
     getItem: function(items, selectedItemIndex) {
