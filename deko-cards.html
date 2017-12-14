@@ -326,13 +326,14 @@
       }
     },
     fireChip: function(e,d){
-      console.log( e.currentTarget.innerText.replace("\n","") )
-      console.log(encodeURIComponent(e.currentTarget.innerText.replace("\n","")))
       
-      fetch(this.apiURL + "users").then(function(response) {
+      fetch(this.apiURL + "pik/deko/" + encodeURIComponent(e.currentTarget.innerText.replace("\n",""))).then(function(response) {
         return response.json()
       }).then(function(response) {
         console.log(response)
+        if (response.add) {
+          this.newCard(response.add)
+        }
       })
     },
     getItem: function(items, selectedItemIndex) {
