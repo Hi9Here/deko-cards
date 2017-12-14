@@ -323,16 +323,25 @@
       selectedItemIndex: {computed:"_items(items)"},
       apiURL: {
         value: "https://us-central1-deko-app-one.cloudfunctions.net/god/"
-      }
+      },
     },
     fireChip: function(e,d){
       var that = this
-      fetch(this.apiURL + "pik/deko/" + encodeURIComponent(e.currentTarget.innerText.replace("\n",""))).then(function(response) {
+      var chipText = encodeURIComponent(e.currentTarget.innerText.replace("\n",""))
+      if (chipText === "Getting") {
+        that.tableCommands = ["Still Getting"]
+        return
+      }
+      fetch(this.apiURL + "pik/deko/" + chipText).then(function(response) {
+        that.tableCommands = ["Getting"]
         return response.json()
       }).then(function(response) {
+        that.tableCommands = ["Got it"]
         if (response.add) {
           that.new(response.add)
         }
+      }).then(function(response) {
+        that.tableCommands = []
       })
     },
     getItem: function(items, selectedItemIndex) {
