@@ -333,7 +333,7 @@
         return
       }
       
-      that.tableCommands = ["Getting"]
+      this.set("tableCommands", ["Getting"])
       
       fetch(this.apiURL + "pik/deko/" + chipText).then(function(response) {
         return response.json()
