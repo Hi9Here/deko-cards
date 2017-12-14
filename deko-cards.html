@@ -155,7 +155,7 @@
     -->
     <div style="max-width: 500px">
       <div style="position: fixed;bottom: 90px;justify-content: space-evenly;flex: auto;width: 98%;display: flex;">
-        <template is="dom-repeat" items="[[commands]]">
+        <template is="dom-repeat" items="[[tableCommands]]">
           <paper-chip on-tap="fireChip" single-line value="[[index]]" style="z-index: 400;">
             <div class="label">[[item]]</div>
           </paper-chip>
@@ -317,6 +317,9 @@
       commands: {
         computed:"getCommands(cardPart,items,selectedItemIndex)",
       },
+      tableCommands: {
+        computed:"getTableCommands(items,selectedItemIndex)",
+      },
       selectedItemIndex: {computed:"_items(items)"},
     },
     fireChip: function(e,d){
@@ -329,12 +332,15 @@
       }
       return false
     },
-    getCommands: function(cardPart, items, selectedItemIndex) {
+    getTableCommands: function(items, selectedItemIndex) {
       if (selectedItemIndex === false) {
         if (items.length === 0) {
           return ["Welcome,😎 tap here and I'll give you a card"]
         }
       }
+      return []
+    },
+    getCommands: function(cardPart, items, selectedItemIndex) {
       var selectedCard = items[selectedItemIndex]
       if (cardPart === 0) {
         if (selectedCard !== false && selectedCard && selectedCard.ref) {
