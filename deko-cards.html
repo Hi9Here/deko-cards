@@ -476,9 +476,13 @@
       if (!this.editing) {
         return
       }
+      
       selectedItem = this._items(this.items)
       
+      quill.formatLine(1, 2, 'attributes', {header:1})
+      
       var stuff = quill.getContents().ops
+
       var name
       var head
       var headAt
@@ -486,6 +490,7 @@
       var add
       var addAt
       var text = quill.getText()
+      
       if (!this.items[selectedItem]) {
         this.items[selectedItem] = {}
       }
