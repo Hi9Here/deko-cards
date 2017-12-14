@@ -153,7 +153,7 @@
     </template>
     <!-- <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
     -->
-    <template is="dom-repeat" items="[[chips]]">
+    <template is="dom-repeat" items="[[commands]]">
       <paper-chip on-tap="fireChip" Single-line value="[[index]]" style="z-index: 400;">
         <div class="label">[[item]]</div>
       </paper-chip>
