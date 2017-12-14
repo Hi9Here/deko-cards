@@ -438,7 +438,6 @@
         }]))
         this.cardPart = 0
       }
-
       
       this.editing = true
       if (this.unsub) {
@@ -461,6 +460,12 @@
               }
             }
           },10)
+        } else if (card.quill) {          
+          that.newCard({
+            value: card.quill,
+            time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+            user:  firebase.auth().currentUser.uid,
+          })
         }
       }
       this.debounce("open", open, 10)
