@@ -326,13 +326,12 @@
       }
     },
     fireChip: function(e,d){
-      
+      var that = this
       fetch(this.apiURL + "pik/deko/" + encodeURIComponent(e.currentTarget.innerText.replace("\n",""))).then(function(response) {
         return response.json()
       }).then(function(response) {
-        console.log(response)
         if (response.add) {
-          this.newCard(response.add)
+          that.new(response.add)
         }
       })
     },
@@ -409,19 +408,29 @@
     noDrag: function(e) {
       e.stopPropagation()
     },
-    new: function() {
-      this.set("items", this.items.map(function(x){ 
-        x.selected = false
-        return x
-      }).concat([{
-        selected: true,
-        image:"",
-        quill: [
-          {insert: "\n", attributes: {header:1}},
-        ],
-        title: "",
-      }]))
-      this.cardPart = 0
+    new: function(card) {
+      if (card) {
+        this.set("items", this.items.map(function(x){ 
+          x.selected = false
+          return x
+        }).concat([card]))
+        this.cardPart = 1
+      } else {
+        this.set("items", this.items.map(function(x){ 
+          x.selected = false
+          return x
+        }).concat([{
+          selected: true,
+          image:"",
+          quill: [
+            {insert: "\n", attributes: {header:1}},
+          ],
+          title: "",
+        }]))
+        this.cardPart = 0
+      }
+
+      
       this.editing = true
       if (this.unsub) {
         this.unsub()
@@ -430,15 +439,17 @@
       var that = this
       var open = function() {
         that.$$("open-card").open()
-        that.debounce("focus", function() {
-          try {
-            that.quill.focus()
-            that.quill.setContents([
-              {insert: "\n", attributes: {header:1}},
-            ])
-          } catch (e) {
-            if (++n < 100) {
-              open()
+        if (that.cardPart === 0) {
+          that.debounce("focus", function() {
+            try {
+              that.quill.focus()
+              that.quill.setContents([
+                {insert: "\n", attributes: {header:1}},
+              ])
+            } catch (e) {
+              if (++n < 100) {
+                open()
+              }
             }
           }
         },10)
