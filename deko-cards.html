@@ -332,6 +332,10 @@
         that.tableCommands = ["Still Getting"]
         return
       }
+      if (chipText === "Still%20Getting") {
+        that.tableCommands = []
+        return
+      }
       
       this.set("tableCommands", ["Getting"])
       
