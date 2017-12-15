@@ -340,7 +340,20 @@
       }).then(function(response) {
         that.tableCommands = ["Got it"]
         if (response.add) {
-          that.new(response.add)
+          response.add.selected = true
+          this.set("items", this.items.map(function(x){ 
+            x.selected = false
+            return x
+          }).concat([response.add]))
+          
+          this.editing = true
+          this.cardPart = 1
+          
+          that.newCard({
+            value: card.quill,
+            time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+            user:  firebase.auth().currentUser.uid,
+          })
         }
       })
     },
@@ -419,26 +432,18 @@
       e.stopPropagation()
     },
     new: function(card) {
-      if (card) {
-        this.set("items", this.items.map(function(x){ 
-          x.selected = false
-          return x
-        }).concat([card]))
-        this.cardPart = 1
-      } else {
-        this.set("items", this.items.map(function(x){ 
-          x.selected = false
-          return x
-        }).concat([{
-          selected: true,
-          image:"",
-          quill: [
-            {insert: "\n", attributes: {header:1}},
-          ],
-          title: "",
-        }]))
-        this.cardPart = 0
-      }
+      this.set("items", this.items.map(function(x){ 
+        x.selected = false
+        return x
+      }).concat([{
+        selected: true,
+        image:"",
+        quill: [
+          {insert: "\n", attributes: {header:1}},
+        ],
+        title: "",
+      }]))
+      this.cardPart = 0
       
       this.editing = true
       if (this.unsub) {
@@ -448,26 +453,18 @@
       var that = this
       var open = function() {
         that.$$("open-card").open()
-        if (that.cardPart === 0) {
-          that.debounce("focus", function() {
-            try {
-              that.quill.focus()
-              that.quill.setContents([
-                {insert: "\n", attributes: {header:1}},
-              ])
-            } catch (e) {
-              if (++n < 100) {
-                open()
-              }
+        that.debounce("focus", function() {
+          try {
+            that.quill.focus()
+            that.quill.setContents([
+              {insert: "\n", attributes: {header:1}},
+            ])
+          } catch (e) {
+            if (++n < 100) {
+              open()
             }
-          },10)
-        } else if (card.quill) {          
-          that.newCard({
-            value: card.quill,
-            time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-            user:  firebase.auth().currentUser.uid,
-          })
-        }
+          }
+        },10)
       }
       this.debounce("open", open, 10)
     },
