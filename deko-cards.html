@@ -354,7 +354,7 @@
           that.set("cardPart", 1)
           
           that.newCard({
-            value: card.quill,
+            value: response.add.quill,
             time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
             user:  firebase.auth().currentUser.uid,
           })
