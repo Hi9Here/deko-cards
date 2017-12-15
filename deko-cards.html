@@ -345,13 +345,13 @@
         that.tableCommands = ["Got it"]
         if (response.add) {
           response.add.selected = true
-          this.set("items", this.items.map(function(x){ 
+          that.set("items", this.items.map(function(x){ 
             x.selected = false
             return x
           }).concat([response.add]))
           
-          this.editing = true
-          this.cardPart = 1
+          that.set("editing", true)
+          that.set("cardPart", 1)
           
           that.newCard({
             value: card.quill,
