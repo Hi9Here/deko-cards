@@ -675,24 +675,7 @@
               }
             }
           }    
-        } else {
-          var that = this
-          var quill = {
-            value: this.quill.getContents().ops,
-            time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-            user:  firebase.auth().currentUser.uid,
-          }
-
-          this.items[selectedItem].quill = this.quill.getContents().ops
-
-          if (this.items[selectedItem].ref) {
-            this.items[selectedItem].ref.collection("quill").add(quill).then(function(data) {
-              that.set("savedQuill",true)
-            })
-          } else {
-            this.newCard(quill)
-          } 
-        }
+        } 
 //        if (stuff[op].insert && stuff[op].insert.image) {
 //          if (stuff[op].insert.image.length > 1000*1000) {
 //            this.resizeImage(stuff, op)
@@ -707,6 +690,23 @@
       if (add || head) {
         this.debounce("updateCard", function () {
           if (JSON.stringify(this.items[selectedItem].quill) !== JSON.stringify(stuff)) {
+            var that = this
+            var quill = {
+              value: this.quill.getContents().ops,
+              time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+              user:  firebase.auth().currentUser.uid,
+            }
+
+            this.items[selectedItem].quill = this.quill.getContents().ops
+ 
+            if (this.items[selectedItem].ref) {
+              this.items[selectedItem].ref.collection("quill").add(quill).then(function(data) {
+                that.set("savedQuill",true)
+              })
+            } else {
+              this.newCard(quill)
+            } 
+
             if (!this.items[selectedItem]) {
               this.items[selectedItem] = {}
             }
