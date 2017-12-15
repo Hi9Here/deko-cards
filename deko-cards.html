@@ -345,7 +345,7 @@
         that.tableCommands = ["Got it"]
         if (response.add) {
           response.add.selected = true
-          that.set("items", this.items.map(function(x){ 
+          that.set("items", that.items.map(function(x){ 
             x.selected = false
             return x
           }).concat([response.add]))
