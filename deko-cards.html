@@ -879,6 +879,11 @@
           var cards = [];
           theSnap.forEach(function(doc) {
             var docData = doc.data()
+            if (firebase.storage() && docData.image === '' && docData.autoImage) {
+              firebase.storage().ref().child(docData.autoImage).getDownloadURL().then( function (url) {
+                doc.ref.set({image:url},{merge:true})
+              })
+            }
             cards.push({
               title: docData.title,
               toolbarColor: docData.toolbarColor,
