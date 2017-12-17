@@ -554,6 +554,7 @@
       var add
       var addAt
       var text = quill.getText()
+      text = text.replace(this.items[selectedItem].title, "")
       
       if (!this.items[selectedItem]) {
         this.items[selectedItem] = {}
