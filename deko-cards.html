@@ -392,7 +392,7 @@
           }
           return ["Start","Done","Edit"] 
         }
-        return ["Edit","Done"] 
+        return ["Edit","Give","Done"] 
       } else {
         // get tricks
       }
@@ -828,7 +828,7 @@
       var start = this.nextPageStartAt
       this.find = start
       // var end = this.end
-      if ((this.pages.length === 0 || start !== this.pages[this.pages.length-1].start)) { // && this.pages.length < end) {
+      if (this.pages.length === 0 || start !== this.pages[this.pages.length-1].start) { // && this.pages.length < end) {
         this.pages.push({
           start: start,
         })
