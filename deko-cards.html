@@ -574,7 +574,9 @@
         this.de
         this.items[selectedItem].text = text
         if (this.items[selectedItem].ref) {
-          this.items[selectedItem].ref.set({text: text}, {merge: true})
+          this.debounce("updateCardText", function () {
+            this.items[selectedItem].ref.set({text: text}, {merge: true})
+          }, 2000)
         }
       }
       for (var op in stuff) {
@@ -598,14 +600,18 @@
               if (this.items[selectedItem].title !== title) {
                 this.items[selectedItem].title = title
                 if (this.items[selectedItem].ref) {
-                  this.items[selectedItem].ref.set({title: title}, {merge: true})
+                  this.debounce("updateCardTitle", function () {
+                    this.items[selectedItem].ref.set({title: title}, {merge: true})
+                  }, 2000)
                 }
               }
               
             } else if (stuff[op].insert.split("\n").join("") || (this.items[selectedItem] && !this.items[selectedItem].title)) {
               this.items[selectedItem].title = stuff[op].insert.split("\n").join("")
               if (this.items[selectedItem].ref) {
-                this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
+                this.debounce("updateCardTitle", function () {
+                  this.items[selectedItem].ref.set({title:this.items[selectedItem].title}, {merge: true})
+                }, 2000)
               }
             }
           } else if (!add) {
@@ -672,7 +678,9 @@
                     if (this.items[selectedItem].ref) {
                       var toSave = {}
                       toSave[trick] = theTrick
-                      this.items[selectedItem].ref.set(toSave, {merge: true})
+                      this.debounce("updateCardTrick", function () {
+                        this.items[selectedItem].ref.set(toSave, {merge: true})
+                      }, 2000)
                     }
                   }
                 }
@@ -685,7 +693,9 @@
             if (this.items[selectedItem].image !== image) {
               this.set(["items",selectedItem,"image"], image)
               if (this.items[selectedItem].ref) {
-                this.items[selectedItem].ref.set({image: image}, {merge: true})
+                this.debounce("updateCardImage", function () {
+                  this.items[selectedItem].ref.set({image: image}, {merge: true})
+                },2000)
               }
             }
           }    
