@@ -144,7 +144,7 @@
       <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
         <div>
           <template is="dom-if" if="[[editing]]" >
-            <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
+            <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" one-way id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
             <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
           </template>
         </div>
@@ -409,6 +409,16 @@
         this.chips = []
       } else if (this.cardPart == 1) {
         console.log(d)
+        if ("give") {
+          fetch(this.apiURL + "god/profiles").then(function(response) {
+            return response.json()
+          }).then(function(response) {
+            this.profileList = response
+            this.chips = Object.keys(response).map(function(profile) {
+              return profile.name
+            })
+          }
+        }
       }
     },
     setAddingLine: function(quill) {
@@ -560,6 +570,7 @@
         this.items[selectedItem] = {}
       }
       if (this.items[selectedItem].text !== text) {
+        this.de
         this.items[selectedItem].text = text
         if (this.items[selectedItem].ref) {
           this.items[selectedItem].ref.set({text: text}, {merge: true})
