@@ -410,11 +410,12 @@
       } else if (this.cardPart == 1) {
         console.log(d)
         if ("give") {
+          var that = this
           fetch(this.apiURL + "profiles").then(function(response) {
             return response.json()
           }).then(function(response) {
-            this.profileList = response
-            this.chips = response.map(function(profile) {
+            that.profileList = response
+            that.chips = response.map(function(profile) {
               return profile.name
             })
           })
