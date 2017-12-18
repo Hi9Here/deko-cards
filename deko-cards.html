@@ -408,8 +408,8 @@
         this.line = d.detail.chip.trim() + " "
         this.chips = []
       } else if (this.cardPart == 1) {
-        console.log(d)
-        if ("give") {
+        console.log(d.detail.chip.trim())
+        if (d.detail.chip.trim() === "give") {
           var that = this
           fetch(this.apiURL + "profiles").then(function(response) {
             return response.json()
