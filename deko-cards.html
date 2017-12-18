@@ -410,7 +410,7 @@
       } else if (this.cardPart == 1) {
         console.log(d)
         if ("give") {
-          fetch(this.apiURL + "god/profiles").then(function(response) {
+          fetch(this.apiURL + "profiles").then(function(response) {
             return response.json()
           }).then(function(response) {
             this.profileList = response
