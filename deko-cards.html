@@ -414,7 +414,7 @@
             return response.json()
           }).then(function(response) {
             this.profileList = response
-            this.chips = Object.keys(response).map(function(profile) {
+            this.chips = response.map(function(profile) {
               return profile.name
             })
           })
