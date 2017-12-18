@@ -571,7 +571,6 @@
         this.items[selectedItem] = {}
       }
       if (this.items[selectedItem].text !== text) {
-        this.de
         this.items[selectedItem].text = text
         if (this.items[selectedItem].ref) {
           this.debounce("updateCardText", function () {
