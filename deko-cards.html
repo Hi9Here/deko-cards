@@ -638,6 +638,7 @@
               
               if (this.items[selectedItem].title !== title) {
                 this.items[selectedItem].title = title
+                this.items[selectedItem].image = '' // new title reset image
                 if (this.items[selectedItem].ref) {
                   this.debounce("updateCardTitle", function () {
                     this.items[selectedItem].ref.set({title: title}, {merge: true})
