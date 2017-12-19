@@ -150,7 +150,13 @@
           <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" one-way id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
           <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
         </div>
-        <quill-js value="[[item.quill]]" id="show" show style="max-width: 500px;margin: auto;" ></quill-js>
+        <div style="margin: auto;width: 500px;">
+          <template is="dom-if" if="[[item.image]]" >  
+            <paper-toolbar></paper-toolbar>
+            <div style$="background:url([[item.image]]);width:500px;height:200px;background-size: cover;background-position: center;"></div>
+          </template>
+          <quill-js value="[[item.quill]]" id="show" show style="max-width: 500px;margin: auto;" ></quill-js>
+        </div>
       </open-card>
     </template>
     <!-- <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
