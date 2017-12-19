@@ -580,23 +580,22 @@
       var add
       var addAt
       var text = quill.getText()
+      if (!this.items[selectedItem]) {
+        this.items[selectedItem] = {}
+      }
       var title = this.items[selectedItem].title
-      if (this.items[selectedItem].title){
-        text = text.replace(this.items[selectedItem].title, "")
+      if (title){
+        text = text.replace(title, "")
         this.items[selectedItem].autoImage = this.imageIndex().then(function(idx){
           var result = idx.search(title)
           if (result.length) {
-            return result[0].ref
+            return "" + result[0].ref
           } else {
             return ""
           }
         })
       }
       
-      
-      if (!this.items[selectedItem]) {
-        this.items[selectedItem] = {}
-      }
       if (this.items[selectedItem].text !== text) {
         this.items[selectedItem].text = text
         if (this.items[selectedItem].ref) {
