@@ -326,7 +326,6 @@
       },
     },
     imageIndex: function() {
-      var that = this
       if (lunr) {
         return db.collection("lunr_index").doc("images").get().then(function(doc) {
            return lunr.Index.load(JSON.parse(doc.data().idx))
