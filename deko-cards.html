@@ -146,7 +146,7 @@
           <template is="dom-if" if="[[item.image]]" >  
             <div style="marges:auto">
               <paper-toolbar></paper-toolbar>
-              <div style$="background:url([[item.image]]) fit;width:500px;height:200px"></div>
+              <div style$="background:url([[item.image]]);width:500px;height:200px;background-size: cover;background-position: center;"></div>
             </div>
           </template>
           <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" one-way id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
