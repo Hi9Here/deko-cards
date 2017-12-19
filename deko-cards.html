@@ -324,9 +324,6 @@
       apiURL: {
         value: "https://us-central1-deko-app-one.cloudfunctions.net/god/"
       },
-      _getImageIndex: {
-        computed: "imageIndex(user, selectedItemIndex)"
-      },
     },
     imageIndex: function() {
       var that = this
@@ -568,6 +565,10 @@
       if (!this.editing) {
         return
       }
+      var that = this 
+      this.imageIndex().then(function(idx){
+        console.log(idx.search("night"))
+      })
       
       selectedItem = this._items(this.items)
       
