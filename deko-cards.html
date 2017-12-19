@@ -599,7 +599,7 @@
           if (bigPath.split("/")[2]) {
             var imageRef = bigPath.split("/")[0] + "/" + bigPath.split("/")[1] + "/" + "thumb_" + bigPath.split("/")[2]
             return firebase.storage().ref().child(imageRef).getDownloadURL().then( function (url) {
-              return that.set(["items",selectedItem,image], url)
+              return that.set(["items",selectedItem,"image"], url)
             })
           }
         })
