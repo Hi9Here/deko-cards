@@ -594,7 +594,7 @@
           }
         })
       }
-      if (firebase.storage() && this.items[selectedItem].image === '' && this.items[selectedItem].autoImage) {
+      if (firebase.storage && this.items[selectedItem].image === '' && this.items[selectedItem].autoImage) {
         var bigPath = "" + this.items[selectedItem].autoImage
         if (bigPath.split("/")[2]) {
           var imageRef = bigPath.split("/")[0] + "/" + bigPath.split("/")[1] + "/" + "thumb_" + bigPath.split("/")[2]
