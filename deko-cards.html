@@ -600,7 +600,9 @@
             var imageRef = bigPath.split("/")[0] + "/" + bigPath.split("/")[1] + "/" + "thumb_" + bigPath.split("/")[2]
             return firebase.storage().ref().child(imageRef).getDownloadURL().then( function (url) {
               if (that.items[selectedItem].ref) {
-                that.items[selectedItem].ref.set({image:url}, {merge: true})
+                that.debounce("updateCardImage", function () {
+                  that.items[selectedItem].ref.set({image:url}, {merge: true})
+                }, 2000)
               }
               return that.set(["items",selectedItem,"image"], url)
             })
