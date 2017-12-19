@@ -207,9 +207,6 @@
       _addingLine:{
         computed: "setAddingLine(quill)"
       },
-      _getImageIndex: {
-        computed: "imageIndex(user, items, selectedItemIndex)"
-      },
       tricks:{
         value:{
           signedOff:{
@@ -327,6 +324,23 @@
       apiURL: {
         value: "https://us-central1-deko-app-one.cloudfunctions.net/god/"
       },
+      _getImageIndex: {
+        computed: "imageIndex(user, selectedItemIndex)"
+      },
+    },
+    imageIndex: function() {
+      var that = this
+      if (lunr) {
+        return db.collection("lunr_index").doc("images").get().then(function(doc) {
+           return lunr.Index.load(JSON.parse(doc.data().idx))
+        }).catch(e => {
+          console.log(e)
+          return "Error"
+        })
+      } else {
+        console.log(lunr)
+        return "Error"
+      }
     },
     fireChip: function(e,d){
       var that = this
@@ -363,16 +377,6 @@
           })
         }
       })
-    },
-    imageIndex: function(user, items, selectedItemIndex) {
-      var that = this
-      if (lunr && user && items.length && selectedItemIndex !== false) {
-        return db.collection("lunr_index").doc("images").get().then(function(doc) {
-           return lunr.Index.load(JSON.parse(doc.data().idx))
-        }).catch(e => {
-          console.log(e)
-        })
-      }
     },
     getItem: function(items, selectedItemIndex) {
       if (selectedItemIndex !== false) {
