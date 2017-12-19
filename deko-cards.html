@@ -207,6 +207,9 @@
       _addingLine:{
         computed: "setAddingLine(quill)"
       },
+      _getImageIndex: {
+        computed: "imageIndex(user, items, selectedItemIndex)"
+      },
       tricks:{
         value:{
           signedOff:{
@@ -360,6 +363,16 @@
           })
         }
       })
+    },
+    imageIndex: function(user, items, selectedItemIndex) {
+      var that = this
+      if (lunr && user && items.length && selectedItemIndex !== false) {
+        return db.collection("lunr_index").doc("images").get().then(function(doc) {
+           return lunr.Index.load(JSON.parse(doc.data().idx))
+        }).catch(e => {
+          console.log(e)
+        })
+      }
     },
     getItem: function(items, selectedItemIndex) {
       if (selectedItemIndex !== false) {
