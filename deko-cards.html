@@ -566,9 +566,6 @@
         return
       }
       var that = this 
-      this.imageIndex().then(function(idx){
-        console.log(idx.search("night"))
-      })
       
       selectedItem = this._items(this.items)
       
@@ -583,7 +580,19 @@
       var add
       var addAt
       var text = quill.getText()
-      text = text.replace(this.items[selectedItem].title, "")
+      var title = this.items[selectedItem].title
+      if (this.items[selectedItem].title){
+        text = text.replace(this.items[selectedItem].title, "")
+        this.items[selectedItem].autoImage = this.imageIndex().then(function(idx){
+          var result = idx.search(title)
+          if (result.length) {
+            return result[0].ref
+          } else {
+            return ""
+          }
+        })
+      }
+      
       
       if (!this.items[selectedItem]) {
         this.items[selectedItem] = {}
@@ -612,7 +621,7 @@
                   headAt = op
                 }
               }
-              var title = name.replace(/[^0-9a-z-A-Z\/ ]/g, " ").trim()
+              title = name.replace(/[^0-9a-z-A-Z\/ ]/g, " ").trim()
               
               if (this.items[selectedItem].title !== title) {
                 this.items[selectedItem].title = title
