@@ -930,9 +930,13 @@
           theSnap.forEach(function(doc) {
             var docData = doc.data()
             if (firebase.storage() && docData.image === '' && docData.autoImage) {
-              firebase.storage().ref().child(docData.autoImage).getDownloadURL().then( function (url) {
-                doc.ref.set({image:url},{merge:true})
-              })
+              var bigPath = docData.autoImage
+              if (bigPath.split("/")[2]) {
+                var imageRef = bigPath.split("/")[0] + "/" + bigPath.split("/")[1] + "/" + "thumb_" + bigPath.split("/")[2]
+                firebase.storage().ref().child(imageRef).getDownloadURL().then( function (url) {
+                  doc.ref.set({image:url},{merge:true})
+                })
+              }
             }
             cards.push({
               title: docData.title,
