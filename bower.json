@@ -8,7 +8,7 @@
     "web-components"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~1.11.1",
+    "polymer": "Polymer/polymer#^1.11.1",
     "q-card": "Hi9Here/q-card",
     "deko-card": "Hi9Here/deko-card",
     "link-display": "Hi9Here/link-display",
