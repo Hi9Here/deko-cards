@@ -344,7 +344,7 @@
       var that = this
       if (lunr) {
         return db.collection("Profiles").doc(that.profileId).collection("lunr_index").doc("images").get().then(function(doc) {
-           return lunr.Index.load(JSON.parse(doc.data().idx))
+          return lunr.Index.load(JSON.parse(doc.data().idx))
         }).catch(e => {
           console.log(e)
           return "Error"
@@ -612,6 +612,9 @@
       }
       if (firebase.storage && this.items[selectedItem].image === '' && this.items[selectedItem].autoImage) {
         this.items[selectedItem].autoImage.then(function (imageRef) {
+          if (!imageRef) {
+            return "no image"
+          }
           return firebase.storage().ref().child(imageRef).getDownloadURL().then( function (url) {
             if (that.items[selectedItem].ref) {
               that.debounce("updateCardImage", function () {
