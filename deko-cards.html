@@ -728,7 +728,7 @@
               }
             }
           } 
-        } else if (!image) {
+        } else if (!image || this.items[selectedItem].image !== image) {
           if (stuff[op].insert && typeof stuff[op].insert  === 'object' && stuff[op].insert.image) {
             image = stuff[op].insert.image
             if (this.items[selectedItem].image !== image) {
