@@ -595,6 +595,9 @@
       var add
       var addAt
       var text = quill.getText()
+      if (!text) {
+        return "nothing to test"
+      }
       if (!this.items[selectedItem]) {
         this.items[selectedItem] = {}
       }
@@ -650,14 +653,20 @@
                 }
               }
               title = name.replace(/[^0-9a-z-A-Z\/ ]/g, " ").trim()
-              
+              if (!title) {
+                return "no title"
+              }
               if (this.items[selectedItem].title !== title) {
                 this.items[selectedItem].title = title
                 this.items[selectedItem].image = '' // new title reset image
                 this.items[selectedItem].image = '' // new title reset image
                 if (this.items[selectedItem].ref) {
                   this.debounce("updateCardTitle", function () {
-                    this.items[selectedItem].ref.set({title: title}, {merge: true})
+                    if (!title) {
+                      return "no title"
+                    } else {
+                      return this.items[selectedItem].ref.set({title: title}, {merge: true})
+                    }
                   }, 2000)
                 }
               }
