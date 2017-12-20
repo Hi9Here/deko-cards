@@ -961,10 +961,9 @@
         if (theSnap && !snap.empty ) {
           that.set("loaded", theSnap.length)
           // that.items = theSnap.sort(sortByChild) 
-          var cards = [];
+          var cards = []
           theSnap.forEach(function(doc) {
             var docData = doc.data()
-            
             cards.push({
               title: docData.title,
               image: docData.image,
