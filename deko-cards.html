@@ -558,7 +558,7 @@
         }
       }, 2000)
     },
-    deleteCard: function() {
+    deleteCard: function(e,d) {
       var that = this
       var selectedItem = this._items(this.items)
       if (selectedItem !== false && that.items[selectedItem] && that.items[selectedItem].ref && that.items[selectedItem].ref.id) {
