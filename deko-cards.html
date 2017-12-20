@@ -456,8 +456,14 @@
           var selectedItem = this._items(this.items)
           if (this.items[selectedItem].ref) {
             that.chips = ["giving"]
-            this.items[selectedItem].ref.set({give:[id]}).then(function(){
-              that.chips = []
+            this.items[selectedItem].ref.set({given:[id]}).then(function(){
+              fetch(that.apiURL + "card/" + that.profileId + "/" + that.items[selectedItem].ref.id).then(function(response) {
+                that.chips = []
+                return response.json()
+              }).catch(function(e){
+                console.log(e)
+              })
+              
             }).catch(function(e){
               console.log(e)
             })
