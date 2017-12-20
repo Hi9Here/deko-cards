@@ -594,10 +594,10 @@
           if (!imageRef) {
             return "no image"
           }
+          var that = this
           return firebase.storage().ref().child(imageRef).getDownloadURL().then( function (url) {
             var image = url
               if (image.split("%2F")[1]) { //TODO DRY
-                var that = this
                 db.collection("files").doc(image.split("%2F")[1]).get().then(function(doc) {
                   if (doc.exists && doc.data() && doc.data().vision && doc.data().vision[0].imagePropertiesAnnotation) {
                     var colour = doc.data().vision["0"].imagePropertiesAnnotation.dominantColors.colors["0"].color
