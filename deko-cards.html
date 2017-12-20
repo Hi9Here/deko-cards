@@ -448,6 +448,9 @@
               return profile.name
             })
           })
+          that.chips = that.profileList.map(function(profile) {
+            return profile.name
+          })
         } else if (this.profileList.filter(function(profile) {return profile.name === textOnChip})[0]) {
           var id = this.profileList.filter(function(profile) {
             return profile.name === textOnChip
