@@ -610,7 +610,7 @@
                     }
                     var toolbarColor = rgbToHex(colour.red, colour.green, colour.blue)
                     
-                    that.set("items","selectedItem","toolbarColor", toolbarColor)
+                    that.set("items",selectedItem,"toolbarColor", toolbarColor)
                     
                     that.debounce("updateCardToolbarColor", function () {
                       that.items[selectedItem].ref.set({toolbarColor: toolbarColor}, {merge: true})
@@ -769,8 +769,7 @@
                     }
                     var toolbarColor = rgbToHex(colour.red, colour.green, colour.blue)
                     
-                    that.set("items","selectedItem","toolbarColor", toolbarColor)
-                    
+                    that.set("items",selectedItem,"toolbarColor", toolbarColor)
                     this.debounce("updateCardToolbarColor", function () {
                       this.items[selectedItem].ref.set({toolbarColor: toolbarColor}, {merge: true})
                     },1000)
