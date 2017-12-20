@@ -438,7 +438,8 @@
         this.chips = []
       } else if (this.cardPart == 1) {
         console.log(d.detail.chip.trim())
-        if (d.detail.chip.trim() === "give") {
+        var textOnChip = d.detail.chip.trim()
+        if (textOnChip === "give") {
           var that = this
           fetch(this.apiURL + "profiles").then(function(response) {
             return response.json()
@@ -448,6 +449,19 @@
               return profile.name
             })
           })
+        } else if (this.profileList.filter(function(profile) {return profile.name === textOnChip})[0]) {
+          var id = this.profileList.filter(function(profile) {
+            return profile.name === textOnChip
+          })[0].id
+          var selectedItem = this._items(this.items)
+          if (this.items[selectedItem].ref) {
+            that.chips = ["giving"]
+            this.items[selectedItem].ref.set({give:[id]}).then(function(){
+              that.chips = []
+            }).catch(function(e){
+              console.log(e)
+            })
+          }
         }
       }
     },
