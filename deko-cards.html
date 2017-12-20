@@ -343,7 +343,7 @@
     imageIndex: function() {
       var that = this
       if (lunr) {
-        return db.collection("Profiles").doc(that.profileId).collection("lunr_index_images").get().then(function(doc) {
+        return db.collection("Profiles").doc(that.profileId).collection("lunr_index").doc("images").get().then(function(doc) {
            return lunr.Index.load(JSON.parse(doc.data().idx))
         }).catch(e => {
           console.log(e)
