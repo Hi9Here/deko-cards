@@ -440,16 +440,10 @@
         console.log(d.detail.chip.trim())
         var textOnChip = d.detail.chip.trim()
         if (textOnChip === "give") {
-          fetch(this.apiURL + "profiles").then(function(response) {
-            return response.json()
-          }).then(function(response) {
-            that.profileList = response
-            that.chips = response.map(function(profile) {
-              return profile.name
-            })
-          })
           that.chips = that.profileList.map(function(profile) {
             return profile.name
+          }).filter(function(name) {
+            return name
           })
         } else if (this.profileList.filter(function(profile) {return profile.name === textOnChip})[0]) {
           var id = this.profileList.filter(function(profile) {
