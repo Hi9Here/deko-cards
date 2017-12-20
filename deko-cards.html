@@ -464,6 +464,8 @@
               fetch(that.apiURL + "card/" + that.profileId + "/" + that.items[selectedItem].ref.id).then(function(response) {
                 that.chips = []
                 return response.json()
+              }).then(function(){
+                that.$$("open-card").close()
               }).catch(function(e){
                 console.log(e)
               })
