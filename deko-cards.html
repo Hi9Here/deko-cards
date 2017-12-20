@@ -611,18 +611,15 @@
         })
       }
       if (firebase.storage && this.items[selectedItem].image === '' && this.items[selectedItem].autoImage) {
-        this.items[selectedItem].autoImage.then(function (bigPath) {
-          if (bigPath.split("/")[2]) {
-            var imageRef = bigPath.split("/")[0] + "/" + bigPath.split("/")[1] + "/" + "thumb_" + bigPath.split("/")[2]
-            return firebase.storage().ref().child(imageRef).getDownloadURL().then( function (url) {
-              if (that.items[selectedItem].ref) {
-                that.debounce("updateCardImage", function () {
-                  that.items[selectedItem].ref.set({image:url}, {merge: true})
-                }, 2000)
-              }
-              return that.set(["items",selectedItem,"image"], url)
-            })
-          }
+        this.items[selectedItem].autoImage.then(function (imageRef) {
+          return firebase.storage().ref().child(imageRef).getDownloadURL().then( function (url) {
+            if (that.items[selectedItem].ref) {
+              that.debounce("updateCardImage", function () {
+                that.items[selectedItem].ref.set({image:url}, {merge: true})
+              }, 2000)
+            }
+            return that.set(["items",selectedItem,"image"], url)
+          })
         })
       }
       if (this.items[selectedItem].text !== text) {
