@@ -336,7 +336,9 @@
       },
     },
     getMeta: function(profileId) {
-      return {profileId: profileId}
+      var meta = {}
+      meta[profileId] = "profileId"
+      return meta
     },
     imageIndex: function() {
       if (lunr) {
