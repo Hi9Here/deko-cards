@@ -534,31 +534,6 @@
         console.error("Error adding card: ", error)
       })
     },
-    changingImage: function(image, selectedCard) {
-      this.debounce("save", function () {
-        var si = this._items(this.items)
-        selectedCard = this.items[si]
-        if (image && selectedCard === false && selectedCard.ref) {
-          if (image.split("%2F")[1]) { //TODO what
-            var that = this
-            db.collection("files").doc(image.split("%2F")[1]).get().then(function(doc) {
-              if (doc.exists && doc.data() && doc.data().vision && doc.data().vision[0].imagePropertiesAnnotation) {
-                var colour = doc.data().vision["0"].imagePropertiesAnnotation.dominantColors.colors["0"].color
-                function componentToHex(c) {
-                  var hex = c.toString(16)
-                  return hex.length == 1 ? "0" + hex : hex
-                }
-                function rgbToHex(r, g, b) {
-                  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-                }
-                selectedCard.ref.set({toolbarColor:rgbToHex(colour.red, colour.green, colour.blue)}, {merge: true})
-              }
-            })
-          }
-          selectedCard.ref.set({image:selectedCard.image}, {merge: true})
-        }
-      }, 2000)
-    },
     deleteCard: function(e,d) {
       var that = this
       var selectedItem = this._items(this.items)
