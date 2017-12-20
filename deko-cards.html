@@ -460,6 +460,12 @@
                 return response.json()
               }).then(function(){
                 that.$$("open-card").close()
+                if (that.unsub) {
+                   that.unsub()
+                }
+                if (that.resub) {
+                   that.resub()
+                }
               }).catch(function(e){
                 console.log(e)
               })
