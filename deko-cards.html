@@ -455,21 +455,13 @@
             var given = {}
             given[id] = true
             this.items[selectedItem].ref.set(given, {merge: true}).then(function(){
-              fetch(that.apiURL + "card/" + that.profileId + "/" + that.items[selectedItem].ref.id).then(function(response) {
-                that.chips = []
-                return response.json()
-              }).then(function(){
-                that.$$("open-card").close()
-                if (that.unsub) {
-                   that.unsub()
-                }
-                if (that.resub) {
-                   that.resub()
-                }
-              }).catch(function(e){
-                console.log(e)
-              })
-              
+              that.$$("open-card").close()
+              if (that.unsub) {
+                that.unsub()
+              }
+              if (that.resub) {
+                that.resub()
+              }
             }).catch(function(e){
               console.log(e)
             })
@@ -1014,19 +1006,21 @@
           var cards = []
           theSnap.forEach(function(doc) {
             var docData = doc.data()
-            cards.push({
-              title: docData.title,
-              image: docData.image,
-              toolbarColor: docData.toolbarColor,
-              dek: docData.dek,
-              show: docData.show,
-              text: docData.text,
-              timer: docData.timer,
-              reminder: docData.reminder,
-              signedOff: docData.signedOff,
-              setsReps: docData.setsReps,
-              ref: doc.ref,
-            })
+            if (!docData.given) {
+              cards.push({
+                title: docData.title,
+                image: docData.image,
+                toolbarColor: docData.toolbarColor,
+                dek: docData.dek,
+                show: docData.show,
+                text: docData.text,
+                timer: docData.timer,
+                reminder: docData.reminder,
+                signedOff: docData.signedOff,
+                setsReps: docData.setsReps,
+                ref: doc.ref,
+              })
+            }
           })
           that.set("editing", false)
           that.set("items", cards)
