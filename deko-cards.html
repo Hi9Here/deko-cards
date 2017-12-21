@@ -454,8 +454,9 @@
             that.chips = ["giving"]
             var given = {}
             given[id] = true
-            this.items[selectedItem].ref.set(given, {merge: true}).then(function(){
+            this.items[selectedItem].ref.set({given:given}, {merge: true}).then(function(){
               that.$$("open-card").close()
+              that.chips = []
               if (that.unsub) {
                 that.unsub()
               }
