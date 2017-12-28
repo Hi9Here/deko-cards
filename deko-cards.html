@@ -71,7 +71,6 @@
       *, *:before, *:after {
         box-sizing: border-box; 
       }
-      
       /* make a grid */
       #narrow .wrapper {
         max-width: 700px;
@@ -79,11 +78,9 @@
         display: grid;
         grid-gap: 1px;
       }
-      
       .title {
         margin-left: none;
       }
-      
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
@@ -280,8 +277,7 @@
               },
               start: function(quill) {
                 // next
-                
-                return quill
+                return this.tricks.setsReps.chips.next(quill)
               },
               _tick:function(quill) {
                 // next
@@ -447,9 +443,9 @@
       } else if (this.cardPart == 1) {
         console.log(d.detail.chip.trim())
         var textOnChip = d.detail.chip.trim()
-        var selectedItem = this._items(this.items)
+        var selectedItem = that._items(this.items)
         function testForFunction () {
-          var trick = Object.keys(this.items[selectedItem]).reduce(
+          var trick = Object.keys(that.items[selectedItem]).reduce(
             function (accumulator, current) {
               if (current !== "ref"){
                 console.log(textOnChip)
