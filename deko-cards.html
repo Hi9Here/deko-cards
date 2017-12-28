@@ -464,8 +464,7 @@
         } else if (testForFunction(textOnChip)) {
           if (typeof that.tricks[testForFunction(textOnChip)].chips[textOnChip] === "function" && that.items[selectedItem].quill) {
             that.items[selectedItem].quill = that.tricks[testForFunction(textOnChip)].chips[textOnChip](that.items[selectedItem].quill)
-          } 
-          debugger
+          }
         } else if (this.profileList.filter(function(profile) {return profile.name === textOnChip})[0]) {
           var id = this.profileList.filter(function(profile) {
             return profile.name === textOnChip
