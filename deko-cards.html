@@ -447,7 +447,7 @@
         function testForFunction () { // Returns relevant trick
           return Object.keys(that.items[selectedItem]).filter(
             function (current) {
-              if (current !== "ref" && that.tricks.hasOwnProperty(current)){
+              if (current !== "ref" && that.tricks.hasOwnProperty(current) && that.tricks[current].chips){
                 console.log(textOnChip)
                 console.log(current)
                 console.log(that.tricks[current].chips)
