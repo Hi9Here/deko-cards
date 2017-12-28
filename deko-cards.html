@@ -598,10 +598,11 @@
       var that = this 
       
       selectedItem = this._items(this.items)
+      var newQuill = new quill.getContents()
       
-      quill.formatLine(1, 2, 'attributes', {header:1})
+      newQuill.formatLine(1, 2, 'attributes', {header:1})
       
-      var stuff = quill.getContents().ops
+      var stuff = newQuill.getContents().ops
 
       var name
       var head
