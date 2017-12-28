@@ -568,7 +568,7 @@
         var deleteId = that.items[selectedItem].ref.id
         that.items[selectedItem].ref.delete().then(function() {
           that.set("items", that.items.reduce(function(accumulator, currentValue) {
-            if (that.items[selectedItem].ref.id !== deleteId) {
+            if (that.items[selectedItem] && that.items[selectedItem].ref && that.items[selectedItem].ref.id !== deleteId) {
               accumulator.push(currentValue)
             }
             return accumulator
