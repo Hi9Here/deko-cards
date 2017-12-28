@@ -444,16 +444,20 @@
         console.log(d.detail.chip.trim())
         var textOnChip = d.detail.chip.trim()
         var selectedItem = that._items(this.items)
-        function testForFunction () {
-          var trick = Object.keys(that.items[selectedItem]).reduce(
-            function (accumulator, current) {
-              if (current !== "ref"){
+        function testForFunction () { // Returns relevant trick
+          return Object.keys(that.items[selectedItem]).filter(
+            function (current) {
+              if (current !== "ref" && that.tricks.hasOwnProperty(current)){
                 console.log(textOnChip)
                 console.log(current)
-                console.log(that.items[selectedItem][current])
+                console.log(that.tricks[current].chips)
+                console.log(that.tricks[current].chips.hasOwnProperty(textOnChip))
+                return that.tricks[current].chips.hasOwnProperty(textOnChip)
+              } else {
+                return false
               }
-            }, false)
-          return textOnChip === "start"
+            }
+          )[0]
         }
         if (textOnChip === "give") {
           that.chips = that.profileList.map(function(profile) {
@@ -462,6 +466,7 @@
             return name
           })
         } else if (testForFunction()) {
+          console.log(testForFunction())
           debugger
         } else if (this.profileList.filter(function(profile) {return profile.name === textOnChip})[0]) {
           var id = this.profileList.filter(function(profile) {
