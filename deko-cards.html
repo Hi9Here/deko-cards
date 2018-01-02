@@ -260,7 +260,7 @@
               return insert
             },
             chips: {
-              next: function (quill) {
+              _next: function (quill) {
                 // Look for n reps at n kg
                 // set next to heading 3 (first if no set)
                 // if n seconds rest n = n - 1 and 
@@ -277,7 +277,7 @@
               },
               start: function(quill) {
                 // next
-                return this.next(quill)
+                return this._next(quill)
               },
               _tick:function(quill) {
                 // next
@@ -598,7 +598,7 @@
       var that = this 
       
       selectedItem = this._items(this.items)
-      var newQuill = new quill.getContents()
+      var newQuill = quill.getContents()
       
       newQuill.formatLine(1, 2, 'attributes', {header:1})
       
