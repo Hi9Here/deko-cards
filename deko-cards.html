@@ -613,7 +613,7 @@
       var image
       var add
       var addAt
-      var text = quill.getText()
+      var text = quill.getText().replace("\n", "")
       if (!text) {
         return "nothing to test"
       }
