@@ -617,7 +617,7 @@
       if (!text) {
         return "nothing to test"
       }
-      if (text.indexOf("logout") && !this.items[selectedItem].ref) {
+      if (text.indexOf("logout") !== -1 && !this.items[selectedItem].ref) {
         this.fire("logout")
       }
       if (!this.items[selectedItem]) {
