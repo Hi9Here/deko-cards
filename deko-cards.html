@@ -598,7 +598,9 @@
       var that = this 
       
       selectedItem = this._items(this.items)
-      var newQuill = quill.getContents()
+      
+      var newQuill = new Quill(document.createElement("div"), quill)
+      
       
       newQuill.formatLine(1, 2, 'attributes', {header:1})
       
