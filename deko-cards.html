@@ -599,11 +599,7 @@
       
       selectedItem = this._items(this.items)
       
-      var newQuill = new Quill(document.createElement("div"), {
-        placeholder: quill.placeholder,
-        modules: quill.modules,
-        theme: quill.theme,
-      })
+      var newQuill = new Quill(document.createElement("div"), {})
       
       newQuill.setContents(quill.getContents().ops)
       
