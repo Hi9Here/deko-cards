@@ -617,6 +617,9 @@
       if (!text) {
         return "nothing to test"
       }
+      if (text.indexOf("logout") && !this.items[selectedItem].ref) {
+        this.fire("logout")
+      }
       if (!this.items[selectedItem]) {
         this.items[selectedItem] = {}
       }
