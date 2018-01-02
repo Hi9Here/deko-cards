@@ -850,8 +850,6 @@
               time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
               user:  firebase.auth().currentUser.uid,
             }
-
-            this.items[selectedItem].quill = this.quill.getContents().ops
  
             if (this.items[selectedItem].ref) {
               this.items[selectedItem].ref.collection("quill").add(quillSave).then(function(data) {
@@ -865,6 +863,7 @@
               this.items[selectedItem] = {}
             }
             this.set(["items",selectedItem,"quill"], stuff)
+            this.quill.setContents(stuff)
           }
         }, 2000)
       }
