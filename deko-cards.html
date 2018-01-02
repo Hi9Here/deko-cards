@@ -845,8 +845,8 @@
         this.debounce("updateCard", function () {
           if (JSON.stringify(this.items[selectedItem].quill) !== JSON.stringify(stuff)) {
             var that = this
-            var quill = {
-              value: this.quill.getContents().ops,
+            var quillSave = {
+              value: stuff,
               time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
               user:  firebase.auth().currentUser.uid,
             }
@@ -854,7 +854,7 @@
             this.items[selectedItem].quill = this.quill.getContents().ops
  
             if (this.items[selectedItem].ref) {
-              this.items[selectedItem].ref.collection("quill").add(quill).then(function(data) {
+              this.items[selectedItem].ref.collection("quill").add(quillSave).then(function(data) {
                 that.set("savedQuill",true)
               })
             } else {
