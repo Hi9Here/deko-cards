@@ -650,7 +650,7 @@
                   function rgbToHex(r, g, b) {
                     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
                   }
-                  var toolbarColor = rgbToHex(colour.red, colour.green, colour.blue)
+                  var toolbarColor = rgbToHex(colour.red || 0, colour.green || 0, colour.blue || 0)
                   
                   that.set(["items",selectedItem,"toolbarColor"], toolbarColor)
                   
