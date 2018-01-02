@@ -812,10 +812,10 @@
                     function rgbToHex(r, g, b) {
                       return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
                     }
-                    var toolbarColor = rgbToHex(colour.red, colour.green, colour.blue)
+                    var toolbarColor = rgbToHex(colour.red || 0, colour.green || 0, colour.blue || 0)
                     
                     that.set(["items",selectedItem,"toolbarColor"], toolbarColor)
-                    this.debounce("updateCardToolbarColor", function () {
+                    that.debounce("updateCardToolbarColor", function () {
                       this.items[selectedItem].ref.set({toolbarColor: toolbarColor}, {merge: true})
                     },1000)
                   }
