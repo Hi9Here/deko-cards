@@ -269,19 +269,19 @@
                 var steps = []
                 newQuill.getLines().forEach(function (line,idx) {
                   var regex = /[\d]+ reps at [\d]+kg|[\d]+ seconds rest/g
-                  console.log(line.cache.delta.ops[0].insert.match(regex))
                   if (line.cache.delta.ops[0].insert.match(regex)) {
                     steps.push({
                       idx:idx,
                       text:line.cache.delta.ops[0].insert,
+                      line:line,
                     })
                   }
                 })
-                console.log(steps)
+                console.log(steps[0].line)
                                             
                 // this.tricks.setsReps.timeout = setTimeout(this.tricks.setsReps.chips.next,1000)
                 if (window.speechSynthesis) {
-                  window.speechSynthesis.speak(new SpeechSynthesisUtterance("text testing"))
+                  window.speechSynthesis.speak(new SpeechSynthesisUtterance(steps[0].text))
                 }
                 this.audioDing = document.createElement('audio')
                 this.audioDing.setAttribute('src', 'https://firebasestorage.googleapis.com/v0/b/deko-app-one.appspot.com/o/bell.mp3?alt=media&token=5c83f37c-29d9-4971-aef4-aad504477bbc')
