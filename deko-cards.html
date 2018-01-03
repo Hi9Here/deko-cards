@@ -263,6 +263,11 @@
                 // Look for n reps at n kg
                 // set next to heading 3 (first if no set)
                 // if n seconds rest n = n - 1 and 
+                var newQuill = new Quill(document.createElement("div"), {})
+                newQuill.setContents(quill)
+                newQuill.formatLine(1, 2, 'attributes', {header:1})
+                
+                console.log(newQuill.getLines())
                 
                 // this.tricks.setsReps.timeout = setTimeout(this.tricks.setsReps.chips.next,1000)
                 if (window.speechSynthesis) {
