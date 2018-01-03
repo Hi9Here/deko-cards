@@ -421,7 +421,7 @@
           if (selectedCard.setsReps === "Done") {
             return ["Share","Done"]
           }
-          return ["Start","Done","Edit"] 
+          return ["Next","Done","Edit"] 
         }
         return ["Edit","Give","Done"] 
       } else {
@@ -595,13 +595,9 @@
         return
       }
       var that = this 
-      
       selectedItem = this._items(this.items)
-      
       var newQuill = new Quill(document.createElement("div"), {})
-      
       newQuill.setContents(quill.getContents().ops)
-      
       newQuill.formatLine(1, 2, 'attributes', {header:1})
       
       var stuff = newQuill.getContents().ops
