@@ -259,7 +259,7 @@
               return insert
             },
             chips: {
-              _next: function (quill) {
+              next: function (quill) {
                 // Look for n reps at n kg
                 // set next to heading 3 (first if no set)
                 // if n seconds rest n = n - 1 and 
@@ -273,10 +273,6 @@
                 
                 console.log(quill)
                 return quill
-              },
-              start: function(quill) {
-                // next
-                return this._next(quill)
               },
               _tick:function(quill) {
                 // next
@@ -441,7 +437,7 @@
         this.chips = []
       } else if (this.cardPart == 1) {
         console.log(d.detail.chip.trim())
-        var textOnChip = d.detail.chip.trim()
+        var textOnChip = d.detail.chip.trim().toLowerCase()
         var selectedItem = that._items(this.items)
         function testForFunction (text) { // Returns relevant first trick
           return Object.keys(that.items[selectedItem]).filter(
