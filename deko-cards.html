@@ -282,7 +282,7 @@
                       if (steps.length === 1) {
                         op.attributes = {"header":2}
                         var m
-                        if ((m = regex.exec(str)) !== null)
+                        if ((m = regex.exec(op.insert)) !== null)
                         m.forEach((match, groupIndex) => {
                           console.log(`Found match, group ${groupIndex}: ${match}`);
                         })
