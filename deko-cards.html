@@ -285,13 +285,15 @@
                   if (idx === 0) {
                     op.attributes = {"header":1}
                   }
+                  ops.push(op)
+                  
                   if (line.cache.delta.ops[1]) {
                     ops.push(line.cache.delta.ops[1])
                   }
                   if (line.cache.delta.ops[2]) {
                     ops.push(line.cache.delta.ops[2])
                   }
-                  ops.push(op)
+                  
                 })
                
                 // this.tricks.setsReps.timeout = setTimeout(this.tricks.setsReps.chips.next,1000)
