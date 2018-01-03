@@ -261,7 +261,7 @@
             chips: {
               next: function (quill, timer) {
                 if (!timer) {
-                  clearInterval(this.timer)
+                  clearTimeout(this.timer)
                 }
                 
                 function play() {
@@ -296,7 +296,7 @@
                           // 100 => 0/100
                           if (m[1] === undefined) {
                             op.insert = "0/" + op.insert
-                            this.timer = setInterval(this.next(quill, true), 1000)
+                            this.timer = setTimeout(play, +m[0] * 1000)
                           } else if (+m[1] == m[1] && timer) {
                             op.insert = ++m[1] + "/" + m[0] + " seconds rest \n"
                             console.log(op.insert)
