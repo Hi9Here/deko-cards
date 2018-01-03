@@ -270,12 +270,11 @@
                 var ops = []
                 newQuill.getLines().forEach(function (line, idx) {
                   var op = {insert:line.cache.delta.ops[0].insert}
-                  
                   var regex = /[\d]+ reps at [\d]+kg|[\d]+ seconds rest/g
                   
-                  if (typeof line.cache.delta.ops[0].insert === "string" && line.cache.delta.ops[0].insert.match(regex) && !line.cache.delta.ops[1] ) {
+                  if (typeof line.cache.delta.ops[0].insert === "string" && line.cache.delta.ops[0].insert.match(regex) && !line.cache.delta.ops[1]) {
                     steps.push({
-                      idx:idx,
+                      idx: idx,
                       text:line.cache.delta.ops[0].insert,
                       line:line,
                     })
@@ -285,6 +284,12 @@
                   }
                   if (idx === 0) {
                     op.attributes = {"header":1}
+                  }
+                  if (line.cache.delta.ops[1]) {
+                    ops.push(line.cache.delta.ops[1])
+                  }
+                  if (line.cache.delta.ops[2]) {
+                    ops.push(line.cache.delta.ops[2])
                   }
                   ops.push(op)
                 })
