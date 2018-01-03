@@ -270,7 +270,7 @@
                 var ops = []
                 newQuill.getLines().forEach(function (line, idx) {
                   var op = {insert:line.cache.delta.ops[0].insert}
-                  var regex = /[\d]+ reps at [\d]+kg|[\d]+ seconds rest $/gm
+                  var regex = /[\d]+ reps at [\d]+kg$|[\d]+ seconds rest $/gm
                   
                   if (typeof line.cache.delta.ops[0].insert === "string" && line.cache.delta.ops[0].insert.match(regex) ) {
                     if (!line.cache.delta.ops[1]) {
