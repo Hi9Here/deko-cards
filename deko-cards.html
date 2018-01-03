@@ -266,13 +266,18 @@
                 var newQuill = new Quill(document.createElement("div"), {})
                 newQuill.setContents(quill)
                 newQuill.formatLine(1, 2, 'attributes', {header:1})
-                
+                var steps = []
                 newQuill.getLines().forEach(function (line,idx) {
-                  
-                  console.log(idx,line.cache.delta.ops[0].insert)
-                  console.log(/[\d]+ reps at [\d]+kg|[\d]+ seconds rest/.match(line.cache.delta.ops[0].insert))
-                  
+                  var regex = /[\d]+ reps at [\d]+kg|[\d]+ seconds rest/g
+                  console.log(line.cache.delta.ops[0].insert.match(regex))
+                  if (line.cache.delta.ops[0].insert.match(regex)) {
+                    steps.push({
+                      idx:idx,
+                      text:line.cache.delta.ops[0].insert,
+                    })
+                  }
                 })
+                console.log(steps)
                                             
                 // this.tricks.setsReps.timeout = setTimeout(this.tricks.setsReps.chips.next,1000)
                 if (window.speechSynthesis) {
