@@ -265,7 +265,9 @@
                 // if n seconds rest n = n - 1 and 
                 
                 // this.tricks.setsReps.timeout = setTimeout(this.tricks.setsReps.chips.next,1000)
-                
+                if (window.speechSynthesis) {
+                  window.speechSynthesis(new SpeechSynthesisUtterance("text testing"))
+                }
                 this.audioDing = document.createElement('audio')
                 this.audioDing.setAttribute('src', 'https://firebasestorage.googleapis.com/v0/b/deko-app-one.appspot.com/o/bell.mp3?alt=media&token=5c83f37c-29d9-4971-aef4-aad504477bbc')
                 this.audioDing.setAttribute('autoplay:false', 'autoplay')
