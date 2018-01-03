@@ -267,8 +267,10 @@
                 newQuill.setContents(quill)
                 newQuill.formatLine(1, 2, 'attributes', {header:1})
                 
-                console.log(newQuill.getLines())
-                
+                newQuill.getLines().forEach(function (line,idx) {
+                  console.log(idx,line.cache.delta.ops[0].insert)
+                }
+                                            
                 // this.tricks.setsReps.timeout = setTimeout(this.tricks.setsReps.chips.next,1000)
                 if (window.speechSynthesis) {
                   window.speechSynthesis.speak(new SpeechSynthesisUtterance("text testing"))
