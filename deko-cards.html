@@ -294,7 +294,7 @@
                         var m
                         if ((m = regex.exec(op.insert)) !== null) {
                           // 100 => 0/100
-                          if (m[1] === undefined) {
+                          if (m[1] === undefined && +m[0]) {
                             op.insert = "0/" + op.insert
                             this.timer = setTimeout(play, +m[0] * 1000)
                           } else if (+m[1] == m[1] && timer) {
