@@ -294,11 +294,11 @@
                         var m
                         if ((m = regex.exec(op.insert)) !== null) {
                           // 100 => 0/100
-                          if (m[1] === undefined && +m[0]) {
+                          if (m[1] === undefined && +m[2]) {
                             op.insert = "0/" + op.insert
-                            this.timer = setTimeout(play, +m[0] * 1000)
+                            this.timer = setTimeout(play, +m[2] * 1000)
                           } else if (+m[1] == m[1] && timer) {
-                            op.insert = ++m[1] + "/" + m[0] + " seconds rest \n"
+                            op.insert = ++m[1] + "/" + m[2] + " seconds rest \n"
                             console.log(op.insert)
                           } 
                           if (+m[1] === +m[0] && timer) {
