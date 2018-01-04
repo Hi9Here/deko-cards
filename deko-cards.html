@@ -296,9 +296,10 @@
                           // 100 => 0/100
                           if (m[1] === undefined && +m[2]) {
                             op.insert = "0/" + op.insert
+                            var that = this
                             this.timer = setInterval(function() {
                               // maybe use quillElements.getContents()
-                              var newQuill = this.next(quill, quillElements, dataRef, true)
+                              var newQuill = that.next(quill, quillElements, dataRef, true)
                               quillElements.setContents(newQuill)
                             }, 1000)
                           } else if (+m[1] == m[1] && timer) {
