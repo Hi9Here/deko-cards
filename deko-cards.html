@@ -283,7 +283,7 @@
                   var regex = /[\d]+ reps at [\d]+kg$|^(?:([\d]+)\/)?([\d]+) seconds rest $/gm
                   
                   if (typeof op.insert === "string" && op.insert.match(regex) ) {
-                    if (!line.cache.delta.ops[1] || timer && line.cache.delta.ops[1].attributes && line.cache.delta.ops[1].attributes.header == 2) {
+                    if (!line.cache.delta.ops[1] || (timer && line.cache.delta.ops[1].attributes && line.cache.delta.ops[1].attributes.header == 2)) {
                       steps.push({
                         idx: idx,
                         text:op.insert,
