@@ -324,7 +324,7 @@
                         
                         if (+m[1] === +m[2] && timer) {
                           setTimeout(function() {
-                            that.next(quill, quillElements, dataRef, false, update) // move on
+                            that.next(quillElements.getContents(), quillElements, dataRef, false, update) // move on
                           }, 50)
                         }
                       }
