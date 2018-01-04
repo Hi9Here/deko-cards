@@ -264,11 +264,17 @@
                   clearInterval(this.timer)
                 }
                 
-                function play() {
+                function play(bells) {
                   this.audioDing = document.createElement('audio')
                   this.audioDing.setAttribute('src', 'https://firebasestorage.googleapis.com/v0/b/deko-app-one.appspot.com/o/bell.mp3?alt=media&token=5c83f37c-29d9-4971-aef4-aad504477bbc')
                   this.audioDing.setAttribute('autoplay:false', 'autoplay')
-                  this.audioDing.play()
+                  if (!bells || bells === 3 ) {
+                    this.audioDing.play()
+                  } else if (bells == 1){
+                    this.audioDing.currentTime = .8
+                  } else if (bells == 2){
+                    this.audioDing.currentTime = .4
+                  }
                 }
                 // Look for n reps at n kg
                 // set next to heading 3 (first if no set)
@@ -302,6 +308,7 @@
                             quillElements.setContents(_quill)
                             update(_quill)
                           }
+                          clearInterval(that.timer)
                           setTimeout(function() {
                             that.timer = setInterval(tick, 1000)
                           }, 500)
@@ -309,6 +316,8 @@
                           op.insert = ++m[1] + "/" + m[2] + " seconds rest "
                           console.log(op.insert)
                           // 80/100 => 81/100 
+                        } else {
+                          clearInterval(that.timer)
                         }
                         if (+m[1] === +m[2] && timer) {
                           play()
