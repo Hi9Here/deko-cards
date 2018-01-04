@@ -291,6 +291,9 @@
                       })
                       if (steps.length === 1) {
                         op.attributes = {"header":2}
+                        if (line.cache.delta.ops[1]) {
+                          delete(line.cache.delta.ops[1])
+                        }
                         if (m[1] === undefined && +m[2] && !timer) {
                           // 100 => 0/100 making m[1] == 0
                           op.insert = "0/" + op.insert
