@@ -300,7 +300,7 @@
                               // maybe use quillElements.getContents()
                               var newQuill = this.next(quill, quillElements, dataRef, true)
                               quillElements.setContents(newQuill)
-                            }.bind(this), 1000)
+                            }.bind(this, quill, quillElements, dataRef), 1000)
                           } else if (+m[1] == m[1] && timer) {
                             op.insert = ++m[1] + "/" + m[2] + " seconds rest \n"
                             console.log(op.insert)
