@@ -268,13 +268,12 @@
                   this.audioDing = document.createElement('audio')
                   this.audioDing.setAttribute('src', 'https://firebasestorage.googleapis.com/v0/b/deko-app-one.appspot.com/o/bell.mp3?alt=media&token=5c83f37c-29d9-4971-aef4-aad504477bbc')
                   this.audioDing.setAttribute('autoplay:false', 'autoplay')
-                  if (!bells || bells === 3 ) {
-                    this.audioDing.play()
-                  } else if (bells == 1){
+                  if (bells == 1){
                     this.audioDing.currentTime = .8
                   } else if (bells == 2){
                     this.audioDing.currentTime = .4
                   }
+                  this.audioDing.play()
                 }
                 // Look for n reps at n kg
                 // set next to heading 3 (first if no set)
