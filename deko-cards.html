@@ -327,7 +327,7 @@
                             delete(line.cache.delta.ops[1])
                           }
                           setTimeout(function() {
-                            that.next(quillElements.getContents().ops, quillElements, dataRef, false, update) // move on
+                            update(that.next(quillElements.getContents().ops, quillElements, dataRef, false, update)) // move on
                           }, 50)
                         }
                       }
