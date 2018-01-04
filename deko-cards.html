@@ -296,7 +296,7 @@
                       })
                       if (steps.length === 1) {
                         if (!line.cache.delta.ops[1]) {
-                          op.attributes = {header:2}
+                          line.cache.delta.ops[1] = {header:2}
                         }
                         if (m[1] === undefined && +m[2] && !timer) {
                           // 100 => 0/100 making m[1] == 0
