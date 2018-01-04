@@ -281,9 +281,9 @@
                 newQuill.getLines().forEach(function (line, idx) {
                   var op = {insert:line.cache.delta.ops[0].insert}
                   var regex = /[\d]+ reps at [\d]+kg$|^(?:([\d]+)\/)?([\d]+) seconds rest $/gm
-                  
-                  if (typeof op.insert === "string" && op.insert.match(regex) ) {
-                    if (!line.cache.delta.ops[1] || (timer && line.cache.delta.ops[1].attributes && line.cache.delta.ops[1].attributes.header == 2)) {
+                  var m
+                  if (typeof op.insert === "string" && (m = regex.exec(op.insert)) !== null) {
+                    if (!line.cache.delta.ops[1] || (timer && line.cache.delta.ops[1].attributes && line.cache.delta.ops[1].attributes.header == 2 && +m[1] == m[1])) {
                       steps.push({
                         idx: idx,
                         text:op.insert,
@@ -291,9 +291,6 @@
                       })
                       if (steps.length === 1) {
                         op.attributes = {"header":2}
-                        var m
-                        if ((m = regex.exec(op.insert)) !== null) {
-                          // 100 => 0/100
                           if (m[1] === undefined && +m[2] && !timer) {
                             op.insert = "0/" + op.insert
                             function tick() {
