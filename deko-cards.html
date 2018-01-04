@@ -259,9 +259,9 @@
               return insert
             },
             chips: {
-              next: function (quill, timer) {
+              next: function (quill, quillElements, dataRef, timer) {
                 if (!timer) {
-                  clearTimeout(this.timer)
+                  clearInterval(this.timer)
                 }
                 
                 function play() {
@@ -296,13 +296,14 @@
                           // 100 => 0/100
                           if (m[1] === undefined && +m[2]) {
                             op.insert = "0/" + op.insert
-                            this.timer = setTimeout(play, +m[2] * 1000)
+                            this.timer = setInterval(this._update(quill, quillElements, dataRef), 1000)
                           } else if (+m[1] == m[1] && timer) {
                             op.insert = ++m[1] + "/" + m[2] + " seconds rest \n"
                             console.log(op.insert)
-                          } 
-                          if (+m[1] === +m[0] && timer) {
+                          }
+                          if (+m[1] === +m[2] && timer) {
                             play()
+                            this.next(quill, quillElements, dataRef, false) // move on
                           }
                         }
                         
@@ -339,9 +340,14 @@
 
                 return ops
               },
+              _update:function(quill, quillElements, dataRef) {
+                return function() {
+                  var newQuill = this.next(quill, quillElements, dataRef, true)
+                  quillElements.setContents(newQuill)
+                }
+              },
               _tick:function(quill) {
                 // next
-
                 
                 return quill
               },
@@ -524,7 +530,7 @@
           })
         } else if (testForFunction(textOnChip)) {
           if (typeof that.tricks[testForFunction(textOnChip)].chips[textOnChip] === "function" && that.items[selectedItem].quill) {
-            var newQuill = that.tricks[testForFunction(textOnChip)].chips[textOnChip](that.items[selectedItem].quill)
+            var newQuill = that.tricks[testForFunction(textOnChip)].chips[textOnChip](that.items[selectedItem].quill, that.quill, that.items[selectedItem].ref)
             that.set("items.selectedItem.quill", newQuill) //TODO is both needed? 
             that.quill.setContents(newQuill)
           }
