@@ -323,6 +323,10 @@
                         }
                         
                         if (+m[1] === +m[2] && timer) {
+                          op.insert = op.insert + " done \n"
+                          if (line.cache.delta.ops[1]) {
+                            delete(line.cache.delta.ops[1])
+                          }
                           setTimeout(function() {
                             that.next(quillElements.getContents(), quillElements, dataRef, false, update) // move on
                           }, 50)
