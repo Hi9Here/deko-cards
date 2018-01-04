@@ -150,7 +150,7 @@
             <paper-toolbar style$="background:[[item.toolbarColor]];color:[[getFg(item.toolbarColor)]]"></paper-toolbar>
             <div style$="background:url([[item.image]]);width:500px;height:200px;background-size: cover;background-position: center;"></div>
           </template>
-          <quill-js value="[[item.quill]]" id="show" show style="max-width: 500px;margin: auto;" ></quill-js>
+          <quill-js value="[[item.quill]]" id="show" show editor-show="{{showQuill}}" style="max-width: 500px;margin: auto;" ></quill-js>
         </div>
       </open-card>
     </template>
@@ -535,7 +535,7 @@
               that.set("items."+ selectedItem +".quill", newQuill) //TODO is both needed? 
               that.quill.setContents(newQuill)
             }
-            var newQuill = that.tricks[testForFunction(textOnChip)].chips[textOnChip](that.items[selectedItem].quill, that.quill, that.items[selectedItem].ref, false, update)
+            var newQuill = that.tricks[testForFunction(textOnChip)].chips[textOnChip](that.items[selectedItem].quill, that.showQuill, that.items[selectedItem].ref, false, update)
             update(newQuill)
           }
         } else if (this.profileList.filter(function(profile) {return profile.name === textOnChip})[0]) {
