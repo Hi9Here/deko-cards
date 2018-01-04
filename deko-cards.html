@@ -323,7 +323,9 @@
                         }
                         
                         if (+m[1] === +m[2] && timer) {
-                          that.next(quill, quillElements, dataRef, false) // move on
+                          setTimeout(function() {
+                            that.next(quill, quillElements, dataRef, false, update) // move on
+                          }, 50)
                         }
                       }
                     } else {
