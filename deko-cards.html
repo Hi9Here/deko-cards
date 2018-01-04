@@ -319,8 +319,11 @@
                         } else {
                           clearInterval(that.timer)
                         }
+                        if (10 + m[1] === +m[2] && timer) {
+                          play(1)
+                        }
+                        
                         if (+m[1] === +m[2] && timer) {
-                          play()
                           that.next(quill, quillElements, dataRef, false) // move on
                         }
                       }
