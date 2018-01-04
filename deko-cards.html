@@ -278,6 +278,7 @@
                 newQuill.formatLine(1, 2, 'attributes', {header:1})
                 var steps = []
                 var ops = []
+                var that = this
                 newQuill.getLines().forEach(function (line, idx) {
                   var op = {insert:line.cache.delta.ops[0].insert}
                   var regex = /[\d]+ reps at [\d]+kg$|^(?:([\d]+)\/)?([\d]+) seconds rest $/gm
@@ -298,10 +299,10 @@
                             op.insert = "0/" + op.insert
                             function tick() {
                               // maybe use quillElements.getContents()
-                              quill = this.next(quill, quillElements, dataRef, true)
+                              quill = that.next(quill, quillElements, dataRef, true)
                               quillElements.setContents(quill)
                             }
-                            this.timer = setInterval(tick.bind(this, quill, quillElements, dataRef), 1000)
+                            this.timer = setInterval(tick.bind(that, quill, quillElements, dataRef), 1000)
                           } else if (+m[1] == m[1] && timer) {
                             op.insert = ++m[1] + "/" + m[2] + " seconds rest \n"
                             console.log(op.insert)
