@@ -291,25 +291,24 @@
                       })
                       if (steps.length === 1) {
                         op.attributes = {"header":2}
-                          if (m[1] === undefined && +m[2] && !timer) {
-                            op.insert = "0/" + op.insert
-                            function tick() {
-                              // maybe use quillElements.getContents()
-                              quill = that.next(quill, quillElements, dataRef, true)
-                              quillElements.setContents(quill)
-                            }
-                            that.timer = setInterval(tick.bind(that, quill, quillElements, dataRef), 1000)
-                          } else if (+m[1] == m[1] && timer) {
-                            op.insert = ++m[1] + "/" + m[2] + " seconds rest \n"
-                            console.log(op.insert)
+                        if (m[1] === undefined && +m[2] && !timer) {
+                          // 100 => 0/100 making m[1] == 0
+                          op.insert = "0/" + op.insert
+                          function tick() {
+                            // maybe use quillElements.getContents()
+                            quill = that.next(quill, quillElements, dataRef, true)
+                            quillElements.setContents(quill)
                           }
-                          if (+m[1] === +m[2] && timer) {
-                            play()
-                            that.next(quill, quillElements, dataRef, false) // move on
-                          }
+                          that.timer = setInterval(tick.bind(that, quill, quillElements, dataRef), 1000)
+                        } else if (+m[1] == m[1] && timer) {
+                          op.insert = ++m[1] + "/" + m[2] + " seconds rest \n"
+                          console.log(op.insert)
+                          // 80/100 => 81/100 
                         }
-                        
-                        // 80/100 => 81/100 
+                        if (+m[1] === +m[2] && timer) {
+                          play()
+                          that.next(quill, quillElements, dataRef, false) // move on
+                        }
                       }
                     } else {
                       op.insert = line.cache.delta.ops[0].insert + " done \n"
