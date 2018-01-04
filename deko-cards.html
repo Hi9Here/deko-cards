@@ -302,7 +302,9 @@
                             quillElements.setContents(_quill)
                             update(_quill)
                           }
-                          that.timer = setInterval(tick, 1000)
+                          setTimeout(function() {
+                            that.timer = setInterval(tick, 1000)
+                          }, 500)
                         } else if (+m[1] == m[1] && timer) {
                           op.insert = ++m[1] + "/" + m[2] + " seconds rest \n"
                           console.log(op.insert)
