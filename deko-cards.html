@@ -295,7 +295,7 @@
                         var m
                         if ((m = regex.exec(op.insert)) !== null) {
                           // 100 => 0/100
-                          if (m[1] === undefined && +m[2]) {
+                          if (m[1] === undefined && +m[2] && !timer) {
                             op.insert = "0/" + op.insert
                             function tick() {
                               // maybe use quillElements.getContents()
@@ -340,7 +340,7 @@
                 })
                
                 // this.tricks.setsReps.timeout = setTimeout(this.tricks.setsReps.chips.next,1000)
-                if (window.speechSynthesis && steps[0] && steps[0].text) {
+                if (window.speechSynthesis && !timer && steps[0] && steps[0].text) {
                   window.speechSynthesis.speak(new SpeechSynthesisUtterance(steps[0].text))
                 } else if (steps[0].length === 0){
                   dataRef.set({setsReps: "done"}, {merge: true})
