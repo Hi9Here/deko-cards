@@ -341,7 +341,7 @@
                 // this.tricks.setsReps.timeout = setTimeout(this.tricks.setsReps.chips.next,1000)
                 if (window.speechSynthesis && !timer && steps[0] && steps[0].text) {
                   window.speechSynthesis.speak(new SpeechSynthesisUtterance(steps[0].text))
-                } else if (steps[0].length === 0){
+                } else if (steps.length === 0){
                   dataRef.set({setsReps: "done"}, {merge: true})
                 }
 
