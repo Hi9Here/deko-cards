@@ -303,7 +303,7 @@
                           op.insert = "0/" + op.insert
                           function tick() {
                             // maybe use quillElements.getContents() or quill
-                            var _quill = that.next(quillElements.getContents(), quillElements, dataRef, true, update)
+                            var _quill = that.next(quillElements.getContents().ops, quillElements, dataRef, true, update)
                             quillElements.setContents(_quill)
                             update(_quill)
                           }
@@ -327,7 +327,7 @@
                             delete(line.cache.delta.ops[1])
                           }
                           setTimeout(function() {
-                            that.next(quillElements.getContents(), quillElements, dataRef, false, update) // move on
+                            that.next(quillElements.getContents().ops, quillElements, dataRef, false, update) // move on
                           }, 50)
                         }
                       }
