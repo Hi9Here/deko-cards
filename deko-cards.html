@@ -296,7 +296,11 @@
                           // 100 => 0/100
                           if (m[1] === undefined && +m[2]) {
                             op.insert = "0/" + op.insert
-                            this.timer = setInterval(this._update(quill, quillElements, dataRef), 1000)
+                            this.timer = setInterval(function() {
+                              // maybe use quillElements.getContents()
+                              var newQuill = this.next(quill, quillElements, dataRef, true)
+                              quillElements.setContents(newQuill)
+                            }, 1000)
                           } else if (+m[1] == m[1] && timer) {
                             op.insert = ++m[1] + "/" + m[2] + " seconds rest \n"
                             console.log(op.insert)
@@ -339,12 +343,6 @@
                 }
 
                 return ops
-              },
-              _update:function(quill, quillElements, dataRef) {
-                return function() {
-                  var newQuill = this.next(quill, quillElements, dataRef, true)
-                  quillElements.setContents(newQuill)
-                }
               },
               _tick:function(quill) {
                 // next
