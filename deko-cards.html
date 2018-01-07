@@ -261,7 +261,6 @@
               var op    = validateSignature.quillOp
               
               console.log(validateSignature)
-              
               // match the signature against all known public keys
               
               // check for new Public keys check against any you haven't checked against
@@ -269,7 +268,8 @@
               // if no valid public key, Mark the signature is invalid
               // if the key matches a public key get the profile image and name
               // Mark the signature has valid, by giving it a big green tick profile image and name
-              return "?"+validateSignature.signature
+              return [{insert: "✔ "+validateSignature.signature}]
+              return [{insert: "✖ "+validateSignature.signature}]
             }
           },
           dek:{
