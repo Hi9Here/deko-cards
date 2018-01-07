@@ -215,9 +215,28 @@
       tricks:{
         value:{
           signedOff:{
-            intent: "^(add|with) signed([- ]?)off(?: by )*([\\w ])*",
+            intent: "^(add|with) signed([- ]?)off",
             search: `$1`,
             icon: "assignment-turned-in",
+            action: function (signedOff, quill) {
+              // check if the user has private key
+              // if no private key make one
+              // add a signature to the bottom of the document
+            }
+          },
+          validateSignature:{
+            intent: "([a-zA-Z0-9+/]{86}==)",
+            signature: "",
+            icon: "done",
+            _icon: "done-all",
+            action: function (validateSignature, quill) {
+              // match the signature against all known public keys
+              // check for new Public keys check against any you haven't checked against
+              // if no valid public key, Mark the signature is invalid
+              // if the key matches a public key get the profile image and name
+              // Mark the signature has valid, by giving it a big green tick profile image and name
+              
+            }
           },
           dek:{
             intent:"^(?:put|add)(?: this)? (?:to|in) de[ck]+?([ \\w])*$",
