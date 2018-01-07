@@ -225,25 +225,23 @@
               return db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {  
                 var data = doc.data()
                 if (data["Private key"]) {
+                  
                   return data["Private key"]
                 } else { // if no private key make one
                   return generate(function(key) {
-                    return db.collection("Users").doc(firebase.auth().currentUser.uid).set({"Private key": key},{merge:true})
+                    db.collection("Users").doc(firebase.auth().currentUser.uid).set({"Private key": key},{merge:true})
                   }, function(key) {
                     // public key
-                    return db.collection("Profiles").where("owner." + firebase.auth().currentUser.uid, "==", true).get().then(function(Profiles) {
-                      return Profiles.docs.forEach(function(Profile) {
+                    db.collection("Profiles").where("owner." + firebase.auth().currentUser.uid, "==", true).get().then(function(Profiles) {
+                      Profiles.docs.forEach(function(Profile) {
                         Profile.ref.collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key})
                       })
                     })
-                  })
+                  }).privateKey
                 }
-              }).then(function(keys) {
-                return keys.privateKey.then(function(privateKey) {
-                  // add a signature to the bottom of the document
-                  return sign(JSON.stringify(stuff), privateKey, function(signature){
-                    return [{insert: "✔ " + signature}]
-                  })
+              }).then(function(key) {
+                return sign(JSON.stringify(stuff), key, function(signature){
+                  return [{insert: "✔ " + signature}]
                 })
               })
             }
