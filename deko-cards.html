@@ -867,7 +867,7 @@
               var toAdd = lines[line]
               if (toAdd) {
                 for (var trick in tricks) {
-                  var regex = new RegExp(tricks[trick].intent, "i")
+                  var regex = new RegExp(tricks[trick].intent, "gmi")
                   var matchs
                   while ((matchs = regex.exec(toAdd)) !== null && !add) {
                     if (matchs.index === regex.lastIndex) {
