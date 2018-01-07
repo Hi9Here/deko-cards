@@ -228,21 +228,17 @@
                   return data["Private key"]
                 } else { // if no private key make one
                   return generate(function(key) {
-                    if (JSON.parse(key).key_ops[0] == "sign") {
-                      // private key
-                      return db.collection("Users").doc(firebase.auth().currentUser.uid).set({"Private key": key},{merge:true}).then(function() {
-                        return key
+                    return db.collection("Users").doc(firebase.auth().currentUser.uid).set({"Private key": key},{merge:true}).then(function() {
+                      return key
+                    })
+                  }, function(key) {
+                    // public key
+                    db.collection("Profiles").where("owner." + firebase.auth().currentUser.uid, "==", true).get().then(function(Profiles) {
+                      Profiles.docs.forEach(function(Profile) {
+                        console.log(Profile)
+                        Profile.ref.collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key}).then().catch()
                       })
-                    } else {
-                      // public key
-                      db.collection("Profiles").where("owner." + firebase.auth().currentUser.uid, "==", true).get().then(function(Profiles) {
-                        Profiles.docs.forEach(function(Profile) {
-                          console.log(Profile)
-                          Profile.ref.collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key}).then().catch()
-                        })
-                      })
-                       // .collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key}).then().catch()
-                    }
+                    })
                   })
                 }
               }).then(function(key) {
@@ -1379,16 +1375,13 @@ function exportKey(Key,cb) {
   })
 }
 // this function takes a callback which fires twice once for the public key and once for the private key 
-function generate(cb) {
-  window.crypto.subtle.generateKey({
-    name: "ECDSA",
-    namedCurve: "P-256", //can be "P-256", "P-384", or "P-521"
-  }, true, //whether the key is extractable (i.e. can be used in exportKey)
-    ["sign", "verify"] //can be any combination of "sign" and "verify"
-  ).then(function(key){
-    //returns a keypair object
-    exportKey(key.publicKey,cb)
+function generate(cb, cb2) {
+  return window.crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256"}, true, ["sign", "verify"]).then(function(key){
     exportKey(key.privateKey,cb)
+    return key
+  }).then(function(key){
+    exportKey(key.publicKey,cb2)
+    return key
   }).catch(function(err){
     console.error(err)
   })
@@ -1396,13 +1389,7 @@ function generate(cb) {
 function verify(string, signature, publicKey, cb) {
   var data = str2ab(string)
   importKey(publicKey,function(key){
-    window.crypto.subtle.verify({
-      name: "ECDSA",
-      hash: {name: "SHA-256"}, //can be "SHA-1", "SHA-256", "SHA-384", or "SHA-512"
-    },
-      key,
-      base64ToArrayBuffer(signature),
-      data //ArrayBuffer of the data
+    window.crypto.subtle.verify({name: "ECDSA",hash: {name: "SHA-256"}}, key, base64ToArrayBuffer(signature), data 
     ).then(function(isvalid){
       //returns a boolean on whether the signature is true or not
       cb(isvalid)
