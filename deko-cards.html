@@ -243,7 +243,7 @@
               }).then(function(keys) {
                 return keys.privateKey.then(function(privateKey) {
                   // add a signature to the bottom of the document
-                  sign(JSON.stringify(stuff), privateKey, function(signature){
+                  return sign(JSON.stringify(stuff), privateKey, function(signature){
                     return [{insert: "✔ " + signature}]
                   })
                 })
@@ -1356,9 +1356,9 @@ function base64ToArrayBuffer(s) {
 function sign(string, privateKey, cb) {
   var data = str2ab(string)
   var key = JSON.parse(privateKey)
-  importKey(privateKey,function(key){
-    window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"},}, key, data).then(function(signature){
-      cb(arrayToBase64String(signature))
+  return importKey(privateKey,function(key){
+    return window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"},}, key, data).then(function(signature){
+      return cb(arrayToBase64String(signature))
     }).catch(function(err){
       console.error(err)
     })
