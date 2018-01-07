@@ -222,8 +222,7 @@
               var op = signedOff.quillOp
               // check if the user has private key
               
-              db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {
-                  
+              return db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {          
                 if (doc["Private key"]) {
                   return doc["Private key"]
                 } else { // if no private key make one
