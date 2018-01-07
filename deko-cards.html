@@ -233,10 +233,9 @@
                     })
                   }, function(key) {
                     // public key
-                    db.collection("Profiles").where("owner." + firebase.auth().currentUser.uid, "==", true).get().then(function(Profiles) {
-                      Profiles.docs.forEach(function(Profile) {
-                        console.log(Profile)
-                        Profile.ref.collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key}).then().catch()
+                    return db.collection("Profiles").where("owner." + firebase.auth().currentUser.uid, "==", true).get().then(function(Profiles) {
+                      return Profiles.docs.forEach(function(Profile) {
+                        Profile.ref.collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key})
                       })
                     })
                   })
