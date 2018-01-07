@@ -236,8 +236,7 @@
                     } else {
                       // public key
                       db.collection("Profiles").where("owner." + firebase.auth().currentUser.uid, "==", true).get().then(function(Profiles) {
-                        console.log(Profiles)
-                        Profiles.foreach(function(Profile) {
+                        Profiles.docs.foreach(function(Profile) {
                           console.log(Profile)
                           Profile.ref.collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key}).then().catch()
                         })
