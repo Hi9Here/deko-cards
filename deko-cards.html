@@ -228,9 +228,7 @@
                   return data["Private key"]
                 } else { // if no private key make one
                   return generate(function(key) {
-                    return db.collection("Users").doc(firebase.auth().currentUser.uid).set({"Private key": key},{merge:true}).then(function() {
-                      return key
-                    })
+                    return db.collection("Users").doc(firebase.auth().currentUser.uid).set({"Private key": key},{merge:true})
                   }, function(key) {
                     // public key
                     return db.collection("Profiles").where("owner." + firebase.auth().currentUser.uid, "==", true).get().then(function(Profiles) {
