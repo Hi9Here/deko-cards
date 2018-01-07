@@ -216,11 +216,38 @@
         value:{
           signedOff:{
             intent: "^(add|with) signed([- ]?)off",
-            search: `$1`,
             icon: "assignment-turned-in",
-            action: function (signedOff, quill) {
+            action: function (signedOff) {
+              var stuff = signedOff.quill
+              var op = signedOff.quillOp
               // check if the user has private key
-              // if no private key make one
+              
+              db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {
+                  
+                if (doc["Private key"]) {
+                  return doc["Private key"]
+                } else { // if no private key make one
+                  return generate(function(key) {
+                    if (JSON.parse(key).key_ops[0] == "sign") {
+                      // private key
+                      db.collection("Users").doc(firebase.auth().currentUser.uid).set({"Private key": key},{merge:true}).then(function() {
+                        return key
+                      }).catch()
+                    } else {
+                      // public key
+                      db.collection("Profiles").where("owner." + firebase.auth().currentUser.uid, "==", true).get().then(function(Profiles) {
+                        console.log(Profiles)
+                        Profiles.foreach(function(Profile) {
+                          console.log(Profile)
+                          Profile.ref.collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key}).then().catch()
+                        }
+                      })
+                       // .collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key}).then().catch()
+                    }
+                  })
+                }
+              }).
+              
               // add a signature to the bottom of the document
             }
           },
@@ -858,10 +885,12 @@
                           toAdd.replace(new RegExp(tricks[trick].split, "gm"), "\\n").replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm,"\\n")
                         )
                       }
-                      
-                      add = [{insert: addBefore + "\n"}].concat(tricks[trick].action(theTrick), [{insert: addAfter + "\n"}])
                       this.set(["items",selectedItem,trick], theTrick)
                       
+                      theTrick.quill = stuff
+                      theTrick.quillOp = op
+                      
+                      add = [{insert: addBefore + "\n"}].concat(tricks[trick].action(theTrick), [{insert: addAfter + "\n"}])
                       
                     } else if (tricks[trick].action) {
                       var theTrick
@@ -1284,4 +1313,94 @@
       })
     },
   })
+  function importKey(KeyAsJson,cb) {
+  var key = JSON.parse(KeyAsJson)
+  window.crypto.subtle.importKey("jwk", key,{name: "ECDSA",namedCurve: "P-256"}, false,key.key_ops).then(function(key){
+    cb(key)
+  }).catch(function(err){
+    console.error(err)
+  })
+}
+function ab2str(buf) {
+  return String.fromCharCode.apply(null, new Uint16Array(buf));
+}
+function str2ab(str) {
+  var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
+  var bufView = new Uint16Array(buf);
+  for (var i=0, strLen=str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+  }
+  return buf
+}
+function arrayToBase64String(ab){
+  var dView = new Uint8Array(ab)   //Get a byte view
+  var arr = Array.prototype.slice.call(dView) //Create a normal array
+  var arr1 = arr.map(function(item){
+    return String.fromCharCode(item)    //Convert
+  })
+  return window.btoa(arr1.join(''))  //Form a string
+}
+
+function base64ToArrayBuffer(s) {
+  var asciiString = window.atob(s)
+  return new Uint8Array([...asciiString].map(char => char.charCodeAt(0)))
+}
+
+// sign takes a string to be signed and a private key and a call back which is fired with the argument of the signature
+function sign(string, privateKey, cb) {
+  var data = str2ab(string)
+  var key = JSON.parse(privateKey)
+  importKey(privateKey,function(key){
+    window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"},}, key, data).then(function(signature){
+      cb(arrayToBase64String(signature))
+    }).catch(function(err){
+      console.error(err)
+    })
+  })
+}
+
+function exportKey(Key,cb) {
+  window.crypto.subtle.exportKey(
+   "jwk", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
+   Key //can be a publicKey or privateKey, as long as extractable was true
+  ).then(function(keydata){
+        //returns the exported key data
+    cb(JSON.stringify(keydata))
+  }).catch(function(err){
+    console.error(err)
+  })
+}
+// this function takes a callback which fires twice once for the public key and once for the private key 
+function generate(cb) {
+  window.crypto.subtle.generateKey({
+    name: "ECDSA",
+    namedCurve: "P-256", //can be "P-256", "P-384", or "P-521"
+  }, true, //whether the key is extractable (i.e. can be used in exportKey)
+    ["sign", "verify"] //can be any combination of "sign" and "verify"
+  ).then(function(key){
+    //returns a keypair object
+    exportKey(key.publicKey,cb)
+    exportKey(key.privateKey,cb)
+  }).catch(function(err){
+    console.error(err)
+  })
+}
+function verify(string, signature, publicKey, cb) {
+  var data = str2ab(string)
+  importKey(publicKey,function(key){
+    window.crypto.subtle.verify({
+      name: "ECDSA",
+      hash: {name: "SHA-256"}, //can be "SHA-1", "SHA-256", "SHA-384", or "SHA-512"
+    },
+      key,
+      base64ToArrayBuffer(signature),
+      data //ArrayBuffer of the data
+    ).then(function(isvalid){
+      //returns a boolean on whether the signature is true or not
+      cb(isvalid)
+    }).catch(function(err){
+      console.error(err)
+    })
+  })
+}
 </script>
