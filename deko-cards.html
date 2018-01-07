@@ -239,7 +239,8 @@
                   })
                 }
               }).then(function(keys) {
-                Promise.resolve(keys.privatekey).then(function(key) {
+                Promise.resolve(keys).then(function(keys) {
+                  console.log(keys)
                   return sign(JSON.stringify(stuff), keys.privatekey, function(signature){
                     return [{insert: "✔ " + signature}]
                   })
