@@ -240,7 +240,7 @@
                         Profiles.foreach(function(Profile) {
                           console.log(Profile)
                           Profile.ref.collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key}).then().catch()
-                        }
+                        })
                       })
                        // .collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key}).then().catch()
                     }
