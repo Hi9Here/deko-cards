@@ -252,7 +252,7 @@
             }
           },
           validateSignature:{
-            intent: "([a-zA-Z0-9+/]{86}==)",
+            intent: "^([a-zA-Z0-9+/]{86}==)$",
             signature: "$1",
             icon: "verified-user",
             action: function (validateSignature) {
@@ -263,11 +263,13 @@
               console.log(validateSignature)
               
               // match the signature against all known public keys
+              
               // check for new Public keys check against any you haven't checked against
+              
               // if no valid public key, Mark the signature is invalid
               // if the key matches a public key get the profile image and name
               // Mark the signature has valid, by giving it a big green tick profile image and name
-              
+              return "?"+validateSignature.signature
             }
           },
           dek:{
