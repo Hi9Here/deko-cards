@@ -1364,24 +1364,26 @@ function sign(string, privateKey, cb) {
 }
 
 function exportKey(Key,cb) {
-  window.crypto.subtle.exportKey(
+  return window.crypto.subtle.exportKey(
    "jwk", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
    Key //can be a publicKey or privateKey, as long as extractable was true
   ).then(function(keydata){
         //returns the exported key data
     cb(JSON.stringify(keydata))
+    return JSON.stringify(keydata)
   }).catch(function(err){
     console.error(err)
   })
 }
 // this function takes a callback which fires twice once for the public key and once for the private key 
 function generate(cb, cb2) {
+  var keys = {}
   return window.crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256"}, true, ["sign", "verify"]).then(function(key){
-    exportKey(key.privateKey,cb)
+    keys.privateKey = exportKey(key.privateKey,cb)
     return key
   }).then(function(key){
-    exportKey(key.publicKey,cb2)
-    return key
+    keys.publicKey = exportKey(key.publicKey,cb2)
+    return keys
   }).catch(function(err){
     console.error(err)
   })
