@@ -241,11 +241,14 @@
                     })
                   })
                 }
-              }).then(function(key) {
-                return [{insert: "✍ signing"}]
+              }).then(function(keys) {
+                return keys.privateKey
+              }).then(function(privateKey) {
+                // add a signature to the bottom of the document
+                sign(JSON.stringify(stuff), privateKey, function(signature){
+                  return [{insert: "✔ " + signature}]
+                })
               })
-              
-              // add a signature to the bottom of the document
             }
           },
           validateSignature:{
