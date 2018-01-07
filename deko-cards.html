@@ -230,9 +230,9 @@
                   return generate(function(key) {
                     if (JSON.parse(key).key_ops[0] == "sign") {
                       // private key
-                      db.collection("Users").doc(firebase.auth().currentUser.uid).set({"Private key": key},{merge:true}).then(function() {
+                      return db.collection("Users").doc(firebase.auth().currentUser.uid).set({"Private key": key},{merge:true}).then(function() {
                         return key
-                      }).catch()
+                      })
                     } else {
                       // public key
                       db.collection("Profiles").where("owner." + firebase.auth().currentUser.uid, "==", true).get().then(function(Profiles) {
