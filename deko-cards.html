@@ -224,7 +224,7 @@
               
               return db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {  
                 var data = doc.data()
-                if (data.privateKey) {                
+                if (data.privateKey) {            
                   return data
                 } else { // if no private key make one
                   return generate(function(key) {
@@ -239,11 +239,8 @@
                   })
                 }
               }).then(function(keys) {
-                Promise.resolve(keys).then(function(keys) {
-                  console.log(keys)
-                  return sign(JSON.stringify(stuff), keys.privatekey, function(signature){
-                    return [{insert: "✔ " + signature}]
-                  })
+                return sign(JSON.stringify(stuff), keys.privatekey, function(signature){
+                  return [{insert: "✔ " + signature}]
                 })
               })
             }
