@@ -239,7 +239,7 @@
                   })
                 }
               }).then(function(keys) {
-                return sign(JSON.stringify(stuff), keys.privatekey, function(signature){
+                return sign(JSON.stringify(stuff), keys.privateKey, function(signature){
                   return [{insert: "✔ " + signature}]
                 })
               })
