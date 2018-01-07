@@ -1364,13 +1364,13 @@ function sign(string, privateKey, cb) {
 }
 
 function exportKey(Key,cb) {
-   window.crypto.subtle.exportKey(
-   "jwk", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
-   Key //can be a publicKey or privateKey, as long as extractable was true
-  ).then(function(keydata){
-        //returns the exported key data
-    cb(JSON.stringify(keydata))
-    return JSON.stringify(keydata)
+  return window.crypto.subtle.exportKey("jwk", Key).then(function(keydata){
+    //returns the exported key data
+    var key = JSON.stringify(keydata)
+    cb(key)
+    return key
+  }).then(function(key){
+    return key
   }).catch(function(err){
     console.error(err)
   })
