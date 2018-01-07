@@ -1379,11 +1379,14 @@ function exportKey(Key,cb) {
 function generate(cb, cb2) {
   var keys = {}
   return window.crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256"}, true, ["sign", "verify"]).then(function(key){
-    keys.privateKey = exportKey(key.privateKey,cb)
-    return key
-  }).then(function(key){
-    keys.publicKey = exportKey(key.publicKey,cb2)
-    return keys
+    return exportKey(key.privateKey,cb).then(function(privateKey){
+      keys.privateKey = privateKey
+      return exportKey(key.publicKey,cb2).then(function(publicKey){
+        keys.publicKey = publicKey
+      })
+    }).then(function(){
+      return keys
+    })
   }).catch(function(err){
     console.error(err)
   })
