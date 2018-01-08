@@ -222,7 +222,7 @@
               var op = signedOff.quillOp
               // check if the user has private key
               
-              db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {  
+              return db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {  
                 var data = doc.data()
                 if (data.privateKey) {            
                   return data
@@ -894,9 +894,9 @@
                       
                       theTrick.quill = stuff
                       theTrick.quillOp = op
-                      
-                      add = [{insert: addBefore + "\n"}].concat(tricks[trick].action(theTrick), [{insert: addAfter + "\n"}])
-                      
+                      Promise.resolve(tricks[trick].action(theTrick)).than(function(formTrick){
+                        add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
+                      })
                     } else if (tricks[trick].action) {
                       var theTrick
                       
