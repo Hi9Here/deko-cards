@@ -247,7 +247,7 @@
                 }
               }).then(function(keys) {
                 return sign(JSON.stringify(stuff), keys.privateKey, function(signature){
-                  return [{insert: "✔ " + signature}]
+                  return [{insert: signature}]
                 })
               }).then(function(add) {
                   cb(add)
@@ -265,7 +265,10 @@
               var stuff = validateSignature.quill
               var op    = validateSignature.quillOp
               
+              console.log(stuff)
+              console.log(op)
               console.log(validateSignature)
+              
               // match the signature against all known public keys
               
               // check for new Public keys check against any you haven't checked against
