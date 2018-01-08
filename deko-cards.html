@@ -242,6 +242,8 @@
                 return sign(JSON.stringify(stuff), keys.privateKey, function(signature){
                   return [{insert: "✔ " + signature}]
                 })
+              }).then(function(add) {
+                return add
               }).catch(function(e) {
                 console.log(e)
               })
