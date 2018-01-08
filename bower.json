@@ -1,6 +1,6 @@
 {
   "name": "deko-cards",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "cards cards ",
   "main": "deko-cards.html",
   "keywords": [
@@ -13,6 +13,7 @@
     "deko-card": "Hi9Here/deko-card",
     "link-display": "Hi9Here/link-display",
     "deko-opened-card": "Hi9Here/deko-opened-card",
+    "deko-signature":"Hi9Here/deko-signature",
     "open-card": "marcus7777/open-card",
     "input-image": "marcus7777/input-image",
     "image-base64": "marcus7777/image-base64",
