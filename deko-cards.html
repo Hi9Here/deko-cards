@@ -222,7 +222,7 @@
               var op = signedOff.quillOp
               // check if the user has private key
               
-              return db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {  
+              db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {  
                 var data = doc.data()
                 if (data.privateKey) {            
                   return data
@@ -243,9 +243,7 @@
                   return [{insert: "✔ " + signature}]
                 })
               }).then(function(add) {
-                return Promise.all([add]).then(function(add){
                   return add
-                })
               }).catch(function(e) {
                 console.log(e)
               })
