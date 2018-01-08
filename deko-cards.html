@@ -1318,10 +1318,11 @@
       })
     },
   })
-  function importKey(KeyAsJson,cb) {
+
+function importKey(KeyAsJson,cb) {
   var key = JSON.parse(KeyAsJson)
   window.crypto.subtle.importKey("jwk", key,{name: "ECDSA",namedCurve: "P-256"}, false,key.key_ops).then(function(key){
-    cb(key)
+    return cb(key)
   }).catch(function(err){
     console.error(err)
   })
@@ -1356,7 +1357,7 @@ function sign(string, privateKey, cb) {
   var data = str2ab(string)
   var key = JSON.parse(privateKey)
   var theSignature
-  importKey(privateKey, function(key){
+  return importKey(privateKey, function(key){
     return window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"},}, key, data).then(function(signature){
       return cb(arrayToBase64String(signature))
     }).catch(function(err){
