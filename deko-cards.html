@@ -894,8 +894,8 @@
                       
                       theTrick.quill = stuff
                       theTrick.quillOp = op
-                      Promise.resolve(tricks[trick].action(theTrick)).then(function(formTrick){
-                        add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
+                      Promise.resolve([tricks[trick].action(theTrick)]).then(function(formTrick){
+                        add = [{insert: addBefore + "\n"}].concat(formTrick[0], [{insert: addAfter + "\n"}])
                       })
                     } else if (tricks[trick].action) {
                       var theTrick
