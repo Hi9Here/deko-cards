@@ -152,8 +152,8 @@
             <div style$="background:url([[item.image]]);width:500px;height:200px;background-size: cover;background-position: center;"></div>
           </template>
           <quill-js value="[[item.quill]]" id="show" show editor-show="{{showQuill}}" style="max-width: 500px;margin: auto;" ></quill-js>
-          <template is="dom-repeat" items='["wHlCBXN/mO4EZ0BbvdoJNB7sIdQFCosf8bJSFjzULvIdoazPcCMLUcDQmwwQ1Lyfh6SNKDd3FRop35q99nb0ow==","9EoqQvPQJbtVsAmhlO2PQYZGGgsY/QAvgAi7ADK0LMb+d/4MO+7g01qv1leuCYyc/ZdE3ZiL+soAPRflLqgTOQ==","Njp/Ncnp5lpqBTLmDMOyJVqovrEYpTLpuvZ5S52GOCRMKBwTFqSNuNFjN4E9QVr8tybD+qsI/bATGMVaDYfBCA=="]'>
-            <deko-signature img="https://firebasestorage.googleapis.com/v0/b/deko-app-one.appspot.com/o/d2toEcKIcJceNsdI3l4v8CPYGdo1%2Ff27fbba0d4166f20d21be3f8f088fb87%2Fsoftware-cornwall-logo-v2_200.png?alt=media&amp;token=a6c72335-bfef-4e04-a841-b211ca8bb3df" signature="[[item]]" user="Tony Edwards" profile="Software Cornwall"></deko-signature>
+          <template is="dom-repeat" items='[{signature:"wHlCBXN/mO4EZ0BbvdoJNB7sIdQFCosf8bJSFjzULvIdoazPcCMLUcDQmwwQ1Lyfh6SNKDd3FRop35q99nb0ow==",stuff:"a"},{signature:"9EoqQvPQJbtVsAmhlO2PQYZGGgsY/QAvgAi7ADK0LMb+d/4MO+7g01qv1leuCYyc/ZdE3ZiL+soAPRflLqgTOQ==","stuff":"b"}]'>
+            <deko-signature signature="[[item.signature]]" toTest="[[item.stuff]]"></deko-signature>
           </template>
         </div>
       </open-card>
