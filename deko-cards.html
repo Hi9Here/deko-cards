@@ -455,7 +455,7 @@
               while ((m = regex.exec(str)) !== null) {
                 // This is necessary to avoid infinite loops with zero-width matches
                 if (m.index === regex.lastIndex) {
-                  regex.lastIndex++;
+                  regex.lastIndex++
                 }
     
                 // The result can be accessed through the `m`-variable.
@@ -905,7 +905,7 @@
                       theTrick.quill = stuff
                       theTrick.quillOp = op
                       await tricks[trick].action(theTrick, function(formTrick){
-                        add = [{insert: addBefore + "\n"}].concat(formTrick[0], [{insert: addAfter + "\n"}])
+                        add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
                       })
                     } else if (tricks[trick].action) {
                       var theTrick
