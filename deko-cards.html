@@ -894,7 +894,7 @@
                       
                       theTrick.quill = stuff
                       theTrick.quillOp = op
-                      tricks[trick].action(theTrick, function(formTrick){
+                      await tricks[trick].action(theTrick, function(formTrick){
                         add = [{insert: addBefore + "\n"}].concat(formTrick[0], [{insert: addAfter + "\n"}])
                       })
                     } else if (tricks[trick].action) {
