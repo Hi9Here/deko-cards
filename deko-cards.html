@@ -237,7 +237,10 @@
                     // public key
                     db.collection("Profiles").where("owner." + firebase.auth().currentUser.uid, "==", true).get().then(function(Profiles) {
                       Profiles.docs.forEach(function(Profile) {
-                        Profile.ref.collection("public key").doc(firebase.auth().currentUser.uid).set({"Public key": key})
+                        Profile.ref.collection("public key").doc(firebase.auth().currentUser.uid).set({
+                          "Public key": key,
+                          displayName : firebase.auth().currentUser.displayName,
+                        })
                       })
                     })
                   })
