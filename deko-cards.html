@@ -243,7 +243,9 @@
                   return [{insert: "✔ " + signature}]
                 })
               }).then(function(add) {
-                return add
+                return Promise.all([add]).then(function(add){
+                  return add
+                })
               }).catch(function(e) {
                 console.log(e)
               })
@@ -1359,7 +1361,7 @@ function base64ToArrayBuffer(s) {
 function sign(string, privateKey, cb) {
   var data = str2ab(string)
   var key = JSON.parse(privateKey)
-  var theSignature
+  
   return importKey(privateKey, function(key){
     return window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"},}, key, data).then(function(signature){
       return cb(arrayToBase64String(signature))
