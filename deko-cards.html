@@ -239,9 +239,11 @@
                   })
                 }
               }).then(function(keys) {
-                sign(JSON.stringify(stuff), keys.privateKey, function(signature){
+                return sign(JSON.stringify(stuff), keys.privateKey, function(signature){
                   return [{insert: "✔ " + signature}]
                 })
+              }).catch(function(e) {
+                console.log(e)
               })
             }
           },
