@@ -260,7 +260,7 @@
             intent: "^([a-zA-Z0-9+/]{86}==)$",
             signature: "$1",
             icon: "verified-user",
-            action: function (validateSignature) {
+            action: function (validateSignature, cb) {
               
               var stuff = validateSignature.quill
               var op    = validateSignature.quillOp
@@ -276,8 +276,8 @@
               // if no valid public key, Mark the signature is invalid
               // if the key matches a public key get the profile image and name
               // Mark the signature has valid, by giving it a big green tick profile image and name
-              return [{insert: "✔ "+validateSignature.signature}]
-              return [{insert: "✖ "+validateSignature.signature}]
+              return cb([{insert: "✔ "+validateSignature.signature}])
+              // return [{insert: "✖ "+validateSignature.signature}]
             }
           },
           dek:{
@@ -306,7 +306,7 @@
             rest:   "$4",
             intent: "^([\\d]+) (?:set(?:s)? )?of ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?: second(?:s)?)?(?: rest(?:s)?)?$",
             icon:   "places:fitness-center",
-            action: function (setsReps) {
+            action: function (setsReps, cb) {
               var index
               var insert = []
               
@@ -317,7 +317,7 @@
                 }
               }
  
-              return insert
+              return cb(insert)
             },
             chips: {
               next: function (quill, quillElements, dataRef, timer, update) {
