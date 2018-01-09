@@ -901,9 +901,8 @@
                       theTrick.addBefore = addBefore
                       theTrick.addAfter = addAfter
                       if (typeof tricks[trick].openAction === "function") {
-                        await tricks[trick].openAction (theTrick, function(formTrick){
-                          
-                          console(Object.assign( {title: "testing",:formTrick} ))
+                        await tricks[trick].openAction(theTrick, function(formTrick){
+                          that.set(["items",selectedItem,trick],formTrick)
                         })
                       }
                       await tricks[trick].action(theTrick, function(formTrick){
