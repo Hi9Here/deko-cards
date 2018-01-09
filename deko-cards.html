@@ -265,8 +265,21 @@
               var stuff = signatures.quill
               var op    = signatures.quillOp
               return sha256(JSON.stringify(stuff)).then(function(digest) {
-                console.log(digest)
-                return cb({signatures:[{signature:signatures.signature, stuff:digest}]})
+                if (signatures._) {
+                  //dedup
+                  var dedup = {}
+                  
+                  signatures._.concat[{signature:signatures.signature, stuff:digest}].foreach(function(sig){
+                    dedup[sig.signature] = sig.stuff
+                  })
+                  console.log(dedup)
+                  
+                  return cb({signatures:Object.keys(dedup).map(function(sig) {
+                    return {signature:sig, stuff:dedup[sig]} 
+                  })})
+                } else {
+                  return cb({signatures:[{signature:signatures.signature, stuff:digest}]})
+                }
               })
             },
             action: function (signatures, cb) {
@@ -900,9 +913,10 @@
                       theTrick.quillOp = op
                       theTrick.addBefore = addBefore
                       theTrick.addAfter = addAfter
+                      theTrick._ = that.items[selectedItem]["_" + trick]
                       if (typeof tricks[trick].openAction === "function") {
-                        await tricks[trick].openAction(theTrick, function(formTrick){
-                          that.set(["items",selectedItem,trick],formTrick)
+                        tricks[trick].openAction(theTrick, function(formTrick){
+                          that.set(["items",selectedItem,"_" + trick],formTrick)
                         })
                       }
                       await tricks[trick].action(theTrick, function(formTrick){
