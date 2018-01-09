@@ -152,7 +152,7 @@
             <div style$="background:url([[item.image]]);width:500px;height:200px;background-size: cover;background-position: center;"></div>
           </template>
           <quill-js value="[[item.quill]]" id="show" show editor-show="{{showQuill}}" style="max-width: 500px;margin: auto;" ></quill-js>
-          <template is="dom-repeat" items='[{"signature":"wHlCBXN/mO4EZ0BbvdoJNB7sIdQFCosf8bJSFjzULvIdoazPcCMLUcDQmwwQ1Lyfh6SNKDd3FRop35q99nb0ow==","stuff":"a"},{"signature":"9EoqQvPQJbtVsAmhlO2PQYZGGgsY/QAvgAi7ADK0LMb+d/4MO+7g01qv1leuCYyc/ZdE3ZiL+soAPRflLqgTOQ==","stuff":"b"}]'>
+          <template is="dom-repeat" items="[[item.signatures]]">
             <deko-signature signature="[[item.signature]]" to-test="[[item.stuff]]"></deko-signature>
           </template>
         </div>
@@ -258,27 +258,20 @@
               })
             }
           },
-          validateSignature:{
+          signatures:{
             intent: "^([a-zA-Z0-9+/]{86}==)$",
             signature: "$1",
-            icon: "verified-user",
-            action: function (validateSignature, cb) {
-              
-              var stuff = validateSignature.quill
-              var op    = validateSignature.quillOp
-             
-              console.log(validateSignature)
-              
-              // match the signature against all known public keys
-              
-              // check for new Public keys check against any you haven't checked against
-              
-              // if no valid public key, Mark the signature is invalid
-              // if the key matches a public key get the profile image and name
-              // Mark the signature has valid, by giving it a big green tick profile image and name
-              return cb([{insert: "✔ "+validateSignature.signature}])
-              // return [{insert: "✖ "+validateSignature.signature}]
-            }
+            openAction: function (signatures, cb) {
+              var stuff = signatures.quill
+              var op    = signatures.quillOp
+              return sha256(JSON.stringify(stuff)).then(function(digest) {
+                console.log(digest)
+                return cb({signatures:[{signature:signatures.signature, stuff:digest}]})
+              })
+            },
+            action: function (signatures, cb) {
+              return []
+            },
           },
           dek:{
             intent:"^(?:put|add)(?: this)? (?:to|in) de[ck]+?([ \\w])*$",
@@ -887,7 +880,8 @@
                     var addBefore = lines.splice(0, +line   ).join("\n")
                     addAt = op
                     var addAfter  = lines.splice(1 + +(line)).join("\n")
-                  
+                      
+                    }
                     if (typeof tricks[trick].action === "function") {
                       var theTrick
                       
@@ -906,7 +900,12 @@
                       theTrick.quillOp = op
                       theTrick.addBefore = addBefore
                       theTrick.addAfter = addAfter
-                      
+                      if (typeof tricks[trick].openAction === "function") {
+                        await tricks[trick].openAction (theTrick, function(formTrick){
+                          
+                          console(Object.assign( {title: "testing",:formTrick} ))
+                        })
+                      }
                       await tricks[trick].action(theTrick, function(formTrick){
                         add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
                       })
@@ -1421,5 +1420,30 @@ function verify(string, signature, publicKey, cb) {
       console.error(err)
     })
   })
+}
+function sha256(str) {
+  // We transform the string into an arraybuffer.
+  var buffer = new TextEncoder("utf-8").encode(str);
+  return crypto.subtle.digest("SHA-256", buffer).then(function (hash) {
+    return hex(hash);
+  });
+}
+
+function hex(buffer) {
+  var hexCodes = [];
+  var view = new DataView(buffer);
+  for (var i = 0; i < view.byteLength; i += 4) {
+    // Using getUint32 reduces the number of iterations needed (we process 4 bytes each time)
+    var value = view.getUint32(i)
+    // toString(16) will give the hex representation of the number without padding
+    var stringValue = value.toString(16)
+    // We use concatenation and slice for padding
+    var padding = '00000000'
+    var paddedValue = (padding + stringValue).slice(-padding.length)
+    hexCodes.push(paddedValue);
+  }
+
+  // Join all the hex strings into one
+  return hexCodes.join("");
 }
 </script>
