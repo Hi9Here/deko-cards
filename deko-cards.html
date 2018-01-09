@@ -915,6 +915,7 @@
                       theTrick.addAfter = addAfter
                       theTrick._ = that.items[selectedItem]["_" + trick]
                       if (typeof tricks[trick].openAction === "function") {
+                        debugger
                         tricks[trick].openAction(theTrick, function(formTrick){
                           that.set(["items",selectedItem,"_" + trick],formTrick)
                         })
