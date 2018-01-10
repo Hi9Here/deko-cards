@@ -222,7 +222,6 @@
             intent: "^((add|with|my) (sign(ed)?([- ]?)off|signature)|qjkxbmwvz)",
             icon: "assignment-turned-in",
             action: function (signedOff, cb) {
-              console.log(signedOff)
               
               var stuff = JSON.stringify(signedOff.quill).split(signedOff.replacing)[0] // before sig
 
@@ -250,7 +249,7 @@
               }).then(function(keys) {
                 return sha256(stuff).then(function(digest) {
                   return sign(digest, keys.privateKey, function(signature){
-                    return [{attributes:{color:"#446144",font:"monospace",size:"xx-small"},insert: signature + "\n"}]
+                    return [{attributes:{color:"#446144",font:"monospace",size:"x-small"},insert: signature + "\n"}]
                   })
                 })
               }).then(function(add) {
