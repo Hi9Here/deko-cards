@@ -152,8 +152,8 @@
             <div style$="background:url([[item.image]]);width:500px;height:200px;background-size: cover;background-position: center;"></div>
           </template>
           <quill-js value="[[item.quill]]" id="show" show editor-show="{{showQuill}}" style="max-width: 500px;margin: auto;" ></quill-js>
-          <template is="dom-repeat" items="[[item._signatures]]">
-            <deko-signature signature="[[item.signature]]" to-test="[[item.stuff]]"></deko-signature>
+          <template is="dom-repeat" items="[[item._signatures]]" as="sig">
+            <deko-signature signature="[[sig.signature]]" to-test="[[sig.stuff]]"></deko-signature>
           </template>
         </div>
       </open-card>
