@@ -278,9 +278,9 @@ console.log(stuff, digest)
                   })
                   console.log(dedup)
                   
-                  return cb({signatures:Object.keys(dedup).map(function(sig) {
+                  return cb(Object.keys(dedup).map(function(sig) {
                     return {signature:sig, stuff:dedup[sig]} 
-                  })})
+                  }))
                 } else {
                   return cb([{signature:signatures.signature, stuff:digest}])
                 }
