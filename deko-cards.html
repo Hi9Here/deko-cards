@@ -915,13 +915,13 @@
                       this.set(["items",selectedItem,trick], theTrick)
                       
                       theTrick.quill = stuff
-                      theTrick.quillOp = op
                       theTrick.addBefore = addBefore
                       theTrick.addAfter = addAfter
                       theTrick._ = that.items[selectedItem]["_" + trick]
                       if (typeof tricks[trick].openAction === "function") {
-                        debugger
-                        tricks[trick].openAction(theTrick, function(formTrick){
+                        
+                        await tricks[trick].openAction(theTrick, function(formTrick){
+                          debugger
                           that.set(["items",selectedItem,"_" + trick],formTrick)
                         })
                       }
