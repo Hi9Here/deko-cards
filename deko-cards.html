@@ -963,8 +963,13 @@
                     this.set(["items",selectedItem,trick], theTrick)
                     if (this.items[selectedItem].ref) {
                       var toSave = {}
-                      toSave[trick] = theTrick
+                      Object.keys(theTrick).forEach(function (key) {
+                        if (theTrick[key] && !key.startsWith("_")) {
+                          toSave[trick][key] = theTrick[key]
+                        }
+                      })
                       this.debounce("updateCardTrick", function () {
+                        
                         this.items[selectedItem].ref.set(toSave, {merge: true})
                       }, 2000)
                     }
