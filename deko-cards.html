@@ -226,8 +226,7 @@
               console.log(signedOff)
               
               var stuff = JSON.stringify(signedOff.quill).split(signedOff.signedOffText)[0] // before sig
-              console.log(stuff) 
-              var op = signedOff.quillOp
+
               // check if the user has private key
               
               return db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {  
@@ -268,8 +267,9 @@
             openAction: function (signatures, cb) {
               var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig
               console.log(stuff)              
-              var op    = signatures.quillOp
+              
               return sha256(stuff).then(function(digest) {
+                debugger
                 if (signatures._) {
                   //dedup
                   var dedup = {}
