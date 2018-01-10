@@ -267,6 +267,7 @@
             openAction: function (signatures, cb) {
               var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig
               console.log(stuff)              
+              this.done[signatures.signature] = true
               
               return sha256(stuff).then(function(digest) {
                 debugger
@@ -288,8 +289,9 @@
               })
             },
             action: function (signatures, cb) {
-              return []
+              return cb([])
             },
+            done: {}
           },
           dek:{
             intent:"^(?:put|add)(?: this)? (?:to|in) de[ck]+?([ \\w])*$",
@@ -897,6 +899,7 @@
                     
                     var addBefore = lines.splice(0, +line   ).join("\n")
                     addAt = op
+                    debugger
                     var addAfter  = lines.splice(1 + +(line)).join("\n")
                       
                     
@@ -918,7 +921,8 @@
                       theTrick.addBefore = addBefore
                       theTrick.addAfter = addAfter
                       theTrick._ = that.items[selectedItem]["_" + trick]
-                      if (typeof tricks[trick].openAction === "function") {
+                      debugger
+                      if (typeof tricks[trick].openAction === "function" && !tricks[trick].done[matchs[0]]) {
                         
                         await tricks[trick].openAction(theTrick, function(formTrick){
                           debugger
