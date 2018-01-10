@@ -288,7 +288,7 @@
               })
             },
             action: function (signatures, cb) {
-              return cb([{insert:"\n"}])
+              return cb([{insert:signatures.signature + "\n"}])
             },
             done: {}
           },
