@@ -889,9 +889,13 @@
               var toAdd = lines[line]
               if (toAdd) {
                 for (var trick in tricks) {
+                  if (tricks[trick].done && tricks[trick].done[toAdd]) {
+                    continue
+                  }
                   var regex = new RegExp(tricks[trick].intent, "gmi")
                   var matchs
                   while ((matchs = regex.exec(toAdd)) !== null && !add) {
+                    
                     if (matchs.index === regex.lastIndex) {
                       regex.lastIndex++
                     }
@@ -921,7 +925,7 @@
                       theTrick.addAfter = addAfter
                       theTrick._ = that.items[selectedItem]["_" + trick]
                       
-                      if (typeof tricks[trick].openAction === "function" && tricks[trick].done && !tricks[trick].done[matchs[0]]) {
+                      if (typeof tricks[trick].openAction === "function") {
                         
                         await tricks[trick].openAction(theTrick, function(formTrick){
                           debugger
