@@ -962,6 +962,7 @@
                     this.set(["items",selectedItem,trick], theTrick)
                     if (this.items[selectedItem].ref) {
                       var toSave = {}
+                      toSave[trick] = {}
                       Object.keys(theTrick).forEach(function (key) {
                         if (theTrick[key] && !key.startsWith("_")) {
                           toSave[trick][key] = theTrick[key]
