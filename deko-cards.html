@@ -250,7 +250,7 @@
               }).then(function(keys) {
                 return sha256(stuff).then(function(digest) {
                   return sign(digest, keys.privateKey, function(signature){
-                    return [{insert: signature + "\n"}]
+                    return [{attributes:{color:"#446144",font:"monospace",size:"small"},insert: signature + "\n"}]
                   })
                 })
               }).then(function(add) {
