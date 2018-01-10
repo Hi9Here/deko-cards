@@ -219,12 +219,14 @@
       tricks:{
         value:{
           signedOff:{
-            intent: "^(add|with|my) (sign(ed)?([- ]?)off|signature)",
+            signedOffText:"$0",
+            intent: "^(?:(add|with|my) (sign(ed)?([- ]?)off|signature)|qjkxbmwvz)",
             icon: "assignment-turned-in",
             action: function (signedOff, cb) {
               console.log(signedOff)
               
-              var stuff = signedOff.quill
+              var stuff = JSON.stringify(signedOff.quill).split(signedOff.signedOffText)[0] // before sig
+              console.log(stuff) 
               var op = signedOff.quillOp
               // check if the user has private key
               
