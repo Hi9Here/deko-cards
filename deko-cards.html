@@ -219,8 +219,8 @@
       tricks:{
         value:{
           signedOff:{
-            signedOffText:"$0",
-            intent: "^(?:(add|with|my) (sign(ed)?([- ]?)off|signature)|qjkxbmwvz)",
+            signedOffText:"$1",
+            intent: "^((add|with|my) (sign(ed)?([- ]?)off|signature)|qjkxbmwvz)",
             icon: "assignment-turned-in",
             action: function (signedOff, cb) {
               console.log(signedOff)
