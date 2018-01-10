@@ -921,7 +921,7 @@
                       theTrick.addAfter = addAfter
                       theTrick._ = that.items[selectedItem]["_" + trick]
                       debugger
-                      if (typeof tricks[trick].openAction === "function" && !tricks[trick].done[matchs[0]]) {
+                      if (typeof tricks[trick].openAction === "function" && tricks[trick].done &&!tricks[trick].done[matchs[0]]) {
                         
                         await tricks[trick].openAction(theTrick, function(formTrick){
                           debugger
