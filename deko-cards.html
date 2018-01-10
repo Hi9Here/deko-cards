@@ -927,7 +927,6 @@
                       if (typeof tricks[trick].openAction === "function") {
                         
                         await tricks[trick].openAction(theTrick, function(formTrick){
-                          debugger
                           that.set(["items",selectedItem,"_" + trick],formTrick)
                         })
                       }
