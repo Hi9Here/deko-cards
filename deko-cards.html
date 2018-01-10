@@ -287,7 +287,7 @@
               })
             },
             action: function (signatures, cb) {
-              return cb( [{attributes:{color:"#668166",font:"monospace",size:"x-small"},insert: signatures.signature + "\n"}])
+              return cb( [{attributes:{color:"#668166",font:"monospace",size:"small"},insert: signatures.signature + "\n"}])
             },
             done: {}
           },
@@ -754,9 +754,9 @@
       this.resub()
     },
     testStuff: async function(line, tricks, selectedItem, quill){
-      if (!this.editing) {
-        return
-      }
+       // if (!this.editing) {
+      //    return
+     //   }
       var that = this 
       selectedItem = this._items(this.items)
       var newQuill = new Quill(document.createElement("div"), {})
