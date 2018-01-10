@@ -265,14 +265,13 @@ console.log(stuff, digest)
             signature: "$1",
             openAction: function (signatures, cb) {
               var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig
-              console.log(stuff)
+
               this.done[signatures.signature] = true
               return sha256(stuff).then(function(digest) {
+console.log(stuff, digest)
                 if (signatures._) {
                   //dedup
                   var dedup = {}
-                  
-                  debugger
                   
                   signatures._.concat[{signature:signatures.signature, stuff:digest}].forEach(function(sig){
                     dedup[sig.signature] = sig.stuff
