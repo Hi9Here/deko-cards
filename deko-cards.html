@@ -249,7 +249,7 @@
               }).then(function(keys) {
                 return sha256(stuff).then(function(digest) {
                   return sign(digest, keys.privateKey, function(signature){
-                    return [{attributes:{color:"#446144",font:"monospace",size:"x-small"},insert: signature + "\n"}]
+                    return [{insert: signature + "\n"}]
                   })
                 })
               }).then(function(add) {
@@ -287,7 +287,7 @@
               })
             },
             action: function (signatures, cb) {
-              return cb( [{attributes:{color:"#668166",font:"monospace",size:"small"},insert: signatures.signature + "\n"}])
+              return cb([{insert: signatures.signature + "\n"}])
             },
             done: {}
           },
