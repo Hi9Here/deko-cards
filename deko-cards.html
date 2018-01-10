@@ -224,7 +224,7 @@
             action: function (signedOff, cb) {
               
               var stuff = JSON.stringify(signedOff.quill).split(signedOff.replacing)[0] // before sig
-
+console.log(stuff)
               // check if the user has private key
               
               return db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {  
@@ -248,12 +248,13 @@
                 }
               }).then(function(keys) {
                 return sha256(stuff).then(function(digest) {
+console.log(stuff, digest)
                   return sign(digest, keys.privateKey, function(signature){
                     return [{insert: signature + "\n"}]
                   })
                 })
               }).then(function(add) {
-                  cb(add)
+                cb(add)
               }).catch(function(e) {
                 console.log(e)
               })
