@@ -273,7 +273,7 @@ console.log(stuff, digest)
                   //dedup
                   var dedup = {}
                   
-                  signatures._.concat[{signature:signatures.signature, stuff:digest}].forEach(function(sig){
+                  signatures._.concat([{signature:signatures.signature, stuff:digest}]).forEach(function(sig){
                     dedup[sig.signature] = sig.stuff
                   })
                   console.log(dedup)
