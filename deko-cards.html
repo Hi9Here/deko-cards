@@ -262,9 +262,10 @@
             intent: "^([a-zA-Z0-9+/]{86}==)$",
             signature: "$1",
             openAction: function (signatures, cb) {
-              var stuff = signatures.quill
+              var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig
+              console.log(stuff)              
               var op    = signatures.quillOp
-              return sha256(JSON.stringify(stuff)).then(function(digest) {
+              return sha256(stuff).then(function(digest) {
                 if (signatures._) {
                   //dedup
                   var dedup = {}
