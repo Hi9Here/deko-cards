@@ -986,7 +986,7 @@
                         if (!tricks[trick].done) {
                           tricks[trick].done = {}
                         }
-                        tricks[trick].done[line] = true // stop loop
+                        tricks[trick].done[lines[line]] = true // stop loop
                         that.debounce(trick, function () {
                           tricks[trick].action(theTrick, function(formTrick){
                             add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
