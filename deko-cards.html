@@ -293,7 +293,7 @@
             icon: "content-copy",
           },
           addImagesTitle:{
-            intent:"^add (?:title(?:s)?|synonym(?:s)?) \\w\\w(.+)*",
+            intent:"^add (?:title(?:s)?|synonym(?:s)?) (\\w\\w.+)*",
             words:"$1",
             debounce: 3000,
             action: function (addImagesTitle, cb) {
