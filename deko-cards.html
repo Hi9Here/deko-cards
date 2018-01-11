@@ -525,6 +525,14 @@
         value: "https://us-central1-deko-app-one.cloudfunctions.net/god/"
       },
     },
+    clearTrick: function(){
+      var that = this
+      Object.keys(that.tricks).forEach(function(trick){
+        if (that.tricks[trick].done) {
+          that.tricks[trick].done = {}
+        }
+      })
+    },
     getMeta: function(profileId) {
       var meta = {}
       meta[profileId] = "profileId"
@@ -734,6 +742,7 @@
       var n = 0
       var that = this
       var open = function() {
+        that.clearTrick()
         that.$$("open-card").open()
         try {
           that.quill.setContents([
@@ -1325,6 +1334,7 @@
       if (this.unsub) {
         this.unsub()
       }
+      this.clearTrick()
       this.editing = true
       this.fire("open-card", {e:e,d:d})
     },
