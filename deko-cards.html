@@ -305,8 +305,6 @@
                 if (op.insert && op.insert.image) {
                   image = op.insert.image
                   words = ""
-                } else if (image && !words && op.insert.length > 4) {
-                  words = op.insert
                 } else if (image && words && test.indexOf(addImagesTitle.replacing) !== -1) {
                   console.log( "save", image, image.split("%2F")[1], words)
                   if (db && image.split("%2F")[1]) {
@@ -314,6 +312,8 @@
                       insert.push({insert:"Synonyms added \n"})
                     })
                   }
+                } else if (image && !words && op.insert.length > 4) {
+                  words += op.insert.replace("\n"," ")
                 }
               })
               
