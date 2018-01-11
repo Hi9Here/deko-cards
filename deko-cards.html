@@ -309,7 +309,7 @@
               addImagesTitle.quill.forEach(function(op) {
                 if (op.insert && op.insert.image) {
                   image = op.insert.image
-                } else if (image && words && test.indexOf(addImagesTitle.replacing) !== -1) {
+                } else if (image && words && typeof op.insert === "string" && op.insert.indexOf(addImagesTitle.replacing) !== -1) {
                   console.log( "save", image, image.split("%2F")[1], words)
                   if (db && image.split("%2F")[1]) {
                     return db.collection("files").doc(image.split("%2F")[1]).set({synonyms:words},{merge:true}).then(function(){
