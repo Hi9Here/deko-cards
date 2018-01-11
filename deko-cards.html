@@ -265,7 +265,7 @@
           signatures:{
             intent: "^([a-zA-Z0-9+/]{86}==)$",
             signature: "$1",
-            action: function (signatures, cb) {
+            openAction: function (signatures, cb) {
               var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig
 
               this.done[signatures.signature] = true
@@ -283,10 +283,9 @@
                 }
               })
             },
-            debounce: 1000,
-   //         action: function (signatures, cb) {
-   //           return cb([{insert: signatures.signature + "\n"}])
-   //         },
+            action: function (signatures, cb) {
+              return cb([{insert: signatures.signature + "\n"}])
+            },
             done: {}
           },
           dek:{
