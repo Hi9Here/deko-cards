@@ -293,7 +293,8 @@
             icon: "content-copy",
           },
           addImagesTitle:{
-            intent:"^add (title(?:s)?|synonym(?:s)?)",
+            intent:"^add (title(?:s)?|synonym(?:s)? (.+)*",
+            debounce: 3000,
             action: function (addImagesTitle, cb) {
               var insert = []
               console.log(addImagesTitle)
@@ -803,6 +804,29 @@
       var add
       var addAt
       var text = quill.getText().replace("\n", "")
+      function updateCard() {
+        if (JSON.stringify(that.items[selectedItem].quill) !== JSON.stringify(stuff)) {
+          var quillSave = {
+            value: stuff,
+            time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+            user:  firebase.auth().currentUser.uid,
+          }
+ 
+          if (that.items[selectedItem].ref) {
+            that.items[selectedItem].ref.collection("quill").add(quillSave).then(function(data) {
+              that.set("savedQuill",true)
+            })
+          } else {
+            that.newCard(quill)
+          } 
+
+          if (!that.items[selectedItem]) {
+            that.items[selectedItem] = {}
+          }
+          that.set(["items",selectedItem,"quill"], stuff)
+          that.quill.setContents(stuff)
+        }
+      }
       if (!text) {
         return "nothing to test"
       }
@@ -961,9 +985,18 @@
                           that.set(["items",selectedItem,"_" + trick],formTrick)
                         })
                       }
-                      await tricks[trick].action(theTrick, function(formTrick){
-                        add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
-                      })
+                      if (tricks[trick].debounce) {
+                        that.debounce(trick, function () {
+                          await tricks[trick].action(theTrick, function(formTrick){
+                            add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
+                            updateCard()
+                          })
+                        }, tricks[trick].debounce)
+                      } else {
+                        await tricks[trick].action(theTrick, function(formTrick){
+                          add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
+                        })
+                      }
                     } else if (tricks[trick].action) {
                       var theTrick
                       
@@ -1054,30 +1087,7 @@
         stuff = stuff.splice(0, +addAt ).concat(add,  stuff.splice(1 + +(addAt) ))
       }
       if (add || head) {
-        this.debounce("updateCard", function () {
-          if (JSON.stringify(this.items[selectedItem].quill) !== JSON.stringify(stuff)) {
-            var that = this
-            var quillSave = {
-              value: stuff,
-              time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-              user:  firebase.auth().currentUser.uid,
-            }
- 
-            if (this.items[selectedItem].ref) {
-              this.items[selectedItem].ref.collection("quill").add(quillSave).then(function(data) {
-                that.set("savedQuill",true)
-              })
-            } else {
-              this.newCard(quill)
-            } 
-
-            if (!this.items[selectedItem]) {
-              this.items[selectedItem] = {}
-            }
-            this.set(["items",selectedItem,"quill"], stuff)
-            this.quill.setContents(stuff)
-          }
-        }, 2000)
+        this.debounce("updateCard",updateCard , 2000)
       }
     },
 //    resizeImage: function(stuff, opForImage) {
