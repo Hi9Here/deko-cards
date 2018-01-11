@@ -339,19 +339,19 @@
             minutes: "$1",
             icon: "alarm",
           },
-          setsReps: {
-            sets:   "$1",
-            reps:   "$2",
-            weigth: "$3",
-            rest:   "$4",
-            intent: "^([\\d]+) (?:set(?:s)? )?of ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?: second(?:s)?)?(?: rest(?:s)?)?$",
-            icon:   "places:fitness-center",
-            action: function (setsReps, cb) {
-              var index
-              var insert = []
-              
-              for (index = 0; index < +setsReps.sets; ++index) {
-                insert.push({insert: setsReps.reps + " reps at " + setsReps.weigth + "kg\n"})
+/*          setsReps: {
+//            sets:   "$1",
+//            reps:   "$2",
+//            weigth: "$3",
+//            rest:   "$4",
+//            intent: "^([\\d]+) (?:set(?:s)? )?of ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?: second(?:s)?)?(?: rest(?:s)?)?$",
+//            icon:   "places:fitness-center",
+//            action: function (setsReps, cb) {
+//              var index
+//              var insert = []
+//              
+//              for (index = 0; index < +setsReps.sets; ++index) {
+//                insert.push({insert: setsReps.reps + " reps at " + setsReps.weigth + "kg\n"})
                 if (index !== (+setsReps.sets) - 1) {
                   insert.push({insert: setsReps.rest + " seconds rest \n"})
                 }
@@ -507,7 +507,7 @@
             },
             value:"$1 sets of $2 reps at $3kg and $4 rests",
             timeout: 0,
-          },
+          },*/
         },
       },
       iconTricks: {
@@ -604,13 +604,13 @@
         }
       } else if (cardPart === 1) {
         this.prompt = ""
-        if (selectedCard && selectedCard.setsReps) {
+/*        if (selectedCard && selectedCard.setsReps) {
           if (selectedCard.setsReps === "Done") {
             return ["Share","Done"]
           }
        //   debugger
           return ["Next","Done","Edit"] 
-        }
+        } */
         return ["Edit","Give","Done"] 
       } else {
         // get tricks
