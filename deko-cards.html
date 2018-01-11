@@ -1094,10 +1094,10 @@
         stuff = stuff.splice(0, +addAt ).concat(add,  stuff.splice(1 + +(addAt) ))
       }
       var stuffed = function(stuff) {
-        updateCard()
+        return updateCard
       }
       if (add || head) {
-        this.debounce("updateCard",updateCard(stuff) , 2000)
+        this.debounce("updateCard",stuffed(stuff) , 2000)
       }
     },
 //    resizeImage: function(stuff, opForImage) {
