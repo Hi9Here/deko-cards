@@ -1006,7 +1006,9 @@
                         that.debounce(trick,debounedFunct(tricks[trick], theTrick), tricks[trick].debounce)
                       } else {
                         await tricks[trick].action(theTrick, function(formTrick){
-                          add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
+                          if (formTrick) {
+                            add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
+                          }
                         })
                       }
                     } else if (tricks[trick].action) {
