@@ -310,7 +310,12 @@
                   console.log( "save", image, image.split("%2F")[1], words)
                   if (db && image.split("%2F")[1]) {
                     
-                    return db.collection("files").doc(image.split("%2F")[1]).set({synonyms:words.split(",")},{merge:true}).then(function(){
+                    return db.collection("files").doc(image.split("%2F")[1]).set({synonyms:words.split(",").reduce(function(toSave, word){
+                      if (word) {
+                        toSave[word] = true
+                      }
+                      return toSave
+                    },{})},{merge:true}).then(function(){
                       insert.push({insert:"Synonyms added \n"})
                       return cb(insert)
                     })
