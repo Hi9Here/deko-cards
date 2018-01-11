@@ -806,7 +806,6 @@
       var addAt
       var text = quill.getText().replace("\n", "")
       function updateCard() {
-        
         if (JSON.stringify(that.items[selectedItem].quill) !== JSON.stringify(stuff)) {
           var quillSave = {
             value: stuff,
@@ -996,9 +995,9 @@
                         debounedFunct = function (trik,theTrik) {
                           return function () {
                             trik.action(theTrik, function(formTrick){
-                              add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
-                              updateCard()
-                              add = []
+                              //add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
+                              //updateCard()
+                              //add = []
                             })
                           }
                         }
@@ -1097,8 +1096,11 @@
       } else if (add) {
         stuff = stuff.splice(0, +addAt ).concat(add,  stuff.splice(1 + +(addAt) ))
       }
+      var stuffed = function(stuff) {
+        updateCard()
+      }
       if (add || head) {
-        this.debounce("updateCard",updateCard , 2000)
+        this.debounce("updateCard",updateCard(stuff) , 2000)
       }
     },
 //    resizeImage: function(stuff, opForImage) {
