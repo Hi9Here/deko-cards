@@ -294,34 +294,32 @@
           },
           addImagesTitle:{
             intent:"^add (title(?:s)?|synonym(?:s)? (.+)*",
+            words:"$2",
             debounce: 3000,
             action: function (addImagesTitle, cb) {
               var insert = []
               console.log(addImagesTitle)
               var image
-              var words
+              var words = addImagesTitle.words.replace("\n",",").replace("\t",",").split(",").reduce(function(toSave, word){
+                if (word) {
+                  toSave[word] = true
+                }
+                return toSave
+              },{})
 
               addImagesTitle.quill.forEach(async function(op) {
                 var test = JSON.stringify(op)
                 if (op.insert && op.insert.image) {
                   image = op.insert.image
-                  words = ""
                 } else if (image && words && test.indexOf(addImagesTitle.replacing) !== -1) {
                   console.log( "save", image, image.split("%2F")[1], words)
                   if (db && image.split("%2F")[1]) {
                     
-                    return db.collection("files").doc(image.split("%2F")[1]).set({synonyms:words.split(",").reduce(function(toSave, word){
-                      if (word) {
-                        toSave[word] = true
-                      }
-                      return toSave
-                    },{})},{merge:true}).then(function(){
+                    return db.collection("files").doc(image.split("%2F")[1]).set({synonyms:words},{merge:true}).then(function(){
                       insert.push({insert:"Synonyms added \n"})
                       return cb(insert)
                     })
                   }
-                } else if (image && op.insert.length > 4) {
-                  words += op.insert.replace("\n",",").replace("\t",",")
                 }
               })
             },
