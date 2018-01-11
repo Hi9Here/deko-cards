@@ -224,7 +224,6 @@
             action: function (signedOff, cb) {
               
               var stuff = JSON.stringify(signedOff.quill).split(signedOff.replacing)[0] // before sig
-console.log(stuff)
               // check if the user has private key
               
               return db.collection("Users").doc(firebase.auth().currentUser.uid).get().then(function(doc) {  
@@ -248,7 +247,6 @@ console.log(stuff)
                 }
               }).then(function(keys) {
                 return sha256(stuff).then(function(digest) {
-console.log(stuff, digest)
                   return sign(digest, keys.privateKey, function(signature){
                     return [{insert: signature + "\n"}]
                   })
@@ -268,15 +266,11 @@ console.log(stuff, digest)
 
               this.done[signatures.signature] = true
               return sha256(stuff).then(function(digest) {
-console.log(stuff, digest)
                 if (signatures._) {
-                  //dedup
                   var dedup = {}
-                  
                   signatures._.concat([{signature:signatures.signature, stuff:digest}]).forEach(function(sig){
                     dedup[sig.signature] = sig.stuff
                   })
-                  console.log(dedup)
                   
                   return cb(Object.keys(dedup).map(function(sig) {
                     return {signature:sig, stuff:dedup[sig]} 
@@ -579,6 +573,7 @@ console.log(stuff, digest)
           if (selectedCard.setsReps === "Done") {
             return ["Share","Done"]
           }
+          debugger
           return ["Next","Done","Edit"] 
         }
         return ["Edit","Give","Done"] 
