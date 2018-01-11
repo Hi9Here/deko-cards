@@ -662,7 +662,9 @@
             }
           })[0]) {
           var id = this.profileList.filter(function(profile) {
-            return profile.name === textOnChip
+            if (profile.name) { 
+              return profile.name.toLowerCase() === textOnChip
+            }
           })[0].id
           
           if (this.items[selectedItem].ref) {
