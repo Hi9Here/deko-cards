@@ -289,6 +289,16 @@
             intent:"^(?:put|add)(?: this)? (?:to|in) de[ck]+?([ \\w])*$",
             icon: "content-copy",
           },
+          addImagesTitle:{
+            intent:"^add (title(?:s)?|synonym(?:s)?)$",
+            action: function (addImagesTitle, cb) {
+              var insert = []
+              console.log(addImagesTitle)
+              insert.push({insert:"Synonyms added \n"})
+
+              return cb(insert)
+            },
+          },
           files: {
             intent: "^add (file|document)$",
             ask: ["for files"],
