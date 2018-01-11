@@ -989,12 +989,17 @@
                           tricks[trick].done = {}
                         }
                         tricks[trick].done[lines[line]] = true // stop loop
-                        that.debounce(trick, function () {
-                          tricks[trick].action(theTrick, function(formTrick){
-                            add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
-                            updateCard()
-                            add = ""
-                          })
+                        
+                        debounedFunct = function (trik,theTrik) {
+                          return function () {
+                            trik.action(theTrik, function(formTrick){
+                              add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
+                              updateCard()
+                              add = ""
+                            }  
+                          }
+                        }
+                        that.debounce(trick,debounedFunct(tricks[trick], theTrick))
                         }, tricks[trick].debounce)
                       } else {
                         await tricks[trick].action(theTrick, function(formTrick){
