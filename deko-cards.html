@@ -946,7 +946,9 @@
                   var regex = new RegExp(tricks[trick].intent, "gmi")
                   var matchs
                   while ((matchs = regex.exec(toAdd)) !== null && !add) {
-                    
+                    if (tricks[trick].done && tricks[trick].done[toAdd]) {
+                      continue
+                    }
                     if (matchs.index === regex.lastIndex) {
                       regex.lastIndex++
                     }
