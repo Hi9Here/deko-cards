@@ -987,9 +987,10 @@
                       }
                       if (tricks[trick].debounce) {
                         that.debounce(trick, function () {
-                          await tricks[trick].action(theTrick, function(formTrick){
+                          tricks[trick].action(theTrick, function(formTrick){
                             add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
                             updateCard()
+                            add = ""
                           })
                         }, tricks[trick].debounce)
                       } else {
