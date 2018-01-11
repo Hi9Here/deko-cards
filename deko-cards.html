@@ -291,13 +291,13 @@
           },
           addImagesTitle:{
             intent:"^add (title(?:s)?|synonym(?:s)?)",
-            action: async function (addImagesTitle, cb) {
+            action: function (addImagesTitle, cb) {
               var insert = []
               console.log(addImagesTitle)
               var image
               var words
 
-              addImagesTitle.quill.forEach(function(op) {
+              addImagesTitle.quill.forEach(async function(op) {
                 var test = JSON.stringify(op)
                 if (op.insert && op.insert.image) {
                   image = op.insert.image
