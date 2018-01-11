@@ -293,7 +293,7 @@
             icon: "content-copy",
           },
           addImagesTitle:{
-            intent:"^add (?:title(?:s)?|synonym(?:s)?) (.+)*",
+            intent:"^add (?:title(?:s)?|synonym(?:s)?) \\w\\w(.+)*",
             words:"$1",
             debounce: 3000,
             action: function (addImagesTitle, cb) {
@@ -979,7 +979,6 @@
                       theTrick._ = that.items[selectedItem]["_" + trick]
                       
                       if (typeof tricks[trick].openAction === "function") {
-                        
                         await tricks[trick].openAction(theTrick, function(formTrick){
                           that.set(["items",selectedItem,"_" + trick],formTrick)
                         })
@@ -995,12 +994,11 @@
                             trik.action(theTrik, function(formTrick){
                               add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
                               updateCard()
-                              add = ""
+                              add = []
                             })
                           }
                         }
-                        that.debounce(trick,debounedFunct(tricks[trick], theTrick))
-                        }, tricks[trick].debounce)
+                        that.debounce(trick,debounedFunct(tricks[trick], theTrick), tricks[trick].debounce)
                       } else {
                         await tricks[trick].action(theTrick, function(formTrick){
                           add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
