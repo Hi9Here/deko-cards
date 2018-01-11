@@ -154,7 +154,7 @@
       <!--  <div style="margin: auto;width:1000px;max-width:100%;text-align: center;"><img src="[[item.image]]" style="margin: auto;max-width:100%"></div> -->
           </template>
           <quill-js value="[[item.quill]]" id="show" show editor-show="{{showQuill}}"  theme="bubble" style="max-width: 780px;padding: 20px;margin: auto;" ></quill-js>
-          <div style="justify-content: space-evenly;flex: auto;width: 98%;display: flex;flex-wrap: wrap">
+          <div style="text-align:center">
             <template is="dom-repeat" items="[[item._signatures]]" as="sig">
               <deko-signature signature="[[sig.signature]]" to-test="[[sig.stuff]]"></deko-signature><br>
             </template>
@@ -265,7 +265,7 @@
           signatures:{
             intent: "^([a-zA-Z0-9+/]{86}==)$",
             signature: "$1",
-            openAction: function (signatures, cb) {
+            action: function (signatures, cb) {
               var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig
 
               this.done[signatures.signature] = true
@@ -275,7 +275,6 @@
                   signatures._.concat([{signature:signatures.signature, stuff:digest}]).forEach(function(sig){
                     dedup[sig.signature] = sig.stuff
                   })
-                  
                   return cb(Object.keys(dedup).map(function(sig) {
                     return {signature:sig, stuff:dedup[sig]} 
                   }))
@@ -284,9 +283,10 @@
                 }
               })
             },
-            action: function (signatures, cb) {
-              return cb([{insert: signatures.signature + "\n"}])
-            },
+            debounce: 1000,
+   //         action: function (signatures, cb) {
+   //           return cb([{insert: signatures.signature + "\n"}])
+   //         },
             done: {}
           },
           dek:{
