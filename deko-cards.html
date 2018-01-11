@@ -151,7 +151,7 @@
         <div style="margin: auto;max-width:100%;width:1000px;">
           <template is="dom-if" if="[[item.image]]">
             <paper-toolbar style$="width: 100%;position: absolute;left: 0;top: 0;height: 70px;background:[[item.toolbarColor]];color:[[getFg(item.toolbarColor)]]"></paper-toolbar>
-            <div style="margin: auto;width:1000px;max-width:100%;text-align: center;"><img src="[[item.image]]" style="margin: auto;max-width:100%"></div>
+      <!--  <div style="margin: auto;width:1000px;max-width:100%;text-align: center;"><img src="[[item.image]]" style="margin: auto;max-width:100%"></div> -->
           </template>
           <quill-js value="[[item.quill]]" id="show" show editor-show="{{showQuill}}"  theme="bubble" style="max-width: 780px;padding: 20px;margin: auto;" ></quill-js>
           <template is="dom-repeat" items="[[item._signatures]]" as="sig">
@@ -608,7 +608,7 @@
           if (selectedCard.setsReps === "Done") {
             return ["Share","Done"]
           }
-          debugger
+       //   debugger
           return ["Next","Done","Edit"] 
         }
         return ["Edit","Give","Done"] 
