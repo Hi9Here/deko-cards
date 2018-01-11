@@ -1380,6 +1380,7 @@
       this._items(this.items)
     },
     selectOpen: function(e){
+      this.clearTrick()
       this.select(e)
       this.cardPart = 1
       this.$$("open-card").open()
