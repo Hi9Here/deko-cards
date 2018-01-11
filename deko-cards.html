@@ -730,20 +730,17 @@
       var n = 0
       var that = this
       var open = function() {
-        
         that.$$("open-card").open()
-        that.debounce("focus", function() {
-          try {
-            that.quill.focus()
-            that.quill.setContents([
-              {insert: "\n", attributes: {header:1}},
-            ])
-          } catch (e) {
-            if (++n < 100) {
-              open()
-            }
+        try {
+          that.quill.setContents([
+            {insert: "\n", attributes: {header:1}},
+          ])
+          that.quill.focus()
+        } catch (e) {
+          if (++n < 100) {
+            setTimeout(open,100)
           }
-        },200)
+        }
       }
       this.debounce("open", open, 10)
     },
