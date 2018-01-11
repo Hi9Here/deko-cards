@@ -141,17 +141,17 @@
     </template>
     <template is="dom-repeat" items="{{items}}" filter="selected" id="list5">
       <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
-        <div style="margin: auto;width: 500px;">
+        <div style="margin: auto;width: 1000px;">
           <template is="dom-if" if="[[item.image]]">  
-            <paper-toolbar style$="background:[[item.toolbarColor]];color:[[getFg(item.toolbarColor)]];position: absolute;left: 0;top: 0;height: 70px;"></paper-toolbar>
+            <paper-toolbar style$="position: absolute;left: 0;top: 0;height: 70px;background:[[item.toolbarColor]];color:[[getFg(item.toolbarColor)]];"></paper-toolbar>
             <div style$="background:url([[item.image]]);width:500px;height:200px;background-size: cover;background-position: center;"></div>
           </template>
           <quill-js style="max-width: 500px;margin: auto;" value="{{item.quill}}" one-way id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
           <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" meta="[[meta]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
         </div>
-        <div style="margin: auto;width: 500px;">
+        <div style="margin: auto;width: 1000px;">
           <template is="dom-if" if="[[item.image]]">
-            <paper-toolbar style$="background:[[item.toolbarColor]];color:[[getFg(item.toolbarColor)]]"></paper-toolbar>
+            <paper-toolbar style$="position: absolute;left: 0;top: 0;height: 70px;background:[[item.toolbarColor]];color:[[getFg(item.toolbarColor)]]"></paper-toolbar>
             <img src="[[item.image]]" style="max-width:1000px">
             <div style=""></div>
           </template>
