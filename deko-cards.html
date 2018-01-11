@@ -656,7 +656,11 @@
             var newQuill = that.tricks[testForFunction(textOnChip)].chips[textOnChip](that.items[selectedItem].quill, that.showQuill, that.items[selectedItem].ref, false, update)
             update(newQuill)
           }
-        } else if (this.profileList.filter(function(profile) {return profile.name === textOnChip})[0]) {
+        } else if (this.profileList.filter(function(profile) { 
+            if (profile.name) { 
+              return profile.name.toLowerCase() === textOnChip
+            }
+          })[0]) {
           var id = this.profileList.filter(function(profile) {
             return profile.name === textOnChip
           })[0].id
