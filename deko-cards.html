@@ -319,7 +319,7 @@
                       return cb(insert)
                     })
                   }
-                } else if (image && !words && op.insert.length > 4) {
+                } else if (image && op.insert.length > 4) {
                   words += op.insert.replace("\n",",").replace("\t",",")
                 }
               })
