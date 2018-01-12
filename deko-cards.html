@@ -156,7 +156,7 @@
           <quill-js value="[[item.quill]]" id="show" show editor-show="{{showQuill}}"  theme="bubble" style="max-width: 780px;padding: 20px;margin: auto;" ></quill-js>
           <div style="text-align:center">
             <template is="dom-repeat" items="[[item._signatures]]" as="sig">
-              <deko-signature id="[[sig.signature]]" signature="[[sig.signature]]" to-test="[[sig.stuff]]"></deko-signature><br>
+              <deko-signature id="[[sig.stuff]]" signature="[[sig.signature]]" to-test="[[sig.stuff]]"></deko-signature><br>
             </template>
           </div>
         </div>
