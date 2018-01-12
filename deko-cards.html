@@ -1181,12 +1181,13 @@
           time:  Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user:  firebase.auth().currentUser.uid,
         }
-        
+                
         this.items[selectedItem].quill = this.quill.getContents().ops
         
         if (ref) {
           ref.collection("quill").add(quill).then(function(data) {
             that.set("savedQuill",true)
+            that.clearTrick()
           })
         } else {
           that.newCard(quill)
