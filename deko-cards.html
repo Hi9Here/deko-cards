@@ -547,6 +547,11 @@
           that.tricks[trick].done = {}
         }
       })
+      Object.keys(that.items[that._items(that.items)]).forEach(function(prop){
+        if (prop.startsWith("_")) {
+          delete(that.items[that._items(that.items)][prop])
+        }
+      })
       that.testStuff("", that.tricks, 0, that.quill) //0 dry
     },
     getMeta: function(profileId) {
