@@ -1500,8 +1500,8 @@ function sign(string, privateKey, cb, regx) {
         console.error(err)
       })
     } else {
-      var work = window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"}}, key, data)
-      return work.then(function(signature){
+      var work = window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"}}, key, data).then
+      return work(function(signature){
         var sig
         console.log(sig = arrayToBase64String(signature))
         if (regx.test(sig)) {
