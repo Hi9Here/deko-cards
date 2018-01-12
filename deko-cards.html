@@ -86,7 +86,7 @@
       }
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
-    <iron-media-query query="(min-width: 500px)" query-matches="{{wide}}"></iron-media-query>
+    <iron-media-query query="(min-width: 50px)" query-matches="{{wide}}"></iron-media-query>
     <!--Wide Layout for Desktop-->
     <template is="dom-if" if="{{wide}}">
       <template is="dom-if" if="[[pageing]]" restamp>
