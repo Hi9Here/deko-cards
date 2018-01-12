@@ -1488,16 +1488,29 @@ function base64ToArrayBuffer(s) {
 }
 
 // sign takes a string to be signed and a private key and a call back which is fired with the argument of the signature
-function sign(string, privateKey, cb) {
+function sign(string, privateKey, cb, regx) {
   var data = str2ab(string)
   var key = JSON.parse(privateKey)
   
   return importKey(privateKey, function(key){
-    return window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"},}, key, data).then(function(signature){
-      return cb(arrayToBase64String(signature))
-    }).catch(function(err){
-      console.error(err)
-    })
+    if (!regx) {
+      return window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"}}, key, data).then(function(signature){
+        return cb(arrayToBase64String(signature))
+      }).catch(function(err){
+        console.error(err)
+      })
+    } else {
+      var work = window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"}}, key, data)
+      return work.then(function(signature){
+        var sig
+        console.log(sig = arrayToBase64String(signature))
+        if (regx.test(sig)) {
+          return cb(sig)
+        } else {
+          return work
+        }
+      })
+    }
   })
 }
 
