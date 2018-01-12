@@ -269,6 +269,15 @@
               var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig
 
               this.done[signatures.signature] = true
+              document.body.querySelectorAll('#show > div.ql-editor > p').forEach(p => {
+                if (/^([a-zA-Z0-9+/]{86}==)$/g.test(p.innerHTML)) {
+                  if (document.querySelector("#"+p.innerHTML.replace(/[0-9+/\=]/g,"")).item) {
+                    p.innerHTML = "[Signed by " + document.querySelector("#"+p.innerHTML.replace(/[0-9+/\=]/g,"")).item.profile + "]"
+                  } else {
+                    p.innerHTML = "[Not a valid signature]"
+                  }
+                }
+              })
               return sha256(stuff).then(function(digest) {
                 if (signatures._) {
                   var dedup = {}
