@@ -1500,16 +1500,19 @@ function sign(string, privateKey, cb, regx) {
         console.error(err)
       })
     } else {
-      var work = window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"}}, key, data).then
-      return work(function(signature){
-        var sig
-        console.log(sig = arrayToBase64String(signature))
-        if (regx.test(sig)) {
-          return cb(sig)
-        } else {
-          return work
-        }
-      })
+      var doWork = function() {
+        var work = window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"}}, key, data)
+        return work.then(function(signature){
+          var sig
+          console.log(sig = arrayToBase64String(signature))
+          if (regx.test(sig)) {
+            return cb(sig)
+          } else {
+            return doWork()
+          }
+        })
+      }
+      return doWork()
     }
   })
 }
