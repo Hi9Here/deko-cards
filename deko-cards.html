@@ -1453,7 +1453,7 @@
 
 function importKey(KeyAsJson,cb) {
   var key = JSON.parse(KeyAsJson)
-  var hard = key.hard
+  var hard = key.hard ? new RegExp(key.hard, "g") : ""
   
   return window.crypto.subtle.importKey("jwk", key,{name: "ECDSA",namedCurve: "P-256"}, false,key.key_ops).then(function(key){
     return cb(key, hard)
@@ -1504,8 +1504,7 @@ function sign(string, privateKey, cb) {
       var doWork = function() {
         var work = window.crypto.subtle.sign({name: "ECDSA", hash: {name: "SHA-256"}}, key, data)
         return work.then(function(signature){
-          var sig
-          console.log(sig = arrayToBase64String(signature))
+          var sig = arrayToBase64String(signature)
           if (regx.test(sig)) {
             return cb(sig)
           } else {
