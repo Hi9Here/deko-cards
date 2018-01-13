@@ -99,7 +99,7 @@
           </template>
         </div>
         <deko-card-container>
-          <template is="dom-repeat" items="{{items}}" initial-Count="1" id="list0">
+          <template is="dom-repeat" items="[[items]]" initial-Count="1" id="list0">
             <deko-card on-tap="selectOpen" card="[[item]]"></deko-card>
           </template>
         </deko-card-container>
@@ -121,13 +121,13 @@
             <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
           </template>
         </div>
-        <template is="dom-repeat" items="{{items}}" filter="pickable"  id="list1">
+        <template is="dom-repeat" items="[[items]]" filter="pickable"  id="list1">
           <paper-toolbar class="toolbarMobile" on-tap="select" title="[[item.title]]" card="{{item}}" style$="background:[[item.toolbarColor]]; height: 35px;">
             <iron-icon icon="[[item.icon]]" style="height:90%"></iron-icon>
             <div class="title">[[item.title]]</div>
           </paper-toolbar>
         </template>
-        <template is="dom-repeat" items="{{items}}" filter="selected" id="list4">
+        <template is="dom-repeat" items="[[items]]" filter="selected" id="list4">
           <div id="narrow">
             <deko-card on-tap="selectOpen" card="{{item}}"></deko-card>
           </div>
@@ -785,6 +785,7 @@
       var save = {}
       for (var key in this.items[selectedItem]) {
         if (key !== "quill" && key !== "selected") {
+          debugger
           save[key] = this.items[selectedItem][key]
         }
       }
@@ -880,6 +881,7 @@
         })
       }
       if (firebase.storage && this.items[selectedItem].image === '' && this.items[selectedItem].autoImage) {
+        debugger
         this.items[selectedItem].autoImage.then(function (imageRef) {
           if (!imageRef) {
             return "no image"
@@ -1055,6 +1057,7 @@
                       }
                       
                       add = [{insert: addBefore + "\n"}].concat(theTrick.action, [{insert: addAfter + "\n"}])
+                      debugger
                       this.set(["items",selectedItem,trick], theTrick)
                     } else {
                       add = [
@@ -1386,6 +1389,7 @@
             var selectedItem = that._items(that.items)
             that.set("items."+ selectedItem +".quill", value)
           } else {
+            debugger
             that.set("items."+ selectedItem +".quill", [{"insert":"\n"}])
           }
         })
@@ -1399,7 +1403,7 @@
         }
         return x
       })
-      this._items(this.items)
+      // this._items(this.items)
     },
     selectOpen: function(e){
       this.clearTrick()
