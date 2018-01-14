@@ -632,8 +632,8 @@
         }
       } else if (cardPart === 1) {
         this.prompt = ''
-        if (selectedCard && selectedCard.setsReps && selectedCard.setsReps !== 'Done') {
-          return ['Edit', 'Next', 'Return', ]
+        if (selectedCard && selectedCard.setsReps) {
+          return ['Edit', 'Next','Give', 'Return' ]
         }
         return ['Edit', 'Give', 'Return']
       } else {
@@ -1034,7 +1034,6 @@
                         }
 
                         add = [{insert: addBefore + '\n'}].concat(theTrick.action, [{insert: addAfter + '\n'}])
-                        debugger
                         this.set(['items', selectedItem, trick], theTrick)
                       } else {
                         add = [
