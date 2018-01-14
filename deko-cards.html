@@ -760,17 +760,17 @@
       var open = function () {
         that.clearTrick()
         that.$$('open-card').open()
-        try {
-          that.quill.once('text-change', function() {
-            that.quill.focus()
+        that.quill.once('text-change', function() {
+          try {
+            that.quill.focus() 
             clearInterval(setFocus)
-          })
-          that.quill.setContents([
-            {insert: '\n', attributes: {header: 1}}
-          ])
-        } catch (e) {
-          console.log(e)
-        }
+          } catch (e) {
+            console.log(e)
+          }  
+        })
+        that.quill.setContents([
+          {insert: '\n', attributes: {header: 1}}
+        ])
       }
       setFocus = setInterval(open, 1000)
     },
