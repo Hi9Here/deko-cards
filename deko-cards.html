@@ -829,7 +829,7 @@
       newQuill.formatLine(1, 2, 'attributes', {header:1})
       
       var stuff = newQuill.getContents().ops
-      if (JSON.stringify(stuff) == `[{"insert":"\n"}]`) {
+      if (JSON.stringify(stuff) == `[{"insert":"\\n"}]`) {
         return "new"
       }
       var name
