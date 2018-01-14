@@ -756,6 +756,7 @@
       }
       var n = 0
       var that = this
+      var setFocus
       var open = function () {
         that.clearTrick()
         that.$$('open-card').open()
@@ -764,13 +765,12 @@
             {insert: '\n', attributes: {header: 1}}
           ])
           that.quill.focus()
+          clearInterval(setFocus)
         } catch (e) {
-          if (++n < 100) {
-            setTimeout(open, 100)
-          }
+          console.log(e)
         }
       }
-      this.debounce('open', open, 10)
+      setFocus = setInterval(open, 1000)
     },
     newCard: function (toAddQuill) {
       var that = this
