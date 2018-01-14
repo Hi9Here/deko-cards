@@ -800,7 +800,6 @@
       var save = {}
       for (var key in this.items[selectedItem]) {
         if (key !== 'quill' && key !== 'selected') {
-          debugger
           save[key] = this.items[selectedItem][key]
         }
       }
@@ -1371,7 +1370,6 @@
             var selectedItem = that._items(that.items)
             that.set('items.' + selectedItem + '.quill', value)
           } else {
-            debugger
             that.set('items.' + selectedItem + '.quill', [{'insert': '\n'}])
           }
         })
