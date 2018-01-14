@@ -838,7 +838,7 @@
       var image
       var add
       var addAt
-      var text = quill.getText().replace("\n", "")
+      var text = quill.getText().replace(/\n/g, " ").trim()
       function updateCard() {
         if (JSON.stringify(that.items[selectedItem].quill) !== JSON.stringify(stuff)) {
           var quillSave = {
