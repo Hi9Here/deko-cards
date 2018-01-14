@@ -881,7 +881,6 @@
         })
       }
       if (firebase.storage && this.items[selectedItem].image === '' && this.items[selectedItem].autoImage) {
-        debugger
         this.items[selectedItem].autoImage.then(function (imageRef) {
           if (!imageRef) {
             return "no image"
