@@ -1001,7 +1001,7 @@
                         theTrick._ = that.items[selectedItem]['_' + trick]
 
                         if (typeof tricks[trick].openAction === 'function') {
-                          tricks[trick].openAction(theTrick, function (formTrick) {
+                          await tricks[trick].openAction(theTrick, function (formTrick) {
                             that.set(['items', selectedItem, '_' + trick], formTrick)
                           })
                         }
@@ -1022,7 +1022,7 @@
                           }
                           that.debounce(trick, debounedFunct(tricks[trick], theTrick), tricks[trick].debounce)
                         } else {
-                          tricks[trick].action(theTrick, function (formTrick) {
+                          await tricks[trick].action(theTrick, function (formTrick) {
                             if (formTrick) {
                               add = [{insert: addBefore + '\n'}].concat(formTrick, [{insert: addAfter + '\n'}])
                             }
