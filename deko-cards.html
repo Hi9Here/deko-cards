@@ -372,7 +372,7 @@
               return cb(insert)
             },
             chips: {
-              next: function (quill, quillElements, dataRef, timer, update) {
+              next: function (quill, quillElements, dataRef, timer, update, save) {
                 if (!timer) {
                   clearInterval(this.timer)
                 }
@@ -470,8 +470,10 @@
                 // this.tricks.setsReps.timeout = setTimeout(this.tricks.setsReps.chips.next,1000)
                 if (window.speechSynthesis && !timer && steps[0] && steps[0].text) {
                   window.speechSynthesis.speak(new SpeechSynthesisUtterance(steps[0].text))
+                  save(ops)
                 } else if (steps.length === 0) {
                   dataRef.set({setsReps: 'Done'}, {merge: true})
+                  save(ops)
                 }
 
                 return ops
@@ -675,12 +677,24 @@
         } else if (testForFunction(textOnChip)) {
           if (typeof that.tricks[testForFunction(textOnChip)].chips[textOnChip] === 'function' && that.items[selectedItem].quill) {
             function update (newQuill) {
-              that.set('items.' + selectedItem + '.quill', newQuill) // TODO is both needed?
+              that.set('items.' + selectedItem + '.quill', newQuill)
               that.quill.setContents(newQuill)
               that.cardPart = +that.cardPart
               that.go = !that.go
             }
-            var newQuill = that.tricks[testForFunction(textOnChip)].chips[textOnChip](that.items[selectedItem].quill, that.showQuill, that.items[selectedItem].ref, false, update)
+            function save(newQuill) {
+              var quillSave = {
+                value: newQuill,
+                time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+                user: firebase.auth().currentUser.uid
+              }
+              if (that.items[selectedItem].ref) {
+                that.items[selectedItem].ref.collection('quill').add(quillSave).then(function (data) {
+                  that.set('savedQuill', true)
+                })
+              }
+            }
+            var newQuill = that.tricks[testForFunction(textOnChip)].chips[textOnChip](that.items[selectedItem].quill, that.showQuill, that.items[selectedItem].ref, false, update, save)
             update(newQuill)
           }
         } else if (this.profileList.filter(function (profile) {
