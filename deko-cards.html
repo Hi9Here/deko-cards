@@ -471,7 +471,7 @@
                 if (window.speechSynthesis && !timer && steps[0] && steps[0].text) {
                   window.speechSynthesis.speak(new SpeechSynthesisUtterance(steps[0].text))
                 } else if (steps.length === 0) {
-                  dataRef.set({setsReps: 'Done'})
+                  dataRef.set({setsReps: 'Done'},, {merge: true})
                 }
 
                 return ops
