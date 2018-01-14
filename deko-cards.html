@@ -416,7 +416,7 @@
                           op.insert = '0/' + op.insert
                           function tick () {
                             // maybe use quillElements.getContents() or quill
-                            var _quill = that.next(quillElements.getContents().ops, quillElements, dataRef, true, update)
+                            var _quill = that.next(quillElements.getContents().ops, quillElements, dataRef, true, update, save)
                             quillElements.setContents(_quill)
                             update(_quill)
                           }
