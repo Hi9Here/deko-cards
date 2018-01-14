@@ -924,17 +924,6 @@
             if (!name) {
               name = stuff[op].insert.split('\n')[0]
               if (name) {
-                if (!stuff[op].attributes) {
-                  var notName = stuff[op].insert.split('\n').splice(1).join('\n')
-                  if (notName.replace(/[^0-9a-z-A-Z ]/g, '').trim()) {
-                    head = [
-                      {insert: name},
-                      {insert: '\n', attributes: {header: 1}},
-                      {insert: notName}
-                    ]
-                    headAt = op
-                  }
-                }
                 title = name.replace(/[^0-9a-z-A-Z\/ ]/g, ' ').trim()
                 if (!title) {
                   return 'no title'
