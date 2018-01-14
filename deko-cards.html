@@ -1101,11 +1101,8 @@
         } else if (add) {
           stuff = stuff.splice(0, +addAt).concat(add, stuff.splice(1 + +(addAt)))
         }
-        var stuffed = function (stuff) {
-          return updateCard
-        }
         if (add || head) {
-          stuffed(stuff)
+          updateCard(stuff)
         }
       }
       this.debounce('debouncedTestStuff', debouncedTestStuff, 2000)
