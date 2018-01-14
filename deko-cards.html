@@ -762,6 +762,7 @@
         that.$$('open-card').open()
         that.quill.once('text-change', function() {
           try {
+            document.body.focus()
             that.quill.focus() 
             clearInterval(setFocus)
           } catch (e) {
