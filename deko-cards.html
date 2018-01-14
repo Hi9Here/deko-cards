@@ -816,8 +816,8 @@
       }
       this.resub()
     },
-    testStuff: async function (line, tricks, selectedItem, quill) {
-      function debouncedTestStuff () {
+    testStuff: function (line, tricks, selectedItem, quill) {
+      async function debouncedTestStuff () {
        // if (!this.editing) {
       //    return
      //   }
