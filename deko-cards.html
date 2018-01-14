@@ -772,7 +772,9 @@
           {insert: '\n', attributes: {header: 1}}
         ])
       }
-      setFocus = setInterval(open, 1000)
+      setTimeout(function(){
+        setFocus = setInterval(open, 1000)
+      }, 1000)
     },
     newCard: function (toAddQuill) {
       var that = this
