@@ -804,7 +804,7 @@
         selectedItem = this._items(this.items)
         
         var newQuill = new Quill(document.createElement('div'), {})
-        this.items[selectedItem].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(function (data) {
+        this.items[selectedItem].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(async function (data) {
           newQuill.setContents(data.docs[0].data().value)
           newQuill.formatLine(1, 2, 'attributes', {header: 1})
 
