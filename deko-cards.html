@@ -1299,7 +1299,7 @@
               toolbarColor: docData.toolbarColor,
               dek: docData.dek,
               show: docData.show,
-              text: docData.text,
+              html: docData.html,
               timer: docData.timer,
               reminder: docData.reminder,
               signedOff: docData.signedOff,
@@ -1452,7 +1452,6 @@
       console.error(err)
     })
   }
-
   function ab2str (buf) {
     return String.fromCharCode.apply(null, new Uint16Array(buf))
   }
@@ -1537,13 +1536,12 @@
   function verify (string, signature, publicKey, cb) {
     var data = str2ab(string)
     importKey(publicKey, function (key) {
-      window.crypto.subtle.verify({name: 'ECDSA', hash: {name: 'SHA-256'}}, key, base64ToArrayBuffer(signature), data
-    ).then(function (isvalid) {
+      window.crypto.subtle.verify({name: 'ECDSA', hash: {name: 'SHA-256'}}, key, base64ToArrayBuffer(signature), data).then(function (isvalid) {
       // returns a boolean on whether the signature is true or not
-      cb(isvalid)
-    }).catch(function (err) {
-      console.error(err)
-    })
+        cb(isvalid)
+      }).catch(function (err) {
+        console.error(err)
+      })
     })
   }
   function sha256 (str) {
