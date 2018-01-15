@@ -1414,6 +1414,9 @@
       return false
     },
     getFg: function (bg) {
+      if (bg.length === 4) {
+        bg = "#" + bg.charAt(1) + bg.charAt(1) + bg.charAt(2) + bg.charAt(2) + bg.charAt(3) + bg.charAt(3)
+      }
       if (bg) {
         var c = bg.substring(1)     // strip #
         var rgb = parseInt(c, 16)   // convert rrggbb to decimal
