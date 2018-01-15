@@ -800,254 +800,73 @@
     },
     testStuff: function (line, tricks, selectedItem, quill) {
       async function debouncedTestStuff () {
-       // if (!this.editing) {
-      //    return
-     //   }
         var that = this
         selectedItem = this._items(this.items)
+        
         var newQuill = new Quill(document.createElement('div'), {})
-        newQuill.setContents(quill.getContents().ops)
-        newQuill.formatLine(1, 2, 'attributes', {header: 1})
+        this.items[selectedItem].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(function (data) {
+          newQuill.setContents(data.docs[0].data().value)
+          newQuill.formatLine(1, 2, 'attributes', {header: 1})
 
-        var stuff = newQuill.getContents().ops
-        if (JSON.stringify(stuff) == `[{"insert":"\\n"}]`) {
-          return 'new'
-        }
-        var name
-        var head
-        var headAt
-        var image
-        var add
-        var addAt
-        var text = quill.getText().replace(/\n/g, ' ').trim()
-        function updateCard () {
-          if (JSON.stringify(that.items[selectedItem].quill) !== JSON.stringify(stuff)) {
-            var quillSave = {
-              value: stuff,
-              time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-              user: firebase.auth().currentUser.uid
-            }
-            if (that.items[selectedItem].ref) {
-              that.items[selectedItem].ref.collection('quill').add(quillSave).then(function (data) {
-                that.set('savedQuill', true)
-              })
-            } else {
-              that.newCard(quill)
-            }
-
-            if (!that.items[selectedItem]) {
-              that.items[selectedItem] = {}
-            }
-            that.set(['items', selectedItem, 'quill'], stuff)
-            that.quill.setContents(stuff)
+          var stuff = newQuill.getContents().ops
+          if (JSON.stringify(stuff) == `[{"insert":"\\n"}]`) {
+            return 'new'
           }
-        }
-        if (!text) {
-          return 'nothing to test'
-        }
-        if (text.indexOf('logout') !== -1 && !this.items[selectedItem].ref) {
-          this.fire('logout')
-        }
-        var title = this.items[selectedItem].title
-        if (title) {
-          text = text.replace(title, '')
-          this.items[selectedItem].autoImage = this.imageIndex().then(function (idx) {
-            var result = idx.search(title)
-            if (result.length) {
-              return '' + result[0].ref
-            } else {
-              return ''
-            }
-          })
-        }
-        if (firebase.storage && this.items[selectedItem].image === '' && this.items[selectedItem].autoImage) {
-          this.items[selectedItem].autoImage.then(function (imageRef) {
-            if (!imageRef) {
-              return 'no image'
-            }
-            return firebase.storage().ref().child(imageRef).getDownloadURL().then(function (url) {
-              var image = url
-              if (image.split('%2F')[1]) { // TODO DRY
-                db.collection('files').doc(image.split('%2F')[1]).get().then(function (doc) {
-                  if (doc.exists && doc.data() && doc.data().vision && doc.data().vision[0].imagePropertiesAnnotation) {
-                    var colour = doc.data().vision['0'].imagePropertiesAnnotation.dominantColors.colors['0'].color
-                    function componentToHex (c) {
-                      var hex = c.toString(16)
-                      return hex.length == 1 ? '0' + hex : hex
-                    }
-                    function rgbToHex (r, g, b) {
-                      return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b)
-                    }
-                    var toolbarColor = rgbToHex(colour.red || 0, colour.green || 0, colour.blue || 0)
-
-                    that.set(['items', selectedItem, 'toolbarColor'], toolbarColor)
-
-                    if (that.items[selectedItem].ref) {
-                      that.items[selectedItem].ref.set({toolbarColor: toolbarColor}, {merge: true})
-                    }
-                  }
-                })
+          var name
+          var head
+          var headAt
+          var image
+          var add
+          var addAt
+          var text = quill.getText().replace(/\n/g, ' ').trim()
+          function updateCard () {
+            if (JSON.stringify(that.items[selectedItem].quill) !== JSON.stringify(stuff)) {
+              var quillSave = {
+                value: stuff,
+                time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+                user: firebase.auth().currentUser.uid
               }
               if (that.items[selectedItem].ref) {
-                that.items[selectedItem].ref.set({image: url}, {merge: true})
+                that.items[selectedItem].ref.collection('quill').add(quillSave).then(function (data) {
+                  that.set('savedQuill', true)
+                })
+              } else {
+                that.newCard(quill)
               }
-              return that.set(['items', selectedItem, 'image'], url)
-            })
-          })
-        }
-        if (title && this.items[selectedItem].text !== text) {
-          this.items[selectedItem].text = text
-          if (this.items[selectedItem].ref) {
-            this.items[selectedItem].ref.set({text: text}, {merge: true})
-          }
-        }
-        for (var op in stuff) {
-          if (stuff[op].insert && typeof stuff[op].insert === 'string') {
-            if (!name) {
-              name = stuff[op].insert.split('\n')[0]
-              if (name) {
-                title = name.replace(/[^0-9a-z-A-Z\/ ]/g, ' ').trim()
-                if (!title) {
-                  return 'no title'
-                }
-                if (this.items[selectedItem].title !== title) {
-                  this.items[selectedItem].title = title
-                  this.items[selectedItem].image = '' // new title reset image
-                  if (this.items[selectedItem].ref) {
-                    if (!title) {
-                      return 'no title'
-                    } else {
-                      return this.items[selectedItem].ref.set({title: title}, {merge: true})
-                    }
-                  }
-                }
-              } else if (stuff[op].insert.split('\n').join('') || (this.items[selectedItem] && !this.items[selectedItem].title)) {
-                this.items[selectedItem].title = stuff[op].insert.split('\n').join('')
-                if (this.items[selectedItem].ref) {
-                  this.items[selectedItem].ref.set({title: this.items[selectedItem].title}, {merge: true})
-                }
+
+              if (!that.items[selectedItem]) {
+                that.items[selectedItem] = {}
               }
-            } else if (!add) {
-              var lines = stuff[op].insert.split('\n')
-              for (var line in lines) {
-                var toAdd = lines[line]
-                if (toAdd) {
-                  for (var trick in tricks) {
-                    if (tricks[trick].done && tricks[trick].done[toAdd]) {
-                      continue
-                    }
-                    var regex = new RegExp(tricks[trick].intent, 'gmi')
-                    var matchs
-                    while ((matchs = regex.exec(toAdd)) !== null && !add) {
-                      if (tricks[trick].done && tricks[trick].done[toAdd]) {
-                        continue
-                      }
-                      if (matchs.index === regex.lastIndex) {
-                        regex.lastIndex++
-                      }
-
-                      var addBefore = lines.slice(0, +line).join('\n')
-                      addAt = op
-                      var addAfter = lines.slice(1 + +(line)).join('\n')
-
-                      if (typeof tricks[trick].action === 'function') {
-                        var theTrick
-
-                        if (!tricks[trick].split) {
-                          theTrick = JSON.parse(
-                            toAdd.replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm, '\\n')
-                          )
-                        } else {
-                          theTrick = JSON.parse(
-                            toAdd.replace(new RegExp(tricks[trick].split, 'gm'), '\\n').replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm, '\\n')
-                          )
-                        }
-                    //  this.set(["items",selectedItem,trick], theTrick)
-
-                        theTrick.quill = stuff
-                        theTrick.addBefore = addBefore
-                        theTrick.replacing = matchs[0]
-                        theTrick.addAfter = addAfter
-                        theTrick.profileId = that.profileId
-                        theTrick._ = that.items[selectedItem]['_' + trick]
-
-                        if (typeof tricks[trick].openAction === 'function') {
-                          await tricks[trick].openAction(theTrick, function (formTrick) {
-                            that.set(['items', selectedItem, '_' + trick], formTrick)
-                          })
-                        }
-                        if (tricks[trick].debounce) {
-                          if (!tricks[trick].done) {
-                            tricks[trick].done = {}
-                          }
-                          tricks[trick].done[lines[line]] = true // stop loop
-
-                          debounedFunct = function (trik, theTrik) {
-                            return function () {
-                              trik.action(theTrik, function (formTrick) {
-                              // add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
-                              // updateCard()
-                              // add = []
-                              })
-                            }
-                          }
-                          that.debounce(trick, debounedFunct(tricks[trick], theTrick), tricks[trick].debounce)
-                        } else {
-                          await tricks[trick].action(theTrick, function (formTrick) {
-                            if (formTrick) {
-                              add = [{insert: addBefore + '\n'}].concat(formTrick, [{insert: addAfter + '\n'}])
-                            }
-                          })
-                        }
-                      } else if (tricks[trick].action) {
-                        var theTrick
-
-                        if (!tricks[trick].split) {
-                          theTrick = JSON.parse(
-                            toAdd.replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm, '\\n')
-                          )
-                        } else {
-                          theTrick = JSON.parse(
-                            toAdd.replace(new RegExp(tricks[trick].split, 'gm'), '\\n').replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm, '\\n')
-                          )
-                        }
-
-                        add = [{insert: addBefore + '\n'}].concat(theTrick.action, [{insert: addAfter + '\n'}])
-                        this.set(['items', selectedItem, trick], theTrick)
-                      } else {
-                        add = [
-                          {insert: addBefore + '\n'},
-                          {insert: addAfter + '\n'}
-                        ]
-                      }
-                      if (tricks[trick].icon) {
-                        if (this.cardIcons.indexOf(tricks[trick].icon) === -1) {
-                          this.push('cardIcons', tricks[trick].icon)
-                        }
-                      }
-                      this.set(['items', selectedItem, trick], theTrick)
-                      if (this.items[selectedItem].ref) {
-                        var toSave = {}
-                        toSave[trick] = {}
-                        Object.keys(theTrick).forEach(function (key) {
-                          if (theTrick[key] && !key.startsWith('_')) {
-                            toSave[trick][key] = theTrick[key]
-                          }
-                        })
-                        this.items[selectedItem].ref.set(toSave, {merge: true})
-                      }
-                    }
-                  }
-                }
-              }
+              that.set(['items', selectedItem, 'quill'], stuff)
+              that.quill.setContents(stuff)
             }
-          } else if (!image || this.items[selectedItem].image !== image) {
-            if (stuff[op].insert && typeof stuff[op].insert === 'object' && stuff[op].insert.image) {
-              image = stuff[op].insert.image
-              if (this.items[selectedItem].image !== image) {
-                this.set(['items', selectedItem, 'image'], image)
+          }
+          if (!text) {
+            return 'nothing to test'
+          }
+          if (text.indexOf('logout') !== -1 && !this.items[selectedItem].ref) {
+            this.fire('logout')
+          }
+          var title = this.items[selectedItem].title
+          if (title) {
+            text = text.replace(title, '')
+            this.items[selectedItem].autoImage = this.imageIndex().then(function (idx) {
+              var result = idx.search(title)
+              if (result.length) {
+                return '' + result[0].ref
+              } else {
+                return ''
+              }
+            })
+          }
+          if (firebase.storage && this.items[selectedItem].image === '' && this.items[selectedItem].autoImage) {
+            this.items[selectedItem].autoImage.then(function (imageRef) {
+              if (!imageRef) {
+                return 'no image'
+              }
+              return firebase.storage().ref().child(imageRef).getDownloadURL().then(function (url) {
+                var image = url
                 if (image.split('%2F')[1]) { // TODO DRY
-                  var that = this
                   db.collection('files').doc(image.split('%2F')[1]).get().then(function (doc) {
                     if (doc.exists && doc.data() && doc.data().vision && doc.data().vision[0].imagePropertiesAnnotation) {
                       var colour = doc.data().vision['0'].imagePropertiesAnnotation.dominantColors.colors['0'].color
@@ -1059,31 +878,216 @@
                         return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b)
                       }
                       var toolbarColor = rgbToHex(colour.red || 0, colour.green || 0, colour.blue || 0)
+
                       that.set(['items', selectedItem, 'toolbarColor'], toolbarColor)
-                      that.items[selectedItem].ref.set({toolbarColor: toolbarColor}, {merge: true})
+
+                      if (that.items[selectedItem].ref) {
+                        that.items[selectedItem].ref.set({toolbarColor: toolbarColor}, {merge: true})
+                      }
                     }
                   })
                 }
-                if (this.items[selectedItem].ref) {
-                  this.items[selectedItem].ref.set({image: image}, {merge: true})
+                if (that.items[selectedItem].ref) {
+                  that.items[selectedItem].ref.set({image: url}, {merge: true})
+                }
+                return that.set(['items', selectedItem, 'image'], url)
+              })
+            })
+          }
+          if (title && this.items[selectedItem].text !== text) {
+            this.items[selectedItem].text = text
+            if (this.items[selectedItem].ref) {
+              this.items[selectedItem].ref.set({text: text}, {merge: true})
+            }
+          }
+          for (var op in stuff) {
+            if (stuff[op].insert && typeof stuff[op].insert === 'string') {
+              if (!name) {
+                name = stuff[op].insert.split('\n')[0]
+                if (name) {
+                  title = name.replace(/[^0-9a-z-A-Z\/ ]/g, ' ').trim()
+                  if (!title) {
+                    return 'no title'
+                  }
+                  if (this.items[selectedItem].title !== title) {
+                    this.items[selectedItem].title = title
+                    this.items[selectedItem].image = '' // new title reset image
+                    if (this.items[selectedItem].ref) {
+                      if (!title) {
+                        return 'no title'
+                      } else {
+                        return this.items[selectedItem].ref.set({title: title}, {merge: true})
+                      }
+                    }
+                  }
+                } else if (stuff[op].insert.split('\n').join('') || (this.items[selectedItem] && !this.items[selectedItem].title)) {
+                  this.items[selectedItem].title = stuff[op].insert.split('\n').join('')
+                  if (this.items[selectedItem].ref) {
+                    this.items[selectedItem].ref.set({title: this.items[selectedItem].title}, {merge: true})
+                  }
+                }
+              } else if (!add) {
+                var lines = stuff[op].insert.split('\n')
+                for (var line in lines) {
+                  var toAdd = lines[line]
+                  if (toAdd) {
+                    for (var trick in tricks) {
+                      if (tricks[trick].done && tricks[trick].done[toAdd]) {
+                        continue
+                      }
+                      var regex = new RegExp(tricks[trick].intent, 'gmi')
+                      var matchs
+                      while ((matchs = regex.exec(toAdd)) !== null && !add) {
+                        if (tricks[trick].done && tricks[trick].done[toAdd]) {
+                          continue
+                        }
+                        if (matchs.index === regex.lastIndex) {
+                          regex.lastIndex++
+                        }
+ 
+                        var addBefore = lines.slice(0, +line).join('\n')
+                        addAt = op
+                        var addAfter = lines.slice(1 + +(line)).join('\n')
+  
+                        if (typeof tricks[trick].action === 'function') {
+                          var theTrick
+ 
+                          if (!tricks[trick].split) {
+                            theTrick = JSON.parse(
+                              toAdd.replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm, '\\n')
+                            )
+                          } else {
+                            theTrick = JSON.parse(
+                              toAdd.replace(new RegExp(tricks[trick].split, 'gm'), '\\n').replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm, '\\n')
+                            )
+                          }
+                      //  this.set(["items",selectedItem,trick], theTrick)
+
+                          theTrick.quill = stuff
+                          theTrick.addBefore = addBefore
+                          theTrick.replacing = matchs[0]
+                          theTrick.addAfter = addAfter
+                          theTrick.profileId = that.profileId
+                          theTrick._ = that.items[selectedItem]['_' + trick]
+
+                          if (typeof tricks[trick].openAction === 'function') {
+                            await tricks[trick].openAction(theTrick, function (formTrick) {
+                              that.set(['items', selectedItem, '_' + trick], formTrick)
+                            })
+                          }
+                          if (tricks[trick].debounce) {
+                            if (!tricks[trick].done) {
+                              tricks[trick].done = {}
+                            }
+                            tricks[trick].done[lines[line]] = true // stop loop
+
+                            debounedFunct = function (trik, theTrik) {
+                              return function () {
+                                trik.action(theTrik, function (formTrick) {
+                              // add = [{insert: addBefore + "\n"}].concat(formTrick, [{insert: addAfter + "\n"}])
+                              // updateCard()
+                              // add = []
+                                })
+                              }
+                            }
+                            that.debounce(trick, debounedFunct(tricks[trick], theTrick), tricks[trick].debounce)
+                          } else {
+                            await tricks[trick].action(theTrick, function (formTrick) {
+                              if (formTrick) {
+                                add = [{insert: addBefore + '\n'}].concat(formTrick, [{insert: addAfter + '\n'}])
+                              }
+                            })
+                          }
+                        } else if (tricks[trick].action) {
+                          var theTrick
+
+                          if (!tricks[trick].split) {
+                            theTrick = JSON.parse(
+                              toAdd.replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm, '\\n')
+                            )
+                          } else {
+                            theTrick = JSON.parse(
+                              toAdd.replace(new RegExp(tricks[trick].split, 'gm'), '\\n').replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm, '\\n')
+                            )
+                          }
+
+                          add = [{insert: addBefore + '\n'}].concat(theTrick.action, [{insert: addAfter + '\n'}])
+                          this.set(['items', selectedItem, trick], theTrick)
+                        } else {
+                          add = [
+                            {insert: addBefore + '\n'},
+                            {insert: addAfter + '\n'}
+                          ]
+                        }
+                        if (tricks[trick].icon) {
+                          if (this.cardIcons.indexOf(tricks[trick].icon) === -1) {
+                            this.push('cardIcons', tricks[trick].icon)
+                          }
+                        }
+                        this.set(['items', selectedItem, trick], theTrick)
+                        if (this.items[selectedItem].ref) {
+                          var toSave = {}
+                          toSave[trick] = {}
+                          Object.keys(theTrick).forEach(function (key) {
+                            if (theTrick[key] && !key.startsWith('_')) {
+                              toSave[trick][key] = theTrick[key]
+                            }
+                          })
+                          this.items[selectedItem].ref.set(toSave, {merge: true})
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            } else if (!image || this.items[selectedItem].image !== image) {
+              if (stuff[op].insert && typeof stuff[op].insert === 'object' && stuff[op].insert.image) {
+                image = stuff[op].insert.image
+                if (this.items[selectedItem].image !== image) {
+                  this.set(['items', selectedItem, 'image'], image)
+                  if (image.split('%2F')[1]) { // TODO DRY
+                    var that = this
+                    db.collection('files').doc(image.split('%2F')[1]).get().then(function (doc) {
+                      if (doc.exists && doc.data() && doc.data().vision && doc.data().vision[0].imagePropertiesAnnotation) {
+                        var colour = doc.data().vision['0'].imagePropertiesAnnotation.dominantColors.colors['0'].color
+                        function componentToHex (c) {
+                          var hex = c.toString(16)
+                          return hex.length == 1 ? '0' + hex : hex
+                        }
+                        function rgbToHex (r, g, b) {
+                          return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b)
+                        }
+                        var toolbarColor = rgbToHex(colour.red || 0, colour.green || 0, colour.blue || 0)
+                        that.set(['items', selectedItem, 'toolbarColor'], toolbarColor)
+                        that.items[selectedItem].ref.set({toolbarColor: toolbarColor}, {merge: true})
+                      }
+                    })
+                  }
+                  if (this.items[selectedItem].ref) {
+                    this.items[selectedItem].ref.set({image: image}, {merge: true})
+                  }
                 }
               }
             }
-          }
 //        if (stuff[op].insert && stuff[op].insert.image) {
 //          if (stuff[op].insert.image.length > 1000*1000) {
 //            this.resizeImage(stuff, op)
 //          }
 //        }
-        }
-        if (head) {
-          stuff = stuff.splice(0, +headAt).concat(head, stuff.splice(1 + +(headAt)))
-        } else if (add) {
-          stuff = stuff.splice(0, +addAt).concat(add, stuff.splice(1 + +(addAt)))
-        }
-        if (add || head) {
-          updateCard(stuff)
-        }
+          }
+          if (head) {
+            stuff = stuff.splice(0, +headAt).concat(head, stuff.splice(1 + +(headAt)))
+          } else if (add) {
+            stuff = stuff.splice(0, +addAt).concat(add, stuff.splice(1 + +(addAt)))
+          }
+          if (add || head) {
+            updateCard(stuff)
+          }
+        }).then(function (e){
+          // move card update here
+        }).catch(function (e){
+          console.error(e)
+        })
       }
       this.debounce('debouncedTestStuff', debouncedTestStuff, 2000)
     },
