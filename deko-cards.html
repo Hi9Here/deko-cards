@@ -1294,22 +1294,20 @@
           // that.items = theSnap.sort(sortByChild)
           var cards = []
           theSnap.forEach(function (doc) {
-            var docData = doc.data()
-            if (!docData.given) {
-              cards.push({
-                title: docData.title,
-                image: docData.image,
-                toolbarColor: docData.toolbarColor,
-                dek: docData.dek,
-                show: docData.show,
-                text: docData.text,
-                timer: docData.timer,
-                reminder: docData.reminder,
-                signedOff: docData.signedOff,
-                setsReps: docData.setsReps,
-                ref: doc.ref
-              })
-            }
+            var docData = doc.data(
+            cards.push({
+              title: docData.title,
+              image: docData.image,
+              toolbarColor: docData.toolbarColor,
+              dek: docData.dek,
+              show: docData.show,
+              text: docData.text,
+              timer: docData.timer,
+              reminder: docData.reminder,
+              signedOff: docData.signedOff,
+              setsReps: docData.setsReps,
+              ref: doc.ref
+            })
           })
           that.set('editing', false)
           that.set('items', cards)
