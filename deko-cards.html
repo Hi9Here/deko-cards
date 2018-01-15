@@ -86,74 +86,34 @@
       }
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
-    <iron-media-query query="(min-width: 590px)" query-matches="{{wide}}"></iron-media-query>
-    <!--Wide Layout for Desktop-->
-    <template is="dom-if" if="{{wide}}">
-      <template is="dom-if" if="[[pageing]]" restamp>
-        <paper-input label="Start At ..." value="{{find}}"></paper-input>
-      </template>
-      <div id="card-view">
-        <div class="pre desktop">
-          <template is="dom-if" if="[[pagesLength]]">
-            <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
-          </template>
-        </div>
-        <deko-card-container>
-          <template is="dom-repeat" items="[[items]]" initial-Count="1" id="list0">
-            <deko-card on-tap="selectOpen" card="[[item]]"></deko-card>
-          </template>
-        </deko-card-container>
-        <div class="nex desktop">
-          <template is="dom-if" if="[[nextPageStartAt]]">
-            <paper-button on-tap="next"><h6>></h6> </paper-button>
-          </template>
-        </div>
-      </div>
+    <template is="dom-if" if="[[pageing]]" restamp>
+      <paper-input label="Start At ..." value="{{find}}"></paper-input>
     </template>
-    <!--Narrow Layout under 700px-->
-    <template is="dom-if" if="{{!wide}}">
-      <template is="dom-if" if="[[pageing]]" restamp>
-        <paper-input label="Start At ..." value="{{find}}"></paper-input>
-      </template>
-      <div style="height: 100%">
-        <div class="pre mobile">
-          <template is="dom-if" if="[[pagesLength]]">
-            <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
-          </template>
-        </div>
-        <template is="dom-repeat" items="[[items]]" filter="pickable"  id="list1">
-          <paper-toolbar class="toolbarMobile" on-tap="select" title="[[item.title]]" card="{{item}}" style$="background:[[item.toolbarColor]]; height: 35px;">
-            <iron-icon icon="[[item.icon]]" style="height:90%"></iron-icon>
-            <div class="title">[[item.title]]</div>
-          </paper-toolbar>
+    <div id="card-view">
+      <div class="pre desktop">
+        <template is="dom-if" if="[[pagesLength]]">
+          <paper-button on-tap="perv"><h6>&lt;</h6></paper-button>
         </template>
-        <template is="dom-repeat" items="[[items]]" filter="selected" id="list4">
-          <div id="narrow">
-            <deko-card on-tap="selectOpen" card="{{item}}"></deko-card>
-          </div>
-        </template>
-        <div class="nex mobile">
-          <template is="dom-if" if="[[nextPageStartAt]]">
-            <paper-button on-tap="next"><h6>></h6> </paper-button>
-          </template>
-        </div>
       </div>
-    </template>
+      <deko-card-container>
+        <template is="dom-repeat" items="[[items]]" initial-Count="1" id="list0">
+          <deko-card on-tap="selectOpen" card="[[item]]"></deko-card>
+        </template>
+      </deko-card-container>
+      <div class="nex desktop">
+        <template is="dom-if" if="[[nextPageStartAt]]">
+          <paper-button on-tap="next"><h6>></h6> </paper-button>
+        </template>
+      </div>
+    </div>
     <template is="dom-repeat" items="{{items}}" filter="selected" id="list5">
       <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" icons='[[cardIcons]]' on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
-        <div style="margin: auto;max-width:100%;width:1000px;">
-          <template is="dom-if" if="[[item.image]]">  
-            <paper-toolbar style$="width: 100%;position: absolute;left: 0;top: 0;height: 70px;background:[[item.toolbarColor]];color:[[getFg(item.toolbarColor)]];"></paper-toolbar>
-          </template>
+        <div style$="margin: auto;max-width:100%;width:1000px;background:[[item.toolbarColor]];color:[[getFg(item.toolbarColor)]];">
           <quill-js style="max-width: 780px;margin: auto;" value="{{item.quill}}" id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
           <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" meta="[[meta]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
         </div>
         <div style="margin: auto;max-width:100%;width:1000px;">
-          <template is="dom-if" if="[[item.image]]">
-            <paper-toolbar style$="width: 100%;position: absolute;left: 0;top: 0;height: 70px;background:[[item.toolbarColor]];color:[[getFg(item.toolbarColor)]]"></paper-toolbar>
-      <!--  <div style="margin: auto;width:1000px;max-width:100%;text-align: center;"><img src="[[item.image]]" style="margin: auto;max-width:100%"></div> -->
-          </template>
-          <quill-js value="[[item.quill]]" id="show" show editor-show="{{showQuill}}"  theme="bubble" style="max-width: 780px;padding: 20px;margin: auto;" ></quill-js>
+          <div inner-h-t-m-l="[[item.html]]" id="show" style$="position: absolute;left: 0;top: 0;height: 70px;background:[[item.toolbarColor]];color:[[getFg(item.toolbarColor)]];max-width: 780px;padding: 20px;margin: auto;" ></div>
           <div style="text-align:center">
             <template is="dom-repeat" items="[[item._signatures]]" as="sig">
               <deko-signature id="[[toId(sig.signature)]]" signature="[[sig.signature]]" to-test="[[sig.stuff]]"></deko-signature><br>
@@ -475,7 +435,6 @@
                   dataRef.set({setsReps: 'Done'}, {merge: true})
                   save(ops)
                 }
-
                 return ops
               },
               _tick: function (quill) {
