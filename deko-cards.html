@@ -799,7 +799,7 @@
       this.resub()
     },
     testStuff: function (line, tricks, selectedItem, quill) {
-      async function debouncedTestStuff () {
+       function debouncedTestStuff () {
         var that = this
         selectedItem = this._items(this.items)
         
@@ -860,7 +860,7 @@
             })
           }
           if (firebase.storage && this.items[selectedItem].image === '' && this.items[selectedItem].autoImage) {
-            this.items[selectedItem].autoImage.then(function (imageRef) {
+            this.items[selectedItem].autoImage.then(async function (imageRef) {
               if (!imageRef) {
                 return 'no image'
               }
