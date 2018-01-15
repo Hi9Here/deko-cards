@@ -776,22 +776,26 @@
       var n = 0
       var that = this
       var setFocus
+      that.quill.once('text-change', function() {
+        try {
+          document.body.focus()
+          that.quill.focus() 
+          clearInterval(setFocus)
+        } catch (e) {
+          console.log(e)
+        }  
+      })
       var open = function () {
         that.clearTrick()
         that.$$('open-card').open()
-        that.quill.once('text-change', function() {
-          try {
-            document.body.focus()
-            that.quill.focus() 
-            clearInterval(setFocus)
-          } catch (e) {
-            console.log(e)
-          }  
-        })
+
         that.quill.setContents([
-          {insert: '\n', attributes: {header: 1}}
+          {insert: '\n'},
+          {attributes: {header: 1},insert: '\n'},
+          {insert: '\n'}
         ])
       }
+      
       setTimeout(function(){
         setFocus = setInterval(open, 1000)
       }, 1000)
