@@ -1338,7 +1338,7 @@
       return accumulator
     },
     select: function (e) {
-      var pick = e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
+      var pick = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.card || e.target.parentNode.parentNode.parentNode.parentNode.card || e.target.parentNode.parentNode.parentNode.card || e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
       var that = this
 
       var id = ''
