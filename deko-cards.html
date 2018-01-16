@@ -847,13 +847,13 @@
           if (!text) {
             return 'nothing to test'
           }
-          if (text.indexOf('logout') !== -1 && !this.items[selectedItem].ref) {
-            this.fire('logout')
+          if (text.indexOf('logout') !== -1 && !that.items[selectedItem].ref) {
+            that.fire('logout')
           }
-          var title = this.items[selectedItem].title
+          var title = that.items[selectedItem].title
           if (title) {
             text = text.replace(title, '')
-            this.items[selectedItem].autoImage = this.imageIndex().then(function (idx) {
+            that.items[selectedItem].autoImage = that.imageIndex().then(function (idx) {
               var result = idx.search(title)
               if (result.length) {
                 return '' + result[0].ref
@@ -862,8 +862,8 @@
               }
             })
           }
-          if (firebase.storage && this.items[selectedItem].image === '' && this.items[selectedItem].autoImage) {
-            this.items[selectedItem].autoImage.then(async function (imageRef) {
+          if (firebase.storage && that.items[selectedItem].image === '' && that.items[selectedItem].autoImage) {
+            that.items[selectedItem].autoImage.then(async function (imageRef) {
               if (!imageRef) {
                 return 'no image'
               }
@@ -897,16 +897,16 @@
               })
             })
           }
-          if (title && this.items[selectedItem].text !== text) {
-            this.items[selectedItem].text = text
-            if (this.items[selectedItem].ref) {
-              this.items[selectedItem].ref.set({text: text}, {merge: true})
+          if (title && that.items[selectedItem].text !== text) {
+            that.items[selectedItem].text = text
+            if (that.items[selectedItem].ref) {
+              that.items[selectedItem].ref.set({text: text}, {merge: true})
             }
           }
-          if (title && this.items[selectedItem].html !== html) {
-            this.items[selectedItem].html = html
-            if (this.items[selectedItem].ref) {
-              this.items[selectedItem].ref.set({html: html}, {merge: true})
+          if (title && that.items[selectedItem].html !== html) {
+            that.items[selectedItem].html = html
+            if (that.items[selectedItem].ref) {
+              that.items[selectedItem].ref.set({html: html}, {merge: true})
             }
           }
           for (var op in stuff) {
@@ -918,21 +918,21 @@
                   if (!title) {
                     return 'no title'
                   }
-                  if (this.items[selectedItem].title !== title) {
-                    this.items[selectedItem].title = title
-                    this.items[selectedItem].image = '' // new title reset image
-                    if (this.items[selectedItem].ref) {
+                  if (that.items[selectedItem].title !== title) {
+                    that.items[selectedItem].title = title
+                    that.items[selectedItem].image = '' // new title reset image
+                    if (that.items[selectedItem].ref) {
                       if (!title) {
                         return 'no title'
                       } else {
-                        return this.items[selectedItem].ref.set({title: title}, {merge: true})
+                        return that.items[selectedItem].ref.set({title: title}, {merge: true})
                       }
                     }
                   }
-                } else if (stuff[op].insert.split('\n').join('') || (this.items[selectedItem] && !this.items[selectedItem].title)) {
-                  this.items[selectedItem].title = stuff[op].insert.split('\n').join('')
-                  if (this.items[selectedItem].ref) {
-                    this.items[selectedItem].ref.set({title: this.items[selectedItem].title}, {merge: true})
+                } else if (stuff[op].insert.split('\n').join('') || (that.items[selectedItem] && !that.items[selectedItem].title)) {
+                  that.items[selectedItem].title = stuff[op].insert.split('\n').join('')
+                  if (that.items[selectedItem].ref) {
+                    that.items[selectedItem].ref.set({title: that.items[selectedItem].title}, {merge: true})
                   }
                 }
               } else if (!add) {
@@ -970,7 +970,7 @@
                               toAdd.replace(new RegExp(tricks[trick].split, 'gm'), '\\n').replace(regex, JSON.stringify(tricks[trick])).replace(/(\n|\t)/gm, '\\n')
                             )
                           }
-                      //  this.set(["items",selectedItem,trick], theTrick)
+                      //  that.set(["items",selectedItem,trick], theTrick)
 
                           theTrick.quill = stuff
                           theTrick.addBefore = addBefore
@@ -1021,7 +1021,7 @@
                           }
 
                           add = [{insert: addBefore + '\n'}].concat(theTrick.action, [{insert: addAfter + '\n'}])
-                          this.set(['items', selectedItem, trick], theTrick)
+                          that.set(['items', selectedItem, trick], theTrick)
                         } else {
                           add = [
                             {insert: addBefore + '\n'},
@@ -1029,12 +1029,12 @@
                           ]
                         }
                         if (tricks[trick].icon) {
-                          if (this.cardIcons.indexOf(tricks[trick].icon) === -1) {
-                            this.push('cardIcons', tricks[trick].icon)
+                          if (that.cardIcons.indexOf(tricks[trick].icon) === -1) {
+                            that.push('cardIcons', tricks[trick].icon)
                           }
                         }
-                        this.set(['items', selectedItem, trick], theTrick)
-                        if (this.items[selectedItem].ref) {
+                        that.set(['items', selectedItem, trick], theTrick)
+                        if (that.items[selectedItem].ref) {
                           var toSave = {}
                           toSave[trick] = {}
                           Object.keys(theTrick).forEach(function (key) {
@@ -1042,20 +1042,19 @@
                               toSave[trick][key] = theTrick[key]
                             }
                           })
-                          this.items[selectedItem].ref.set(toSave, {merge: true})
+                          that.items[selectedItem].ref.set(toSave, {merge: true})
                         }
                       }
                     }
                   }
                 }
               }
-            } else if (!image || this.items[selectedItem].image !== image) {
+            } else if (!image || that.items[selectedItem].image !== image) {
               if (stuff[op].insert && typeof stuff[op].insert === 'object' && stuff[op].insert.image) {
                 image = stuff[op].insert.image
-                if (this.items[selectedItem].image !== image) {
-                  this.set(['items', selectedItem, 'image'], image)
+                if (that.items[selectedItem].image !== image) {
+                  that.set(['items', selectedItem, 'image'], image)
                   if (image.split('%2F')[1]) { // TODO DRY
-                    var that = this
                     db.collection('files').doc(image.split('%2F')[1]).get().then(function (doc) {
                       if (doc.exists && doc.data() && doc.data().vision && doc.data().vision[0].imagePropertiesAnnotation) {
                         var colour = doc.data().vision['0'].imagePropertiesAnnotation.dominantColors.colors['0'].color
@@ -1072,15 +1071,15 @@
                       }
                     })
                   }
-                  if (this.items[selectedItem].ref) {
-                    this.items[selectedItem].ref.set({image: image}, {merge: true})
+                  if (that.items[selectedItem].ref) {
+                    that.items[selectedItem].ref.set({image: image}, {merge: true})
                   }
                 }
               }
             }
 //        if (stuff[op].insert && stuff[op].insert.image) {
 //          if (stuff[op].insert.image.length > 1000*1000) {
-//            this.resizeImage(stuff, op)
+//            that.resizeImage(stuff, op)
 //          }
 //        }
           }
