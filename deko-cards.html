@@ -820,6 +820,8 @@
           var add
           var addAt
           var text = newQuill.getText().replace(/\n/g, ' ').trim()
+          var html = elem.innerHTML
+          
           function updateCard () {
             if (JSON.stringify(that.items[selectedItem].quill) !== JSON.stringify(stuff)) {
               var quillSave = {
@@ -899,6 +901,12 @@
             this.items[selectedItem].text = text
             if (this.items[selectedItem].ref) {
               this.items[selectedItem].ref.set({text: text}, {merge: true})
+            }
+          }
+          if (title && this.items[selectedItem].html !== html) {
+            this.items[selectedItem].html = html
+            if (this.items[selectedItem].ref) {
+              this.items[selectedItem].ref.set({html: html}, {merge: true})
             }
           }
           for (var op in stuff) {
