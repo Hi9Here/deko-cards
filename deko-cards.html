@@ -113,7 +113,7 @@
           <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" meta="[[meta]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
         </div>
         <div style="margin: auto;max-width:100%;width:1000px;">
-          <deko-card style="min-height: 280px;min-width: 198px;" card="[[item]]"></deko-card>
+          <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]"></deko-card>
           <div style="text-align:center">
             <template is="dom-repeat" items="[[item._signatures]]" as="sig">
               <deko-signature id="[[toId(sig.signature)]]" signature="[[sig.signature]]" to-test="[[sig.stuff]]"></deko-signature><br>
