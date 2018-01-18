@@ -97,7 +97,7 @@
       </div>
       <deko-card-container>
         <template is="dom-repeat" items="[[items]]" initial-Count="1" id="list0">
-          <deko-card style="height: 280px;width: 198px" on-tap="selectOpen" card="[[item]]"></deko-card>
+          <deko-card on-tap="selectOpen" card="[[item]]"></deko-card>
         </template>
       </deko-card-container>
       <div class="nex desktop">
@@ -113,7 +113,7 @@
           <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" meta="[[meta]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
         </div>
         <div style="margin: auto;max-width:100%;width:1000px;">
-          <deko-card style="max-width: 80%;min-width: 300px;display: block;margin: auto;" card="[[item]]"></deko-card>
+          <deko-card style="min-height: 280px;min-width: 198px;" card="[[item]]"></deko-card>
           <div style="text-align:center">
             <template is="dom-repeat" items="[[item._signatures]]" as="sig">
               <deko-signature id="[[toId(sig.signature)]]" signature="[[sig.signature]]" to-test="[[sig.stuff]]"></deko-signature><br>
