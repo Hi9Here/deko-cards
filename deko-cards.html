@@ -171,9 +171,6 @@
         observer: 'changingPart',
         value: false
       },
-      cardIcons: {
-        value: []
-      },
       _runTricks: {
         computed: 'testStuff(line, tricks, selectedItemIndex, quill)'
       },
@@ -1032,11 +1029,6 @@
                             {insert: addBefore + '\n'},
                             {insert: addAfter + '\n'}
                           ]
-                        }
-                        if (tricks[trick].icon) {
-                          if (that.cardIcons.indexOf(tricks[trick].icon) === -1) {
-                            that.push('cardIcons', tricks[trick].icon)
-                          }
                         }
                         that.set(['items', selectedItem, trick], theTrick)
                         if (that.items[selectedItem].ref) {
