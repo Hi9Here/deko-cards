@@ -814,7 +814,7 @@
         })
         
         newQuill.disable()
-        if (data && data.docs[0] && data.docs[0].data) {
+        if (!that.editing && data && data.docs[0] && data.docs[0].data) {
           newQuill.setContents(data.docs[0].data().value)
         } else {
           newQuill.setContents(that.items[that._items(that.items)].quill)
