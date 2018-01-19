@@ -598,12 +598,31 @@
       } else if (cardPart === 1) {
         this.prompt = ''
         if (selectedCard && selectedCard.setsReps) {
-          return ['Edit', 'Next','Give', 'Return' ]
+          return ['Edit', 'Next', 'Give', 'Return' ]
         }
         return ['Edit', 'Give', 'Return']
       } else {
         // get tricks
       }
+    },
+    showQuill: function () {
+      var that = this
+      var elem = document.createElement('div')
+
+      var newQuill = new Quill(elem, {
+        modules: {
+          toolbar: false
+        },
+        placeholder: "",
+      })
+      var card = that._items(that.items)
+      
+      newQuill.disable()
+      newQuill.setContents(that.items[card].quill)
+      newQuill.formatLine(1, 2, 'attributes', {header: 1})
+
+      that.items[card].html = elem.innerHTML
+      
     },
     addTextSetPrompt: function (d) {
       var that = this
@@ -616,6 +635,7 @@
         this.quill.setSelection(cur + 1 + textToAdd.length)
         this.line = d.detail.chip.trim() + ' '
         this.chips = []
+        this.showQuill
       } else if (this.cardPart == 1) {
         console.log(d.detail.chip.trim())
         var textOnChip = d.detail.chip.trim().toLowerCase()
