@@ -109,11 +109,15 @@
     <template is="dom-repeat" items="{{items}}" filter="selected" id="list5">
       <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
         <div style$="margin: auto;max-width:100%;width:1000px;background:[[item.toolbarColor]];color:[[getFg(item.toolbarColor)]];">
-          <quill-js style="max-width: 780px;margin: auto;" value="{{item.quill}}" id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
+          <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
+            <quill-js style="max-width: 780px;margin: auto;" value="{{item.quill}}" id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
+          </deko-card>
           <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" meta="[[meta]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
         </div>
         <div style="margin: auto;max-width:100%;width:1000px;">
-          <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open"></deko-card>
+          <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
           <div style="text-align:center">
             <template is="dom-repeat" items="[[item._signatures]]" as="sig">
               <deko-signature id="[[toId(sig.signature)]]" signature="[[sig.signature]]" to-test="[[sig.stuff]]"></deko-signature><br>
@@ -799,7 +803,6 @@
       var selected = this._items(this.items)
       if (selected !== false && !this.items[selected].ref) {
         console.log(this.items[selected])
-        debugger
         return
       }
       var that = this
@@ -816,8 +819,10 @@
         newQuill.disable()
         if (!that.editing && data && data.docs[0] && data.docs[0].data) {
           newQuill.setContents(data.docs[0].data().value)
-        } else {
+        } else if (that.items[that._items(that.items)].quill) {
           newQuill.setContents(that.items[that._items(that.items)].quill)
+        } else {
+          debugger
         }
         newQuill.formatLine(1, 2, 'attributes', {header: 1})
 
