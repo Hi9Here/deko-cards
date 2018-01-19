@@ -796,7 +796,13 @@
       this.resub()
     },
     testStuff: function (line, tricks, selectedItem, quill) {
-       function debouncedTestStuff () {
+      var selected = this._items(this.items)
+      if (selected !== false && !this.items[selected].ref) {
+        console.log(this.items[selected])
+        debugger
+        return
+      }
+      function debouncedTestStuff () {
         var that = this
         selectedItem = this._items(this.items)
         this.items[selectedItem].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(async function (data) {
