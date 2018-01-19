@@ -588,7 +588,7 @@
     },
     getCommands: function (cardPart, items, selectedItemIndex) {
       var selectedCard = items[selectedItemIndex]
-      
+      this.showQuill()
       if (cardPart === 0) {
         if (selectedCard !== false && selectedCard && selectedCard.ref) {
           return ['Delete', 'Show it']
@@ -607,22 +607,22 @@
     },
     showQuill: function () {
       var that = this
-      var elem = document.createElement('div')
-
-      var newQuill = new Quill(elem, {
-        modules: {
-          toolbar: false
-        },
-        placeholder: "",
-      })
       var card = that._items(that.items)
-      
-      newQuill.disable()
-      newQuill.setContents(that.items[card].quill)
-      newQuill.formatLine(1, 2, 'attributes', {header: 1})
+     
+      if (card !== false) {
+        var elem = document.createElement('div')
 
-      that.items[card].html = elem.innerHTML
-      
+        var newQuill = new Quill(elem, {
+          modules: {
+            toolbar: false
+          },
+          placeholder: "",
+        })
+        newQuill.disable()
+        newQuill.setContents(that.items[card].quill)
+        newQuill.formatLine(1, 2, 'attributes', {header: 1})
+        that.items[card].html = elem.innerHTML
+      }
     },
     addTextSetPrompt: function (d) {
       var that = this
@@ -635,7 +635,7 @@
         this.quill.setSelection(cur + 1 + textToAdd.length)
         this.line = d.detail.chip.trim() + ' '
         this.chips = []
-        this.showQuill
+        this.showQuill()
       } else if (this.cardPart == 1) {
         console.log(d.detail.chip.trim())
         var textOnChip = d.detail.chip.trim().toLowerCase()
