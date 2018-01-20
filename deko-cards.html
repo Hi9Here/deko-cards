@@ -602,11 +602,13 @@
         newQuill.formatLine(1, 2, 'attributes', {header: 1})
         if (elem.innerHTML !== this.items[card].html) {
           this.set(['items',card,'html'], elem.innerHTML)
-          this.set('items', this.items.map(function (x) {
-            return x
-          }))
+          
         }
       }
+      this.set('items', this.items.map(function (x) {
+        console.log(x)
+        return x
+      }))
     },
     addTextSetPrompt: function (d) {
       var that = this
