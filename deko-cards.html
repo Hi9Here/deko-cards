@@ -589,7 +589,8 @@
     },
     showQuill: function () {
       var card = this._items(this.items)
-      if (card !== false && this.items[card].quill && this.items[card].quill.length) {
+      var show = this.$$("#show")
+      if (show !== null && card !== false && this.items[card].quill && this.items[card].quill.length) {
         var elem = document.createElement('div')
         var newQuill = new Quill(elem, {
           modules: {
@@ -600,13 +601,10 @@
         newQuill.disable()
         newQuill.setContents(this.items[card].quill)
         newQuill.formatLine(1, 2, 'attributes', {header: 1})
-        if (elem.innerHTML !== this.items[card].html) {
+        if (elem.innerHTML !== show.innerHTML) {
           this.set(['items',card,'html'], elem.innerHTML)
           // update open card
-          var show = this.$$("#show")
-          if (show) {
-            show.innerHTML = elem.innerHTML
-          }
+          show.innerHTML = elem.innerHTML
           this.set('items', this.items.map(function (x) {
             return x
           }))
