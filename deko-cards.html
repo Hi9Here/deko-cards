@@ -100,7 +100,7 @@
         </div>
         <div style="margin: auto;max-width:100%;width:1000px;">
           <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
-            <div inner-h-t-m-l="[[item.html]]"></div>
+            <div id="show" inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
           <div style="text-align:center">
             <template is="dom-repeat" items="[[item._signatures]]" as="sig">
@@ -602,6 +602,11 @@
         newQuill.formatLine(1, 2, 'attributes', {header: 1})
         if (elem.innerHTML !== this.items[card].html) {
           this.set(['items',card,'html'], elem.innerHTML)
+          // update open card
+          var show = this.$$("#show")
+          if (show) {
+            show.innerHTML = elem.innerHTML
+          }
           this.set('items', this.items.map(function (x) {
             return x
           }))
