@@ -20,52 +20,11 @@
         --paper-chip-background-color:red;
         --paper-chip-secondary-text-color:#fff;
       }
-      #narrow {
-        @apply(--layout-horizontal);
-        @apply(--layout-center-justified);
-        height: 100%;
-      }
-      #card-view {
-        @apply(--layout-horizontal);
-        @apply(--layout-center-justified);
-        @apply(--layout-wrap);
-      }
-      .pre.desktop {
-        left: 80px;
-      }
-      .nex.desktop {
-        right: 80px;
-      }
-      .desktop {
-        position: absolute;
-        top: 320px;
-      }
-      .nex.mobile {
-        position: absolute;
-        left: 200px;
-        bottom: -45px;
-      }
-      .pre.mobile {
-        position: absolute;
-        left: 200px;
-        bottom: -25px;
-      }
-      *, *:before, *:after {
-        box-sizing: border-box; 
-      }
-      /* make a grid */
-      #narrow .wrapper {
-        max-width: 700px;
-        margin: 0 auto;
-        display: grid;
-        grid-gap: 1px;
-      }
-      .title {
-        margin-left: none;
-      }
-      .ql-editor h1 {
-        margin-left: -20px;
-      }
+      .pre.desktop { left: 80px; }
+      .nex.desktop { right: 80px; }
+      .nex.mobile { position: absolute; left: 200px; bottom: -45px; }
+      .pre.mobile { position: absolute; left: 200px; bottom: -25px; }
+      *, *:before, *:after { box-sizing: border-box; }
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <template is="dom-if" if="[[pageing]]" restamp>
