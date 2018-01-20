@@ -25,17 +25,10 @@
         @apply(--layout-center-justified);
         height: 100%;
       }
-      paper-button {
-        color: #fff;
-        padding: 5px;
-      }
       #card-view {
         @apply(--layout-horizontal);
         @apply(--layout-center-justified);
         @apply(--layout-wrap);
-      }
-      deko-card-container {
-        margin-top: 50px;
       }
       .pre.desktop {
         left: 80px;
@@ -56,17 +49,6 @@
         position: absolute;
         left: 200px;
         bottom: -25px;
-      }
-      .mobile {
-        transform: rotate(90deg);   
-      }
-      paper-toolbar {
-        --paper-toolbar-height: 35px;
-        --paper-toolbar-sm-height: 35px;
-        --paper-toolbar-title: {
-          font-size: 18px;
-          font-weight: 300;
-        }
       }
       *, *:before, *:after {
         box-sizing: border-box; 
@@ -618,7 +600,12 @@
         newQuill.disable()
         newQuill.setContents(this.items[card].quill)
         newQuill.formatLine(1, 2, 'attributes', {header: 1})
-        this.set(['items',card,'html'], elem.innerHTML)
+        if (elem.innerHTML !== this.items[card].html) {
+          this.set(['items',card,'html'], elem.innerHTML)
+          this.set('items', this.items.map(function (x) {
+            return x
+          }))
+        }
       }
     },
     addTextSetPrompt: function (d) {
