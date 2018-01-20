@@ -606,12 +606,9 @@
       }
     },
     showQuill: function () {
-      var that = this
-      var card = that._items(that.items)
-     
-      if (card !== false) {
+      var card = this._items(this.items)
+      if (card !== false && this.items[card].quill && this.items[card].quill.length) {
         var elem = document.createElement('div')
-
         var newQuill = new Quill(elem, {
           modules: {
             toolbar: false
@@ -619,9 +616,9 @@
           placeholder: "",
         })
         newQuill.disable()
-        newQuill.setContents(that.items[card].quill)
+        newQuill.setContents(this.items[card].quill)
         newQuill.formatLine(1, 2, 'attributes', {header: 1})
-        that.items[card].html = elem.innerHTML
+        this.set(['items',card,'html'], elem.innerHTML
       }
     },
     addTextSetPrompt: function (d) {
