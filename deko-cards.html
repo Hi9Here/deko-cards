@@ -1121,7 +1121,7 @@
         var that = this
         selectedItem = this._items(this.items)
         if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) { 
-          this.items[selectedItem].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest).then(function (e){
+          this.items[selectedItem].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest.bind(that)).then(function (e){
             // move card update here
           }).catch(function (e){
             console.error(e)
