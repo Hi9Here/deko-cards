@@ -810,6 +810,7 @@
     },
     stuffTest:  async function (data) {
       var that = this
+      var selectedItem = that._items(that.items)
       var elem = document.createElement('div')
       var newQuill = new Quill(elem, {
         modules: {
@@ -821,8 +822,8 @@
       newQuill.disable()
       if (!that.editing && data && data.docs[0] && data.docs[0].data) {
         newQuill.setContents(data.docs[0].data().value)
-      } else if (that.items[that._items(that.items)].quill) {
-        newQuill.setContents(that.items[that._items(that.items)].quill)
+      } else if (that.items[selectedItem].quill) {
+        newQuill.setContents(that.items[selectedItem].quill)
       } else {
         debugger
       }
