@@ -770,6 +770,9 @@
     stuffTest:  async function (data) {
       var that = this
       var selectedItem = that._items(that.items)
+      if (selectedItem !== false) {
+        return
+      }
       var elem = document.createElement('div')
       var newQuill = new Quill(elem, {
         modules: {
