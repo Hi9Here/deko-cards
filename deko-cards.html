@@ -506,7 +506,7 @@
 
           that.newCard({
             value: response.add.quill,
-            time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+            time: +Date.now(), // firebase.database.ServerValue.TIMESTAMP,
             user: firebase.auth().currentUser.uid
           })
         }
@@ -614,7 +614,7 @@
             function save(newQuill) {
               var quillSave = {
                 value: newQuill,
-                time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+                time: +Date.now(), // firebase.database.ServerValue.TIMESTAMP,
                 user: firebase.auth().currentUser.uid
               }
               if (that.items[selectedItem].ref) {
@@ -738,7 +738,7 @@
           save[key] = this.items[selectedItem][key]
         }
       }
-      save["added"] = new Date.now()
+      save["added"] = +Date.now()
       that.cards.add(JSON.parse(JSON.stringify(save))).then(function (doc) {
         that.set('items.' + selectedItem + '.ref', doc)
         if (toAddQuill) {
