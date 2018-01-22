@@ -1321,7 +1321,21 @@
       return accumulator
     },
     select: function (e) {
-      var pick = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.card || e.target.parentNode.parentNode.parentNode.parentNode.card || e.target.parentNode.parentNode.parentNode.card || e.target.parentNode.parentNode.card || e.target.parentNode.card || e.target.card
+      var pick
+      var toReturn
+      if (pick = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.card) {
+        toReturn = e.target.parentNode.parentNode.parentNode.parentNode.parentNode
+      } else if (pick = e.target.parentNode.parentNode.parentNode.parentNode.card){
+        toReturn = e.target.parentNode.parentNode.parentNode.parentNode
+      } else if (pick = e.target.parentNode.parentNode.parentNode.card){
+        toReturn = e.target.parentNode.parentNode.parentNode
+      } else if (pick = e.target.parentNode.parentNode.card){
+        toReturn = e.target.parentNode.parentNode
+      } else if (pick = e.target.parentNode.card){          
+        toReturn = e.target.parentNode
+      } else if (pick = e.target.card){     
+        toReturn = e.target
+      }
       var that = this
 
       var id = ''
@@ -1338,7 +1352,7 @@
           }
         })
       }
-
+      
       this.items = this.items.map(function (x, i) {
         if (x.ref && x.ref.id === id) {
           x.selected = true
@@ -1347,6 +1361,8 @@
         }
         return x
       })
+
+      return toReturn
       // this._items(this.items)
     },
     selectOpen: function (e,d) {
