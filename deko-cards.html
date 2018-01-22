@@ -606,7 +606,7 @@
                 })
               }
             }
-            var newQuill = that.tricks[testForFunction(textOnChip)].chips[textOnChip](that.items[selectedItem].quill, that.showQuill, that.items[selectedItem].ref, false, update, save)
+            var newQuill = that.tricks[testForFunction(textOnChip)].chips[textOnChip](that.items[selectedItem].quill, that.showQuill.bind(that), that.items[selectedItem].ref, false, update, save)
             update(newQuill)
 	    that.showQuill()
           }
