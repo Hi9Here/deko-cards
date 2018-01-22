@@ -1366,17 +1366,17 @@
       // this._items(this.items)
     },
     selectOpen: function (e,d) {
-      debugger
       // if focus :
       this.clearTrick()
       var cardEle = this.select(e)
-
-      this.cardPart = 1
-      this.$$('open-card').open()
-      if (this.unsub) {
-        this.unsub()
+      if (document.activeElement === cardEle) {
+        this.cardPart = 1
+        this.$$('open-card').open()
+        if (this.unsub) {
+          this.unsub()
+        }
+        this.editing = true
       }
-      this.editing = true
     },
     resub: function (e) {
       this.editing = false
