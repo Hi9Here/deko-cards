@@ -259,7 +259,7 @@
               return cb(insert)
             },
             chips: {
-              next: function (quill, quillElements, dataRef, timer, update, save) {
+              next: function (quill, showQuill, dataRef, timer, update, save) {
                 if (!timer) {
                   clearInterval(this.timer)
                 }
@@ -303,9 +303,9 @@
                           op.insert = '0/' + op.insert
                           function tick () {
                             // maybe use quillElements.getContents() or quill
-                            var _quill = that.next(quillElements.getContents().ops, quillElements, dataRef, true, update, save)
-                            quillElements.setContents(_quill)
+                            var _quill = that.next(newQuill.getContents().ops, showQuill, dataRef, true, update, save)
                             update(_quill)
+			    showQuill()
                           }
                           clearInterval(that.timer)
                           setTimeout(function () {
