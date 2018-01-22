@@ -260,6 +260,7 @@
             },
             chips: {
               next: function (quill, showQuill, dataRef, timer, update, save) {
+                var that = this
                 function tick () {
                   // maybe use quillElements.getContents() or quill
                   var _quill = that.next(newQuill.getContents().ops, showQuill, dataRef, true, update, save)
@@ -288,7 +289,6 @@
                 newQuill.setContents(quill)
                 var steps = []
                 var ops = []
-                var that = this
                 newQuill.getLines().forEach(function (line, idx) {
                   var op = {insert: line.cache.delta.ops[0].insert}
                   var regex = /[\d]+ reps at [\d]+kg$|^(?:([\d]+)\/)?([\d]+) seconds rest $/gm
