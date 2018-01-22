@@ -260,10 +260,16 @@
             },
             chips: {
               next: function (quill, showQuill, dataRef, timer, update, save) {
+                function tick () {
+                  // maybe use quillElements.getContents() or quill
+                  var _quill = that.next(newQuill.getContents().ops, showQuill, dataRef, true, update, save)
+                  update(_quill)
+                }
                 if (!timer) {
                   clearInterval(this.timer)
+                } else {
+                  that.timer = setInterval(tick, 1000)
                 }
-
                 function play (bells) {
                   this.audioDing = document.createElement('audio')
                   this.audioDing.setAttribute('src', 'https://firebasestorage.googleapis.com/v0/b/deko-app-one.appspot.com/o/bell.mp3?alt=media&token=5c83f37c-29d9-4971-aef4-aad504477bbc')
@@ -282,11 +288,6 @@
                 newQuill.setContents(quill)
                 var steps = []
                 var ops = []
-                function tick () {
-                  // maybe use quillElements.getContents() or quill
-                  var _quill = that.next(newQuill.getContents().ops, showQuill, dataRef, true, update, save)
-                  update(_quill)
-                }
                 var that = this
                 newQuill.getLines().forEach(function (line, idx) {
                   var op = {insert: line.cache.delta.ops[0].insert}
@@ -307,9 +308,8 @@
                           // 100 => 0/100 making m[1] == 0
                           op.insert = '0/' + op.insert
                           clearInterval(that.timer)
-                          setTimeout(function () {
-                            that.timer = setInterval(tick, 1000)
-                          }, 500)
+                          startTimer = function () {
+                          }
                         } else if (+m[1] == m[1] && timer) {
                           // 80/100 => 81/100
                           op.insert = ++m[1] + '/' + m[2] + ' seconds rest '
