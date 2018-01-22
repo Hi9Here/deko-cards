@@ -1368,14 +1368,16 @@
     selectOpen: function (e,d) {
       // if focus :
       this.clearTrick()
-      var cardEle = this.select(e)
-      if (document.activeElement === cardEle) {
+      var cardEle
+      if (document.activeElement.card) {
         this.cardPart = 1
         this.$$('open-card').open()
         if (this.unsub) {
           this.unsub()
         }
         this.editing = true
+      }	else {
+        cardEle = this.select(e)
       }
     },
     resub: function (e) {
