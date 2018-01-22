@@ -26,7 +26,7 @@
     <div id="card-view">
       <deko-card-container>
         <template is="dom-repeat" items="[[items]]" id="list0">
-          <deko-card on-tap="selectOpen" card="[[item]]">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]">
             <div inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
         </template>
