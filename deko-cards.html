@@ -268,7 +268,7 @@
                 }
                 if (!timer) {
                   clearInterval(this.timer)
-                } else {
+                } else if (!that.timer) {
                   that.timer = setInterval(tick, 1000)
                 }
                 function play (bells) {
