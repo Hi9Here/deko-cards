@@ -305,7 +305,6 @@
                             // maybe use quillElements.getContents() or quill
                             var _quill = that.next(newQuill.getContents().ops, showQuill, dataRef, true, update, save)
                             update(_quill)
-                            showQuill().bind(document.getElementsByTagName("deko-cards")[0])
                           }
                           clearInterval(that.timer)
                           setTimeout(function () {
@@ -590,6 +589,7 @@
           if (typeof that.tricks[testForFunction(textOnChip)].chips[textOnChip] === 'function' && that.items[selectedItem].quill) {
             function update (newQuill) {
               that.set('items.' + selectedItem + '.quill', newQuill)
+              that.showQuill()
               that.quill.setContents(newQuill)
               that.cardPart = +that.cardPart
               that.go = !that.go
