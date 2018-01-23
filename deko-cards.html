@@ -267,8 +267,8 @@
 
                 var ops = []
                 function tick () {
-                  var _quill = that.next(ops, showQuill, dataRef, true, update, save)
-                  update(_quill)
+                  ops = that.next(ops, showQuill, dataRef, true, update, save)
+                  update(ops)
                 }
 
                 if (!timer) {
