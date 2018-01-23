@@ -262,11 +262,15 @@
               next: function (quill, showQuill, dataRef, timer, update, save) {
                 var that = this
 		var startTimer
+                var newQuill = new Quill(document.createElement('div'), {})
+                newQuill.setContents(quill)
+
                 function tick () {
                   // maybe use quillElements.getContents() or quill
                   var _quill = that.next(newQuill.getContents().ops, showQuill, dataRef, true, update, save)
                   update(_quill)
                 }
+
                 if (!timer) {
                   clearInterval(this.timer)
                 } else if (!that.timer) {
@@ -286,8 +290,6 @@
                 // Look for n reps at n kg
                 // set next to heading 3 (first if no set)
                 // if n seconds rest n = n - 1 and
-                var newQuill = new Quill(document.createElement('div'), {})
-                newQuill.setContents(quill)
                 var steps = []
                 var ops = []
                 newQuill.getLines().forEach(function (line, idx) {
