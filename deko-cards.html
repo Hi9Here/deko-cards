@@ -360,9 +360,11 @@
                   dataRef.set({setsReps: 'Done'}, {merge: true})
                   save(ops)
                 }
-		if (startTimer) {
-		  tick()
-		}
+                if (startTimer) {
+                  setTimeout(function () {
+		    tick()
+		  },10)
+                }
                 return ops
               },
             },
