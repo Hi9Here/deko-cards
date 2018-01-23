@@ -261,6 +261,7 @@
             chips: {
               next: function (quill, showQuill, dataRef, timer, update, save) {
                 var that = this
+		var startTimer
                 function tick () {
                   // maybe use quillElements.getContents() or quill
                   var _quill = that.next(newQuill.getContents().ops, showQuill, dataRef, true, update, save)
