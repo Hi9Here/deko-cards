@@ -273,7 +273,8 @@
                 }
 
 		function moveOn() {
-	          update(that.next(ops, quillElements, dataRef, false, update))
+		  ops = that.next(ops, showQuill, dataRef, false, update)
+	          update(ops)
 		}
                 if (!timer) {
                   clearInterval(this.timer)
