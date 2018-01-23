@@ -261,6 +261,7 @@
             chips: {
               next: function (quill, showQuill, dataRef, timer, update, save) {
                 var that = this
+                console.log("running next on ", quill)
 		var startTimer
                 var movingOn
                 var newQuill = new Quill(document.createElement('div'), {})
@@ -277,6 +278,7 @@
 	          update(ops)
 		}
                 if (!timer) {
+                  console.log("no timer", quill)
                   clearInterval(this.timer)
                 } else if (!that.timer) {
                   that.timer = setInterval(tick, 1000)
@@ -322,7 +324,7 @@
                           // 80/100 => 81/100
                           op.insert = ++m[1] + '/' + m[2] + ' seconds rest '
                         } else {
-                          clearInterval(that.timer)
+                          // clearInterval(that.timer)
                         }
                         if (10 + m[1] === +m[2] && timer) {
                           play(1)
