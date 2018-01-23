@@ -243,7 +243,7 @@
             reps: '$2',
             weigth: '$3',
             rest: '$4',
-            intent: '^([\\d]+) (?:set(?:s)? )?of ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?: second(?:s)?)?(?: rest(?:s)?)?$',
+            intent: '^([\\d]+) (?:set(?:s)? )?(?:of)? ([\\d]+)(?:(?: repetition| rep)?(?:s)?)? at ([\\d]+)(?:(?: )?(?:kilo|Kilogram|kg)(?:s)?)?(?: with| and) ([\\d]+)(?:(?: )?seconds|s|secs|sec|second)?(?: rest(?:s)?)?$',
             icon: 'places:fitness-center',
             action: function (setsReps, cb) {
               var index
@@ -262,6 +262,7 @@
               next: function (quill, showQuill, dataRef, timer, update, save) {
                 var that = this
 		var startTimer
+                var movingOn
                 var newQuill = new Quill(document.createElement('div'), {})
                 newQuill.setContents(quill)
 
@@ -271,6 +272,9 @@
                   update(ops)
                 }
 
+		function moveOn() {
+	          update(that.next(ops, quillElements, dataRef, false, update))
+		}
                 if (!timer) {
                   clearInterval(this.timer)
                 } else if (!that.timer) {
@@ -328,9 +332,7 @@
                           if (line.cache.delta.ops[1]) {
                             delete (line.cache.delta.ops[1])
                           }
-                          setTimeout(function () {
-                            update(that.next(quillElements.getContents().ops, quillElements, dataRef, false, update)) // move on
-                          }, 50)
+			  movingOn = true
                         }
                       }
                     } else {
@@ -369,6 +371,12 @@
 		    tick()
 		  },10)
                 }
+                if (movingOn) {
+                  setTimeout(function () {
+		    tick()
+		  },10)
+                }
+
                 return ops
               },
             },
