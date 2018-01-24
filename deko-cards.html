@@ -553,7 +553,7 @@ if (card) {      console.log(this.items[card].quill)}
 	  }
         }
         if (html !== show.innerHTML) {
-          this.set(['items',card,'html'], elem.innerHTML)
+          this.set(['items',card,'html'], html)
           // update open card
           show.innerHTML = html
           this.set('items', this.items.map(function (x) {
