@@ -188,7 +188,9 @@
                   }
                 })
               }, 3000)
-	      return html
+              var docAsElement = document.createElement(html)
+              console.log(docAsElement)
+	      return docAsElement.innerHTML
 	    },
             done: {},
           },
