@@ -155,7 +155,7 @@
               var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig
               this.done[signatures.signature] = true
               setTimeout(function () {
-                document.body.querySelectorAll('#show > div.ql-editor > p').forEach(p => {
+                document.body.querySelectorAll('#show > div.ql-editor > p').forEach(function (p) {
                   if (/^([a-zA-Z0-9+/]{86}==)$/g.test(p.innerHTML)) {
                     var El = document.querySelector('#' + p.innerHTML.replace(/[0-9+/\=]/g, ''))
                     if (El !== null && El.item) {
@@ -190,6 +190,11 @@
               var docAsElement = document.createElement("div")
               docAsElement.innerHTML = html
               console.log(docAsElement)
+	      docAsElement.querySelectorAll("p").forEach(function (p) {
+                if (/^([a-zA-Z0-9+/]{86}==)$/g.test(p.innerHTML)) {
+                  p.classList.add("signatures")
+                }
+	      }) 
 	      return docAsElement.innerHTML
 	    },
             done: {},
