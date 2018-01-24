@@ -1242,9 +1242,9 @@
           theSnap.forEach(function (doc) {
             var docData = doc.data()
             var html = docData.html
-            for (var trick in tricks) {
-	      if (tricks[trick].html) {
-                html = tricks[trick].html(html)
+            for (var trick in that.tricks) {
+	      if (that.tricks[trick].html) {
+                html = that.tricks[trick].html(html)
 	      }
 	    }
             cards.push({
