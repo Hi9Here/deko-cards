@@ -869,7 +869,7 @@
         }
       }
       if (title && that.items[selectedItem].html !== html) {
-        that.set(["items",selectedItem,"html"], html
+        that.set(["items",selectedItem,"html"], html)
         if (that.items[selectedItem].ref) {
           that.items[selectedItem].ref.set({html: html}, {merge: true})
         }
