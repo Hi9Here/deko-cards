@@ -532,9 +532,9 @@ if (card) {      console.log(this.items[card].quill)}
         newQuill.setContents(this.items[card].quill)
         newQuill.formatLine(1, 2, 'attributes', {header: 1})
         var html = elem.innerHTML
-        for (var trick in that.tricks) {
-	  if (that.tricks[trick].html) {
-            html = that.tricks[trick].html(html)
+        for (var trick in this.tricks) {
+	  if (this.tricks[trick].html) {
+            html = this.tricks[trick].html(html)
 	  }
         }
         if (html !== show.innerHTML) {
