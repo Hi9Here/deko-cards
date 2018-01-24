@@ -258,6 +258,18 @@
             rest: '$4',
             intent: '^(\\d*)s (\\d*)r (\\d*)kg (\\d*)s$',
             icon: 'places:fitness-center',
+            html: function (html) {
+              var regex = /[\d]+ reps at [\d]+kg(?: done)?|(?:([\d]+)\/)?([\d]+) seconds rest .*/gim
+              var docAsElement = document.createElement("div")
+              docAsElement.innerHTML = html
+              console.log(docAsElement)
+	      docAsElement.querySelectorAll("p").forEach(function (p) {
+                if (regex.test(p.innerHTML)) {
+                  p.classList.add("setsreps")
+                }
+	      }) 
+	      return docAsElement.innerHTML
+            },
             action: function (setsReps, cb) {
               var index
               var insert = []
