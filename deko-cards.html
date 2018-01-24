@@ -586,8 +586,6 @@ if (card) {      console.log(this.items[card].quill)}
               that.set('items.' + selectedItem + '.quill', newQuill)
               that.showQuill()
               that.quill.setContents(newQuill)
-              that.cardPart = +that.cardPart
-              that.go = !that.go
             }
             function save(newQuill) {
               var quillSave = {
