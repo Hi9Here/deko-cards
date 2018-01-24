@@ -153,20 +153,8 @@
             signature: '$1',
             openAction: function (signatures, cb) {
               var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig
-
+              this.html()
               this.done[signatures.signature] = true
-              setTimeout(function () {
-                document.body.querySelectorAll('#show > div.ql-editor > p').forEach(p => {
-                  if (/^([a-zA-Z0-9+/]{86}==)$/g.test(p.innerHTML)) {
-                    var El = document.querySelector('#' + p.innerHTML.replace(/[0-9+/\=]/g, ''))
-                    if (El !== null && El.item) {
-                      p.innerHTML = '[Signed by ' + document.querySelector('#' + p.innerHTML.replace(/[0-9+/\=]/g, '')).item.profile + ']'
-                    } else {
-                      p.innerHTML = '[Not a valid signature]'
-                    }
-                  }
-                })
-              }, 3000)
               return sha256(stuff).then(function (digest) {
                 if (signatures._) {
                   var dedup = {}
@@ -184,7 +172,25 @@
             action: function (signatures, cb) {
               return false // cb([{insert: signatures.signature + "\n"}])
             },
-            done: {}
+            html: function (html) {
+              setTimeout(function () {
+                document.body.querySelectorAll('#show > div.ql-editor > p').forEach(p => {
+                  if (/^([a-zA-Z0-9+/]{86}==)$/g.test(p.innerHTML)) {
+                    var El = document.querySelector('#' + p.innerHTML.replace(/[0-9+/\=]/g, ''))
+                    if (El !== null && El.item) {
+                      p.classList.add("green")
+                      p.innerHTML = '[Signed by ' + document.querySelector('#' + p.innerHTML.replace(/[0-9+/\=]/g, '')).item.profile + ']'
+                    } else {
+                      p.classList.add("red")
+                      p.innerHTML = '[Not a valid signature]'
+                    }
+                    p.classList.add("signatures")
+                  }
+                })
+              }, 3000)
+	      return html
+	    },
+            done: {},
           },
           dek: {
             intent: '^(?:put|add)(?: this)? (?:to|in) de[ck]+?([ \\w])*$',
