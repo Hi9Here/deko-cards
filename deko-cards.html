@@ -153,8 +153,22 @@
             signature: '$1',
             openAction: function (signatures, cb) {
               var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig
-              this.html()
               this.done[signatures.signature] = true
+              setTimeout(function () {
+                document.body.querySelectorAll('#show > div.ql-editor > p').forEach(p => {
+                  if (/^([a-zA-Z0-9+/]{86}==)$/g.test(p.innerHTML)) {
+                    var El = document.querySelector('#' + p.innerHTML.replace(/[0-9+/\=]/g, ''))
+                    if (El !== null && El.item) {
+                      p.classList.add("green")
+                      p.innerHTML = '[Signed by ' + document.querySelector('#' + p.innerHTML.replace(/[0-9+/\=]/g, '')).item.profile + ']'
+                    } else {
+                      p.classList.add("red")
+                      p.innerHTML = '[Not a valid signature]'
+                    }
+                    p.classList.add("signatures")
+                  }
+                })
+              }, 3000)
               return sha256(stuff).then(function (digest) {
                 if (signatures._) {
                   var dedup = {}
@@ -173,21 +187,6 @@
               return false // cb([{insert: signatures.signature + "\n"}])
             },
             html: function (html) {
-              setTimeout(function () {
-                document.body.querySelectorAll('#show > div.ql-editor > p').forEach(p => {
-                  if (/^([a-zA-Z0-9+/]{86}==)$/g.test(p.innerHTML)) {
-                    var El = document.querySelector('#' + p.innerHTML.replace(/[0-9+/\=]/g, ''))
-                    if (El !== null && El.item) {
-                      p.classList.add("green")
-                      p.innerHTML = '[Signed by ' + document.querySelector('#' + p.innerHTML.replace(/[0-9+/\=]/g, '')).item.profile + ']'
-                    } else {
-                      p.classList.add("red")
-                      p.innerHTML = '[Not a valid signature]'
-                    }
-                    p.classList.add("signatures")
-                  }
-                })
-              }, 3000)
               var docAsElement = document.createElement(html)
               console.log(docAsElement)
 	      return docAsElement.innerHTML
@@ -775,8 +774,13 @@
       var add
       var addAt
       var text = newQuill.getText().replace(/\n/g, ' ').trim()
-      var html = elem.innerHTML
-      
+      var html = elem.innerHTML 
+      for (var trick in tricks) {
+        if (tricks[trick].html) {
+          html = tricks[trick].html(html)
+        }
+      }      
+
       function updateCard () {
         if (JSON.stringify(that.items[selectedItem].quill) !== JSON.stringify(stuff)) {
           var quillSave = {
@@ -865,7 +869,7 @@
         }
       }
       if (title && that.items[selectedItem].html !== html) {
-        that.items[selectedItem].html = html
+        that.set(["items",selectedItem,"html"], html
         if (that.items[selectedItem].ref) {
           that.items[selectedItem].ref.set({html: html}, {merge: true})
         }
@@ -1237,13 +1241,19 @@
           var cards = []
           theSnap.forEach(function (doc) {
             var docData = doc.data()
+            var html = docData.html
+            for (var trick in tricks) {
+	      if (tricks[trick].html) {
+                html = tricks[trick].html(html)
+	      }
+	    }
             cards.push({
               title: docData.title || "",
               image: docData.image || "",
               toolbarColor: docData.toolbarColor || "",
               dek: docData.dek || "",
               show: docData.show,
-              html: docData.html || "",
+              html: html || "",
               timer: docData.timer,
               reminder: docData.reminder,
               signedOff: docData.signedOff,
