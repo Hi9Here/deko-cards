@@ -517,7 +517,12 @@
     showQuill: function () {
       var card = this._items(this.items)
 
-if (card) {      console.log(this.items[card].quill)}
+      if (card) {
+      console.log(this.items[card].quill)
+        if (!this.quill.getText().trim()) {
+          this.quill.setContents(this.items[card].quill)
+        }
+      }
 
       var show = this.$$("#show")
       if (show !== null && card !== false && this.items[card].quill && this.items[card].quill.length) {
