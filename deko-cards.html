@@ -750,9 +750,11 @@
       this.resub()
     },
     stuffTest:  async function (data) {
+      var that = this
       var line = this.line
       var apiURL = this.apiURL 
       console.log(line)
+      var DFlowLine = false
       if (line && line.length > 10 && line.length < 100 && line.split(' ').length > 1 && line.split(' ').length < 20) {
         this.tricks.signedOff.action({quill:line+"_~_",replacing:"_~_"}, function(sig){
           console.log(`${apiURL}detect/${encodeURIComponent(line)}/${encodeURIComponent(sig[0].insert.replace("\n",''))}`)
@@ -760,11 +762,16 @@
             return response.json()
           }).then(function (response) {
             console.log(response)
+            if (response) {
+              debugger
+              that.quill
+              // find line
+              // replace text with response
+            } 
             return response
           }).catch(e => console.log(e))
         })
       }
-      var that = this
       var selectedItem = that._items(that.items)
       if (selectedItem === false) {
         return
