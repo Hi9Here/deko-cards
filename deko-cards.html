@@ -755,8 +755,8 @@
       console.log(line)
       if (line && line.length > 10 && line.length < 100 && line.split(' ').length > 1 && line.split(' ').length < 20) {
         this.tricks.signedOff.action({quill:line+"_~_",replacing:"_~_"}, function(sig){
-          console.log(`${apiURL}detect/${encodeURI(line)}/${encodeURI(sig[0].insert.replace("\n",''))}`)
-          fetch(`${apiURL}detect/${encodeURI(line)}/${encodeURI(sig[0].insert.replace("\n",''))}`).then(function (response) {
+          console.log(`${apiURL}detect/${encodeURIComponent(line)}/${encodeURIComponent(sig[0].insert.replace("\n",''))}`)
+          fetch(`${apiURL}detect/${encodeURIComponent(line)}/${encodeURIComponent(sig[0].insert.replace("\n",''))}`).then(function (response) {
             return response.json()
           }).then(function (response) {
             console.log(response)
