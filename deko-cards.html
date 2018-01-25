@@ -752,6 +752,7 @@
     stuffTest:  async function (data) {
       var line = this.line
       var apiURL = this.apiURL 
+      console.log(line)
       if (line.length > 10 && line.length < 100 && line.split(' ').length > 1 && line.split(' ').length < 20) {
         this.tricks.signedOff.action({quill:line+"_~_",replacing:"_~_"}, function(sig){
           console.log(sig[0].insert)
