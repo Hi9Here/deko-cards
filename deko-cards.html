@@ -174,13 +174,13 @@
             html: function (html) {
               var docAsElement = document.createElement("div")
               docAsElement.innerHTML = html
-        docAsElement.querySelectorAll("p").forEach(function (p) {
+              docAsElement.querySelectorAll("p").forEach(function (p) {
                 if (/^([a-zA-Z0-9+/]{86}==)$/g.test(p.innerHTML)) {
                   p.classList.add("signatures")
                 }
-        }) 
-        return docAsElement.innerHTML
-      },
+              }) 
+              return docAsElement.innerHTML
+            },
             done: {},
           },
           dek: {
@@ -246,12 +246,12 @@
               var regex = /[\d]+ reps at [\d]+kg(?: done)?|(?:([\d]+)\/)?([\d]+) seconds rest .*/gim
               var docAsElement = document.createElement("div")
               docAsElement.innerHTML = html
-        docAsElement.querySelectorAll("p").forEach(function (p) {
+              docAsElement.querySelectorAll("p").forEach(function (p) {
                 if (regex.test(p.innerHTML)) {
                   p.classList.add("setsreps")
                 }
-        }) 
-        return docAsElement.innerHTML
+              }) 
+              return docAsElement.innerHTML
             },
             action: function (setsReps, cb) {
               var index
@@ -270,7 +270,7 @@
               next: function (quill, showQuill, dataRef, timer, update, save) {
                 var that = this
                 console.log("running next on ", quill)
-    var startTimer
+                var startTimer
                 var movingOn
                 var newQuill = new Quill(document.createElement('div'), {})
                 newQuill.setContents(quill)
@@ -281,10 +281,10 @@
                   update(ops)
                 }
 
-    function moveOn() {
-      ops = that.next(ops, showQuill, dataRef, false, update, save)
-            update(ops)
-    }
+                function moveOn() {
+                  ops = that.next(ops, showQuill, dataRef, false, update, save)
+                  update(ops)
+                }
                 if (!timer) {
                   console.log("no timer", quill)
                   clearInterval(this.timer)
@@ -343,7 +343,7 @@
                           if (line.cache.delta.ops[1]) {
                             delete (line.cache.delta.ops[1])
                           }
-        movingOn = true
+                          movingOn = true
                         }
                       }
                     } else {
@@ -379,13 +379,13 @@
                 }
                 if (startTimer) {
                   setTimeout(function () {
-        tick()
-      },10)
+                    tick()
+                  },10)
                 }
                 if (movingOn) {
                   setTimeout(function () {
-        moveOn()
-      },10)
+                    moveOn()
+                  },10)
                 }
 
                 return ops
@@ -538,9 +538,9 @@
         newQuill.formatLine(1, 2, 'attributes', {header: 1})
         var html = elem.innerHTML
         for (var trick in this.tricks) {
-    if (this.tricks[trick].html) {
+          if (this.tricks[trick].html) {
             html = this.tricks[trick].html(html)
-    }
+          }
         }
         if (html !== show.innerHTML) {
           this.set(['items',card,'html'], html)
@@ -606,7 +606,7 @@
             }
             var newQuill = that.tricks[testForFunction(textOnChip)].chips[textOnChip](that.items[selectedItem].quill, that.showQuill.bind(that), that.items[selectedItem].ref, false, update, save)
             update(newQuill)
-      that.showQuill()
+            that.showQuill()
           }
         } else if (this.profileList.filter(function (profile) {
           if (profile.name) {
@@ -1256,10 +1256,10 @@
             var docData = doc.data()
             var html = docData.html
             for (var trick in that.tricks) {
-        if (that.tricks[trick].html) {
+              if (that.tricks[trick].html) {
                 html = that.tricks[trick].html(html)
-        }
-      }
+              }
+            }
             cards.push({
               title: docData.title || "",
               image: docData.image || "",
@@ -1272,8 +1272,8 @@
               signedOff: docData.signedOff,
               setsReps: docData.setsReps,
               ref: doc.ref,
-        added: docData.added,
-        weigth: docData.weigth,
+              added: docData.added,
+              weigth: docData.weigth,
             })
           })
           that.set('editing', false)
