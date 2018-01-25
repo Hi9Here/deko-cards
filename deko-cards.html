@@ -768,20 +768,7 @@
               // replace text with response
               var ops = []
               var onLine = that.quill.getLine(that.quill.getSelection().index)[0].domNode.outerText
-              var lines = that.quill.getLines()
-              var idx = 0
-              for (line in lines) {
-                var op = {insert: lines[line].cache.delta.ops[0].insert}
-                if (idx === 0) {
-                  op.attributes = {'header': 1}
-                }
-                if (op.insert === onLine) {
-                  op.insert = response
-                }
-                ops.push(op)
-                ++idx
-              }
-              that.quill.setContents(ops)
+              that.quill.setContents(JSON.parse(JSON.stringify(that.quill.getContents()).split(onLine).join(response)))
             } 
             return response
           }).catch(e => console.log(e))
