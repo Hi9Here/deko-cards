@@ -763,12 +763,13 @@
           }).then(function (response) {
             console.log(response)
             if (response) {
-              debugger
               // find line
               // replace text with response
-              var ops = []
-              var onLine = that.quill.getLine(that.quill.getSelection().index)[0].domNode.outerText
-              that.quill.setContents(JSON.parse(JSON.stringify(that.quill.getContents()).split(onLine).join(response)))
+              var cur = that.quill.getSelection().index
+              var onLine = that.quill.getLine(cur)[0].domNode.outerText
+              var cur += (response+" ".length - onLine.length)
+              that.quill.setContents(JSON.parse(JSON.stringify(that.quill.getContents()).split(onLine).join(response+" ")))
+              that.quill.setSelection(cur)
             } 
             return response
           }).catch(e => console.log(e))
