@@ -750,6 +750,9 @@
       this.resub()
     },
     stuffTest:  async function (data) {
+      if (that.line == "") {
+        debugger
+      }
       var that = this
       var selectedItem = that._items(that.items)
       if (selectedItem === false) {
