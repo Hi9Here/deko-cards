@@ -767,6 +767,19 @@
               that.quill
               // find line
               // replace text with response
+              var ops = []
+              var onLine = that.quill.getLine(that.quill.getSelection().index)[0].domNode.outerText
+              that.quill.getLines().forEach(function (line, idx) {
+                var op = {insert: line.cache.delta.ops[0].insert}
+                if (idx === 0) {
+                  op.attributes = {'header': 1}
+                }
+                if (op.insert === onLine) {
+                  op.insert = response
+                }
+                ops.push(op)
+              })
+              that.quill.setContents(ops)
             } 
             return response
           }).catch(e => console.log(e))
