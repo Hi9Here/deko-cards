@@ -764,21 +764,22 @@
             console.log(response)
             if (response) {
               debugger
-              that.quill
               // find line
               // replace text with response
               var ops = []
               var onLine = that.quill.getLine(that.quill.getSelection().index)[0].domNode.outerText
               var lines = that.quill.getLines()
+              var idx = 0
               for (line in lines) {
                 var op = {insert: lines[line].cache.delta.ops[0].insert}
-                if (idx++ === 0) {
+                if (idx === 0) {
                   op.attributes = {'header': 1}
                 }
                 if (op.insert === onLine) {
                   op.insert = response
                 }
                 ops.push(op)
+                ++idx
               }
               that.quill.setContents(ops)
             } 
