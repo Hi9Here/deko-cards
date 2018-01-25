@@ -767,7 +767,7 @@
               // replace text with response
               var cur = that.quill.getSelection().index
               var onLine = that.quill.getLine(cur)[0].domNode.outerText
-              var cur += (response+" ".length - onLine.length)
+              var cur = cur + (response+" ".length - onLine.length)
               that.quill.setContents(JSON.parse(JSON.stringify(that.quill.getContents()).split(onLine).join(response+" ")))
               that.quill.setSelection(cur)
             } 
