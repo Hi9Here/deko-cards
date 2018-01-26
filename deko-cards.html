@@ -1406,7 +1406,7 @@
       // if focus :
       this.clearTrick()
       var cardEle
-      if (document.activeElement.card.selected) {
+      if (document.activeElement.card && document.activeElement.card.selected) {
         this.cardPart = 1
         this.$$('open-card').open()
         if (this.unsub) {
