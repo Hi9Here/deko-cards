@@ -1066,7 +1066,7 @@
         updateCard(stuff)
         that.stuffTest()
       } else {
-        var onLine = that.quill.getLine(that.quill.getSelection().index)[0].domNode.outerText.replace("\n","").trim():
+        var onLine = that.quill.getLine(that.quill.getSelection().index)[0].domNode.outerText.replace("\n","").trim()
         if (onLine === "") {
           var line = that.quill.getLine(that.quill.getSelection().index-1)[0].domNode.outerText
           var apiURL = this.apiURL
