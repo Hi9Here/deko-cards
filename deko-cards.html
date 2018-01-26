@@ -1413,7 +1413,7 @@
           this.unsub()
         }
         this.editing = true
-      }  else {
+      } else if (document.activeElement.card) {
         cardEle = this.select(e)
       }
     },
