@@ -1069,7 +1069,7 @@
       } else if (curer = that.quill.getSelection()) {
         var onLine = that.quill.getLine(curer.index)[0].domNode.outerText.replace("\n","").trim()
         if (onLine === "") {
-          var line = that.quill.getLine(that.quill.getSelection().index-1)[0].domNode.outerText
+          var line = that.quill.getLine(curer.index-1)[0].domNode.outerText
           var apiURL = this.apiURL
           console.log(line)
           if (line && /^[a-z ,]+$/gmi.test(line) && line.length > 10 && line.length < 100 && line.split(' ').length > 1 && line.split(' ').length < 20) {
@@ -1081,7 +1081,7 @@
                 if (response) {
                   // find line
                   // replace text with response
-                  var cur = that.quill.getSelection().index
+                  var cur = curer.index - 1
                   var onLine = that.quill.getLine(cur)[0].domNode.outerText
                   var cur = cur + ((response+" ").length - onLine.length)
                   that.quill.setContents(JSON.parse(JSON.stringify(that.quill.getContents()).split(onLine).join(response+" ")))
