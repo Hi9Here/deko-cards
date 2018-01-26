@@ -1092,11 +1092,13 @@
             } else {
               this.tricks.signedOff.action({quill:line+"_~_",replacing:"_~_"}, function(sig){
                 fetch(`${apiURL}detect/${encodeURIComponent(line)}/${encodeURIComponent(sig[0].insert.replace("\n",''))}`).then(function (response) {
+                  return response.json()
+                }).then(function(response){
                   if (!that.cache) {
                     that.cache = {}
                   }
-                  that.cache[line] = response.json()
-                  return response.json()
+                  that.cache[line] = response
+                  return response
                 }).then(dotoQuill).catch(e => console.log(e))
               })
             }
