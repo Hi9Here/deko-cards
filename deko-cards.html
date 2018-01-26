@@ -1071,8 +1071,8 @@
         if (onLine === "") {
           var line = that.quill.getLine(curer.index-1)[0].domNode.outerText
           var apiURL = this.apiURL
-          console.log(line)
-          if (line && /^[a-z ,]+$/gmi.test(line) && line.length > 10 && line.length < 100 && line.split(' ').length > 1 && line.split(' ').length < 20) {
+          if (line && /^[a-z ,]+$/gmi.test(line) && line.length > 5: && line.length < 100 && line.split(' ').length > 1 && line.split(' ').length < 20) {
+            console.log(line)
             this.tricks.signedOff.action({quill:line+"_~_",replacing:"_~_"}, function(sig){
               fetch(`${apiURL}detect/${encodeURIComponent(line)}/${encodeURIComponent(sig[0].insert.replace("\n",''))}`).then(function (response) {
                 return response.json()
