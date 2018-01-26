@@ -519,7 +519,7 @@
 
       if (card) {
       console.log(this.items[card].quill)
-        if (!this.quill.getText().trim()) {
+        if (this.quill && !this.quill.getText().trim()) {
           this.quill.setContents(this.items[card].quill)
         }
       }
