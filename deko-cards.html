@@ -1062,11 +1062,12 @@
       } else if (add) {
         stuff = stuff.splice(0, +addAt).concat(add, stuff.splice(1 + +(addAt)))
       }
+      var curer
       if (add || head) {
         updateCard(stuff)
         that.stuffTest()
-      } else {
-        var onLine = that.quill.getLine(that.quill.getSelection().index)[0].domNode.outerText.replace("\n","").trim()
+      } else if (curer = that.quill.getSelection()) {
+        var onLine = that.quill.getLine(curer.index)[0].domNode.outerText.replace("\n","").trim()
         if (onLine === "") {
           var line = that.quill.getLine(that.quill.getSelection().index-1)[0].domNode.outerText
           var apiURL = this.apiURL
