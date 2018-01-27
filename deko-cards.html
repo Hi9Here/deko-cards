@@ -1412,11 +1412,10 @@
       })
 
       return toReturn
-      // this._items(this.items)
     },
     selectOpen: function (e,d) {
       // if focus :
-      this.clearTrick()
+    //  this.clearTrick() l/l/l/l/l/l/l/l/l/l/l/l/l/l/l/ TODO:
       var cardEle
       if (document.activeElement.card && document.activeElement.card.selected) {
         this.cardPart = 1
@@ -1434,9 +1433,9 @@
       this.setItems(this.cards, this.byChild, this.loadNum, this.startAt, this.wide)
     },
     _items: function (items) {
-      if (items && items !== null && items.length && items.filter(this.selected).length === 0) {
-        this.items[items.length - 1].selected = true
-      }
+     // if (items && items !== null && items.length && items.filter(this.selected).length === 0) {
+     //   this.items[items.length - 1].selected = true
+     // }
       if (items && items !== null && items.length) {
         return this.items.reduce(this.reduceToIndexOfSelected, false)
       }
@@ -1549,13 +1548,13 @@
       console.error(err)
     })
   }
-// this function takes a callback which fires twice once for the public key and once for the private key
-  function generate (cb, cb2) {
+// this function takes callbacks private key and public key and return {privateKey: "{...}",publicKey: "{...}"}
+  function generate (privateKeyCB, publicKeyCB) {
     var keys = {}
     return window.crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256'}, true, ['sign', 'verify']).then(function (key) {
-      return exportKey(key.privateKey, cb).then(function (privateKey) {
+      return exportKey(key.privateKey, privateKeyCB).then(function (privateKey) {
         keys.privateKey = privateKey
-        return exportKey(key.publicKey, cb2).then(function (publicKey) {
+        return exportKey(key.publicKey, publicKeyCB).then(function (publicKey) {
           keys.publicKey = publicKey
         })
       }).then(function () {
