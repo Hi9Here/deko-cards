@@ -491,14 +491,14 @@
       var selectedCard = this._items(this.items)
       this.showQuill()
       if (cardPart === 0) {
-        if (selectedCard !== false && selectedCard && selectedCard.ref) {
+        if (selectedCard !== false && this.items[selectedCard] && this.items[selectedCard].ref) {
           return ['Delete', 'Show it']
         } else {
           return ['Disregard', 'Save']
         }
       } else if (cardPart === 1) {
         this.prompt = ''
-        if (selectedCard && selectedCard.setsReps) {
+        if (selectedCard && this.items[selectedCard].setsReps) {
           return ['Edit', 'Next', 'Give', 'Return' ]
         }
         return ['Edit', 'Give', 'Return']
