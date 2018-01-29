@@ -102,7 +102,7 @@
         value: false
       },
       _runTricks: {
-        computed: 'testStuff(line, tricks, selectedItemIndex, quill)'
+        computed: 'testStuff(line, tricks, quill)'
       },
       _addingLine: {
         computed: 'setAddingLine(quill)'
@@ -1106,7 +1106,7 @@
       }
       return stuff
     },
-    testStuff: function (line, tricks, selectedItem, quill) {
+    testStuff: function (line, tricks, quill) {
       var selected = this._items(this.items)
       if (selected !== false && !this.items[selected].ref) {
         console.log(this.items[selected])
@@ -1117,8 +1117,8 @@
       function debouncedTestStuff () {
         var that = this
         selectedItem = this._items(this.items)
-        if (selectedItem !== false && this.items[selectedItem] && this.items[selectedItem].ref) { 
-          this.items[selectedItem].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest.bind(that)).then(function (e){
+        if (selected !== false && this.items[selected] && this.items[selected].ref) { 
+          this.items[selected].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest.bind(that)).then(function (e){
             // move card update here
           }).catch(function (e){
             console.error(e)
