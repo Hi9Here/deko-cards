@@ -876,6 +876,11 @@
         }
       }
       if (title && that.items[selectedItem].html !== html) {
+        for (var trick in that.tricks) {
+          if (that.tricks[trick].html) {
+            html = that.tricks[trick].html(html)
+          }
+        }
         that.set(["items",selectedItem,"html"], html)
         if (that.items[selectedItem].ref) {
           that.items[selectedItem].ref.set({html: html}, {merge: true})
