@@ -506,12 +506,15 @@
         // get tricks
       }
     },
-    showQuill: function () {
-      var card = this._items(this.items)
+    showQuill: function (card) {
+      
+      if (card === undefined) {
+        card = this._items(this.items)
+      }
 
       if (card !== false) {
-      console.log(this.items[card].quill)
-        if (this.quill && !this.quill.getText().trim()) {
+        console.log(this.items[card].quill)
+        if (this.quill) {
           this.quill.setContents(this.items[card].quill)
         }
       }
@@ -1146,7 +1149,7 @@
 //    },
     changingPart: function (part, partFrom) {
       var selectedItem = this._items(this.items)
-      this.showQuill()
+      this.showQuill(selectedItem)
       var that = this
       var ref
       if (part == 1) {
