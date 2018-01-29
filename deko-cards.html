@@ -509,7 +509,7 @@
     showQuill: function () {
       var card = this._items(this.items)
 
-      if (card) {
+      if (card !== false) {
       console.log(this.items[card].quill)
         if (this.quill && !this.quill.getText().trim()) {
           this.quill.setContents(this.items[card].quill)
