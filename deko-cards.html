@@ -138,8 +138,7 @@
               }).then(function (keys) {
                 return sha256(stuff).then(function (digest) {
                   return sign(digest, keys.privateKey, function (signature) {
-                    return [{insert: signature + '\n'}]
-                  })
+                    return [{insert: signature + '\n'}] })
                 })
               }).then(function (add) {
                 cb(add)
@@ -150,24 +149,7 @@
           },
           signatures: {
             intent: '^([a-zA-Z0-9+/]{86}==)$',
-            signature: '$1',
-            openAction: function (signatures, cb) {
-              var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig
-              this.done[signatures.signature] = true
-              return sha256(stuff).then(function (digest) {
-                if (signatures._) {
-                  var dedup = {}
-                  signatures._.concat([{signature: signatures.signature, stuff: digest}]).forEach(function (sig) {
-                    dedup[sig.signature] = sig.stuff
-                  })
-                  return cb(Object.keys(dedup).map(function (sig) {
-                    return {signature: sig, stuff: dedup[sig]}
-                  }))
-                } else {
-                  return cb([{signature: signatures.signature, stuff: digest}])
-                }
-              })
-            },
+            signature: '$1', openAction: function (signatures, cb) { var stuff = JSON.stringify(signatures.quill).split(signatures.signature)[0] // before sig this.done[signatures.signature] = true return sha256(stuff).then(function (digest) { if (signatures._) { var dedup = {} signatures._.concat([{signature: signatures.signature, stuff: digest}]).forEach(function (sig) { dedup[sig.signature] = sig.stuff }) return cb(Object.keys(dedup).map(function (sig) { return {signature: sig, stuff: dedup[sig]} })) } else { return cb([{signature: signatures.signature, stuff: digest}]) } }) },
             action: function (signatures, cb) {
               return false // cb([{insert: signatures.signature + "\n"}])
             },
@@ -403,7 +385,6 @@
       _tableCommands: {
         computed: 'getTableCommands(items,selectedItemIndex)'
       },
-      selectedItemIndex: {computed: '_items(items)'},
       apiURL: {
         value: 'https://us-central1-deko-app-one.cloudfunctions.net/god/'
       }
@@ -1433,9 +1414,6 @@
       this.setItems(this.cards, this.byChild, this.loadNum, this.startAt, this.wide)
     },
     _items: function (items) {
-     // if (items && items !== null && items.length && items.filter(this.selected).length === 0) {
-     //   this.items[items.length - 1].selected = true
-     // }
       if (items && items !== null && items.length) {
         return this.items.reduce(this.reduceToIndexOfSelected, false)
       }
