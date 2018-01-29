@@ -236,7 +236,7 @@
           },
           setsReps: {
             sets: '$1',
-            reps: '$2',
+            reps: '$2',:
             weigth: '$3',
             rest: '$4',
             intent: '^(\\d*)s (\\d*)r (\\d*)kg (\\d*)s$',
@@ -397,10 +397,10 @@
         computed: 'getIconTricks(tricks)'
       },
       commands: {
-        computed: 'getCommands(cardPart,items,selectedItemIndex)'
+        computed: 'getCommands(cardPart,items)'
       },
       _tableCommands: {
-        computed: 'getTableCommands(items,selectedItemIndex)'
+        computed: 'getTableCommands(items)'
       },
       apiURL: {
         value: 'https://us-central1-deko-app-one.cloudfunctions.net/god/'
@@ -487,8 +487,8 @@
       }
       this.set('tableCommands', [])
     },
-    getCommands: function (cardPart, items, selectedItemIndex) {
-      var selectedCard = items[selectedItemIndex]
+    getCommands: function (cardPart, items) {
+      var selectedCard = this._items(this.items)
       this.showQuill()
       if (cardPart === 0) {
         if (selectedCard !== false && selectedCard && selectedCard.ref) {
