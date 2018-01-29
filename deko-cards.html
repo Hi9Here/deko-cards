@@ -514,7 +514,7 @@
 
       if (card !== false) {
         console.log(this.items[card].quill)
-        if (this.quill) {
+        if (this.quill && this.items[card].quill.length) {
           this.quill.setContents(this.items[card].quill)
         }
       }
@@ -665,7 +665,7 @@
       }).concat([{
         selected: true,
         image: '',
-        toolbarColor: "#fff",
+        toolbarColor: undefined,
         html: '<h1>New</h2>',
         quill: [
           {attributes: {header: 1}, insert: '\n'},
