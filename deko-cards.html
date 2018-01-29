@@ -1250,14 +1250,11 @@
     getPagesLength: function (pages) {
       return pages.length
     },
-    setItems: function (ref, byChild, loadNum, startAt, wide) {
+    setItems: function (ref, byChild, loadNum, startAt) {
       if (this.editing) {
         return
       }
       var that = this
-      if (!wide) {
-        loadNum = 50
-      }
       function objectToArray (data) {
         var output = []
         if (data) {
@@ -1425,7 +1422,7 @@
     },
     resub: function (e) {
       this.editing = false
-      this.setItems(this.cards, this.byChild, this.loadNum, this.startAt, this.wide)
+      this.setItems(this.cards, this.byChild, this.loadNum, this.startAt)
     },
     _items: function (items) {
       if (items && items !== null && items.length) {
