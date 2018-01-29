@@ -680,7 +680,6 @@
       
       var open = function () {
         if (that.quill && that.$$('open-card') !== null) {
-          that.$$('open-card').open()
           that.quill.once('text-change', function() {
             try {
               document.body.focus()
@@ -698,6 +697,7 @@
       }
       
       setTimeout(function(){
+        that.$$('open-card').open()
         that.clearTrick()
         setFocus = setInterval(open, 500)
       }, 500)
