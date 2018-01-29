@@ -713,15 +713,17 @@
         }
       }
       save["added"] = +Date.now()
-      that.cards.add(JSON.parse(JSON.stringify(save))).then(function (doc) {
-        that.set('items.' + selectedItem + '.ref', doc)
-        if (toAddQuill) {
-          doc.collection('quill').add(toAddQuill).then().catch()
-        }
-        that.set('loading', false)
-      }).catch(function (error) {
-        console.error('Error adding card: ', error)
-      })
+      if (that.cards.add) {
+        that.cards.add(JSON.parse(JSON.stringify(save))).then(function (doc) {
+          that.set('items.' + selectedItem + '.ref', doc)
+          if (toAddQuill) {
+            doc.collection('quill').add(toAddQuill).then().catch()
+          }
+          that.set('loading', false)
+        }).catch(function (error) {
+          console.error('Error adding card: ', error)
+        })
+      }
     },
     deleteCard: function (e, d) {
       var that = this
