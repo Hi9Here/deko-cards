@@ -419,7 +419,7 @@
       var cols = Math.floor((window.innerWidth / 203) - .06)
       var colWidth = window.innerWidth / cols
       var droppedInCol = Math.ceil(e.pageX / colWidth)
-      var droppedInRow = e.pageY / 38
+      var droppedInRow = Math.ceil(e.pageY / 38)
       console.log(droppedInCol, droppedInRow)
     },
     clearTrick: function () {
