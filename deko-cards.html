@@ -415,16 +415,21 @@
         console.log("drop on card")
       }
   
-      console.log(e.pageX, e.pageY)
       var cols = Math.floor((window.innerWidth / 203) - .06)
       var colWidth = window.innerWidth / cols
       var droppedInCol = Math.ceil(e.pageX / colWidth)
       var droppedInRow = Math.ceil(e.pageY / 38)
 
       console.log(droppedInCol, droppedInRow)
+      if (!e.target.card.place) {
+        e.target.card.place = {}
+      } 
+      if (!e.target.card.place[cols]) {
+        e.target.card.place[cols] = {row:droppedInRow,col:droppedInCol}
+      }
 
-      e.target.style.gridRow = droppedInRow
-      e.target.style.gridColumn = droppedInCol
+      e.target.style.gridRow = e.target.card.place[cols].row
+      e.target.style.gridColumn = e.target.card.place[cols].col
 
     },
     clearTrick: function () {
