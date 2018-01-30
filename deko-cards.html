@@ -424,9 +424,7 @@
       if (!e.target.card.place) {
         e.target.card.place = {}
       } 
-      if (!e.target.card.place[cols]) {
-        e.target.card.place[cols] = {row:droppedInRow,col:droppedInCol}
-      }
+      e.target.card.place[cols] = {row:droppedInRow,col:droppedInCol}
 
       e.target.style.gridRow = e.target.card.place[cols].row
       e.target.style.gridColumn = e.target.card.place[cols].col
