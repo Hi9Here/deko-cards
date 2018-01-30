@@ -404,10 +404,30 @@
       },
       apiURL: {
         value: 'https://us-central1-deko-app-one.cloudfunctions.net/god/'
-      }
+      },
+      _deal: {
+        computed: 'deal(cols)'
+      } 
     },
     toId: function (i) {
       return i.replace(/[0-9+/\=]/g, '')
+    },
+    deal: function(cols) {
+      var elements = document.querySelectorAll('#card-view > deko-card-container > div > deko-card')
+      var fillCols = {}
+      Array.from(elements).forEach( (el) => {
+        if (el.card.place[cols]) {
+          var col = +el.card.place[cols].col 
+          if (!fillCols[col]) {
+            fillCols[col] = []
+          }
+          fillCols[col].push(+el.card.place[cols].row)
+          fillCols[col].sort(function(a, b) {return a - b})
+          var row = fillCols[col].indexOf(+el.card.place[cols].row) 
+          el.style.gridRow = row || "unset"
+          el.style.gridColumn = col || "unset"
+        }
+      })
     },
     dropcard: function (e) {
       console.log(e.target.card)
@@ -425,9 +445,8 @@
         e.target.card.place = {}
       } 
       e.target.card.place[cols] = {row:droppedInRow,col:droppedInCol}
-
-      e.target.style.gridRow = e.target.card.place[cols].row
-      e.target.style.gridColumn = e.target.card.place[cols].col
+      
+      this.deal(cols)
 
     },
     clearTrick: function () {
@@ -1496,6 +1515,12 @@
         return response.json()
       }).then(function (response) {
         that.profileList = response
+      })
+      window.addEventListener('resize', function () {
+        var cols =  Math.floor((window.innerWidth / 203) - .06)
+        if (that.cols === cols) {
+          that.set("cols", cols)
+        }
       })
     }
   })
