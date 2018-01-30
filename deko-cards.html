@@ -409,8 +409,9 @@
     toId: function (i) {
       return i.replace(/[0-9+/\=]/g, '')
     },
-    dropcard: function (e,d) {
-      console.log(e,d)
+    dropcard: function (e) {
+      console.log(e.target.card)
+      console.log(e.pageX, e.pageY)
     },
     clearTrick: function () {
       var that = this
