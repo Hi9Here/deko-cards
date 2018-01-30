@@ -446,7 +446,7 @@
       } 
       e.target.card.place[cols] = {row:droppedInRow,col:droppedInCol}
       
-      this.deal(cols)
+      this.parentElement.parentElement.parentElement.parentElement.deal(cols)
 
     },
     clearTrick: function () {
