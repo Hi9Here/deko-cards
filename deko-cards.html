@@ -26,7 +26,7 @@
     <div id="card-view">
       <deko-card-container>
         <template is="dom-repeat" items="[[items]]" id="list0">
-          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" draggable$="[[item.selected]]" >
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" on-drop="dropcard" >
             <div inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
         </template>
@@ -408,6 +408,9 @@
     },
     toId: function (i) {
       return i.replace(/[0-9+/\=]/g, '')
+    },
+    dropcard: function (e) {
+      console.log(e)
     },
     clearTrick: function () {
       var that = this
