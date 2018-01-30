@@ -417,7 +417,10 @@
   
       console.log(e.pageX, e.pageY)
       var cols = Math.floor((window.innerWidth / 203) - .06)
-      console.log(cols,e.pageX, ((window.innerWidth / cols) /e.pageX) * cols)
+      var colWidth = window.innerWidth / cols
+      var droppedInCol = Math.ceil(e.pageX / colWidth)
+      var droppedInRow = e.pageY / 38
+      console.log(droppedInCol, droppedInRow)
     },
     clearTrick: function () {
       var that = this
