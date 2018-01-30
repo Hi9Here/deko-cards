@@ -513,8 +513,9 @@
       }
 
       if (card !== false) {
-        console.log(this.items[card].quill)
-        if (this.quill && this.items[card].quill.length) {
+        console.log("card", card)
+        console.log("quill", this.items[card].quill)
+        if (this.quill && this.items[card]  && this.items[card].quill  && this.items[card].quill.length) {
           this.quill.setContents(this.items[card].quill)
         }
       }
