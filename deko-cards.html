@@ -411,7 +411,13 @@
     },
     dropcard: function (e) {
       console.log(e.target.card)
+      if (e.dataTransfer.dropEffect === "move") {
+        console.log("drop on card")
+      }
+  
       console.log(e.pageX, e.pageY)
+      var cols = Math.floor((window.innerWidth / 203) - .06)
+      console.log(cols,e.pageX, ((window.innerWidth / cols) /e.pageX) * cols)
     },
     clearTrick: function () {
       var that = this
