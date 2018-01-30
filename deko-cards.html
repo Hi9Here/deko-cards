@@ -1434,6 +1434,8 @@
         this.editing = true
       } else if (document.activeElement.card) {
         cardEle = this.select(e)
+        cardEle.setAttribute("draggable", true)
+        console.log(cardEle)
       }
     },
     resub: function (e) {
