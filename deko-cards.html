@@ -416,7 +416,7 @@
       var elements = document.querySelectorAll('#card-view > deko-card-container > div > deko-card')
       var fillCols = {}
       Array.from(elements).forEach( (el) => {
-        if (el.card.place[cols]) {
+        if (el.card.place && el.card.place[cols]) {
           var col = +el.card.place[cols].col 
           if (!fillCols[col]) {
             fillCols[col] = []
