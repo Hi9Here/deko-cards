@@ -420,7 +420,12 @@
       var colWidth = window.innerWidth / cols
       var droppedInCol = Math.ceil(e.pageX / colWidth)
       var droppedInRow = Math.ceil(e.pageY / 38)
+
       console.log(droppedInCol, droppedInRow)
+
+      e.target.style.gridRow = droppedInRow
+      e.target.style.gridColumn = droppedInCol
+
     },
     clearTrick: function () {
       var that = this
