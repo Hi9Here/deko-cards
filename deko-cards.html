@@ -546,6 +546,10 @@
             return x
           }))
         }
+        newQuill.enable()
+        if (show.innerHTML !== this.$$("#editor").innerHTML) {
+          this.$$("#editor").innerHTML = show.innerHTML
+        }
       }
     },
     addTextSetPrompt: function (d) {
