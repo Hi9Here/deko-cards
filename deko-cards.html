@@ -32,7 +32,7 @@
         </template>
       </deko-card-container>
     </div>
-    <template is="dom-repeat" items="{{items}}" filter="selected" id="list5">
+    <template is="dom-repeat" items="{{items}}" filter="selected" id="opencard">
       <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
         <div>
           <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
@@ -1421,6 +1421,7 @@
       var cardEle
       if (document.activeElement.card && document.activeElement.card.selected) {
         this.cardPart = 1
+        this.$.opencard.render()
         this.$$('open-card').open()
         if (this.unsub) {
           this.unsub()
