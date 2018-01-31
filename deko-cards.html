@@ -441,7 +441,7 @@
       if (e.dataTransfer.dropEffect === "move") {
         console.log("drop on card")
       }
-  
+      var that = this.parentElement.parentElement.parentElement.parentElement  
       var tape = that.$.tape
       if (tape && tape.offsetWidth) {
         var cols =  Math.floor((window.innerWidth / (tape.offsetWidth + 6) ))
