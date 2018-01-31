@@ -478,7 +478,11 @@
       return (card.place && card.place[this.cols] && card.place[this.cols].col === 6)
     }, 
     sortRow: function(a, b) {
-      return a.place[this.cols].row - b.place[this.cols].row
+      if (this.cols) {
+        return a.place[this.cols].row - b.place[this.cols].row
+      } else {
+        return 1
+      }
     },
     deal: function(cols) {
       var elements = document.querySelectorAll('#card-view deko-card')
