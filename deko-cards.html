@@ -28,7 +28,7 @@
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <div id="card-view">
       <deko-card-container>
-        <div class="col 0">
+        <div class="col 0" style$="width: calc(99%/[[cols]])">
           <template is="dom-repeat" items="[[items]]" id="list0" filter="col_1">
             <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
               <div inner-h-t-m-l="[[item.html]]"></div>
