@@ -531,8 +531,9 @@
           e.target.card.place = {}
         } 
         e.target.card.place[cols] = {row:droppedInRow,col:droppedInCol}
-        
-        that.deal(cols)
+        setTimeout(function(){
+          that.deal(cols)
+        }, 500} 
       }
     },
     clearTrick: function () {
