@@ -533,7 +533,7 @@
         e.target.card.place[cols] = {row:droppedInRow,col:droppedInCol}
         setTimeout(function(){
           that.deal(cols)
-        }, 500} 
+        },0) 
       }
     },
     clearTrick: function () {
@@ -1446,7 +1446,9 @@
           })
           that.set('editing', false)
           that.set('items', cards)
-          that.deal(that.cols)
+          setTimeout(function(){
+            that.deal(that.cols)
+          },250) 
           if (that.loaded == +loadNum) {
             if (that.items[+loadNum - 1][byChild]) {
               that.nextPageStartAt = that.items[+loadNum - 1][byChild] + '~'
