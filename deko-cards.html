@@ -467,8 +467,8 @@
     deal: function(cols) {
       var elements = document.querySelectorAll('#card-view > deko-card-container > div > deko-card')
       var fillCols = {}
-      var index
-      Array.from(elements).forEach( function(el){
+      var index = 1
+      Array.from(elements).forEach(function(el){
         var col
         var row
         if (el.card.place && el.card.place[cols]) {
@@ -488,7 +488,7 @@
         el.style.gridRow = row || "unset"
         el.style.gridColumn = col || "unset"
       })
-      console.log(fillCols)      
+      console.log(fillCols)
       this.set("fillCols", fillCols)
     },
     dropcard: function (e) {
