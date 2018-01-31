@@ -442,8 +442,23 @@
     toId: function (i) {
       return i.replace(/[0-9+/\=]/g, '')
     },
-    col_1: function(item){
-
+    col_1: function(card){
+      return (card.place && card.place[this.cols].col === 1)
+    }, 
+    col_2: function(card){
+      return (card.place && card.place[this.cols].col === 2)
+    }, 
+    col_3: function(card){
+      return (card.place && card.place[this.cols].col === 3)
+    }, 
+    col_4: function(card){
+      return (card.place && card.place[this.cols].col === 4)
+    }, 
+    col_5: function(card){
+      return (card.place && card.place[this.cols].col === 5)
+    }, 
+    col_6: function(card){
+      return (card.place && card.place[this.cols].col === 6)
     }, 
     deal: function(cols) {
       var elements = document.querySelectorAll('#card-view > deko-card-container > div > deko-card')
