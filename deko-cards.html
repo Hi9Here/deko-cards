@@ -445,8 +445,9 @@
       var tape = that.$.tape
       if (tape && tape.offsetWidth) {
         var cols =  Math.floor(tape.parentNode.clientWidth / tape.offsetWidth)
-        var colWidth = window.innerWidth / cols
-        var droppedInCol = Math.ceil(e.pageX / colWidth)
+        var colWidth = tape.clientWidth
+        var leftMargin = (window.innerWidth - tape.parentNode.clientWidth) / 2
+        var droppedInCol = Math.ceil((e.pageX - leftMargin) / colWidth )
         var droppedInRow = Math.ceil(e.pageY / 38)
   
         console.log(droppedInCol, droppedInRow)
