@@ -30,22 +30,22 @@
             <div inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
         </template>
-        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_2">
+        <template is="dom-repeat" items="[[items]]" id="list1" filter="col_2">
           <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
             <div inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
         </template>
-        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_3">
+        <template is="dom-repeat" items="[[items]]" id="list2" filter="col_3">
           <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
             <div inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
         </template>
-        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_4">
+        <template is="dom-repeat" items="[[items]]" id="list3" filter="col_4">
           <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
             <div inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
         </template>
-        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_5">
+        <template is="dom-repeat" items="[[items]]" id="list4" filter="col_5">
           <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
             <div inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
@@ -443,7 +443,11 @@
       return i.replace(/[0-9+/\=]/g, '')
     },
     col_1: function(card){
-      return (card.place && card.place[this.cols].col === 1)
+      if (card.place) {
+        return (card.place[this.cols].col === 1)
+      } else {
+        return true
+      }
     }, 
     col_2: function(card){
       return (card.place && card.place[this.cols].col === 2)
