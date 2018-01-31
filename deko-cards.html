@@ -444,7 +444,7 @@
       var that = this.parentElement.parentElement.parentElement.parentElement  
       var tape = that.$.tape
       if (tape && tape.offsetWidth) {
-        var cols =  Math.floor((tape.parentNode.clientWidth / (tape.offsetWidth + 6) ))
+        var cols =  Math.floor(tape.parentNode.clientWidth / tape.offsetWidth)
         var colWidth = window.innerWidth / cols
         var droppedInCol = Math.ceil(e.pageX / colWidth)
         var droppedInRow = Math.ceil(e.pageY / 38)
@@ -1528,7 +1528,7 @@
       window.addEventListener('resize', function () {
         var tape = that.$.tape
         if (tape && tape.offsetWidth) {
-          var cols =  Math.floor((tape.parentNode.clientWidth  / (tape.offsetWidth + 6) ))
+          var cols =  Math.floor((tape.parentNode.clientWidth / tape.offsetWidth ))
           if (that.cols !== cols) {
             that.set("cols", cols)
           }
