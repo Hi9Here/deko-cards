@@ -499,16 +499,14 @@
         fillCols[col].push(+el.card.place[cols].row)
         fillCols[col].sort(function(a, b) {return a - b})
         row = fillCols[col].indexOf(+el.card.place[cols].row) 
-        el.style.gridRow = row || "unset"
+        el.style.gridRow = row
       })
-      console.log(fillCols)
       this.$.list0.render()
       this.$.list1.render()
       this.$.list2.render()
       this.$.list3.render()
       this.$.list4.render()
       this.$.list5.render()
-      this.set("fillCols", fillCols)
     },
     dropcard: function (e) {
       console.log(e.target.card)
@@ -557,7 +555,7 @@
       if (lunr) {
         return db.collection('Profiles').doc(that.profileId).collection('lunr_index').doc('images').get().then(function (doc) {
           return lunr.Index.load(JSON.parse(doc.data().idx))
-        }).catch(e => {
+        }).catch(function(e) {
           console.log(e)
           return 'Error'
         })
@@ -1600,7 +1598,7 @@
       }).then(function (response) {
         that.profileList = response
       })
-      window.addEventListener('resize', function () {
+      var _cols_ = function () {
         var tape = that.$.tape
         if (tape && tape.offsetWidth) {
           var cols =  Math.floor((tape.parentNode.clientWidth / tape.offsetWidth ))
@@ -1608,7 +1606,9 @@
             that.set("cols", cols)
           }
         }
-      })
+      }
+      _cols_()
+      window.addEventListener('resize', _cols_ )
     },
   })
 
