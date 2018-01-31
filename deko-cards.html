@@ -458,29 +458,29 @@
       return i.replace(/[0-9+/\=]/g, '')
     },
     col_1: function(card){
-      if (card.place) {
+      if (card.place && card.place[this.cols]) {
         return (card.place[this.cols].col === 1)
       } else {
         return true
       }
     }, 
     col_2: function(card){
-      return (card.place && card.place[this.cols].col === 2)
+      return (card.place && card.place[this.cols] && card.place[this.cols].col === 2)
     }, 
     col_3: function(card){
-      return (card.place && card.place[this.cols].col === 3)
+      return (card.place && card.place[this.cols] && card.place[this.cols].col === 3)
     }, 
     col_4: function(card){
-      return (card.place && card.place[this.cols].col === 4)
+      return (card.place && card.place[this.cols] && card.place[this.cols].col === 4)
     }, 
     col_5: function(card){
-      return (card.place && card.place[this.cols].col === 5)
+      return (card.place && card.place[this.cols] && card.place[this.cols].col === 5)
     }, 
     col_6: function(card){
-      return (card.place && card.place[this.cols].col === 6)
+      return (card.place && card.place[this.cols] && card.place[this.cols].col === 6)
     }, 
     deal: function(cols) {
-      var elements = document.querySelectorAll('#card-view > deko-card-container > div > deko-card')
+      var elements = document.querySelectorAll('#card-view deko-card')
       var fillCols = {}
       var index = 1
       Array.from(elements).forEach(function(el){
@@ -504,6 +504,12 @@
         el.style.gridColumn = col || "unset"
       })
       console.log(fillCols)
+      this.$.list0.render()
+      this.$.list1.render()
+      this.$.list2.render()
+      this.$.list3.render()
+      this.$.list4.render()
+      this.$.list5.render()
       this.set("fillCols", fillCols)
     },
     dropcard: function (e) {
