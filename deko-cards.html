@@ -473,14 +473,14 @@
         var row
         if (el.card.place && el.card.place[cols]) {
           col = +el.card.place[cols].col 
-          if (!fillCols[col]) {
-            fillCols[col] = []
-          }
         } else {
           index++ 
           col = index % cols
           if (!el.card.place) {el.card.place = {}}
           el.card.place[cols] = {row:Math.floor(index % cols), col: col}
+        }
+        if (!fillCols[col]) {
+          fillCols[col] = []
         }
         fillCols[col].push(+el.card.place[cols].row)
         fillCols[col].sort(function(a, b) {return a - b})
