@@ -504,7 +504,6 @@
         fillCols[col].push(+el.card.place[cols].row)
         fillCols[col].sort(function(a, b) {return a - b})
         row = fillCols[col].indexOf(+el.card.place[cols].row) 
-        el.style.gridRow = row
       })
       this.$.list0.render()
       this.$.list1.render()
