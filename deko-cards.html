@@ -25,36 +25,48 @@
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <div id="card-view">
       <deko-card-container>
-        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_1">
-          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-            <div inner-h-t-m-l="[[item.html]]"></div>
-          </deko-card>
-        </template>
-        <template is="dom-repeat" items="[[items]]" id="list1" filter="col_2">
-          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-            <div inner-h-t-m-l="[[item.html]]"></div>
-          </deko-card>
-        </template>
-        <template is="dom-repeat" items="[[items]]" id="list2" filter="col_3">
-          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-            <div inner-h-t-m-l="[[item.html]]"></div>
-          </deko-card>
-        </template>
-        <template is="dom-repeat" items="[[items]]" id="list3" filter="col_4">
-          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-            <div inner-h-t-m-l="[[item.html]]"></div>
-          </deko-card>
-        </template>
-        <template is="dom-repeat" items="[[items]]" id="list4" filter="col_5">
-          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-            <div inner-h-t-m-l="[[item.html]]"></div>
-          </deko-card>
-        </template>
-        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_6">
-          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-            <div inner-h-t-m-l="[[item.html]]"></div>
-          </deko-card>
-        </template>
+        <div class="col">
+          <template is="dom-repeat" items="[[items]]" id="list0" filter="col_1">
+            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+              <div inner-h-t-m-l="[[item.html]]"></div>
+            </deko-card>
+          </template>
+        </div>
+        <div class="col">
+          <template is="dom-repeat" items="[[items]]" id="list1" filter="col_2">
+            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+              <div inner-h-t-m-l="[[item.html]]"></div>
+            </deko-card>
+          </template>
+        </div>
+        <div class="col">
+          <template is="dom-repeat" items="[[items]]" id="list2" filter="col_3">
+            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+              <div inner-h-t-m-l="[[item.html]]"></div>
+            </deko-card>
+          </template>
+        </div>
+        <div class="col">
+          <template is="dom-repeat" items="[[items]]" id="list3" filter="col_4">
+            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+              <div inner-h-t-m-l="[[item.html]]"></div>
+            </deko-card>
+          </template>
+        </div>
+        <div class="col">
+          <template is="dom-repeat" items="[[items]]" id="list4" filter="col_5">
+            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+              <div inner-h-t-m-l="[[item.html]]"></div>
+            </deko-card>
+          </template>
+        </div>
+        <div class="col">
+          <template is="dom-repeat" items="[[items]]" id="list5" filter="col_6">
+            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+              <div inner-h-t-m-l="[[item.html]]"></div>
+            </deko-card>
+          </template>
+        </div>
       </deko-card-container>
     </div>
     <!-- testing not updating items  \/{{ }}\/ -->
