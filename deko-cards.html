@@ -25,6 +25,10 @@
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <div id="card-view">
       <deko-card-container>
+        <div></div>
+        <div id="tape"></div>
+      </deko-card-container>
+      <deko-card-container>
         <template is="dom-repeat" items="[[items]]" id="list0">
           <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
             <div inner-h-t-m-l="[[item.html]]"></div>
