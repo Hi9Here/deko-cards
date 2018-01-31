@@ -444,7 +444,7 @@
   
       var tape = that.$.tape
       if (tape && tape.offsetWidth) {
-        var cols =  Math.floor((window.innerWidth / (card.offsetWidth + 6) ))
+        var cols =  Math.floor((window.innerWidth / (tape.offsetWidth + 6) ))
         var colWidth = window.innerWidth / cols
         var droppedInCol = Math.ceil(e.pageX / colWidth)
         var droppedInRow = Math.ceil(e.pageY / 38)
@@ -1526,9 +1526,9 @@
         that.profileList = response
       })
       window.addEventListener('resize', function () {
-        var card = that.$$("deko-card:nth-child(2)")
-        if (card && card.offsetWidth) {
-          var cols =  Math.floor((window.innerWidth / (card.offsetWidth + 6) ))
+        var tape = that.$.tape
+        if (tape && tape.offsetWidth) {
+          var cols =  Math.floor((window.innerWidth / (tape.offsetWidth + 6) ))
           if (that.cols !== cols) {
             that.set("cols", cols)
           }
