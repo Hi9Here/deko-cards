@@ -501,7 +501,6 @@
         fillCols[col].sort(function(a, b) {return a - b})
         row = fillCols[col].indexOf(+el.card.place[cols].row) 
         el.style.gridRow = row || "unset"
-        el.style.gridColumn = col || "unset"
       })
       console.log(fillCols)
       this.$.list0.render()
