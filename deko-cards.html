@@ -478,7 +478,7 @@
       return (card.place && card.place[this.cols] && card.place[this.cols].col === 6)
     }, 
     sortRow: function(a, b) {
-      if (this.cols) {
+      if (this.cols && a.place && b.place && a.place[this.cols] && b.place[this.cols] ) {
         return a.place[this.cols].row - b.place[this.cols].row
       } else {
         return 1
