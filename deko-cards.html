@@ -32,7 +32,8 @@
         </template>
       </deko-card-container>
     </div>
-    <template is="dom-repeat" items="{{items}}" filter="selected" id="opencard">
+    <!-- testing not updating items  \/{{ }}\/ -->
+    <template is="dom-repeat" items="[[items]]" filter="selected" id="opencard">
       <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
         <div>
           <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
@@ -447,8 +448,8 @@
         var cols =  Math.floor(tape.parentNode.clientWidth / tape.offsetWidth)
         var colWidth = tape.clientWidth
         var leftMargin = (window.innerWidth - tape.parentNode.clientWidth) / 2
-        var droppedInCol = Math.ceil((e.pageX - leftMargin) / colWidth )
-        var droppedInRow = Math.ceil(e.pageY / 38)
+        var droppedInCol = Math.ceil((e.pageX - leftMargin) / colWidth)
+        var droppedInRow = Math.ceil(e.pageY / 50)
   
         console.log(droppedInCol, droppedInRow)
         if (!e.target.card.place) {
