@@ -25,7 +25,32 @@
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <div id="card-view">
       <deko-card-container>
-        <template is="dom-repeat" items="[[items]]" id="list0">
+        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_1">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
+        </template>
+        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_2">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
+        </template>
+        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_3">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
+        </template>
+        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_4">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
+        </template>
+        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_5">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
+        </template>
+        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_6">
           <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
             <div inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
@@ -417,25 +442,34 @@
     toId: function (i) {
       return i.replace(/[0-9+/\=]/g, '')
     },
+    col_1: function(item){
+
+    }, 
     deal: function(cols) {
       var elements = document.querySelectorAll('#card-view > deko-card-container > div > deko-card')
       var fillCols = {}
-      Array.from(elements).forEach( (el) => {
+      var index
+      Array.from(elements).forEach( function(el){
+        var col
+        var row
         if (el.card.place && el.card.place[cols]) {
-          var col = +el.card.place[cols].col 
+          col = +el.card.place[cols].col 
           if (!fillCols[col]) {
             fillCols[col] = []
           }
-          fillCols[col].push(+el.card.place[cols].row)
-          fillCols[col].sort(function(a, b) {return a - b})
-          var row = fillCols[col].indexOf(+el.card.place[cols].row) 
-          el.style.gridRow = row || "unset"
-          el.style.gridColumn = col || "unset"
         } else {
-          el.style.gridRow = "unset"
-          el.style.gridColumn = "unset"
+          index++ 
+          col = index % cols
+          el.card.place[cols] = {row:Math.floor(index % cols), col: col}
         }
+        fillCols[col].push(+el.card.place[cols].row)
+        fillCols[col].sort(function(a, b) {return a - b})
+        row = fillCols[col].indexOf(+el.card.place[cols].row) 
+        el.style.gridRow = row || "unset"
+        el.style.gridColumn = col || "unset"
       })
+      console.log(fillCols)      
+      this.set("fillCols", fillCols)
     },
     dropcard: function (e) {
       console.log(e.target.card)
