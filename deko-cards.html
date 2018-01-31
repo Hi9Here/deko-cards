@@ -435,19 +435,21 @@
         console.log("drop on card")
       }
   
-      var cols = Math.floor((window.innerWidth / 203) - .06)
-      var colWidth = window.innerWidth / cols
-      var droppedInCol = Math.ceil(e.pageX / colWidth)
-      var droppedInRow = Math.ceil(e.pageY / 38)
-
-      console.log(droppedInCol, droppedInRow)
-      if (!e.target.card.place) {
-        e.target.card.place = {}
-      } 
-      e.target.card.place[cols] = {row:droppedInRow,col:droppedInCol}
-      
-      this.parentElement.parentElement.parentElement.parentElement.deal(cols)
-
+      var card = that.$$("deko-card:nth-child(2)")
+      if (card && card.offsetWidth) {
+        var cols =  Math.floor((window.innerWidth / (card.offsetWidth + 6) ))
+        var colWidth = window.innerWidth / cols
+        var droppedInCol = Math.ceil(e.pageX / colWidth)
+        var droppedInRow = Math.ceil(e.pageY / 38)
+  
+        console.log(droppedInCol, droppedInRow)
+        if (!e.target.card.place) {
+          e.target.card.place = {}
+        } 
+        e.target.card.place[cols] = {row:droppedInRow,col:droppedInCol}
+        
+        this.parentElement.parentElement.parentElement.parentElement.deal(cols)
+      }
     },
     clearTrick: function () {
       var that = this
