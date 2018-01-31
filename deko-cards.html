@@ -27,48 +27,48 @@
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <div id="card-view">
-        <div class="col 0" style$="width: calc(95%/[[cols]])">
-          <template is="dom-repeat" items="[[items]]" id="list0" filter="col_1">
-            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-              <div inner-h-t-m-l="[[item.html]]"></div>
-            </deko-card>
-          </template>
-        </div>
-        <div class="col 1" style$="width: calc(95%/[[cols]])">
-          <template is="dom-repeat" items="[[items]]" id="list1" filter="col_2">
-            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-              <div inner-h-t-m-l="[[item.html]]"></div>
-            </deko-card>
-          </template>
-        </div>
-        <div class="col 2" style$="width: calc(95%/[[cols]])">
-          <template is="dom-repeat" items="[[items]]" id="list2" filter="col_3">
-            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-              <div inner-h-t-m-l="[[item.html]]"></div>
-            </deko-card>
-          </template>
-        </div>
-        <div class="col 3" style$="width: calc(95%/[[cols]])">
-          <template is="dom-repeat" items="[[items]]" id="list3" filter="col_4">
-            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-              <div inner-h-t-m-l="[[item.html]]"></div>
-            </deko-card>
-          </template>
-        </div>
-        <div class="col 4" style$="width: calc(95%/[[cols]])">
-          <template is="dom-repeat" items="[[items]]" id="list4" filter="col_5">
-            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-              <div inner-h-t-m-l="[[item.html]]"></div>
-            </deko-card>
-          </template>
-        </div>
-        <div class="col 5" style$="width: calc(95%/[[cols]])">
-          <template is="dom-repeat" items="[[items]]" id="list5" filter="col_6">
-            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
-              <div inner-h-t-m-l="[[item.html]]"></div>
-            </deko-card>
-          </template>
-        </div>
+      <div class="col 0" style$="width: calc(95%/[[cols]])">
+        <template is="dom-repeat" items="[[items]]" id="list0" filter="col_1">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
+        </template>
+      </div>
+      <div class="col 1" style$="width: calc(95%/[[cols]])">
+        <template is="dom-repeat" items="[[items]]" id="list1" filter="col_2">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
+        </template>
+      </div>
+      <div class="col 2" style$="width: calc(95%/[[cols]])">
+        <template is="dom-repeat" items="[[items]]" id="list2" filter="col_3">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
+        </template>
+      </div>
+      <div class="col 3" style$="width: calc(95%/[[cols]])">
+        <template is="dom-repeat" items="[[items]]" id="list3" filter="col_4">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
+        </template>
+      </div>
+      <div class="col 4" style$="width: calc(95%/[[cols]])">
+        <template is="dom-repeat" items="[[items]]" id="list4" filter="col_5">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
+        </template>
+      </div>
+      <div class="col 5" style$="width: calc(95%/[[cols]])">
+        <template is="dom-repeat" items="[[items]]" id="list5" filter="col_6">
+          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+            <div inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
+        </template>
+      </div>
     </div>
     <!-- testing not updating items  \/{{ }}\/ -->
     <template is="dom-repeat" items="[[items]]" filter="selected" id="opencard">
