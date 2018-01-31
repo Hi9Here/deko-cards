@@ -1517,7 +1517,7 @@
         that.profileList = response
       })
       window.addEventListener('resize', function () {
-        var card = that.$$("deko-card")
+        var card = that.$$("deko-card:nth-child(2)")
         if (card && card.offsetWidth) {
           var cols =  Math.floor((window.innerWidth / (card.offsetWidth + 6) ))
           if (that.cols !== cols) {
