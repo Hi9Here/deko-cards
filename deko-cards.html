@@ -457,25 +457,25 @@
     },
     col_1: function(card){
       if (card.place && card.place[this.cols]) {
-        return (card.place[this.cols].col === 0)
+        return (card.place[this.cols].col === 1)
       } else {
         return true
       }
     }, 
     col_2: function(card){
-      return (card.place && card.place[this.cols] && card.place[this.cols].col === 1)
-    }, 
-    col_3: function(card){
       return (card.place && card.place[this.cols] && card.place[this.cols].col === 2)
     }, 
-    col_4: function(card){
+    col_3: function(card){
       return (card.place && card.place[this.cols] && card.place[this.cols].col === 3)
     }, 
-    col_5: function(card){
+    col_4: function(card){
       return (card.place && card.place[this.cols] && card.place[this.cols].col === 4)
     }, 
-    col_6: function(card){
+    col_5: function(card){
       return (card.place && card.place[this.cols] && card.place[this.cols].col === 5)
+    }, 
+    col_6: function(card){
+      return (card.place && card.place[this.cols] && card.place[this.cols].col === 6)
     }, 
     deal: function(cols) {
       var elements = document.querySelectorAll('#card-view deko-card')
