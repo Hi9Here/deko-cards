@@ -430,6 +430,9 @@
           var row = fillCols[col].indexOf(+el.card.place[cols].row) 
           el.style.gridRow = row || "unset"
           el.style.gridColumn = col || "unset"
+        } else {
+          el.style.gridRow = "unset"
+          el.style.gridColumn = "unset"
         }
       })
     },
@@ -439,8 +442,8 @@
         console.log("drop on card")
       }
   
-      var card = that.$$("deko-card:nth-child(2)")
-      if (card && card.offsetWidth) {
+      var tape = that.$.tape
+      if (tape && tape.offsetWidth) {
         var cols =  Math.floor((window.innerWidth / (card.offsetWidth + 6) ))
         var colWidth = window.innerWidth / cols
         var droppedInCol = Math.ceil(e.pageX / colWidth)
@@ -452,7 +455,7 @@
         } 
         e.target.card.place[cols] = {row:droppedInRow,col:droppedInCol}
         
-        this.parentElement.parentElement.parentElement.parentElement.deal(cols)
+        that.deal(cols)
       }
     },
     clearTrick: function () {
