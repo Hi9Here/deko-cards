@@ -531,8 +531,8 @@
         var place = {row:row, col:col}
         if (e.target.card.ref) {
           var toSave = {}
-          toSave[cols] = {}
-          toSave[cols].place = place
+          toSave.place = {}
+          toSave.place[cols]= place
           e.target.card.ref.set(toSave, {merge: true}).then(function () {
             console.log(toSave)
           }).catch(function (e) {
