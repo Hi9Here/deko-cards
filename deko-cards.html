@@ -537,7 +537,7 @@
         var cols = Math.floor(tape.parentNode.clientWidth / tape.offsetWidth)
         var colWidth = tape.clientWidth
         var leftMargin = (window.innerWidth - tape.parentNode.clientWidth) / 2
-        var col = Math.ceil((e.pageX - leftMargin) / colWidth)
+        var col = Math.min(cols,Math.max(1,Math.ceil((e.pageX - leftMargin) / colWidth)))
         var row = Math.ceil(e.pageY / 50)
         var place = {row:row, col:col}
         if (e.target.card.ref) {
