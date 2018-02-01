@@ -1459,7 +1459,9 @@
             })
           })
           that.set('editing', false)
-          that.set('items', cards)
+          if (JSON.stringify(that.items) !== JSON.stringify(cards)) {
+            that.set('items', cards)
+          }
           console.log(that.items)
           setTimeout(function(){
             that.deal(that.cols)
