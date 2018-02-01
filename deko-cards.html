@@ -493,18 +493,32 @@
       var index = 1
       var cardHeight = 200
       function findNextPlace() {
-        if (!fillCols[1] || cols === 1) { return 1 }
-        if (!fillCols[2]) { return 2 }
-        if (cols === 2 && fillCols[1].length <= fillCols[2].length) { return 1}
-        if (cols === 2) { return 2}
-        if (!fillCols[3]) { return 3 }
-        if (cols === 3 && fillCols[1].length <= fillCols[2].length) { return 1}
-        if (cols === 3 && fillCols[2].length <= fillCols[3].length) { return 2}
-        if (cols === 3) { return 3}
-        if (!fillCols[4]) { return 4 }
-        if (!fillCols[5]) { return 5 }
-        if (!fillCols[6]) { return 6 }
-
+        if (!fillCols[1] || cols === 1) {return 1}
+        if (!fillCols[2]) {return 2}
+        if (cols === 2 && fillCols[1].length <= fillCols[2].length) {return 1}
+        if (cols === 2) {return 2}
+        if (!fillCols[3]) {return 3}
+        if (cols === 3 && fillCols[1].length <= fillCols[2].length) {return 1}
+        if (cols === 3 && fillCols[2].length <= fillCols[3].length) {return 2}
+        if (cols === 3) {return 3}
+        if (!fillCols[4]) {return 4}
+        if (cols === 4 && fillCols[1].length <= fillCols[2].length) {return 1}
+        if (cols === 4 && fillCols[2].length <= fillCols[3].length) {return 2}
+        if (cols === 4 && fillCols[3].length <= fillCols[4].length) {return 3}
+        if (cols === 4) {return 4}
+        if (!fillCols[5]) {return 5}
+        if (cols === 5 && fillCols[1].length <= fillCols[2].length) {return 1}
+        if (cols === 5 && fillCols[2].length <= fillCols[3].length) {return 2}
+        if (cols === 5 && fillCols[3].length <= fillCols[4].length) {return 3}
+        if (cols === 5 && fillCols[4].length <= fillCols[5].length) {return 4}
+        if (cols === 5) {return 5}
+        if (!fillCols[6]) {return 6}
+        if (fillCols[1].length <= fillCols[2].length) {return 1}
+        if (fillCols[2].length <= fillCols[3].length) {return 2}
+        if (fillCols[3].length <= fillCols[4].length) {return 3}
+        if (fillCols[4].length <= fillCols[5].length) {return 4}
+        if (fillCols[5].length <= fillCols[6].length) {return 5}
+        return 6
       }
       Array.from(elements).forEach(function(el){
         var col 
