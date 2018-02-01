@@ -511,7 +511,7 @@
 
       var theCols = document.querySelectorAll('#card-view .col')
       Array.from(theCols).forEach(function(el){
-        if (window.innerHeight < el.offsetHeight) {
+        if (window.innerHeight > el.offsetHeight) {
           el.classList.add("stack")
         } else {
           el.classList.remove("stack")
