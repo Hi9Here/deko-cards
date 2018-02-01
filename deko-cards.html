@@ -509,6 +509,12 @@
         row = fillCols[col].indexOf(+el.card.place[cols].row)
       })
 
+      this.$.list0.render()
+      this.$.list1.render()
+      this.$.list2.render()
+      this.$.list3.render()
+      this.$.list4.render()
+      this.$.list5.render()
       var theCols = document.querySelectorAll('#card-view .col')
       Array.from(theCols).forEach(function(el){
         if (window.innerHeight < el.offsetHeight) {
@@ -517,12 +523,6 @@
           el.classList.remove("stack")
         }
       })
-      this.$.list0.render()
-      this.$.list1.render()
-      this.$.list2.render()
-      this.$.list3.render()
-      this.$.list4.render()
-      this.$.list5.render()
     },
     dropcard: function (e) {
       console.log(e.target.card)
