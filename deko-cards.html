@@ -522,7 +522,7 @@
         var index = 0
         Array.from(theCols).forEach(function(el){
           index++
-          if (!fillCols[index] && window.innerHeight < (cardHeight * fillCols[index].length)) {
+          if (fillCols[index] && window.innerHeight < (cardHeight * fillCols[index].length)) {
             el.classList.add("stack")
           } else {
             el.classList.remove("stack")
