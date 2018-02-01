@@ -534,7 +534,7 @@
           toSave[cols] = {}
           toSave[cols].place = place
           e.target.card.ref.set(toSave, {merge: true}).then(function () {
-            console.log(place)
+            console.log(toSave)
           }).catch(function (e) {
             console.error(e)
           })
