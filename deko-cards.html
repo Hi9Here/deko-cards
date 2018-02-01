@@ -1459,7 +1459,15 @@
             })
           })
           that.set('editing', false)
-          if (JSON.stringify(that.items) !== JSON.stringify(cards)) {
+          if (!that.items) {
+            that.set('items', cards)
+          } else if (JSON.stringify(that.items.map(function(c) {
+            delete(c.ref)
+            return c 
+          })) !== JSON.stringify(cards.map(function(c) {
+            delete(c.ref)
+            return c 
+          }))) {
             that.set('items', cards)
           }
           console.log(that.items)
