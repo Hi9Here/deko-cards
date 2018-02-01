@@ -491,8 +491,10 @@
       var elements = document.querySelectorAll('#card-view deko-card')
       var fillCols = {}
       var index = 1
+      var cardHeight = 200
       Array.from(elements).forEach(function(el){
-        var col
+        var col 
+        var cardHeight = Math.max(el.offsetHeight, cardHeight) 
         if (el.card.place && el.card.place[cols]) {
           col = +el.card.place[cols].col 
         } else {
@@ -517,8 +519,10 @@
       this.$.list5.render()
       setTimeout(function() {
         var theCols = document.querySelectorAll('#card-view .col')
+        var index = 0
         Array.from(theCols).forEach(function(el){
-          if (window.innerHeight < el.offsetHeight) {
+          index++
+          if (window.innerHeight < (cardHeight * fillCols[index].length)) {
             el.classList.add("stack")
           } else {
             el.classList.remove("stack")
