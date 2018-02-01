@@ -530,7 +530,9 @@
         var row = Math.ceil(e.pageY / 50)
         var place = {row:row,col:col}
         if (e.target.card.ref) {
-          e.target.card.ref.set({place: place}, {merge: true}).then(function () {
+          var toSave = {}
+          toSave[cols] = place
+          e.target.card.ref.set(toSave, {merge: true}).then(function () {
             console.log(place)
           }).catch(function (e) {
             console.error(e)
