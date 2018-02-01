@@ -24,7 +24,7 @@
       .col {
         display: inline-grid;
       }
-      .col deko-card > deko-card {
+      .col.shack deko-card {
         margin-bottom: -120%;
       }
     </style>
@@ -508,6 +508,15 @@
         fillCols[col].sort(function(a, b) {return a - b})
         row = fillCols[col].indexOf(+el.card.place[cols].row)
       })
+
+      var theCols = document.querySelectorAll('#card-view .col')
+      Array.from(theCols).forEach(function(el){
+        if (window.innerHeight < el.offsetHeight) {
+          el.classList.add("stack")
+        } else {
+          el.classList.remove("stack")
+        }
+      }
       this.$.list0.render()
       this.$.list1.render()
       this.$.list2.render()
