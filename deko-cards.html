@@ -494,7 +494,7 @@
       var cardHeight = 200
       Array.from(elements).forEach(function(el){
         var col 
-        var cardHeight = Math.max(el.offsetHeight, cardHeight) 
+        cardHeight = Math.max(el.offsetHeight, cardHeight) 
         if (el.card.place && el.card.place[cols]) {
           col = +el.card.place[cols].col 
         } else {
