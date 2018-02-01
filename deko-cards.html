@@ -528,10 +528,11 @@
         var leftMargin = (window.innerWidth - tape.parentNode.clientWidth) / 2
         var col = Math.ceil((e.pageX - leftMargin) / colWidth)
         var row = Math.ceil(e.pageY / 50)
-        var place = {row:row,col:col}
+        var place = {row:row, col:col}
         if (e.target.card.ref) {
           var toSave = {}
-          toSave[cols] = place
+          toSave[cols] = {}
+          toSave[cols].place = place
           e.target.card.ref.set(toSave, {merge: true}).then(function () {
             console.log(place)
           }).catch(function (e) {
