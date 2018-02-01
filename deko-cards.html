@@ -506,7 +506,7 @@
         }
         fillCols[col].push(+el.card.place[cols].row)
         fillCols[col].sort(function(a, b) {return a - b})
-        row = fillCols[col].indexOf(+el.card.place[cols].row) 
+        row = fillCols[col].indexOf(+el.card.place[cols].row)
       })
       this.$.list0.render()
       this.$.list1.render()
@@ -526,14 +526,21 @@
         var cols = Math.floor(tape.parentNode.clientWidth / tape.offsetWidth)
         var colWidth = tape.clientWidth
         var leftMargin = (window.innerWidth - tape.parentNode.clientWidth) / 2
-        var droppedInCol = Math.ceil((e.pageX - leftMargin) / colWidth)
-        var droppedInRow = Math.ceil(e.pageY / 50)
-  
-        console.log(droppedInCol, droppedInRow)
+        var col = Math.ceil((e.pageX - leftMargin) / colWidth)
+        var row = Math.ceil(e.pageY / 50)
+        var place = {row:row,col:col}
+        if (e.target.card.ref) {
+          e.target.card.ref.set({place: place}, {merge: true}).then(function () {
+            console.log(place)
+          }).catch(function (e) {
+            console.error(e)
+          })
+        }
+        console.log("placing", place)
         if (!e.target.card.place) {
           e.target.card.place = {}
         } 
-        e.target.card.place[cols] = {row:droppedInRow,col:droppedInCol}
+        e.target.card.place[cols] = place
         setTimeout(function(){
           that.deal(cols)
         },0) 
@@ -1447,6 +1454,7 @@
               ref: doc.ref,
               added: docData.added,
               weigth: docData.weigth,
+              place: docData.place,
             })
           })
           that.set('editing', false)
