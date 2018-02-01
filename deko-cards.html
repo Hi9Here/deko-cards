@@ -24,6 +24,9 @@
       .col {
         display: inline-grid;
       }
+      .col deko-card > deko-card {
+        margin-bottom: -120%;
+      }
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <div id="card-view">
@@ -493,7 +496,7 @@
         if (el.card.place && el.card.place[cols]) {
           col = +el.card.place[cols].col 
         } else {
-          index++ 
+          index++
           col = (index % cols)+1
           if (!el.card.place) {el.card.place = {}}
           el.card.place[cols] = {row:Math.floor(index % cols), col: col}
@@ -649,7 +652,12 @@
 
       var show = this.$$("#show")
       if (show !== null && card !== false && this.items[card].quill && this.items[card].quill.length) {
-        var elem = document.createElement('div')
+        var elem
+        if (this.$$("#editor")) {
+          elem = this.$$("#editor")
+        } else {
+          elem = document.createElement('div')
+        }
         var newQuill = new Quill(elem, {
           modules: {
             toolbar: false
