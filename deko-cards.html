@@ -1459,15 +1459,17 @@
             })
           })
           that.set('editing', false)
+          function comp(c) {
+            if (that.cols && c.place) {
+              c.placeCols = c.place[that.cols]
+              delete(c.place)
+            }
+            delete(c.ref)
+            return c 
+          } 
           if (!that.items) {
             that.set('items', cards)
-          } else if (JSON.stringify(that.items.map(function(c) {
-            delete(c.ref)
-            return c 
-          })) !== JSON.stringify(cards.map(function(c) {
-            delete(c.ref)
-            return c 
-          }))) {
+          } else if (JSON.stringify(that.items.map(comp)) !== JSON.stringify(cards.map(comp))) {
             that.set('items', cards)
           }
           console.log(that.items)
