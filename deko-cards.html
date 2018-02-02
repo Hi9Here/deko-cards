@@ -1343,9 +1343,6 @@
           }
         }
         selectedItem = this._items(this.items)
-        if (JSON.stringify(quill) !== JSON.stringify(this.items[selected].quill) && this.items[selected].ref) {
-          save(quill)  
-        }
         if (selected !== false && this.items[selected] && this.items[selected].ref) { 
           this.items[selected].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest.bind(that)).then(function (quillOps){
             // move card update here
