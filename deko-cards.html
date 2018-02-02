@@ -942,7 +942,12 @@
       if (selectedItem === false) {
         return
       }
-      var elem = document.createElement('div')
+      var elem
+      if (this.$$("#editor")) {
+        elem = this.$$("#editor")
+      } else {
+        elem = document.createElement('div')
+      }
       var newQuill = new Quill(elem, {
         modules: {
           toolbar: false
