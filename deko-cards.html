@@ -1199,10 +1199,11 @@
                       add = [{insert: addBefore + '\n'}].concat(theTrick.action, [{insert: addAfter + '\n'}])
                       that.set(['items', selectedItem, trick], theTrick)
                     } else {
-                      add = [
-                        {insert: addBefore + '\n'},
-                        {insert: addAfter + '\n'}
-                      ]
+                      var theTrick = Object.assign({}, tricks[trick])
+                   //   add = [
+                   //     {insert: addBefore + '\n'},
+                   //     {insert: addAfter + '\n'}
+                   //   ]
                     }
                     that.set(['items', selectedItem, trick], theTrick)
                     if (that.items[selectedItem].ref) {
