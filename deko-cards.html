@@ -1335,7 +1335,10 @@
           this.items[selected].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest.bind(that)).then(function (quillOps){
             // move card update here
             console.log(quillOps)
+            console.log(quill)
+
           }).catch(function (e){
+            console.log(quill)
             console.error(e)
           })
         }
