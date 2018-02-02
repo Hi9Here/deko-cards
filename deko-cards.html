@@ -1345,7 +1345,7 @@
             // move card update here
             console.log(quillOps)
             console.log(quill)
-            if (JSON.stringify(quill) !== JSON.stringify(quillOps)) {
+            if (Array.isArray(quill) && JSON.stringify(quill) !== JSON.stringify(quillOps)) {
               save(quill)
             }
           }).catch(function (e){
