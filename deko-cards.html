@@ -731,7 +731,7 @@
           placeholder: "",
         })
         newQuill.disable()
-        if (!newQuill.getText().trim()) {
+        if (!elem.innerText.trim()) {
           newQuill.setContents(this.items[card].quill)
         }
         newQuill.formatLine(1, 2, 'attributes', {header: 1})
