@@ -1346,7 +1346,7 @@
             console.log(quillOps)
             console.log(quill)
             if (Array.isArray(quill) && JSON.stringify(quill) !== JSON.stringify(quillOps)) {
-              save(quill)
+              save(that.stuffTest(quill))
             }
           }).catch(function (e){
             console.log(quill)
