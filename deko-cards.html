@@ -1216,7 +1216,9 @@
                           saveTrick = true
                         }
                       })
-                      that.items[selectedItem].ref.set(toSave, {merge: true})
+                      if (saveTrick) {
+                        that.items[selectedItem].ref.set(toSave, {merge: true})
+                      }
                     }
                   }
                 }
