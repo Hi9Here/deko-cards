@@ -751,7 +751,7 @@
           if (source == 'api') {
             console.log("An API call triggered this change.");
           } else if (source == 'user') {
-            that.testStuff(that.tricks, delta.ops)
+            that.testStuff(that.tricks, oldDelta.compose(delta).ops)
           }
         });
         newQuill.enable()
