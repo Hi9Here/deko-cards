@@ -242,7 +242,7 @@
                 }
               })
 
-              return docAsElement.innerHTML
+              return docAsElement.innerHTML.replace('<div class="ql-clipboard" contenteditable="false" tabindex="-1"></div>').replace('contenteditable="false"' ,'').replace('data-gramm="false"','')
             },
           },
           addImagesTitle: {
