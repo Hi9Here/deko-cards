@@ -753,6 +753,8 @@
           if (source == 'api') {
             console.log("An API call triggered this change.");
           } else if (source == 'user') {
+            that.editorCursor = oldDelta
+            debugger
             that.testStuff(that.tricks, oldDelta.compose(delta).ops)
           }
         });
@@ -1276,12 +1278,11 @@
       }
       var curer
       if (add || head) {
-        updateCard(stuff)
-        that.stuffTest()
-      } else if (curer = that.quill.getSelection()) {
-        var onLine = that.quill.getLine(curer.index)[0].domNode.outerText.replace("\n","").trim()
+        updateCard(that.stuffTest(stuff))
+      } else if (cursor = that.editorCursor) {
+        var onLine = that.quill.getLine(cursor)[0].domNode.outerText.replace("\n","").trim()
         if (onLine === "") {
-          var line = that.quill.getLine(curer.index-1)[0].domNode.outerText.replace("\n","").trim()
+          var line = that.quill.getLine(cursor-1)[0].domNode.outerText.replace("\n","").trim()
           var apiURL = this.apiURL
           if (line && /^[a-z ,]+$/gmi.test(line) && line.length > 5 && line.length < 100 && line.split(' ').length > 1 && line.split(' ').length < 20) {
             console.log(line)
@@ -1290,7 +1291,7 @@
               if (response) { 
                 // find line  
                 // replace text with response
-                var cur = curer.index - 1
+                var cur = cursor - 1
                 var onLine = that.quill.getLine(cur)[0].domNode.outerText
                 var cur = cur + ((response+" ").length - onLine.length)
                 that.quill.setContents(JSON.parse(JSON.stringify(that.quill.getContents()).split(onLine).join(response+" ")))
