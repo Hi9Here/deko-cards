@@ -943,11 +943,11 @@
         return
       }
       var elem
-      if (this.$$("#editor")) {
-        elem = this.$$("#editor")
-      } else {
-        elem = document.createElement('div')
-      }
+    //  if (this.$$("#editor")) {
+    //    elem = this.$$("#editor")
+    //  } else {
+      elem = document.createElement('div')
+    //  }
       var newQuill = new Quill(elem, {
         modules: {
           toolbar: false
