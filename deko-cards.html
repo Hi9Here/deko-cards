@@ -753,11 +753,14 @@
           if (source == 'api') {
             console.log("An API call triggered this change.");
           } else if (source == 'user') {
-            that.editorCursor = oldDelta
-            debugger
+            if (delta.ops && delta.ops[0] && delta.ops[0].retain) {
+              that.set("editorCursor", delta.ops[0].retain)
+            } else {
+              that.set("editorCursor", false)
+            }
             that.testStuff(that.tricks, oldDelta.compose(delta).ops)
           }
-        });
+        })
         newQuill.enable()
       }
     },
