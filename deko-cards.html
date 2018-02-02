@@ -1330,13 +1330,30 @@
       
       function debouncedTestStuff () {
         var that = this
+        function save(newQuill) {
+          var quillSave = {
+            value: newQuill,
+            time: +Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+            user: firebase.auth().currentUser.uid
+          }
+          if (that.items[selectedItem].ref) {
+            that.items[selectedItem].ref.collection('quill').add(quillSave).then(function (data) {
+              that.set('savedQuill', true)
+            })
+          }
+        }
         selectedItem = this._items(this.items)
+        if (JSON.stringify(quill) !== JSON.stringify(this.items[selected].quill) && this.items[selected].ref) {
+          save(quill)  
+        }
         if (selected !== false && this.items[selected] && this.items[selected].ref) { 
           this.items[selected].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest.bind(that)).then(function (quillOps){
             // move card update here
             console.log(quillOps)
             console.log(quill)
-
+            if (JSON.stringify(quill) !== JSON.stringify(quillOps)) {
+              save(quill)
+            }
           }).catch(function (e){
             console.log(quill)
             console.error(e)
