@@ -192,7 +192,7 @@
               }).then(function (add) {
                 cb(add)
               }).catch(function (e) {
-                console.log(e)
+                console.error(e)
               })
             }
           },
@@ -635,7 +635,7 @@
         return db.collection('Profiles').doc(that.profileId).collection('lunr_index').doc('images').get().then(function (doc) {
           return lunr.Index.load(JSON.parse(doc.data().idx))
         }).catch(function(e) {
-          console.log(e)
+          console.error(e)
           return 'Error'
         })
       } else {
@@ -834,7 +834,7 @@
                 that.resub()
               }
             }).catch(function (e) {
-              console.log(e)
+              console.error(e)
             })
           }
         }
@@ -879,7 +879,7 @@
               that.quill.focus() 
               clearInterval(setFocus)
             } catch (e) {
-              console.log(e)
+              console.error(e)
             }  
           })
           that.quill.setContents([
@@ -909,12 +909,14 @@
       if (that.cards.add) {
         that.cards.add(JSON.parse(JSON.stringify(save))).then(function (doc) {
           that.set('items.' + selectedItem + '.ref', doc)
-          if (toAddQuill) {
-            doc.collection('quill').add(toAddQuill).then().catch()
-          }
           that.set('loading', false)
-        }).catch(function (error) {
-          console.error('Error adding card: ', error)
+          if (toAddQuill) {
+            return doc.collection('quill').add(toAddQuill)
+          } else {
+            console.log("nothing to add")
+          }
+        }).catch(function (e) {
+          console.error('Error adding card: ', e)
         })
       }
     },
@@ -930,8 +932,8 @@
             }
             return accumulator
           }, []))
-        }).catch(function (error) {
-          console.error('Error removing card: ', error)
+        }).catch(function (e) {
+          console.error('Error removing card: ', e)
         })
       }
       this.resub()
@@ -1301,7 +1303,9 @@
                   }
                   that.cache[line] = response
                   return response
-                }).then(dotoQuill).catch(e => console.log(e))
+                }).then(dotoQuill).catch(function(e){
+                  console.error(e)
+                })
               })
             }
           }
@@ -1323,7 +1327,7 @@
         if (selected !== false && this.items[selected] && this.items[selected].ref) { 
           this.items[selected].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest.bind(that)).then(function (quill){
             // move card update here
-            console.error(quill)
+            console.log(quill)
           }).catch(function (e){
             console.error(e)
           })
@@ -1705,8 +1709,8 @@
       return cb(key, hard)
     }).then(function (ret) {
       return ret
-    }).catch(function (err) {
-      console.error(err)
+    }).catch(function (e) {
+      console.error(e)
     })
   }
   function ab2str (buf) {
@@ -1742,8 +1746,8 @@
       if (!regx) {
         return window.crypto.subtle.sign({name: 'ECDSA', hash: {name: 'SHA-256'}}, key, data).then(function (signature) {
           return cb(arrayToBase64String(signature))
-        }).catch(function (err) {
-          console.error(err)
+        }).catch(function (e) {
+          console.error(e)
         })
       } else {
         var doWork = function () {
@@ -1786,8 +1790,8 @@
       }).then(function () {
         return keys
       })
-    }).catch(function (err) {
-      console.error(err)
+    }).catch(function (e) {
+      console.error(e)
     })
   }
   function verify (string, signature, publicKey, cb) {
@@ -1796,8 +1800,8 @@
       window.crypto.subtle.verify({name: 'ECDSA', hash: {name: 'SHA-256'}}, key, base64ToArrayBuffer(signature), data).then(function (isvalid) {
       // returns a boolean on whether the signature is true or not
         cb(isvalid)
-      }).catch(function (err) {
-        console.error(err)
+      }).catch(function (e) {
+        console.error(e)
       })
     })
   }
