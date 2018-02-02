@@ -974,7 +974,7 @@
       } else {
         debugger
       }
-      newQuill.formatLine(1, 2, 'attributes', {header: 1})
+      newQuill.formatLine(1, 2, 'attributes', {header: 1}) //not working
 
       var stuff = newQuill.getContents().ops
       if (JSON.stringify(stuff) == `[{"insert":"\\n"}]`) {
