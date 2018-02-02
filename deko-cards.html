@@ -238,7 +238,7 @@
               docAsElement.querySelectorAll("div").forEach(function (div) {
                 div.outerHTML = div.outerHTML.replace('data-gramm="false" contenteditable="false"','')
                 if (div.className === "ql-clipboard") {
-                  div.outerHTML = ""
+                  div.outerHTML = "<b></b>"
                 }
               })
               return docAsElement.innerHTML
