@@ -964,6 +964,8 @@
       newQuill.disable()
       if (!that.editing && data && data.docs[0] && data.docs[0].data) {
         newQuill.setContents(data.docs[0].data().value)
+      } else if (!that.editing && data && Array.isArray(data)) {
+        newQuill.setContents(data)
       } else if (that.items[selectedItem].quill) {
         newQuill.setContents(that.items[selectedItem].quill)
       } else if (!that.items[selectedItem].quill && data.docs[0].data().value) {
