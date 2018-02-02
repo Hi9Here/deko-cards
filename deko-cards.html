@@ -749,6 +749,14 @@
             return x
           }))
         }
+        var that = this
+        newQuill.on('text-change', function(delta, oldDelta, source) {
+          if (source == 'api') {
+            console.log("An API call triggered this change.");
+          } else if (source == 'user') {
+            that.testStuff(that.tricks, delta.ops)
+          }
+        });
         newQuill.enable()
       }
     },
@@ -1324,9 +1332,9 @@
         var that = this
         selectedItem = this._items(this.items)
         if (selected !== false && this.items[selected] && this.items[selected].ref) { 
-          this.items[selected].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest.bind(that)).then(function (quill){
+          this.items[selected].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest.bind(that)).then(function (quilliOps){
             // move card update here
-            console.log(quill)
+            console.log(quillOps)
           }).catch(function (e){
             console.error(e)
           })
