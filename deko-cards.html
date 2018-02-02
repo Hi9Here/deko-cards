@@ -151,7 +151,7 @@
         value: false
       },
       _runTricks: {
-        computed: 'testStuff(line, tricks, quill)'
+        computed: 'testStuff(tricks, quill)'
       },
       _addingLine: {
         computed: 'setAddingLine(quill)'
@@ -607,7 +607,7 @@
           delete (that.items[that._items(that.items)][prop])
         }
       })
-      that.testStuff('', that.tricks, 0, that.quill) // 0 dry
+      that.testStuff(that.tricks, that.quill) // 0 dry
     },
     getMeta: function (profileId) {
       var meta = {}
@@ -823,21 +823,6 @@
             })
           }
         }
-      }
-    },
-    setAddingLine: function (quill) {
-      if (quill) {
-        var that = this
-        quill.on('text-change', function (theDelta, oldDelta, theSource) {
-          if (quill.getSelection() && quill.getSelection().index) {
-            var onLine = quill.getLine(quill.getSelection().index)[0].domNode.outerText
-            if (that.addingLine !== onLine) {
-              that.set('line', onLine)
-            }
-          } else {
-            that.set('line', '')
-          }
-        })
       }
     },
     getIconTricks: function (tricks) {
@@ -1302,7 +1287,7 @@
       }
       return stuff
     },
-    testStuff: function (line, tricks, quill) {
+    testStuff: function (tricks, quill) {
       var selected = this._items(this.items)
       if (selected !== false && !this.items[selected].ref) {
         console.log(this.items[selected])
