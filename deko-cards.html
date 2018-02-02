@@ -1208,10 +1208,12 @@
                     that.set(['items', selectedItem, trick], theTrick)
                     if (that.items[selectedItem].ref) {
                       var toSave = {}
+                      var saveTrick = false
                       toSave[trick] = {}
                       Object.keys(theTrick).forEach(function (key) {
-                        if (theTrick[key] && !key.startsWith('_')) {
+                        if (theTrick[key] && !key.startsWith('_') && typeof theTrick[key] !== "function") {
                           toSave[trick][key] = theTrick[key]
+                          saveTrick = true
                         }
                       })
                       that.items[selectedItem].ref.set(toSave, {merge: true})
