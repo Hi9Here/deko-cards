@@ -231,9 +231,15 @@
             },
             done: {},
           },
-          dek: {
-            intent: '^(?:put|add)(?: this)? (?:to|in) de[ck]+?([ \\w])*$',
-            icon: 'content-copy'
+          clearUp: {
+            html: function (html) {
+              var docAsElement = document.createElement("div")
+              docAsElement.innerHTML = html
+              docAsElement.querySelectorAll("div").forEach(function (p) {
+                debugger
+              })
+              return docAsElement.innerHTML
+            },
           },
           addImagesTitle: {
             intent: '^add (?:title(?:s)?|synonym(?:s)?) (\\w\\w.+)*',
