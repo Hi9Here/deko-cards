@@ -714,9 +714,11 @@
       }
 
       var show = this.$$("#show")
+      var setupEditor = false 
       if (show !== null && card !== false && this.items[card].quill && this.items[card].quill.length) {
         var elem
         if (this.$$("#editor")) {
+          setupEditor = true
           elem = this.$$("#editor")
         } else {
           elem = document.createElement('div')
@@ -727,7 +729,6 @@
           },
           placeholder: "",
           theme: "bubble",
-
         })
         newQuill.disable()
         if (!elem.innerText.trim()) {
@@ -749,19 +750,22 @@
           }))
         }
         var that = this
-        newQuill.on('text-change', function(delta, oldDelta, source) {
-          if (source == 'api') {
-            console.log("An API call triggered this change.");
-          } else if (source == 'user') {
-            if (delta.ops && delta.ops[0] && delta.ops[0].retain) {
-              that.set("editorCursor", delta.ops[0].retain)
-            } else {
-              that.set("editorCursor", false)
+        if (setupEditor) {
+          newQuill.enable()
+          newQuill.on('text-change', function(delta, oldDelta, source) {
+            if (source == 'api') {
+              console.log("An API call triggered this change.");
+            } else if (source == 'user') {
+              if (delta.ops && delta.ops[0] && delta.ops[0].retain) {
+                that.set("editorCursor", delta.ops[0].retain + 1)
+              } else {
+                that.set("editorCursor", false)
+              }
+              that.testStuff(that.tricks, oldDelta.compose(delta).ops)
             }
-            that.testStuff(that.tricks, oldDelta.compose(delta).ops)
-          }
-        })
-        newQuill.enable()
+          })
+          this.set("quill", newQuill)
+        }
       }
     },
     addTextSetPrompt: function (d) {
