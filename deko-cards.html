@@ -78,7 +78,7 @@
     </div>
     <!-- testing not updating items  \/{{ }}\/ -->
     <template is="dom-repeat" items="[[items]]" filter="selected" id="opencard">
-      <open-card svg="/images/deko.svg" on-touchstart="noDrag" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" on-mousedown="noDrag" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
+      <open-card svg="/images/deko.svg" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
         <div>
           <deko-card style="margin: auto;min-width: 330px;display: block;width: 80%;" card="[[item]]" display="open">
             <quill-js style="max-width: 780px;margin: auto;" value="{{item.quill}}" id="editor" no-resize editor="{{quill}}" theme="bubble" ></quill-js>
@@ -830,9 +830,6 @@
         icons.push(tricks[value])
         return icons
       }, [])
-    },
-    noDrag: function (e) {
-      e.stopPropagation()
     },
     new: function (card) {
       this.set('items', this.items.map(function (x) {
