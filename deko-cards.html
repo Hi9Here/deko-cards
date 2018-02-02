@@ -1509,13 +1509,14 @@
             })
           })
           that.set('editing', false)
-          function comp(c) {
+          function comp(theCard) {
+            var c =  Object.assign({}, theCard)
             if (that.cols && c.place) {
               c.placeCols = c.place[that.cols]
               delete(c.place)
             }
             delete(c.ref)
-            return c 
+            return c
           } 
           if (!that.items) {
             that.set('items', cards)
