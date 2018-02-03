@@ -1283,10 +1283,10 @@
       } else if (add) {
         stuff = stuff.splice(0, +addAt).concat(add, stuff.splice(1 + +(addAt)))
       }
-      var curer
+      var cursor = that.editorCursor
       if (add || head) {
         updateCard(that.stuffTest(stuff))
-      } else if (cursor = that.editorCursor) {
+      } else if (cursor) {
         var onLine = that.quill.getLine(cursor)[0].domNode.outerText.replace("\n","").trim()
         if (onLine === "") {
           var line = that.quill.getLine(cursor-1)[0].domNode.outerText.replace("\n","").trim()
