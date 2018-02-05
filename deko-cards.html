@@ -990,7 +990,9 @@
           newQuill.setContents(that.items[selectedItem].quill)
         }
       } else {
-        return "" // TODO ??? why running
+        if (!that.editing) {
+          return "" // TODO ??? why running
+        }
       }
       newQuill.formatLine(1, 2, 'attributes', {header: 1}) //not working
 
