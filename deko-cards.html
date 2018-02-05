@@ -715,7 +715,17 @@
 
       var show = this.$$("#show")
       var setupEditor = false 
-      if (show !== null && card !== false && this.items[card].quill && this.items[card].quill.length) {
+      if (typeof card === "object") {
+        this.quill = new Quill(this.$$("#editor"), {
+          modules: {
+            toolbar: false
+          },
+          placeholder: "",
+          theme: "bubble",
+        })
+        this.quill.setContents(card)
+
+      } else if (show !== null && card !== false && this.items[card].quill && this.items[card].quill.length) {
         var elem
         if (this.$$("#editor")) {
           setupEditor = true
