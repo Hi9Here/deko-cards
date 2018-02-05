@@ -1347,7 +1347,8 @@
             user: firebase.auth().currentUser.uid
           }
           if (that.items[selectedItem].ref) {
-            await that.items[selectedItem].ref.collection('quill').add(quillSave).then(function (data) {
+            await quillSave 
+            that.items[selectedItem].ref.collection('quill').add(quillSave).then(function (data) {
               that.set('savedQuill', true)
             })
           }
