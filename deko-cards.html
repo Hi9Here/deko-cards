@@ -985,13 +985,13 @@
           newQuill.setContents(that.items[selectedItem].quill)
         }
       } else {
-        debugger
+        return ""
       }
       newQuill.formatLine(1, 2, 'attributes', {header: 1}) //not working
 
       var stuff = newQuill.getContents().ops
       if (JSON.stringify(stuff) == `[{"insert":"\\n"}]`) {
-        return 'new'
+        return "" // new
       }
       var name
       var head
@@ -1030,7 +1030,7 @@
         }
       }
       if (!text) {
-        return 'nothing to test'
+        return "" // 'nothing to test'
       }
       if (text.indexOf('order by added') !== -1 && !that.items[selectedItem].ref) {
         that.set("byChild", "added")
