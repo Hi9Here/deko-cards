@@ -978,11 +978,13 @@
         newQuill.setContents(data.docs[0].data().value)
       } else if (that.editing && data && Array.isArray(data)) {
         newQuill.setContents(data)
-      } else if (that.items[selectedItem].quill) {
+      } else if (!that.editing && that.items[selectedItem].quill) {
         newQuill.setContents(that.items[selectedItem].quill)
       } else if (!that.items[selectedItem].quill && data.docs[0].data().value) {
         that.items[selectedItem].quill = data.docs[0].data().value
-        newQuill.setContents(that.items[selectedItem].quill)
+        if (!that.editing) {
+          newQuill.setContents(that.items[selectedItem].quill)
+        }
       } else {
         debugger
       }
