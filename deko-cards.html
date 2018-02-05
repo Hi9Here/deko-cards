@@ -1312,7 +1312,7 @@
                 var cur = cursor - 1
                 var onLine = that.quill.getLine(cur)[0].domNode.outerText
                 var cur = cur + ((response+" ").length - onLine.length)
-                that.quill.setContents(JSON.parse(JSON.stringify(that.quill.getContents()).split(onLine).join(response+" ")))
+                that.quill.setContents(that.stuffTest(JSON.parse(JSON.stringify(that.quill.getContents()).split(onLine).join(response+" "))))
                 that.quill.setSelection(cur)
                 that.set("line",response+" ")
               } 
