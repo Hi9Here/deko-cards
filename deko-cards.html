@@ -990,7 +990,9 @@
           newQuill.setContents(that.items[selectedItem].quill)
         }
       } else {
-        if (!that.editing) {
+        if (that.editing) {
+          newQuill.setContents(this.quill.getContents())
+        } else {
           return "" // TODO ??? why running
         }
       }
