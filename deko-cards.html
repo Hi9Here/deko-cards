@@ -708,7 +708,7 @@
       }
 
       if (card !== false) {
-        if (!this.editing && this.quill && this.items[card]  && this.items[card].quill  && this.items[card].quill.length) {
+        if (!this.editing && this.quill && this.items[card] && this.items[card].quill && this.items[card].quill.length) {
           this.quill.setContents(this.items[card].quill)
         }
       }
@@ -1420,15 +1420,16 @@
           time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user: firebase.auth().currentUser.uid
         }
-
-        this.items[selectedItem].quill = this.quill.getContents().ops
-
-        if (ref) {
-          ref.collection('quill').add(quill).then(function (data) {
-            that.set('savedQuill', true)
-            that.clearTrick()
-          })
-        } else {
+        if (this.items[selectedItem].quill !== quill.value) {
+          this.items[selectedItem].quill = quill.value
+          if (ref) {
+            ref.collection('quill').add(quill).then(function (data) {
+              that.set('savedQuill', true)
+              that.clearTrick()
+            })
+          }
+        }
+        if (!ref)
           that.newCard(quill)
         }
       }
