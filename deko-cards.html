@@ -862,12 +862,17 @@
       }, [])
     },
     new: function (card) {
+      var place = {}
+      place[this.cols] = {
+        {row: 100, col: this.cols}
+      }
       this.set('items', this.items.map(function (x) {
         x.selected = false
         return x
       }).concat([{
         selected: true,
         image: '',
+        place: place,
         toolbarColor: undefined,
         html: '<h1>New</h2>',
         quill: [
