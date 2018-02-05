@@ -996,7 +996,7 @@
           return "" // TODO ??? why running
         }
       }
-      newQuill.formatLine(1, 2, 'attributes', {header: 1}) //not working
+      newQuill.formatLine(1, 2, 'attributes', {header: 1}, "API") //not working
 
       var stuff = newQuill.getContents().ops
       if (JSON.stringify(stuff) == `[{"insert":"\\n"}]`) {
