@@ -1737,6 +1737,22 @@
       }
       setTimeout(_cols_,500)
       window.addEventListener('resize', _cols_ )
+
+      var elem
+      if (this.$$("#editor")) {
+        setupEditor = true
+        elem = this.$$("#editor")
+      } else {
+        elem = document.createElement('div')
+      }
+      this.quill = new Quill(elem, {
+          modules: {
+          toolbar: false
+        },
+        placeholder: "",
+        theme: "bubble",
+      })
+
     },
   })
 
