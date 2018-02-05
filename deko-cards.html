@@ -1389,6 +1389,9 @@
 //    },
     changingPart: function (part, partFrom) {
       var selectedItem = this._items(this.items)
+      if (selectedItem === false) {
+        return
+      } 
       this.showQuill(selectedItem)
       var that = this
       var ref
