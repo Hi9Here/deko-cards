@@ -1342,12 +1342,11 @@
         var that = this
         async function  save(newQuill) {
           var quillSave = {
-            value: newQuill,
+            value: await newQuill,
             time: +Date.now(), // firebase.database.ServerValue.TIMESTAMP,
             user: firebase.auth().currentUser.uid
           }
           if (that.items[selectedItem].ref) {
-            await quillSave 
             that.items[selectedItem].ref.collection('quill').add(quillSave).then(function (data) {
               that.set('savedQuill', true)
             })
