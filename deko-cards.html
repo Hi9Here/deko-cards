@@ -731,7 +731,7 @@
           theme: "bubble",
         })
         newQuill.disable()
-        if (!elem.innerText.trim()) {
+        if (!elem.innerText.trim() || !this.editing) {
           newQuill.setContents(this.items[card].quill)
         }
         newQuill.formatLine(1, 2, 'attributes', {header: 1})
