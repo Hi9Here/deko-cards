@@ -923,6 +923,7 @@
         that.$$('open-card').open()
         that.clearTrick()
         setFocus = setInterval(open, 500)
+        that.quill.focus() 
       }, 500)
     },
     newCard: function (toAddQuill) {
