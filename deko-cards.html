@@ -293,20 +293,11 @@
               })
             }
           },
-          files: {
-            intent: '^add (file|document)$',
-            ask: ['for files'],
-            icon: 'editor:insert-drive-file'
-          },
-          reminder: {
-            intent: '^add reminder$',
-            ask: ['for date/time'],
-            icon: 'alarm-on'
-          },
-          timer: {
-            intent: '^(add|make|setup a|start) timer (?:for )?([\\d]+) min(?:utes)?$',
-            minutes: '$1',
-            icon: 'alarm'
+          addToDek: {
+            intent: '^add to dec?k\W(\w*)$',
+            icon: 'editor:insert-drive-file',
+            dek: {"$1": true},
+            merge: true,
           },
           setsReps: {
             sets: '$1',
