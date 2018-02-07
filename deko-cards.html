@@ -162,11 +162,7 @@
               return that.imageIndex().then(function (idx) {
                 var result = idx.search(imageSearch.search)
                 if (result.length) {
-                  that.imageResults = result.map(function(image) {
-                    return {
-                      url: image.ref,
-                    }
-                  })
+                  that.imageResults = result
                 } else {
                   that.imageResults = []
                 }
