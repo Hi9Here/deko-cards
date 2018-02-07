@@ -84,7 +84,7 @@
             <div id="editor" ></div>
             
           </deko-card>
-          <q-card part="[[cardPart]]" line="[[line]]" editor="[[quill]]" meta="[[meta]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
+          <q-card files="[[imageResults]]" part="[[cardPart]]" line="[[line]]" editor="[[quill]]" meta="[[meta]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
         </div>
         <div style="margin: auto;max-width:100%;width:1000px;">
           <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
@@ -153,6 +153,27 @@
       },
       tricks: {
         value: {
+          imageSearch: {
+            chip: "add image ",
+            intent: "^add image (?!https?|data).*",
+            accept: "image/*",
+            search: "$1"
+            action: function(imageSearch, cb, that) {
+              return that.imageIndex().then(function (idx) {
+                var result = idx.search(imageSearch.search)
+                if (result.length) {
+                   that.imageResults = result.map(function(image) {
+                    return {
+                      name: "1",
+                      path: image.ref,
+                    }
+                  })
+                } else {
+                  that.imageResults = []
+                }
+              })
+            },
+          },
           signedOff: {
             intent: '^((add|with|my) (sign(ed)?([- ]?)off|signature)|qjkxbmwvz)',
             icon: 'assignment-turned-in',
@@ -891,7 +912,7 @@
         ],
         title: ''
       }]))
-      this.deal()
+      this.deal(this.cols)
       this.cardPart = 0
       this.editing = true
       this.showQuill(this.items[this.items.length - 1])
