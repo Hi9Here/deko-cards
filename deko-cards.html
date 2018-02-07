@@ -166,7 +166,7 @@
                 } else {
                   that.imageResults = []
                 }
-                cb(imageSearch.replacing)
+                cb([{insert: imageSearch.replacing + '\n'}])
               })
             },
           },
