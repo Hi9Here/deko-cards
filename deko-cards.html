@@ -159,14 +159,16 @@
             accept: "image/*",
             search: "$1",
             action: function(imageSearch, cb, that) {
+              this.done[imageSearch.replacing] = true
               return that.imageIndex().then(function (idx) {
                 var result = idx.search(imageSearch.search)
-                if (result.length) {
-                  that.imageResults = result
-                } else {
+                if (!that.imageResults) {
                   that.imageResults = []
                 }
-                cb([{insert: imageSearch.replacing + '\n'}])
+                if (result.length) {
+                  that.imageResults = that.imageResults.concat(result)
+                }
+         //       cb([{insert: imageSearch.replacing + '\n'}])
               })
             },
             done: {},
