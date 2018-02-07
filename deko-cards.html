@@ -1221,7 +1221,7 @@
                       if (typeof tricks[trick].openAction === 'function') {
                         await tricks[trick].openAction(theTrick, function (formTrick) {
                           that.set(['items', selectedItem, '_' + trick], formTrick)
-                        })
+                        }, that)
                       }
                       if (tricks[trick].debounce) {
                         if (!tricks[trick].done) {
@@ -1244,7 +1244,7 @@
                           if (formTrick) {
                             add = [{insert: addBefore + '\n'}].concat(formTrick, [{insert: addAfter + '\n'}])
                           }
-                        })
+                        }, that)
                       }
                     } else if (tricks[trick].action) {
                       var theTrick
