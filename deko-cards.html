@@ -155,7 +155,7 @@
         value: {
           imageSearch: {
             chip: "add image ",
-            intent: "^add image (?!https?|data).*",
+            intent: "^add image ((?!https?|data).*)",
             accept: "image/*",
             search: "$1",
             action: function(imageSearch, cb, that) {
