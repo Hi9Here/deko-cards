@@ -157,7 +157,7 @@
             chip: "add image ",
             intent: "^add image (?!https?|data).*",
             accept: "image/*",
-            search: "$1"
+            search: "$1",
             action: function(imageSearch, cb, that) {
               return that.imageIndex().then(function (idx) {
                 var result = idx.search(imageSearch.search)
