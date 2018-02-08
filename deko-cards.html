@@ -1074,7 +1074,7 @@
         that.items[selectedItem].autoImage = that.imageIndex().then(function (idx) {
           var result = idx.search(title)
           if (result.length) {
-            that.files = result
+            that.files = that.files.concat(result)
             return '' + result[0].ref
           } else {
             return ''
