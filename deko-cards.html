@@ -1065,12 +1065,6 @@
       if (!text) {
         return "" // 'nothing to test'
       }
-      if (text.indexOf('order by added') !== -1 && !that.items[selectedItem].ref) {
-        that.set("byChild", "added")
-      }
-      if (text.indexOf('order by title') !== -1 && !that.items[selectedItem].ref) {
-        that.set("byChild", "title")
-      }
       if (text.indexOf('logout') !== -1 && !that.items[selectedItem].ref) {
         that.fire('logout')
       }
@@ -1080,6 +1074,7 @@
         that.items[selectedItem].autoImage = that.imageIndex().then(function (idx) {
           var result = idx.search(title)
           if (result.length) {
+            that.files = result
             return '' + result[0].ref
           } else {
             return ''
