@@ -887,7 +887,7 @@
         return icons
       }, [])
     },
-    asArray: function (listObj) {
+    toArray: function (listObj) {
       return Object.keys(listObj).reduce(function (theArray, value) {
         if (listObj[value]) {
           theArray.push(value)
