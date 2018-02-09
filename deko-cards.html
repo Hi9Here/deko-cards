@@ -888,12 +888,16 @@
       }, [])
     },
     toArray: function (listObj) {
-      return Object.keys(listObj).reduce(function (theArray, value) {
-        if (listObj[value]) {
-          theArray.push(value)
-        }
-        return theArray
-      }, [])
+      if [listObj] {
+        return Object.keys(listObj).reduce(function (theArray, value) {
+          if (listObj[value]) {
+            theArray.push(value)
+          }
+          return theArray
+        }, [])
+      } else {
+        return ["new dek"]
+      }
     },
     new: function (card) {
       var place = {}
