@@ -90,6 +90,11 @@
           <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
             <div id="show" inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
+          <template is="dom-repeat" items="[[item.deks]]" as="dek">
+            <paper-chip>
+              <div class="label">[[dek]]</div>
+            </paper-chip>
+          </template>
           <div style="text-align:center">
             <template is="dom-repeat" items="[[item._signatures]]" as="sig">
               <deko-signature id="[[toId(sig.signature)]]" signature="[[sig.signature]]" to-test="[[sig.stuff]]"></deko-signature><br>
