@@ -144,6 +144,7 @@
       },
       items: {value: []},
       byChild: {type: String, value: 'added'},
+      dek:{type: String, value: ''},
       loadNum: {type: Number, value: 50},
       startAt: {computed: 'getStartAt(pages, find)'},
       pagesLength: {computed: 'getPagesLength(pages)'},
@@ -1509,7 +1510,7 @@
     getPagesLength: function (pages) {
       return pages.length
     },
-    setItems: function (ref, byChild, loadNum, startAt) {
+    setItems: function (ref, byChild, loadNum, startAt, dek) {
       if (this.editing) {
         return
       }
@@ -1605,10 +1606,14 @@
         }
       }
       var listRef
-      if (byChild === '__key') {
-        listRef = ref
-      } else {
+      if (byChild && dek){
+        listRef = ref.where("dek", "==", dek).orderBy(byChild)
+      } else if(dek){
+        listRef = ref.where("dek", "==", dek)
+      } else if(byChild){
         listRef = ref.orderBy(byChild)
+      } else {
+        listRef = ref
       }
       if (this.unsub) {
         this.unsub()
