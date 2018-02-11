@@ -128,6 +128,10 @@
       _setItems: {
         computed: 'setItems(cards, byChild, loadNum, startAt)'
       },
+      route:{
+        notify:true,
+        observer: 'setDek',
+      }
       end: {value: 999},
       find: {value: ''},
       deck: {value: ''},
@@ -511,6 +515,10 @@
       } else {
         return 1
       }
+    },
+
+    setDek: function(a, b) {
+      console.log(a,b)
     },
     deal: function(cols) {
       var elements = document.querySelectorAll('#card-view deko-card')
