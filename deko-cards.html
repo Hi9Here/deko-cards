@@ -90,7 +90,7 @@
           <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
             <div id="show" inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
-          <template is="dom-repeat" items="[[toArray(item.deks)]]" as="dek">
+          <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="dek">
             <paper-chip>
               <div class="label">[[dek]]</div>
             </paper-chip>
