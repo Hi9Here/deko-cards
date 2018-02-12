@@ -1155,7 +1155,7 @@
               var toAdd = lines[line]
               if (toAdd) {
                 for (var trick in tricks) {
-                  if (tricks[trick].done && tricks[trick].done[toAdd]) {
+                  if ((tricks[trick].done && tricks[trick].done[toAdd]) || !tricks[trick].intent) {
                     continue
                   }
                   var regex = new RegExp(tricks[trick].intent, 'gmi')
