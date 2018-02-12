@@ -1613,9 +1613,9 @@
       }
       var listRef
       if (byChild && dek){
-        listRef = ref.where("deks." + dek, "==", true).orderBy(byChild)
+        listRef = ref.where("dek.deks." + dek, "==", true).orderBy(byChild)
       } else if(dek){
-        listRef = ref.where("deks." + dek, "==", true)
+        listRef = ref.where("dek.deks." + dek, "==", true)
       } else if(byChild){
         listRef = ref.orderBy(byChild)
       } else {
