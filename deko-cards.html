@@ -126,7 +126,7 @@
     is: 'deko-cards',
     properties: {
       _setItems: {
-        computed: 'setItems(cards, byChild, loadNum, startAt)'
+        computed: 'setItems(cards, byChild, loadNum, startAt, dek)'
       },
       route:{
         notify:true,
@@ -136,7 +136,6 @@
       },
       end: {value: 999},
       find: {value: ''},
-      deck: {value: ''},
       pages: {value: []},
       profileId: {value: ''},
       meta: {computed: 'getMeta(profileId)'},
@@ -518,8 +517,8 @@
         return 1
       }
     },
-    setDek: function(a, b) {
-      console.log(a,b)
+    setDek: function(a) {
+      this.set("dek", a.data)
     },
     deal: function(cols) {
       var elements = document.querySelectorAll('#card-view deko-card')
