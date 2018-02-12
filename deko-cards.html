@@ -304,11 +304,12 @@
               })
             }
           },
-          addToDek: {
+          dek: {
             intent: '^add to dec?k\W(\w*)$',
             icon: 'editor:insert-drive-file',
-            dek: {"$1": true},
+            deks: {"$1": true},
             merge: true,
+            action: [],
           },
           setsReps: {
             sets: '$1',
