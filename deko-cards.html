@@ -535,14 +535,30 @@
         this.set("dek", a.data)
         if (/^[a-z0-9]{20}$/i.test(a.data)) {
           // select and open card
-          
-          this.cardPart = 1
-          this.$.opencard.render()
-          this.$$('open-card').open()
+          var isCard
+          var id = a.data
+          var cards = this.items.map(function (x, i) {
+            if (x.ref && x.ref.id === id) {
+              x.selected = true
+              isCard = true
+            } else {
+              x.selected = false
+            }
+            return x
+          }) 
+          if (isCard) {
+            this.set("items", cards)
+            this.cardPart = 1
+            this.$.opencard.render()
+            this.$$('open-card').open()
 
-          if (this.unsub) {
-            this.unsub()
+            if (this.unsub) {
+              this.unsub()
+            }
           }
+        } else {
+          this.$$('open-card').close()
+          this.resub()
         }
       } else {
         this.set("dek", "")
