@@ -533,6 +533,17 @@
     setDek: function(a) {
       if (a.data) {
         this.set("dek", a.data)
+        if (/^[a-z0-9]{20}$/i.test(a.data)) {
+          // select and open card
+          
+          this.cardPart = 1
+          this.$.opencard.render()
+          this.$$('open-card').open()
+
+          if (this.unsub) {
+            this.unsub()
+          }
+        }
       } else {
         this.set("dek", "")
       }
@@ -679,9 +690,6 @@
         console.log(lunr)
         return 'Error'
       }
-    },
-    noDek:function (e, d) {
-      this.set("dek")
     },
     fireChip: function (e, d) {
       var that = this
