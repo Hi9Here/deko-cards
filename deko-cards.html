@@ -87,7 +87,7 @@
         <div>
           <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="cardsDek">
             <a href$="/[[profileId]]/[[cardsDek]]">
-              <paper-chip single-line>
+              <paper-chip removable single-line>
                 <div class="label">[[cardsDek]]</div>
               </paper-chip>
             </a>
@@ -99,9 +99,11 @@
         </div>
         <div style="margin: auto;max-width:100%;width:1000px;">
           <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="cardsDek">
-            <paper-chip removable single-line>
-              <div class="label">[[cardsDek]]</div>
-            </paper-chip>
+            <a href$="/[[profileId]]/[[cardsDek]]">
+              <paper-chip single-line>
+                <div class="label">[[cardsDek]]</div>
+              </paper-chip>
+            </a>
           </template>
           <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
             <div id="show" inner-h-t-m-l="[[item.html]]"></div>
