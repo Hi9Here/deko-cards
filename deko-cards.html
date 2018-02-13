@@ -33,9 +33,11 @@
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <template is="dom-if" if="[[dek]]">
-      <paper-chip single-line on-tap="noDek">
-        <div class="label">[[dek]]</div>
-      </paper-chip>
+      <a href$="/[[profileId]]/">
+        <paper-chip removable single-line>
+          <div class="label">[[dek]]</div>
+        </paper-chip>
+      </a>
     </template>
     <div id="card-view">
       <div class="col 0" style$="width: calc(95%/[[cols]])">
