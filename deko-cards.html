@@ -80,21 +80,25 @@
     <template is="dom-repeat" items="[[items]]" filter="selected" id="opencard">
       <open-card svg="/images/deko.svg" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
         <div>
-          <deko-card style="margin: auto;min-width: 330px;display: block;width: 80%;" card="[[item]]" display="open">
-            <div id="editor" ></div>
-            
-          </deko-card>
-          <q-card files="[[imageResults]]" part="[[cardPart]]" line="[[line]]" editor="[[quill]]" meta="[[meta]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
-        </div>
-        <div style="margin: auto;max-width:100%;width:1000px;">
-          <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
-            <div id="show" inner-h-t-m-l="[[item.html]]"></div>
-          </deko-card>
           <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="dek">
             <paper-chip>
               <div class="label">[[dek]]</div>
             </paper-chip>
           </template>
+          <deko-card style="margin: auto;min-width: 330px;display: block;width: 80%;" card="[[item]]" display="open">
+            <div id="editor" ></div>
+          </deko-card>
+          <q-card files="[[imageResults]]" part="[[cardPart]]" line="[[line]]" editor="[[quill]]" meta="[[meta]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
+        </div>
+        <div style="margin: auto;max-width:100%;width:1000px;">
+          <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="dek">
+            <paper-chip>
+              <div class="label">[[dek]]</div>
+            </paper-chip>
+          </template>
+          <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
+            <div id="show" inner-h-t-m-l="[[item.html]]"></div>
+          </deko-card>
           <div style="text-align:center">
             <template is="dom-repeat" items="[[item._signatures]]" as="sig">
               <deko-signature id="[[toId(sig.signature)]]" signature="[[sig.signature]]" to-test="[[sig.stuff]]"></deko-signature><br>
