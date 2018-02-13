@@ -32,6 +32,11 @@
       }
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
+    <template is="dom-if" if="[[dek]]">
+      <paper-chip single-line>
+        <div class="label">[[dek]]</div>
+      </paper-chip>
+    </template>
     <div id="card-view">
       <div class="col 0" style$="width: calc(95%/[[cols]])">
         <template is="dom-repeat" items="[[items]]" id="list0" filter="col_1" sort="sortRow">
@@ -70,7 +75,7 @@
       </div>
       <div class="col 5" style$="width: calc(95%/[[cols]])">
         <template is="dom-repeat" items="[[items]]" id="list5" filter="col_6" sort="sortRow">
-          <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+          <deko-card on-tap="selectOpen" single-line tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
             <div inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
         </template>
@@ -80,8 +85,8 @@
     <template is="dom-repeat" items="[[items]]" filter="selected" id="opencard">
       <open-card svg="/images/deko.svg" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
         <div>
-          <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="dek">
-            <paper-chip>
+          <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="cardsDek">
+            <paper-chip single-line>
               <div class="label">[[dek]]</div>
             </paper-chip>
           </template>
