@@ -33,7 +33,7 @@
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <template is="dom-if" if="[[dek]]">
-      <paper-chip single-line>
+      <paper-chip single-line on-tap="noDek">
         <div class="label">[[dek]]</div>
       </paper-chip>
     </template>
@@ -669,6 +669,9 @@
         console.log(lunr)
         return 'Error'
       }
+    },
+    noDek:function (e, d) {
+      this.set("dek","")
     },
     fireChip: function (e, d) {
       var that = this
