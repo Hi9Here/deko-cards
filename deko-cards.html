@@ -33,11 +33,9 @@
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <template is="dom-if" if="[[dek]]">
-      <a href$="/[[profileId]]/">
-        <paper-chip removable single-line>
-          <div class="label">[[dek]]</div>
-        </paper-chip>
-      </a>
+      <paper-chip single-line on-tap="noDek">
+        <div class="label">[[dek]]</div>
+      </paper-chip>
     </template>
     <div id="card-view">
       <div class="col 0" style$="width: calc(95%/[[cols]])">
@@ -1784,6 +1782,9 @@
         cardEle.setAttribute("draggable", true)
         cardEle.ondragend = this.dropcard
       }
+    },
+    noDek: function (e) {
+      this.set("routeData", {data: ""}) 
     },
     resub: function (e) {
       this.editing = false
