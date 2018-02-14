@@ -555,6 +555,10 @@
               this.unsub()
             }
           } else {
+            if (!this.cards) {
+              var that = this
+              this.cards = db.collection('Profiles').doc(that.profileId).collection('cards')
+            }
             this.cards.doc(id).then(function (x, i){
               console.log(x, i)
               
