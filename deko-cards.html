@@ -557,7 +557,9 @@
             }
           }
         } else {
-          this.$$('open-card').close()
+          if (this.$$('open-card') !== null) {
+            this.$$('open-card').close()
+          }
           this.resub()
         }
       } else {
