@@ -555,8 +555,8 @@
               this.unsub()
             }
           } else {
+            var that = this
             if (!this.cards) {
-              var that = this
               this.cards = db.collection('Profiles').doc(that.profileId).collection('cards')
             }
             this.cards.doc(id).get().then(function (doc){
