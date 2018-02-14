@@ -567,6 +567,9 @@
                 ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(function (data) {
                   theCard.quill = data.docs[0].data().quill
                   that.set("items",[theCard])
+                  that.cardPart = 1
+                  that.$.opencard.render()
+                  that.$$('open-card').open()
                 })
               }
             }).catch(function (e) {
