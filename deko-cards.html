@@ -1768,13 +1768,18 @@
     //  this.clearTrick() l/l/l/l/l/l/l/l/l/l/l/l/l/l/l/ TODO:
       var cardEle
       if (document.activeElement.card && document.activeElement.card.selected) {
-        this.cardPart = 1
-        this.$.opencard.render()
-        this.$$('open-card').open()
-        if (this.unsub) {
-          this.unsub()
+      //  this.cardPart = 1
+     //   this.$.opencard.render()
+     //   this.$$('open-card').open()
+     //   if (this.unsub) {
+     //     this.unsub()
+     //   }
+     //   this.editing = true
+
+        if (this.activeElement.href) {
+          console.log(this.activeElement.href, this.routeData)
+          this.routeData 
         }
-        this.editing = true
       } else if (document.activeElement.card) {
         cardEle = this.select(e)
         cardEle.setAttribute("draggable", true)
