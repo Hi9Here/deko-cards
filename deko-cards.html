@@ -559,9 +559,16 @@
               var that = this
               this.cards = db.collection('Profiles').doc(that.profileId).collection('cards')
             }
-            this.cards.doc(id).get().then(function (x, i){
-              console.log(x, i)
-              
+            this.cards.doc(id).get().then(function (doc){
+              var ref = doc.ref
+              console.log(doc.data())
+              console.log(ref)
+              if () {
+                ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(function (data) {
+                  console.log(data.data())
+                })
+              }
+              }
             }).catch(function (e) {
               console.error(e)
             })
