@@ -83,7 +83,7 @@
     </div>
     <!-- testing not updating items  \/{{ }}\/ -->
     <template is="dom-repeat" items="[[items]]" filter="selected" id="opencard">
-      <open-card svg="/images/deko.svg" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="resub" on-new="new">
+      <open-card svg="/images/deko.svg" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="noDek" on-new="new">
         <div>
           <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="cardsDek">
             <a href$="/[[profileId]]/[[cardsDek]]">
@@ -1766,14 +1766,6 @@
     //  this.clearTrick() l/l/l/l/l/l/l/l/l/l/l/l/l/l/l/ TODO:
       var cardEle
       if (document.activeElement.card && document.activeElement.card.selected) {
-      //  this.cardPart = 1
-     //   this.$.opencard.render()
-     //   this.$$('open-card').open()
-     //   if (this.unsub) {
-     //     this.unsub()
-     //   }
-     //   this.editing = true
-
         if (document.activeElement.id) {
           this.set("routeData", {data: document.activeElement.id}) 
         }
