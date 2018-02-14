@@ -70,9 +70,11 @@
       </div>
       <div class="col 4" style$="width: calc(95%/[[cols]])">
         <template is="dom-repeat" items="[[items]]" id="list4" filter="col_5" sort="sortRow">
-          <deko-card on-tap="selectOpen" tabindex$="[[index]]" href$="/[[profileId]]/[[item.ref.id]]" card="[[item]]" ondragover="dragover_handler(event)" >
-            <div inner-h-t-m-l="[[item.html]]"></div>
-          </deko-card>
+          <a href="/[[profileId]]/[[item.ref.id]]">
+            <deko-card on-tap="selectOpen" tabindex$="[[index]]" card="[[item]]" ondragover="dragover_handler(event)" >
+              <div inner-h-t-m-l="[[item.html]]"></div>
+            </deko-card>
+          </a>
         </template>
       </div>
       <div class="col 5" style$="width: calc(95%/[[cols]])">
