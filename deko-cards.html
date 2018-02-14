@@ -565,7 +565,7 @@
               console.log(ref)
               if (doc.data()) {
                 ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(function (data) {
-                  console.log(data.data())
+                  console.log(data[0].data())
                 })
               }
             }).catch(function (e) {
