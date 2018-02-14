@@ -562,6 +562,8 @@
             this.cards.doc(id).then(function (x, i){
               console.log(x, i)
               
+            }).catch(function (e) {
+              console.error(e)
             })
           }
         } else {
