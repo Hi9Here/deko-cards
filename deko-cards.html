@@ -1586,7 +1586,7 @@
       return pages.length
     },
     setItems: function (ref, byChild, loadNum, startAt, dek) {
-      if (this.editing) {
+      if (this.editing || !ref) {
         return
       }
       var that = this
