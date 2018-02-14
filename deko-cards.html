@@ -532,7 +532,6 @@
     },
     setDek: function(a) {
       if (a.data) {
-        this.set("dek", a.data)
         if (/^[a-z0-9]{20}$/i.test(a.data)) {
           // select and open card
           var isCard
@@ -562,6 +561,7 @@
             })
           }
         } else {
+          this.set("dek", a.data)
           if (this.$$('open-card') !== null) {
             this.$$('open-card').close()
           }
