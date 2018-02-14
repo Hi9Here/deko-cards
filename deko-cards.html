@@ -559,7 +559,7 @@
               var that = this
               this.cards = db.collection('Profiles').doc(that.profileId).collection('cards')
             }
-            this.cards.doc(id).then(function (x, i){
+            this.cards.doc(id).get().then(function (x, i){
               console.log(x, i)
               
             }).catch(function (e) {
