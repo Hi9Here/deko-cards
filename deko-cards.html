@@ -555,6 +555,11 @@
             if (this.unsub) {
               this.unsub()
             }
+          } else {
+            this.cards.doc(id).then(function (x, i){
+              console.log(x, i)
+              
+            })
           }
         } else {
           if (this.$$('open-card') !== null) {
