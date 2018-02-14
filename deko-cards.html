@@ -1777,8 +1777,7 @@
      //   this.editing = true
 
         if (document.activeElement.id) {
-          console.log(document.activeElement.id, this.routeData)
-          this.routeData 
+          this.routeData.data = document.activeElement.id 
         }
       } else if (document.activeElement.card) {
         cardEle = this.select(e)
