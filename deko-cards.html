@@ -494,7 +494,11 @@
       },
       _deal: {
         computed: 'deal(cols)'
-      } 
+      },
+      files: {
+        type: Array,
+        value: [],
+      },
     },
     toId: function (i) {
       return i.replace(/[0-9+/\=]/g, '')
