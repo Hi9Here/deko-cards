@@ -1096,7 +1096,7 @@
       })
       
       newQuill.disable()
-      if (!that.editing && data && data.docs[0] && data.docs[0].data) {
+      if (!that.editing && data && Array.isArray(data.docs) && data.docs[0] && data.docs[0].data) {
         newQuill.setContents(data.docs[0].data().value)
       } else if (that.editing && data && Array.isArray(data)) {
         newQuill.setContents(data)
