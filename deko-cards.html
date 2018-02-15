@@ -185,7 +185,7 @@
               var regex = /\[\[(text|date|email|number|url):([\w ]{3}[\w ]*)]]/g
               docAsElement.querySelectorAll("p").forEach(function (p) {
                 if (regex.test(p.innerHTML)) {
-                  str.replace(regex, `<input type="$1" placeholder="$2" style="border: none;background-color: transparent;" />`)
+                  p.innerHTML = p.innerHTML.replace(regex, `<input type="$1" placeholder="$2" style="border: none;background-color: transparent;" />`)
                 }
               })
               return docAsElement.innerHTML
