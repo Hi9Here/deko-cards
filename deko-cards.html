@@ -187,6 +187,7 @@
                 if (regex.test(p.innerHTML)) {
                   var value = localStorage.getItem(window.location.toString().split("/").slice(3) + ",field" +i) || ""
                   p.innerHTML = p.innerHTML.replace(regex, `<input type="$1" oninput='function(e) {localStorage.getItem(window.location.toString().split("/").slice(3) + "," + e.target.id)}' id="field`+i+`" placeholder="$2" style="border: none;background-color: transparent;" value=`+ value +` />`)
+
                 }
               })
               return docAsElement.innerHTML
