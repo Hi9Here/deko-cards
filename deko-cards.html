@@ -178,7 +178,23 @@
       tricks: {
         value: {
           pak:{
-            fields: "\\[\\[(text|date|email|number|trick):([\\w ]{3}[\\w ]*)]]",
+            intent: "\\[\\[(text|date|email|number|url):([\\w ]{3}[\\w ]*)]]",
+            chipAction: function(pak, cb, that) {
+              
+
+            },
+            chip: "Card from pak",
+            html: function (html) {
+              var docAsElement = document.createElement("div")
+              docAsElement.innerHTML = html
+              var regex = /\[\[(text|date|email|number|url):([\w ]{3}[\w ]*)]]/g
+              docAsElement.querySelectorAll("p").forEach(function (p) {
+                if (regex.test(p.innerHTML)) {
+                  str.replace(regex, `<input type="$1" placeholder="$2" style="border: none;background-color: transparent;" />`)
+                }
+              })
+              return docAsElement.innerHTML
+            },
           },
           imageSearch: {
             chip: "add image ",
