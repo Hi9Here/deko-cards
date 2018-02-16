@@ -894,7 +894,7 @@
             } else if (source == 'user') {
               if (delta.ops && delta.ops[0] && delta.ops[0].retain) {
                 that.set("editorCursor", delta.ops[0].retain + 1)
-                if (delta.ops[0].insert == "\n") {
+                if (delta.ops[1].insert == "\n") {
                   var speed = 1
                 }
               } else {
