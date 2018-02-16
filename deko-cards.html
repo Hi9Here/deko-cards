@@ -1472,6 +1472,7 @@
       
       function debouncedTestStuff () {
         var that = this
+        var selectedItem = this._items(this.items)
         async function  save(newQuill) {
           var quillSave = {
             value: await newQuill,
@@ -1484,14 +1485,13 @@
             })
           }
         }
-        selectedItem = this._items(this.items)
         if (selected !== false && this.items[selected] && this.items[selected].ref) { 
           this.items[selected].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest.bind(that)).then(function (quillOps){
             // move card update here
             console.log(quillOps)
             console.log(quill)
             if (Array.isArray(quill) && JSON.stringify(quill) !== JSON.stringify(quillOps)) {
-              return save(that.stuffTest(quill))
+              return save(quill)
             }
           }).catch(function (e){
             console.log(quill)
