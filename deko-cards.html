@@ -185,10 +185,11 @@
               var regex = /\[\[(text|date|email|number|url):([\w ]{3}[\w ]*)]]/g
               docAsElement.querySelectorAll("p").forEach(function (p,i) {
                 if (regex.test(p.innerHTML)) {
-                  var value = localStorage.getItem(window.location.toString().split("/").slice(3) + ",field" +i) || ""
-                  p.innerHTML = p.innerHTML.replace(regex, `<input value="`+ value +`" type="$1" id="card`+id+`field`+i+`" placeholder="$2" style="border: none;background-color: transparent;" />`)
+                  var inputID = `card`+id+`field`+i
+                  var value = localStorage.getItem(inputID) || ""
+                  p.innerHTML = p.innerHTML.replace(regex, `<input value="`+ value +`" type="$1" id="`+ inputID +`" placeholder="$2" style="border: none;background-color: transparent;" />`)
                   setTimeout(function(){
-                    document.querySelectorAll("#card"+id +"field"+i).forEach(function(theInput){
+                    document.querySelectorAll("#"+inputID).forEach(function(theInput){
                       theInput.addEventListener("input", function(e) {
                         localStorage.setItem(e.target.id, e.target.value)
                       })
