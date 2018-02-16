@@ -189,7 +189,7 @@
                   var value = localStorage.getItem(inputID) || ""
                   p.innerHTML = p.innerHTML.replace(regex, `<input value="`+ value +`" type="$1" id="`+ inputID +`" placeholder="$2" style="border: none;background-color: transparent;" />`)
                   setTimeout(function(){
-                    document.querySelectorAll("#"+inputID).forEach(function(theInput){
+                    document.querySelectorAll("input#"+inputID).forEach(function(theInput){
                       theInput.value = localStorage.getItem(inputID) || ""
                       theInput.addEventListener("input", function(e) {
                         if (e.target.value !== "") {
