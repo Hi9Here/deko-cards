@@ -894,10 +894,13 @@
             } else if (source == 'user') {
               if (delta.ops && delta.ops[0] && delta.ops[0].retain) {
                 that.set("editorCursor", delta.ops[0].retain + 1)
+                if (delta.ops[0].insert == "\n") {
+                  var speed = 1
+                }
               } else {
                 that.set("editorCursor", false)
               }
-              that.testStuff(that.tricks, oldDelta.compose(delta).ops)
+              that.testStuff(that.tricks, oldDelta.compose(delta).ops, speed)
             }
           })
           this.set("quill", newQuill)
@@ -1462,7 +1465,7 @@
       }
       return stuff
     },
-    testStuff: function (tricks, quill) {
+    testStuff: function (tricks, quill, speed) {
       var selected = this._items(this.items)
       if (selected !== false && !this.items[selected].ref) {
         console.log(this.items[selected])
@@ -1498,7 +1501,7 @@
           })
         }
       }
-      this.debounce('debouncedTestStuff', debouncedTestStuff, 2000)
+      this.debounce('debouncedTestStuff', debouncedTestStuff,speed || 2000)
     },
 //    resizeImage: function(stuff, opForImage) {
 //      var that = this
