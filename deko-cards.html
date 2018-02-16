@@ -195,7 +195,7 @@
                         if (e.target.value !== "") {
                           localStorage.setItem(e.target.id, e.target.value)
                         } else {
-                          removeItem(e.target.id)
+                          localStorage.removeItem(e.target.id)
                         }
                       })
                     })
