@@ -187,17 +187,17 @@
                 if (regex.test(p.innerHTML)) {
                   var inputID = `card`+id+`field`+i
                   var value = localStorage.getItem(inputID) || ""
-                  p.innerHTML = p.innerHTML.replace(regex, `<input value="`+ value +`" type="$1" id="`+ inputID +`" placeholder="$2" style="border: none;background-color: transparent;" />`)
+                  p.innerHTML = p.innerHTML.replace(regex, `<input value="`+ value +`" type="$1" id="`+ inputID +`" placeholder="$2" />`)
                   setTimeout(function(){
                     document.querySelectorAll("input#"+inputID).forEach(function(theInput){
                       theInput.value = localStorage.getItem(inputID) || ""
-                      theInput.addEventListener("input", function(e) {
+                      theInput.oninput = function(e) {
                         if (e.target.value !== "") {
                           localStorage.setItem(e.target.id, e.target.value)
                         } else {
                           localStorage.removeItem(e.target.id)
                         }
-                      })
+                      }
                     })
                   }, 1000)
                 }
