@@ -190,7 +190,7 @@
                   p.innerHTML = p.innerHTML.replace(regex, `<input value="`+ value +`" type="$1" id="card`+id+`field`+i+`" placeholder="$2" style="border: none;background-color: transparent;" />`)
                   setTimeout(function(){
                     var theInput = document.querySelector("#card"+id +"field"+i)
-                    theInput.addEventListener("change", function(e) {
+                    theInput.addEventListener("input", function(e) {
                       localStorage.setItem(e.target.id, e.target.value)
                     })
                   }, 2000)
