@@ -895,7 +895,7 @@
               if (delta.ops && delta.ops[0] && delta.ops[0].retain) {
                 that.set("editorCursor", delta.ops[0].retain + 1)
                 if (delta.ops[1].insert == "\n") {
-                  var speed = 1
+                  var speed = 100
                 }
               } else {
                 that.set("editorCursor", false)
