@@ -1530,6 +1530,9 @@
       var ref
       if (part == 1) {
         this.chips = []
+        this.editing = false
+      } else {
+        this.editing = true
       }
       if (that.items[selectedItem]) {
         ref = that.items[selectedItem].ref
