@@ -192,10 +192,14 @@
                     document.querySelectorAll("#"+inputID).forEach(function(theInput){
                       theInput.value = localStorage.getItem(inputID) || ""
                       theInput.addEventListener("input", function(e) {
-                        localStorage.setItem(e.target.id, e.target.value)
+                        if (e.target.value !== "") {
+                          localStorage.setItem(e.target.id, e.target.value)
+                        } else {
+                          removeItem(e.target.id)
+                        }
                       })
                     })
-                  }, 2000)
+                  }, 1000)
                 }
               })
               return docAsElement.innerHTML
