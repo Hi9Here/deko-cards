@@ -1479,6 +1479,8 @@
             time: +Date.now(), // firebase.database.ServerValue.TIMESTAMP,
             user: firebase.auth().currentUser.uid
           }
+          this.items[selectedItem].quill = newQuill
+
           if (that.items[selectedItem].ref && quillSave.value) {
             that.items[selectedItem].ref.collection('quill').add(quillSave).then(function (data) {
               that.set('savedQuill', true)
@@ -1487,9 +1489,6 @@
         }
         if (selected !== false && this.items[selected] && this.items[selected].ref) { 
           this.items[selected].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(that.stuffTest.bind(that)).then(function (quillOps){
-            // move card update here
-            console.log(quillOps)
-            console.log(quill)
             if (Array.isArray(quill) && JSON.stringify(quill) !== JSON.stringify(quillOps)) {
               return save(quill)
             }
