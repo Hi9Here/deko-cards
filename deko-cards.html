@@ -1108,7 +1108,7 @@
       }
       this.resub()
     },
-    stuffTest:  async function (data) {
+    stuffTest:  async function (data, noSideEffects) {
       var that = this
       var selectedItem = that._items(that.items)
       if (selectedItem === false) {
@@ -1129,6 +1129,7 @@
       
       newQuill.disable()
       if (!that.editing && data && Array.isArray(data.docs) && data.docs[0] && data.docs[0].data) {
+        noSideEffects = true
         newQuill.setContents(data.docs[0].data().value)
       } else if (that.editing && data && Array.isArray(data)) {
         newQuill.setContents(data)
@@ -1162,7 +1163,7 @@
       // TODO let all tricks update text
       var html = elem.innerHTML 
       for (var trick in this.tricks) {
-        if (this.tricks[trick].html) {
+        if (this.tricks[trick].html && !noSideEffects) {
           if (this.items[selectedItem].ref) {
             html = this.tricks[trick].html(html, this.items[selectedItem].ref.id)
           } else {
@@ -1178,7 +1179,7 @@
             time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
             user: firebase.auth().currentUser.uid
           }
-          if (that.items[selectedItem].ref) {
+          if (that.items[selectedItem].ref && !noSideEffects) {
             that.items[selectedItem].ref.collection('quill').add(quillSave).then(function (data) {
               that.set('savedQuill', true)
             })
@@ -1212,9 +1213,9 @@
           }
         })
       }
-      if (title && that.items[selectedItem].text !== text) {
+      if (title && that.items[selectedItem].text !== text && !noSideEffects) {
         that.items[selectedItem].text = text
-        if (that.items[selectedItem].ref) {
+        if (that.items[selectedItem].ref && !noSideEffects) {
           that.items[selectedItem].ref.set({text: text}, {merge: true})
         }
       }
@@ -1245,7 +1246,7 @@
               if (that.items[selectedItem].title !== title) {
                 that.items[selectedItem].title = title
                 that.items[selectedItem].image = '' // new title reset image
-                if (that.items[selectedItem].ref) {
+                if (that.items[selectedItem].ref && !noSideEffects) {
                   if (!title) {
                     return 'no title'
                   } else {
@@ -1255,7 +1256,7 @@
               }
             } else if (stuff[op].insert.split('\n').join('') || (that.items[selectedItem] && !that.items[selectedItem].title)) {
               that.items[selectedItem].title = stuff[op].insert.split('\n').join('')
-              if (that.items[selectedItem].ref) {
+              if (that.items[selectedItem].ref && !noSideEffects) {
                 that.items[selectedItem].ref.set({title: that.items[selectedItem].title}, {merge: true})
               }
             }
@@ -1355,7 +1356,7 @@
                    //   ]
                     }
                     that.set(['items', selectedItem, trick], theTrick)
-                    if (that.items[selectedItem].ref) {
+                    if (that.items[selectedItem].ref && !noSideEffects) {
                       var toSave = {}
                       var saveTrick = false
                       toSave[trick] = {}
@@ -1365,7 +1366,7 @@
                           saveTrick = true
                         }
                       })
-                      if (saveTrick) {
+                      if (saveTrick && !noSideEffects) {
                         that.items[selectedItem].ref.set(toSave, {merge: true})
                       }
                     }
@@ -1374,7 +1375,7 @@
               }
             }
           }
-        } else if (!image || that.items[selectedItem].image !== image) {
+        } else if (!image || that.items[selectedItem].image !== image && !noSideEffects) {
           if (stuff[op].insert && typeof stuff[op].insert === 'object' && stuff[op].insert.image) {
             image = stuff[op].insert.image
             if (that.items[selectedItem].image !== image) {
@@ -1396,7 +1397,7 @@
                   }
                 })
               }
-              if (that.items[selectedItem].ref) {
+              if (that.items[selectedItem].ref && !noSideEffects) {
                 that.items[selectedItem].ref.set({image: image}, {merge: true})
               }
             }
@@ -1414,9 +1415,9 @@
         stuff = stuff.splice(0, +addAt).concat(add, stuff.splice(1 + +(addAt)))
       }
       var cursor = that.editorCursor
-      if (add || head) {
+      if (add || head && !noSideEffects) {
         updateCard(that.stuffTest(stuff))
-      } else if (cursor && that.quill.getLine(cursor)[0] !== null) {
+      } else if (cursor && that.quill.getLine(cursor)[0] !== null && !noSideEffects) {
         var onLine = that.quill.getLine(cursor)[0].domNode.outerText.replace("\n","").trim()
         if (onLine === "") {
           var line = that.quill.getLine(cursor-1)[0].domNode.outerText.replace("\n","").trim()
@@ -1455,7 +1456,7 @@
               })
             }
           }
-        } else {
+        } else if (!noSideEffects){
           that.set("line", onLine)
         }
       }
