@@ -864,7 +864,11 @@
         var html = elem.innerHTML
         for (var trick in this.tricks) {
           if (this.tricks[trick].html) {
-            html = this.tricks[trick].html(html)
+            if (this.items[card].ref) {
+              html = this.tricks[trick].html(html, this.items[card].ref.id)
+            } else {
+              html = this.tricks[trick].html(html)
+            }
           }
         }
         if (html !== show.innerHTML) {
@@ -1151,11 +1155,15 @@
       var text = newQuill.getText().replace(/\n/g, ' ').trim()
       // TODO let all tricks update text
       var html = elem.innerHTML 
-      for (var trick in tricks) {
-        if (tricks[trick].html) {
-          html = tricks[trick].html(html)
+      for (var trick in this.tricks) {
+        if (this.tricks[trick].html) {
+          if (this.items[selectedItem].ref) {
+            html = this.tricks[trick].html(html, this.items[selectedItem].ref.id)
+          } else {
+            html = this.tricks[trick].html(html)
+          }
         }
-      }      
+      }
 
       function updateCard () {
         if (JSON.stringify(that.items[selectedItem].quill) !== JSON.stringify(stuff)) {
@@ -1205,9 +1213,13 @@
         }
       }
       if (title && that.items[selectedItem].html !== html) {
-        for (var trick in that.tricks) {
-          if (that.tricks[trick].html) {
-            html = that.tricks[trick].html(html)
+        for (var trick in this.tricks) {
+          if (this.tricks[trick].html) {
+            if (this.items[selectedItem].ref) {
+              html = this.tricks[trick].html(html, this.items[selectedItem].ref.id)
+            } else {
+              html = this.tricks[trick].html(html)
+            }
           }
         }
         that.set(["items",selectedItem,"html"], html)
@@ -1647,7 +1659,7 @@
             var html = docData.html
             for (var trick in that.tricks) {
               if (that.tricks[trick].html) {
-                html = that.tricks[trick].html(html)
+                html = that.tricks[trick].html(html, doc.ref.id)
               }
             }
             cards.push({
