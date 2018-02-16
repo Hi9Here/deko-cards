@@ -179,18 +179,21 @@
         value: {
           pak:{
             intent: "\\[\\[(text|date|email|number|url):([\\w ]{3}[\\w ]*)]]",
-            html: function (html) {
+            html: function (html, id) {
               var docAsElement = document.createElement("div")
               docAsElement.innerHTML = html
               var regex = /\[\[(text|date|email|number|url):([\w ]{3}[\w ]*)]]/g
               docAsElement.querySelectorAll("p").forEach(function (p,i) {
                 if (regex.test(p.innerHTML)) {
-                  p.innerHTML = p.innerHTML.replace(regex, `<input type="$1" id="field`+i+`" placeholder="$2" style="border: none;background-color: transparent;" />`)
-                  var theInput = p.querySelector("#field"+i)
-                  theInput.value = localStorage.getItem(window.location.toString().split("/").slice(3) + ",field" +i) || ""
-                  theInput.addEventListener("change", function(e) {
-                    localStorage.getItem(window.location.toString().split("/").slice(3) + "," + e.target.id)
-                  })
+
+                  var value = localStorage.getItem(window.location.toString().split("/").slice(3) + ",field" +i) || ""
+                  p.innerHTML = p.innerHTML.replace(regex, `<input value="`+ value +`" type="$1" id="card`+id+`field`+i+`" placeholder="$2" style="border: none;background-color: transparent;" />`)
+                  setTimeout(function(){
+                    var theInput = document.querySelector("#card"+id +"field"+i)
+                    theInput.addEventListener("change", function(e) {
+                      localStorage.setItem(e.target.id, e.target.value)
+                    })
+                  },2000)
                 }
               })
               return docAsElement.innerHTML
