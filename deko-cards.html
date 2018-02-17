@@ -1729,7 +1729,10 @@
         }
       }
       var listRef
-      if (byChild && dek){
+      if (/^[a-z0-9]{20}$/i.test(dek)) {
+        listRef = ref.where("__key", "==", dek)
+        debugger
+      } else if (byChild && dek){
         listRef = ref.where("dek.deks." + dek, "==", true).orderBy(byChild)
       } else if(dek){
         listRef = ref.where("dek.deks." + dek, "==", true)
