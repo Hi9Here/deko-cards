@@ -1729,9 +1729,10 @@
         }
       }
       var listRef
+      var one = false
       if (this.routeData && /^[a-z0-9]{20}$/i.test(this.routeData.data)) {
-        listRef = ref.where("__key", "==", this.routeData.data)
-        debugger
+        listRef = ref.doc(this.routeData.data)
+        one = true
       } else if (byChild && dek){
         listRef = ref.where("dek.deks." + dek, "==", true).orderBy(byChild)
       } else if(dek){
@@ -1744,7 +1745,10 @@
       if (this.unsub) {
         this.unsub()
       }
-      if (startAt) {
+      if (one) {
+        debugger
+        this.unsub = listRef.onSnapshot(setItems)
+      } else if (startAt) {
         this.unsub = listRef.startAt(startAt).limit(+loadNum).onSnapshot(setItems)
       } else {
         this.unsub = listRef.limit(+loadNum).onSnapshot(setItems) // TODO
