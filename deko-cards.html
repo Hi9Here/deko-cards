@@ -1729,8 +1729,8 @@
         }
       }
       var listRef
-      if (/^[a-z0-9]{20}$/i.test(dek)) {
-        listRef = ref.where("__key", "==", dek)
+      if (this.routeData && /^[a-z0-9]{20}$/i.test(this.routeData.data)) {
+        listRef = ref.where("__key", "==", this.routeData.data)
         debugger
       } else if (byChild && dek){
         listRef = ref.where("dek.deks." + dek, "==", true).orderBy(byChild)
