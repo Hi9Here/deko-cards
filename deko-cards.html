@@ -586,7 +586,7 @@
             }
           } else {
             // load card
-            this.set("dek", a.data)
+            this.setItems(cards, byChild, loadNum, startAt, a.data)
           }
         } else {
           this.set("dek", a.data)
@@ -1642,6 +1642,7 @@
         }
         return 0
       }
+      var one = false
       var setItems = function (snap) {
         var theSnap = snap.docs || [snap]
         if (theSnap && !snap.empty) {
@@ -1711,10 +1712,9 @@
         }
       }
       var listRef
-      var one = false
       if (this.routeData && /^[a-z0-9]{20}$/i.test(this.routeData.data)) {
         listRef = ref.doc(this.routeData.data)
-        one = true
+        one = this.routeData.data
       } else if (byChild && dek){
         listRef = ref.where("dek.deks." + dek, "==", true).orderBy(byChild)
       } else if(dek){
@@ -1728,7 +1728,6 @@
         this.unsub()
       }
       if (one) {
-        debugger
         this.unsub = listRef.onSnapshot(setItems)
       } else if (startAt) {
         this.unsub = listRef.startAt(startAt).limit(+loadNum).onSnapshot(setItems)
