@@ -1643,7 +1643,7 @@
         return 0
       }
       var setItems = function (snap) {
-        var theSnap = snap.docs
+        var theSnap = snap.docs || [snap]
         if (theSnap && !snap.empty) {
           that.set('loaded', theSnap.length)
           // that.items = theSnap.sort(sortByChild)
