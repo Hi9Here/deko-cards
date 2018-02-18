@@ -585,26 +585,8 @@
               this.unsub()
             }
           } else {
-            var that = this
-            if (!this.cards) {
-              this.cards = db.collection('Profiles').doc(that.profileId).collection('cards')
-            }
-            this.cards.doc(id).get().then(function (doc){
-              var ref = doc.ref
-              var theCard = doc.data()
-              theCard.selected = true
-              if (doc.data()) {
-                ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(function (data) {
-                  theCard.quill = data.docs[0].data().quill
-                  that.set("items",[theCard])
-                  that.cardPart = 1
-                  that.$.opencard.render()
-                  that.$$('open-card').open()
-                })
-              }
-            }).catch(function (e) {
-              console.error(e)
-            })
+            // load card
+            this.set("dek", a.data)
           }
         } else {
           this.set("dek", a.data)
