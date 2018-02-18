@@ -586,7 +586,7 @@
             }
           } else {
             // load card
-            this.setItems(cards, byChild, loadNum, startAt, a.data)
+            this.setItems(cards, byChild, loadNum, startAt, a.data, this.setDek)
           }
         } else {
           this.set("dek", a.data)
@@ -1615,7 +1615,7 @@
     getPagesLength: function (pages) {
       return pages.length
     },
-    setItems: function (ref, byChild, loadNum, startAt, dek) {
+    setItems: function (ref, byChild, loadNum, startAt, dek, cb) {
       if (this.editing || !ref) {
         return
       }
@@ -1692,9 +1692,13 @@
             that.set('items', cards)
           }
           console.log(that.items)
-          setTimeout(function(){
-            that.deal(that.cols)
-          },250) 
+          if (!cb) {
+            setTimeout(function(){
+              that.deal(that.cols)
+            },250)
+          } else {
+            cb({data: dek})
+          }
           if (that.loaded == +loadNum) {
             if (that.items[+loadNum - 1][byChild]) {
               that.nextPageStartAt = that.items[+loadNum - 1][byChild] + '~'
