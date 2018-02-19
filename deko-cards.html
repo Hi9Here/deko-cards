@@ -586,7 +586,9 @@
             }
           } else {
             // load card
-            this.setItems(this.cards, "", 1, "A", a.data, this.setDek)
+            if (this.cards) {
+              this.setItems(this.cards, "", 1, "A", a.data, this.setDek)
+            }
           }
         } else {
           this.set("dek", a.data)
