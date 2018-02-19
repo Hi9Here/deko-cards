@@ -1102,6 +1102,7 @@
             }
             return accumulator
           }, []))
+          that.set('routeData.data',"")
         }).catch(function (e) {
           console.error('Error removing card: ', e)
         })
