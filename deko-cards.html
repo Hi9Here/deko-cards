@@ -814,6 +814,19 @@
       }
 
       if (card !== false) {
+        if (!this.items[card].quill) { 
+          var that = this 
+          this.items[card].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(function (data) {
+            if (data && data.size) {
+              var value = data.docs[0].data().value
+              var selectedItem = that._items(that.items)
+              that.set('items.' + selectedItem + '.quill', value)
+              if (card === selectedItem) {
+                that.quill.setContents(that.items[card].quill)
+              }
+            }
+          })
+        }
         if (!this.editing && this.quill && this.items[card] && this.items[card].quill && this.items[card].quill.length) {
           this.quill.setContents(this.items[card].quill)
         }
