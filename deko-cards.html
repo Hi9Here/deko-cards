@@ -814,7 +814,7 @@
       }
 
       if (card !== false) {
-        if (!this.items[card].quill) { 
+        if (!this.items[card].quill && this.items[card].ref) { 
           var that = this 
           this.items[card].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(function (data) {
             if (data && data.size) {
