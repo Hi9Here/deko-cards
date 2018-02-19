@@ -1719,7 +1719,7 @@
       }
       var listRef
       if (this.routeData && /^[a-z0-9]{20}$/i.test(this.routeData.data)) {
-        listRef = ref.doc(this.routeData.data)
+        listRef = ref
         one = this.routeData.data
       } else if (byChild && dek){
         listRef = ref.where("dek.deks." + dek, "==", true).orderBy(byChild)
