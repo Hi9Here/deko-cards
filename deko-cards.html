@@ -1645,6 +1645,7 @@
         return 0
       }
       var one = false
+      var isCard
       var setItems = function (snap) {
         var theSnap = snap.docs || [snap]
         if (theSnap && !snap.empty) {
@@ -1655,6 +1656,9 @@
           theSnap.forEach(function (doc) {
             var docData = doc.data()
             var html = docData.html
+            if (doc.id === one) {
+              isCard = true
+            }
             for (var trick in that.tricks) {
               if (that.tricks[trick].html) {
                 html = that.tricks[trick].html(html, doc.ref.id)
@@ -1698,7 +1702,7 @@
           setTimeout(function(){
             that.deal(that.cols)
           },250)
-          if (one) {
+          if (one && isCard) {
             that.setDek({data: one})
           }
           if (that.loaded == +loadNum) {
