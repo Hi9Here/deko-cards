@@ -1704,6 +1704,9 @@
           },250)
           if (one && isCard) {
             that.setDek({data: one})
+          } else if (one) {
+            // card not in deck
+            that.set("routeData.data", "")
           }
           if (that.loaded == +loadNum) {
             if (that.items[+loadNum - 1][byChild]) {
