@@ -584,8 +584,8 @@
             this.set("items", cards)
             this.cardPart = 1
             this.$.opencard.render()
+            this.set("cardOpen" ,true)
             this.$$('open-card').open()
-            this.cardOpen = true
             if (this.unsub) {
               this.unsub()
             }
