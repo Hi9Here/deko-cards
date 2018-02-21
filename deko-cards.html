@@ -83,7 +83,7 @@
     </div>
     <!-- testing not updating items  \/{{ }}\/ -->
     <template is="dom-repeat" items="[[items]]" id="opencard" filter="selected">
-      <template is="dom-if" if="![[index]]"><template is="dom-if" if="[[cardOpen]]"> <!-- just first one -->
+      <template is="dom-if" if="![[index]]"><template is="dom-if" if="[[cardOpen]]" restamp > <!-- just first one -->
         <open-card svg="/images/deko.svg" opened="{{cardOpen}}" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="noDek" on-new="new">
           <div>
             <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="cardsDek">
@@ -566,6 +566,7 @@
       }
     },
     setDek: function(a) {
+      this.cardOpen = false
       if (a.data) {
         if (/^[a-z0-9]{20}$/i.test(a.data)) {
           // select and open card
