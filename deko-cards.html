@@ -817,7 +817,7 @@
         card = this._items(this.items)
       }
 
-      if (card !== false) {
+      if (card !== false && typeof card === "number") {
         if (this.items[card].ref && !this.items[card].quill) { 
           var that = this
           this.items[card].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(function (data) {
