@@ -586,7 +586,9 @@
             this.cardPart = 1
             this.$.opencard.render()
             this.set("cardOpen" ,true)
-            this.$$('open-card').open()
+            if (this.$$('open-card') !== null) {
+              this.$$('open-card').open()
+            }
             if (this.unsub) {
               this.unsub()
             }
