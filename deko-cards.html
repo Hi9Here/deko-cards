@@ -83,7 +83,7 @@
     </div>
     <!-- testing not updating items  \/{{ }}\/ -->
     <template is="dom-repeat" items="[[items]]" filter="selected" id="opencard">
-      <open-card svg="/images/deko.svg" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="noDek" on-new="new">
+      <open-card svg="/images/deko.svg" opened="{{cardOpen}}" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="noDek" on-new="new">
         <div>
           <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="cardsDek">
             <a href$="/[[profileId]]/[[cardsDek]]">
@@ -146,6 +146,9 @@
       },
       routeData:{
         observer: 'setDek',
+      },
+      cardOpen: {
+        value: false
       },
       end: {value: 999},
       find: {value: ''},
@@ -580,7 +583,7 @@
             this.cardPart = 1
             this.$.opencard.render()
             this.$$('open-card').open()
-
+            this.cardOpen = true
             if (this.unsub) {
               this.unsub()
             }
@@ -595,6 +598,7 @@
           if (this.$$('open-card') !== null) {
             this.$$('open-card').close()
           }
+          this.cardOpen = false
           this.resub()
         }
       } else {
@@ -977,6 +981,7 @@
             given[id] = true
             this.items[selectedItem].ref.set({given: given}, {merge: true}).then(function () {
               that.$$('open-card').close()
+              that.set("cardOpen", false)
               that.chips = []
               if (that.unsub) {
                 that.unsub()
@@ -1014,6 +1019,7 @@
       place[this.cols] = {
         row: 100, col: this.cols
       }
+      this.cardOpen = true
       this.set('items', this.items.map(function (x) {
         x.selected = false
         return x
@@ -1103,6 +1109,7 @@
             return accumulator
           }, []))
           that.set('routeData.data',"")
+          that.set('cardOpen', false)
         }).catch(function (e) {
           console.error('Error removing card: ', e)
         })
