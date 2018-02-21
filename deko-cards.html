@@ -818,8 +818,8 @@
       }
 
       if (card !== false) {
-        if (!this.items[card].quill && this.items[card].ref) { 
-          var that = this 
+        if (this.items[card].ref && !this.items[card].quill) { 
+          var that = this
           this.items[card].ref.collection('quill').orderBy('time', 'desc').limit(1).get().then(function (data) {
             if (data && data.size) {
               var value = data.docs[0].data().value
