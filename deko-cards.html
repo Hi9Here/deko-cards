@@ -1020,7 +1020,6 @@
       place[this.cols] = {
         row: 100, col: this.cols
       }
-      this.cardOpen = true
       this.set('items', this.items.map(function (x) {
         x.selected = false
         return x
@@ -1028,7 +1027,7 @@
         selected: true,
         image: '',
         place: place,
-        toolbarColor: "#fff",
+        toolbarColor: false,
         html: '<h1>New</h2>',
         quill: [
           {attributes: {header: 1}, insert: '\n'},
@@ -1036,6 +1035,7 @@
         ],
         title: ''
       }]))
+      this.cardOpen = true
       this.deal(this.cols)
       this.cardPart = 0
       this.editing = true
