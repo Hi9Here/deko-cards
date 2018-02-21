@@ -879,6 +879,7 @@
           }
         }
         if (html !== show.innerHTML) {
+          this.set(['items',card,'html'], html)
           show.innerHTML = html
         }
         var that = this
