@@ -1020,6 +1020,7 @@
       place[this.cols] = {
         row: 100, col: this.cols
       }
+
       this.set('items', this.items.map(function (x) {
         x.selected = false
         return x
@@ -1027,7 +1028,7 @@
         selected: true,
         image: '',
         place: place,
-        toolbarColor: false,
+        toolbarColor: undefined,
         html: '<h1>New</h2>',
         quill: [
           {attributes: {header: 1}, insert: '\n'},
