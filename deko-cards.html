@@ -807,7 +807,7 @@
           }
           dek[v.placeholder] = v.value
         })
-        return dek
+        return Object.assign({dek: dek}, this.items[this._items(this.items)])
       }
       return false
     },
