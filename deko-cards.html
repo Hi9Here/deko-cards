@@ -810,9 +810,16 @@
         this.prompt = ''
         var inputs = Polymer.dom(this.root).querySelectorAll("open-card input[value]")
         if (inputs !== null) {
+          var dek = false
           inputs.forEach(function(v) {
+            if (v.value) {
+              dek = true
+            }
             console.log(v.value, v.placeholder)
           })
+          if (dek) {
+            return ['Edit', 'Take as new card', 'Return' ]
+          }
         }
         if (selectedCard && this.items[selectedCard].setsReps) {
           return ['Edit', 'Next', 'Give', 'Return' ]
