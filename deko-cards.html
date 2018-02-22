@@ -808,6 +808,9 @@
         }
       } else if (cardPart === 1) {
         this.prompt = ''
+        this.$$("open-card input[value]").forEach(function(v) {
+  console.log(v.value, v.placeholder)
+        })
         if (selectedCard && this.items[selectedCard].setsReps) {
           return ['Edit', 'Next', 'Give', 'Return' ]
         }
