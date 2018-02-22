@@ -183,7 +183,7 @@
       tricks: {
         value: {
           pak:{
-            intent: "\\[\\[(text|date|email|number|url):([\\w ]{3}[\\w ]*)]]",
+            intent: "\\[\\[(search|text|date|email|number|url):([\\w ]{3}[\\w ]*)]]",
             html: function (html, id) {
               var docAsElement = document.createElement("div")
               docAsElement.innerHTML = html
