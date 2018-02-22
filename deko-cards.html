@@ -187,7 +187,7 @@
             html: function (html, id) {
               var docAsElement = document.createElement("div")
               docAsElement.innerHTML = html
-              var regex = /\[\[(text|date|email|number|url):([\w ]{3}[\w ]*)]]/g
+              var regex = /\[\[(search|text|date|email|number|url):([\w ]{3}[\w ]*)]]/g
               docAsElement.querySelectorAll("p").forEach(function (p,i) {
                 if (regex.test(p.innerHTML)) {
                   var inputID = `card`+id+`field`+i
