@@ -1569,14 +1569,15 @@
           user: firebase.auth().currentUser.uid
         }
         if (this.items[selectedItem].quill !== quill.value) {
-          this.items[selectedItem].quill = quill.value
           if (ref && this.editing) {
+            this.items[selectedItem].quill = quill.value
             ref.collection('quill').add(quill).then(function (data) {
               that.set('savedQuill', true)
               that.clearTrick()
             })
           }
         }
+        this.editing = false
         if (!ref) {
           that.newCard(quill)
         }
