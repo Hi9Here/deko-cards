@@ -797,6 +797,20 @@
       }
       this.set('tableCommands', [])
     },
+    getDekValues: function (){
+      var inputs = Polymer.dom(this.root).querySelectorAll("open-card input[value]")
+      if (inputs !== null) {
+        var dek = false
+        inputs.forEach(function(v) {
+          if (!dek) {
+            dek = {}
+          }
+          dek[v.placeholder] = v.value
+        })
+        return dek
+      }
+      return false
+    },
     getCommands: function (cardPart, items) {
       var selectedCard = this._items(this.items)
       this.showQuill()
@@ -810,12 +824,7 @@
         this.prompt = ''
         var inputs = Polymer.dom(this.root).querySelectorAll("open-card input[value]")
         if (inputs !== null) {
-          var dek = false
-          inputs.forEach(function(v) {
-            dek = true
-            console.log(v.value, v.placeholder)
-          })
-          if (dek) {
+          if (this.getDekValues()) {
             return ['Edit', 'Take as new card', 'Return' ]
           }
         }
