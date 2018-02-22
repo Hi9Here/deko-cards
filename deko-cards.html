@@ -808,7 +808,7 @@
         }
       } else if (cardPart === 1) {
         this.prompt = ''
-        var inputs = this.$$("open-card input[value]")
+        var inputs = Polymer.dom(this.root).querySelectorAll("open-card input[value]")
         if (inputs !== null) {
           inputs.forEach(function(v) {
             console.log(v.value, v.placeholder)
