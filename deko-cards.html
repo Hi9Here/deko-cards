@@ -1088,6 +1088,7 @@
       if (that.cards.add) {
         that.cards.add(JSON.parse(JSON.stringify(save))).then(function (doc) {
           that.set('items.' + selectedItem + '.ref', doc)
+          that.set('routeData', doc.id)
           that.set('loading', false)
           if (toAddQuill) {
             return doc.collection('quill').add(toAddQuill)
