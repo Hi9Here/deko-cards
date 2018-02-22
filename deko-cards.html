@@ -879,13 +879,14 @@
             if (this.items[card].ref) {
               html = this.tricks[trick].html(html, this.items[card].ref.id)
             } else {
-             // html = this.tricks[trick].html(html)
+              html = this.tricks[trick].html(html)
             }
           }
         }
         if (html !== show.innerHTML) {
           this.set(['items',card,'html'], html)
           show.innerHTML = html
+          this.deal()
         }
         var that = this
         if (setupEditor) {
