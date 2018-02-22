@@ -812,9 +812,7 @@
         if (inputs !== null) {
           var dek = false
           inputs.forEach(function(v) {
-            if (v.value) {
-              dek = true
-            }
+            dek = true
             console.log(v.value, v.placeholder)
           })
           if (dek) {
