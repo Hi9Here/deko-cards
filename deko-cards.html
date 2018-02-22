@@ -886,7 +886,7 @@
         if (html !== show.innerHTML) {
           this.set(['items',card,'html'], html)
           show.innerHTML = html
-          this.deal()
+          this.deal(this.cols)
         }
         var that = this
         if (setupEditor) {
