@@ -957,7 +957,9 @@
             }
           )[0]
         }
-        if (textOnChip === 'give') {
+        if (textOnChip === "take as new card") {
+          this.new(this.getDekValues())
+        } elseif (textOnChip === 'give') {
           that.chips = that.profileList.map(function (profile) {
             return profile.name
           }).filter(function (name) {
@@ -1045,7 +1047,7 @@
       this.set('items', this.items.map(function (x) {
         x.selected = false
         return x
-      }).concat([{
+      }).concat([card || {
         selected: true,
         image: '',
         place: place,
