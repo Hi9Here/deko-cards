@@ -1085,6 +1085,9 @@
       }).concat([newCard]))
       if (newCard.title) {
         this.newCard(newCard.quill)
+        this.routeData.data = ""
+        this.cardOpen = false
+        return
       }
       this.cardOpen = true
       this.deal(this.cols)
