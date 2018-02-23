@@ -1047,22 +1047,41 @@
       place[this.cols] = {
         row: 100, col: this.cols
       }
-
+      if (!card) {
+        var newcard = {
+          selected: true,
+          image: '',
+          place: place,
+          toolbarColor: undefined,
+          html: '<h1>New</h2>',
+          quill: [
+            {attributes: {header: 1}, insert: '\n'},
+            {insert: '\n'},
+          ],
+          title: ''
+        }
+      } else {
+        var newcard = Object.keys(card).reduce(function(accumulator, currentValue){
+          if (currentValue === "quill" && Object.keys(card.dekValues).length) {
+            accumulator.quill = card.quill.map(function(op) {
+              return Object.keys(card.dekValues).reduce(function(accum, curre){
+                if (typeof accum.insert === "string") {
+                  var find = new RegExp("\\[\\[.*:"+ curre +"]]")
+                  accum.insert = accum.insert.replace(find, card.dekValues[curre])
+                }
+                return accum
+              },op)
+            })
+          } else {
+            accumulator[currentValue] = card[currentValue]
+          }
+          return accumulator
+        },{}) 
+      }
       this.set('items', this.items.map(function (x) {
         x.selected = false
         return x
-      }).concat([card || {
-        selected: true,
-        image: '',
-        place: place,
-        toolbarColor: undefined,
-        html: '<h1>New</h2>',
-        quill: [
-          {attributes: {header: 1}, insert: '\n'},
-          {insert: '\n'},
-        ],
-        title: ''
-      }]))
+      }).concat([card]))
       this.cardOpen = true
       this.deal(this.cols)
       this.cardPart = 0
