@@ -1077,12 +1077,15 @@
             accumulator[currentValue] = card[currentValue]
           }
           return accumulator
-        },{}) 
+        },{})
       }
       this.set('items', this.items.map(function (x) {
         x.selected = false
         return x
       }).concat([newCard]))
+      if (newCard.title) {
+        this.newCard(newCard.quill)
+      }
       this.cardOpen = true
       this.deal(this.cols)
       this.cardPart = 0
