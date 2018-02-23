@@ -1084,7 +1084,11 @@
         return x
       }).concat([newCard]))
       if (newCard.title) {
-        this.newCard(newCard.quill)
+        this.newCard({
+          value: newCard.quill,
+          time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+          user: firebase.auth().currentUser.uid
+        })
         this.routeData.data = ""
         this.cardOpen = false
         return
