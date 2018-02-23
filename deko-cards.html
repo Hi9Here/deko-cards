@@ -808,7 +808,7 @@
           dek[v.placeholder] = v.value
         })
         if (dek) {
-          return Object.assign(this.items[this._items(this.items)], {dek: dek})          
+          return Object.assign({} ,this.items[this._items(this.items)], {dek: dek})          
         } else {
           return false
         }
