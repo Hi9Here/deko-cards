@@ -828,7 +828,7 @@
           }
         } else if (cardPart === 1) {
           this.prompt = ''
-          if (this.getDekValues(this.items[selectedCard].card)) {
+          if (this.getDekValues(this.items[selectedCard])) {
             return ['Edit', 'Give', 'Take as new card', 'Return' ]
           }
           if (selectedCard && this.items[selectedCard].setsReps) {
