@@ -807,9 +807,14 @@
           }
           dek[v.placeholder] = v.value
         })
-        return Object.assign({dek: dek}, this.items[this._items(this.items)])
+        if (dek) {
+          return Object.assign(this.items[this._items(this.items)], {dek: dek})          
+        } else {
+          return false
+        }
+      } else {
+        return false
       }
-      return false
     },
     getCommands: function (cardPart, items) {
       var selectedCard = this._items(this.items)
@@ -822,11 +827,8 @@
         }
       } else if (cardPart === 1) {
         this.prompt = ''
-        var inputs = Polymer.dom(this.root).querySelectorAll("open-card input[value]")
-        if (inputs !== null) {
-          if (this.getDekValues()) {
-            return ['Edit', 'Give', 'Take as new card', 'Return' ]
-          }
+        if (this.getDekValues()) {
+          return ['Edit', 'Give', 'Take as new card', 'Return' ]
         }
         if (selectedCard && this.items[selectedCard].setsReps) {
           return ['Edit', 'Next', 'Give', 'Return' ]
