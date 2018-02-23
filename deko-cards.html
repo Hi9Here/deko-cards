@@ -936,6 +936,7 @@
     },
     addTextSetPrompt: function (d) {
       var that = this
+      var selectedItem = that._items(this.items)
       if (this.cardPart == 0) {
         // edit
         this.quill.focus()
@@ -949,7 +950,6 @@
       } else if (this.cardPart == 1) {
         console.log(d.detail.chip.trim())
         var textOnChip = d.detail.chip.trim().toLowerCase()
-        var selectedItem = that._items(this.items)
         function testForFunction (text) { // Returns relevant first trick
           return Object.keys(that.items[selectedItem]).filter(
             function (current) {
@@ -962,7 +962,7 @@
           )[0]
         }
         if (textOnChip === "take as new card") {
-          this.new(this.getDekValues())
+          this.new(this.getDekValues(this.items[selectedCard]))
         } else if (textOnChip === 'give') {
           that.chips = that.profileList.map(function (profile) {
             return profile.name
