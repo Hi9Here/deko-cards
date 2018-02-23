@@ -1048,7 +1048,7 @@
         row: 100, col: this.cols
       }
       if (!card.quill) {
-        var newcard = {
+        var newCard = {
           selected: true,
           image: '',
           place: place,
@@ -1061,7 +1061,7 @@
           title: ''
         }
       } else {
-        var newcard = Object.keys(card).reduce(function(accumulator, currentValue){
+        var newCard = Object.keys(card).reduce(function(accumulator, currentValue){
           if (currentValue === "quill" && Object.keys(card.dekValues).length) {
             accumulator.quill = card.quill.map(function(op) {
               return Object.keys(card.dekValues).reduce(function(accum, curre){
@@ -1082,7 +1082,7 @@
       this.set('items', this.items.map(function (x) {
         x.selected = false
         return x
-      }).concat([card]))
+      }).concat([newCard]))
       this.cardOpen = true
       this.deal(this.cols)
       this.cardPart = 0
