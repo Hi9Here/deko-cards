@@ -797,7 +797,7 @@
       }
       this.set('tableCommands', [])
     },
-    getDekValues: function (){
+    getDekValues: function (card){
       var inputs = Polymer.dom(this.root).querySelectorAll("open-card input[value]")
       if (inputs !== null) {
         var dek = false
@@ -808,7 +808,7 @@
           dek[v.placeholder] = v.value
         })
         if (dek) {
-          return Object.assign({} ,this.items[this._items(this.items)], {dek: dek})          
+          return Object.assign({},card, {dek: dek})          
         } else {
           return false
         }
@@ -827,7 +827,7 @@
         }
       } else if (cardPart === 1) {
         this.prompt = ''
-        if (this.getDekValues()) {
+        if (this.getDekValues(this.items[selectedCard].card)) {
           return ['Edit', 'Give', 'Take as new card', 'Return' ]
         }
         if (selectedCard && this.items[selectedCard].setsReps) {
