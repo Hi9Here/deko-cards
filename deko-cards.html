@@ -819,23 +819,25 @@
     getCommands: function (cardPart, items) {
       var selectedCard = this._items(this.items)
       this.showQuill()
-      if (cardPart === 0) {
-        if (selectedCard !== false && this.items[selectedCard] && this.items[selectedCard].ref) {
-          return ['Delete', 'Show it']
+      if (selectedCard !== false) {
+        if (cardPart === 0) {
+          if (selectedCard !== false && this.items[selectedCard] && this.items[selectedCard].ref) {
+            return ['Delete', 'Show it']
+          } else {
+            return ['Disregard', 'Save']
+          }
+        } else if (cardPart === 1) {
+          this.prompt = ''
+          if (this.getDekValues(this.items[selectedCard].card)) {
+            return ['Edit', 'Give', 'Take as new card', 'Return' ]
+          }
+          if (selectedCard && this.items[selectedCard].setsReps) {
+            return ['Edit', 'Next', 'Give', 'Return' ]
+          }
+          return ['Edit', 'Give', 'Return']
         } else {
-          return ['Disregard', 'Save']
-        }
-      } else if (cardPart === 1) {
-        this.prompt = ''
-        if (this.getDekValues(this.items[selectedCard].card)) {
-          return ['Edit', 'Give', 'Take as new card', 'Return' ]
-        }
-        if (selectedCard && this.items[selectedCard].setsReps) {
-          return ['Edit', 'Next', 'Give', 'Return' ]
-        }
-        return ['Edit', 'Give', 'Return']
-      } else {
         // get tricks
+        }
       }
     },
     showQuill: function (card) {
