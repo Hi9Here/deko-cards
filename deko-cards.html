@@ -1505,7 +1505,7 @@
         if (onLine === "") {
           var theLine = that.quill.getLine(cursor-1)[0].domNode.outerText.replace("\n","").trim()
           var apiURL = this.apiURL
-          if (theLine && /^[a-z ,]+$/gmi.test(thoLine) && theLine.length > 5 && theLine.length < 100 && theLine.split(' ').length > 1 && theLine.split(' ').length < 20) {
+          if (theLine && /^[a-z ,]+$/gmi.test(theLine) && theLine.length > 5 && theLine.length < 100 && theLine.split(' ').length > 1 && theLine.split(' ').length < 20) {
             console.log(theLine)
             var dotoQuill = function (response) {
               console.log(response)
