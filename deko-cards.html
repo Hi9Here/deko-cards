@@ -1086,8 +1086,8 @@
           if (s.startsWith("card"+card.ref.id)) {
             window.localStorage.removeItem(s)
           }
-       })
-       card.html = "debug"
+        })
+        card.html = "debug"
       }
       this.set('items', this.items.map(function (x) {
         x.selected = false
@@ -1171,6 +1171,11 @@
       var selectedItem = this._items(this.items)
       if (selectedItem !== false && that.items[selectedItem] && that.items[selectedItem].ref && that.items[selectedItem].ref.id) {
         var deleteId = that.items[selectedItem].ref.id
+        Object.keys(window.localStorage).forEach(function(s) {
+          if (s.startsWith("card"+deleteId)) {
+            window.localStorage.removeItem(s)
+          }
+        })
         that.items[selectedItem].ref.delete().then(function () {
           that.set('items', that.items.reduce(function (accumulator, currentValue) {
             if (that.items[selectedItem] && that.items[selectedItem].ref && that.items[selectedItem].ref.id !== deleteId) {
