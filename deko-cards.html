@@ -1913,14 +1913,13 @@
       return toReturn
     },
     selectOpen: function (e,d) {
-      // if focus :
-    //  this.clearTrick() l/l/l/l/l/l/l/l/l/l/l/l/l/l/l/ TODO:
       var cardEle
       if (document.activeElement.card && document.activeElement.card.selected) {
         if (document.activeElement.id) {
           this.set("routeData", {data: document.activeElement.id}) 
         }
-      } else if (document.activeElement.card) {
+      }
+      if (document.activeElement.card) {
         cardEle = this.select(e)
         cardEle.setAttribute("draggable", true)
         cardEle.ondragend = this.dropcard
