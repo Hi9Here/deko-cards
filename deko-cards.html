@@ -1854,6 +1854,7 @@
       this.clearTrick()
       this.editing = true
       this.fire('open-card', {e: e, d: d})
+      this.showQuill()
     },
     pickable: function (item) {
       return !item.selected
