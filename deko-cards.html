@@ -1082,11 +1082,12 @@
           }
           return accumulator
         },{})
-        Object.keys(window.localStorage).forEach(function(s, i) {
+        Object.keys(window.localStorage).forEach(function(s) {
           if (s.startsWith("card"+card.ref.id)) {
             window.localStorage.removeItem(s)
           }
-        })
+       })
+       card.html = "debug"
       }
       this.set('items', this.items.map(function (x) {
         x.selected = false
