@@ -1519,7 +1519,7 @@
                 that.quill.setSelection(cur)
                 that.set("line",response+" ")
               } 
-              return response
+              return response + " \n"
             }
             if (that.cache && that.cache[theLine]) {
               dotoQuill(that.cache[theLine])
