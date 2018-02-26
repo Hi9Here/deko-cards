@@ -197,7 +197,7 @@
               })
               setTimeout(function(){
                 document.querySelectorAll("input[id^=card]").forEach(function(theInput){
-                  theInput.onselectstart = ""
+                  // theInput.onselectstart = ""
                   theInput.value = localStorage.getItem(theInput.id) || ""
                   theInput.oninput = function(e) {
                     if (e.target.value !== "") {
