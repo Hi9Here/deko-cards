@@ -1076,7 +1076,9 @@
                 return accum
               },op)
             })
-          } else if (currentValue === "ref") {
+          } else if (currentValue === "ref") { // drop
+          } else if (currentValue === "selected") {
+          } else if (currentValue === "place") {
           } else {
             accumulator[currentValue] = card[currentValue]
           }
