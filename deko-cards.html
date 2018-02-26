@@ -573,10 +573,12 @@
           // select and open card
           var isCard
           var id = a.data
+          var theCard = false
           var cards = this.items.map(function (x, i) {
             if (x.ref && x.ref.id === id) {
               x.selected = true
               isCard = true
+              theCard = i
             } else {
               x.selected = false
             }
@@ -590,6 +592,7 @@
             if (this.$$('open-card') !== null) {
               this.$$('open-card').open()
             }
+            this.showQuill(theCard)
             if (this.unsub) {
               this.unsub()
             }
