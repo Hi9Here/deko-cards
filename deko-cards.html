@@ -1503,10 +1503,10 @@
       } else if (cursor && that.quill.getLine(cursor)[0] !== null && !noSideEffects) {
         var onLine = that.quill.getLine(cursor)[0].domNode.outerText.replace("\n","").trim()
         if (onLine === "") {
-          var line = that.quill.getLine(cursor-1)[0].domNode.outerText.replace("\n","").trim()
+          var theLine = that.quill.getLine(cursor-1)[0].domNode.outerText.replace("\n","").trim()
           var apiURL = this.apiURL
-          if (line && /^[a-z ,]+$/gmi.test(line) && line.length > 5 && line.length < 100 && line.split(' ').length > 1 && line.split(' ').length < 20) {
-            console.log(line)
+          if (theLine && /^[a-z ,]+$/gmi.test(thoLine) && theLine.length > 5 && theLine.length < 100 && theLine.split(' ').length > 1 && theLine.split(' ').length < 20) {
+            console.log(theLine)
             var dotoQuill = function (response) {
               console.log(response)
               if (response) { 
@@ -1521,17 +1521,17 @@
               } 
               return response
             }
-            if (that.cache && that.cache[line]) {
-              dotoQuill(that.cache[line])
+            if (that.cache && that.cache[theLine]) {
+              dotoQuill(that.cache[theLine])
             } else {
-              this.tricks.signedOff.action({quill:line+"_~_",replacing:"_~_"}, function(sig){
-                fetch(`${apiURL}detect/${encodeURIComponent(line)}/${encodeURIComponent(sig[0].insert.replace("\n",''))}`).then(function (response) {
+              this.tricks.signedOff.action({quill:theLine+"_~_",replacing:"_~_"}, function(sig){
+                fetch(`${apiURL}detect/${encodeURIComponent(theLine)}/${encodeURIComponent(sig[0].insert.replace("\n",''))}`).then(function (response) {
                   return response.json()
                 }).then(function(response){
                   if (!that.cache) {
                     that.cache = {}
                   }
-                  that.cache[line] = response
+                  that.cache[theLine] = response
                   return response
                 }).then(dotoQuill).catch(function(e){
                   console.error(e)
