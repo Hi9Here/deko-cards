@@ -1082,8 +1082,11 @@
           }
           return accumulator
         },{})
-        debugger // clear card.ref.id
-        console.log(window.localStorage)
+        Object.keys(window.localStorage).forEach(function(s, i) {
+          if (s.startsWith("card"+card.ref.id)) {
+            window.localStorage.removeItem(s)
+          }
+        })
       }
       this.set('items', this.items.map(function (x) {
         x.selected = false
