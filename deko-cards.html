@@ -192,12 +192,12 @@
                 if (regex.test(p.innerHTML)) {
                   var inputID = `card`+id+`field`+i
                   var value = localStorage.getItem(inputID) || ""
-                  p.innerHTML = p.innerHTML.replace(regex, `<input unselectable="on" value="`+ value +`" type="$1" id="`+ inputID +`" placeholder="$2" />`)
+                  p.innerHTML = p.innerHTML.replace(regex, `<input disabled value="`+ value +`" type="$1" id="`+ inputID +`" placeholder="$2" />`)
                 }
               })
               setTimeout(function(){
                 document.querySelectorAll(".open input[id^=card]").forEach(function(theInput){
-                  theInput.unselectable="off"
+                  theInput.disabled = "false"
                   theInput.value = localStorage.getItem(theInput.id) || ""
                   theInput.oninput = function(e) {
                     if (e.target.value !== "") {
