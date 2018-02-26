@@ -197,7 +197,7 @@
               })
               setTimeout(function(){
                 document.querySelectorAll(".open input[id^=card]").forEach(function(theInput){
-                  theInput.disabled = "false"
+                  theInput.disabled = false
                   theInput.value = localStorage.getItem(theInput.id) || ""
                   theInput.oninput = function(e) {
                     if (e.target.value !== "") {
