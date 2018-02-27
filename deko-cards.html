@@ -864,7 +864,7 @@
             }
           })
         }
-        if (!this.items[card].html) {
+        if (this.items[card].quill && !this.items[card].html) {
           elem = document.createElement('div')
           var newQuill = new Quill(elem, {
             modules: {
@@ -874,9 +874,7 @@
             theme: "bubble",
           })
           newQuill.disable()
-          if (!elem.innerText.trim() || !this.editing) {
-            newQuill.setContents(this.items[card].quill)
-          }
+          newQuill.setContents(this.items[card].quill)
           newQuill.formatLine(1, 2, 'attributes', {header: 1})
           var html = elem.innerHTML
           for (var trick in this.tricks) {
