@@ -190,9 +190,9 @@
               var regex = /\[\[(search|text|date|email|number|url):([\w ]{3}[\w ]*)]]/g
               docAsElement.querySelectorAll("p").forEach(function (p,i) {
                 if (regex.test(p.innerHTML)) {
-                  var inputID = `card`+id+`field`+i
+                  var inputID = `card`+id+`field`+i+`label`
                   var value = localStorage.getItem(inputID) || ""
-                  p.innerHTML = p.innerHTML.replace(regex, `<input disabled value="`+ value +`" type="$1" id="`+ inputID +`" placeholder="$2" />`)
+                  p.innerHTML = p.innerHTML.replace(regex, `<input disabled value="`+ value +`" type="$1" id="`+ inputID +`$2" placeholder="$2" />`)
                 }
               })
               setTimeout(function(){
