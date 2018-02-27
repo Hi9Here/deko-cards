@@ -1766,8 +1766,6 @@
                   html = that.tricks[trick].html(html, doc.ref.id)
                 }
               }
-            } else {
-              setTimeout(that.showQuill, 10, index)
             } 
             cards.push({
               title: docData.title || "",
@@ -1806,7 +1804,12 @@
           console.log(that.items)
           setTimeout(function(){
             that.deal(that.cols)
-          },250)
+            that.items.forEach(function(card, index) {
+              if (!card.html) {
+                that.showQuill(index)
+              }
+            })
+          },50)
           if (one && isCard) {
             that.setDek({data: one})
           } else if (one) {
