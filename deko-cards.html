@@ -1754,17 +1754,21 @@
           // that.items = theSnap.sort(sortByChild)
           var cards = []
           console.log("one", one)
-          theSnap.forEach(function (doc) {
+          theSnap.forEach(function (doc, index) {
             var docData = doc.data()
             var html = docData.html
             if (doc.id === one) {
               isCard = true
             }
-            for (var trick in that.tricks) {
-              if (that.tricks[trick].html) {
-                html = that.tricks[trick].html(html, doc.ref.id)
+            if (html) {
+              for (var trick in that.tricks) {
+                if (that.tricks[trick].html) {
+                  html = that.tricks[trick].html(html, doc.ref.id)
+                }
               }
-            }
+            } else {
+              setTimeout(that.showQuill, 10, index)
+            } 
             cards.push({
               title: docData.title || "",
               image: docData.image || "",
