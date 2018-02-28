@@ -596,9 +596,10 @@
             if (this.unsub) {
               this.unsub()
             }
-            this.changingPart(1,0)
-            this.changingPart(0,1)
-            this.changingPart(1,0)
+            var that = this
+            setTimeout(function() {
+              that.changingPart(0,1)
+            } 1000)
           } else {
             // load card
             if (this.cards) {
