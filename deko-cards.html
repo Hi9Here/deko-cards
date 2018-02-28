@@ -859,11 +859,9 @@
       }
     },
     showQuill: function (card) {
-      
       if (card === undefined) {
         card = this._items(this.items)
       }
-
       if (card !== false && typeof card === "number") {
         if (this.items[card].ref && !this.items[card].quill) { 
           var that = this
@@ -871,10 +869,11 @@
             if (data && data.size) {
               var value = data.docs[0].data().value
               var selectedItem = that._items(that.items)
-              that.set('items.' + selectedItem + '.quill', value)
+              that.set('items.' + card + '.quill', value)
               if (card === selectedItem) {
                 that.quill.setContents(that.items[card].quill)
               }
+              that.showQuill(card)
             }
           })
         }
