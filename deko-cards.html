@@ -1180,16 +1180,15 @@
 
       var save = {}
       for (var key in this.items[selectedItem]) {
-        if (key !== 'quill' && key !== 'selected') {
+        if (key !== 'quill' && key !== 'selected' && key !== 'ref') {
           save[key] = this.items[selectedItem][key]
         }
       }
       save["added"] = +Date.now()
       if (that.cards.add) {
         that.cards.add(JSON.parse(JSON.stringify(save))).then(function (doc) {
-          that.set('items.' + selectedItem + '.ref', doc)
           that.set('routeData',{data: doc.id})
-          that.set('loading', false)
+          console.log("new card id", doc.id)
           if (toAddQuill) {
             return doc.collection('quill').add(toAddQuill)
           } else {
