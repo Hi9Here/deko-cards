@@ -852,6 +852,9 @@
           if (selectedCard && this.items[selectedCard].setsReps) {
             return ['Edit', 'Next', 'Give', 'Return' ]
           }
+          if (!this.items[selectedCard].dek) {
+            return ['Edit', 'Give', 'Add to dek', 'Return' ]
+          }
           return ['Edit', 'Give', 'Return']
         } else {
         // get tricks
