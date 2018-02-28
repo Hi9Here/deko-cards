@@ -1008,6 +1008,10 @@
 
         if (this.dekoContext === "add to dek") {
           console.log(textOnChip)
+          var deks = {}
+          deks[textOnChip] = true
+
+          this.items[selectedItem].ref.set({dek: {deks: deks}},{merge: true})
           debugger
         } else if (textOnChip === "add to dek") {
           this.dekoContext = "add to dek"
