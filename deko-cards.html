@@ -587,8 +587,6 @@
           if (isCard) {
             this.set("items", cards)
             this.set('cardPart', 1) 
-            this.set('cardPart', 0) 
-            this.set('cardPart', 1) 
             this.$.opencard.render()
             this.set("cardOpen" ,true)
             if (this.$$('open-card') !== null) {
@@ -598,6 +596,9 @@
             if (this.unsub) {
               this.unsub()
             }
+            this.set('cardPart', 1) 
+            this.set('cardPart', 0) 
+            this.set('cardPart', 1) 
           } else {
             // load card
             if (this.cards) {
