@@ -599,7 +599,8 @@
             var that = this
             setTimeout(function() {
               that.changingPart(0,1)
-            }, 1000)
+              that.getCommands(1, cards)
+            }, 500)
           } else {
             // load card
             if (this.cards) {
