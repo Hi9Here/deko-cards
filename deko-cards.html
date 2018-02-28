@@ -598,8 +598,9 @@
             }
             var that = this
             setTimeout(function() {
-              that.changingPart(0,1)
-              that.getCommands(1, cards)
+            //  that.changingPart(0,1)
+              that.set('cardPart', 0) 
+              that.set('cardPart', 1) 
             }, 500)
           } else {
             // load card
@@ -825,7 +826,7 @@
         return false
       }
     },
-    getCommands: function (cardPart, items) {
+    getCommands:function (cardPart, items) {
       var selectedCard = this._items(this.items)
       this.showQuill()
       if (selectedCard !== false) {
