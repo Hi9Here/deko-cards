@@ -1005,8 +1005,12 @@
             }
           )[0]
         }
-        if (textOnChip === "add to dek") {
-          this.context = "add to dek"
+
+        if (this.dekoContext === "add to dek") {
+          console.log(textOnChip)
+          debugger
+        } else if (textOnChip === "add to dek") {
+          this.dekoContext = "add to dek"
           this.chips = ['Offers','Admin']
         } else if (textOnChip === "take as new card") {
           this.new(this.getDekValues(this.items[selectedItem]))
