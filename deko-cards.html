@@ -598,10 +598,16 @@
             var that = this
             setTimeout(function() {
               that.set('cardPart', 0) 
+              if (cards[theCard].quill) {
+                that.testStuff(that.tricks,cards[theCard].quill,50)
+              }
             }, 200)
             setTimeout(function() {
             //  that.changingPart(0,1)
               that.set('cardPart', 0) 
+              if (cards[theCard].quill) {
+                that.testStuff(that.tricks,cards[theCard].quill,50)
+              }
               that.set('cardPart', 1) 
             }, 250)
           } else {
