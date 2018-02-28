@@ -596,9 +596,9 @@
             if (this.unsub) {
               this.unsub()
             }
-            this.set('cardPart', 1) 
-            this.set('cardPart', 0) 
-            this.set('cardPart', 1) 
+            this.changingPart(1,0)
+            this.changingPart(0,1)
+            this.changingPart(1,0)
           } else {
             // load card
             if (this.cards) {
