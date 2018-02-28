@@ -1005,10 +1005,13 @@
             }
           )[0]
         }
-        if (textOnChip === "take as new card") {
+        if (textOnChip === "add to dek") {
+          this.context = "add to dek"
+          this.chips = ['Offers','Admin']
+        } else if (textOnChip === "take as new card") {
           this.new(this.getDekValues(this.items[selectedItem]))
         } else if (textOnChip === 'give') {
-          that.chips = that.profileList.map(function (profile) {
+          this.chips = that.profileList.map(function (profile) {
             return profile.name
           }).filter(function (name) {
             return name
