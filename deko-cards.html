@@ -763,8 +763,8 @@
         if (doc.data().deks) {
           list = Object.assign({}, list, doc.data().deks)
         }
-        if (JSON.stringify(that.toArray(list)) !== JSON.stringify(that.profileDeks)){
-          that.profileDeks = that.toArray(list)
+        if (JSON.stringify(that.toArray(list).sort()) !== JSON.stringify(that.profileDeks)){
+          that.profileDeks = that.toArray(list).sort()
           db.collection('Profiles').doc(profileId).set({deks: list}, {merge: true})
         }
       })
@@ -1023,7 +1023,7 @@
           )[0]
         }
 
-        if (this.dekoContext === "add to dek") {
+        if (this.dekoContext === "add to dek" && that.profileDeks && that.profileDeks.indexOf(textOnChip)) {
           console.log(textOnChip)
           var deks = {}
           deks[textOnChip] = true
@@ -1033,7 +1033,7 @@
           this.chips = []
         } else if (textOnChip === "add to dek") {
           this.dekoContext = "add to dek"
-          this.chips = this.profileDeks || ['Offers','Admin']
+          this.chips = this.profileDeks || ["new dek"]
         } else if (textOnChip === "take as new card") {
           this.new(this.getDekValues(this.items[selectedItem]))
         } else if (textOnChip === 'give') {
@@ -1076,7 +1076,7 @@
             }
           })[0].id
 
-          if (this.items[selectedItem].ref) {
+          if (this.items[selectedItem].ref) { 
             that.chips = ['giving']
             var given = {}
             given[id] = true
