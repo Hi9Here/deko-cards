@@ -763,11 +763,10 @@
         if (doc.data().deks ) {
           list = list.concat(Object.keys(doc.data().deks))
         }
-        if (JSON.stringify(list) !== JSON.stringify(that.profileDeks))
+        if (JSON.stringify(list) !== JSON.stringify(that.profileDeks)){
           that.profileDeks = list
-          return db.collection('Profiles').doc(profileId).set({deks: list}, {merge: true})
+          db.collection('Profiles').doc(profileId).set({deks: list}, {merge: true})
         }
-      }).then(function(list) {
       })
     },
     getMeta: function (profileId) {
