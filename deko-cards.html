@@ -763,7 +763,7 @@
         if (doc.data().deks) {
           list = Object.assign({}, list, doc.data().deks)
         }
-        if (JSON.stringify(list) !== JSON.stringify(that.profileDeks)){
+        if (JSON.stringify(that.toArray(lis:t)) !== JSON.stringify(that.profileDeks)){
           that.profileDeks = that.toArray(list)
           db.collection('Profiles').doc(profileId).set({deks: list}, {merge: true})
         }
