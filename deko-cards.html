@@ -759,12 +759,12 @@
           list = list.concat(Object.keys(card.dek.deks))
         }
       })
-      return db.collection('Profiles').doc(profileId).get().than(function (doc){
+      return db.collection('Profiles').doc(profileId).get().then(function (doc){
         if (doc.data().deks) {
           list = list.concat(Object.keys(doc.data().deks))
         }
         return that.profileDeks = list
-      }).than(function(list) {
+      }).then(function(list) {
         return db.collection('Profiles').doc(profileId).set({deks: list}, {merge: true})
       })
     },
