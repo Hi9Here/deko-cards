@@ -630,7 +630,8 @@
       var card = this.items[this._items(this.items)]
       if (card.dek && card.dek.deks && card.dek.deks[e.target.innerText]) {
         delete(card.dek.deks[e.target.innerText])
-
+        console.log(card)
+        saveCard(card)
       }
     },
     deal: function(cols) {
