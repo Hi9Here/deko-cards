@@ -760,12 +760,14 @@
         }
       })
       return db.collection('Profiles').doc(profileId).get().then(function (doc){
-        if (doc.data().deks) {
+        if (doc.data().deks ) {
           list = list.concat(Object.keys(doc.data().deks))
         }
-        return that.profileDeks = list
+        if (JSON.stringify(list) !== JSON.stringify(that.profileDeks))
+          that.profileDeks = list
+          return db.collection('Profiles').doc(profileId).set({deks: list}, {merge: true})
+        }
       }).then(function(list) {
-        return db.collection('Profiles').doc(profileId).set({deks: list}, {merge: true})
       })
     },
     getMeta: function (profileId) {
