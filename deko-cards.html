@@ -632,6 +632,7 @@
       var text = e.target.innerText.replace("","\n").trim()
       if (card.dek && card.dek.deks && card.dek.deks[text]) {
         delete(card.dek.deks[text])
+        this.set(["items",this._items(this.items)],card)
         this.saveCard(card)
       }
     },
