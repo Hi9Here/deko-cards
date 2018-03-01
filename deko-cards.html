@@ -520,9 +520,8 @@
       commands: {
         computed: 'getCommands(cardPart,items)'
       },
-      _tableCommands: {
-        computed: 'getTableCommands(items)'
-      },
+      _tableCommands: {computed: 'getTableCommands(items)' },
+      _setListOfDeks:{computed: 'setListOfDeks(profileId, items)'},
       apiURL: {
         value: 'https://us-central1-deko-app-one.cloudfunctions.net/god/'
       },
@@ -766,7 +765,7 @@
         }
         return that.profileDeks = list
       }).than(function(list) {
-        db.collection('Profiles').doc(profileId).set({deks: list}, {merge: true})
+        return db.collection('Profiles').doc(profileId).set({deks: list}, {merge: true})
       })
     },
     getMeta: function (profileId) {
