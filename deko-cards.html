@@ -863,7 +863,7 @@
         } else if (cardPart === 1) {
           this.prompt = ''
           if (this.getDekValues(this.items[selectedCard])) {
-            return ['Edit', 'Give', 'Take as new card', 'Return' ]
+            return ['Edit', 'Give', 'Take as new card', 'Add to dek', 'Return' ]
           }
           if (selectedCard && this.items[selectedCard].setsReps) {
             return ['Edit', 'Next', 'Give', 'Return' ]
