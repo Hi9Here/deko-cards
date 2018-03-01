@@ -752,19 +752,19 @@
       that.testStuff(that.tricks, that.quill) // 0 dry
     },
     setListOfDeks: function (profileId, items) {
-      var list = []
+      var list = {}
       var that = this
       items.forEach(function (card) {
         if (card && card.dek && card.dek.deks) {
-          list = list.concat(Object.keys(card.dek.deks))
+          list = Object.assign({}, list, card.dek.deks)
         }
       })
       return db.collection('Profiles').doc(profileId).get().then(function (doc){
-        if (doc.data().deks ) {
-          list = list.concat(Object.keys(doc.data().deks))
+        if (doc.data().deks) {
+          list = Object.assign({}, list, doc.data().deks)
         }
         if (JSON.stringify(list) !== JSON.stringify(that.profileDeks)){
-          that.profileDeks = list
+          that.profileDeks = that.toArray(list)
           db.collection('Profiles').doc(profileId).set({deks: list}, {merge: true})
         }
       })
