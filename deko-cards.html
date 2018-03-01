@@ -1030,6 +1030,7 @@
 
           this.items[selectedItem].ref.set({dek: {deks: deks}},{merge: true})
           this.dekoContext = "adding"
+          this.chips = []
         } else if (textOnChip === "add to dek") {
           this.dekoContext = "add to dek"
           this.chips = this.profileDeks || ['Offers','Admin']
