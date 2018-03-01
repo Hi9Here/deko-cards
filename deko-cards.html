@@ -258,7 +258,8 @@
               }).then(function (keys) {
                 return sha256(stuff).then(function (digest) {
                   return sign(digest, keys.privateKey, function (signature) {
-                    return [{insert: signature + '\n'}] })
+                    return [{insert: signature + '\n'}] 
+                  })
                 })
               }).then(function (add) {
                 cb(add)
@@ -628,8 +629,9 @@
     removeDek: function(e) {
       console.log(e)
       var card = this.items[this._items(this.items)]
-      if (card.dek && card.dek.deks && card.dek.deks[e.target.innerText]) {
-        delete(card.dek.deks[e.target.innerText])
+      var text = e.target.innerText.replace("","\n").trim()
+      if (card.dek && card.dek.deks && card.dek.deks[text]) {
+        delete(card.dek.deks[text])
         console.log(card)
         saveCard(card)
       }
