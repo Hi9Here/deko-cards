@@ -87,11 +87,9 @@
         <open-card svg="/images/deko.svg" opened="{{cardOpen}}" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="noDek" on-new="new">
           <div>
             <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="cardsDek">
-              <a href$="/[[profileId]]/[[cardsDek]]">
-                <paper-chip removable single-line>
-                  <div class="label">[[cardsDek]]</div>
-                </paper-chip>
-              </a>
+              <paper-chip removable single-line >
+                <div class="label" on-remove="removeDek">[[cardsDek]]</div>
+              </paper-chip>
             </template>
             <deko-card style="margin: auto;min-width: 330px;display: block;width: 80%;" card="[[item]]" display="open">
               <div id="editor" ></div>
@@ -625,6 +623,14 @@
         }
       } else {
         this.set("dek", "")
+      }
+    },
+    removeDek: function(e) {
+      console.log(e)
+      var card = this.items[this._items(this.items)]
+      if (card.dek && card.dek.deks && card.dek.deks[e.target.innerText]) {
+        delete(card.dek.deks[e.target.innerText])
+
       }
     },
     deal: function(cols) {
@@ -1235,6 +1241,15 @@
           console.error('Error adding card: ', e)
         })
       }
+    },
+    saveCard: function (card) {
+      var toSave = {}
+      Object.keys(card).forEach(function (key) {
+        if (card[key] && !key.startsWith('_') && typeof card[key] !== "function" && key === "ref" && key === "quill") {
+          toSave[key] = card[key]
+        }
+      })
+      card.ref.set(toSave)
     },
     deleteCard: function (e, d) {
       var that = this
