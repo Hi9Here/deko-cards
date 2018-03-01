@@ -752,6 +752,23 @@
       })
       that.testStuff(that.tricks, that.quill) // 0 dry
     },
+    setListOfDeks: function (profileId, items) {
+      var list = []
+      var that = this
+      items.forEach(function (card) {
+        if (card && card.dek && card.dek.deks) {
+          list = list.concat(Object.keys(card.dek.deks))
+        }
+      })
+      return db.collection('Profiles').doc(profileId).get().than(function (doc){
+        if (doc.data().deks) {
+          list = list.concat(Object.keys(doc.data().deks))
+        }
+        return that.profileDeks = list
+      }).than(function(list) {
+        db.collection('Profiles').doc(profileId).set({deks: list}, {merge: true})
+      })
+    },
     getMeta: function (profileId) {
       var meta = {}
       meta[profileId] = 'profileId'
@@ -1015,7 +1032,7 @@
           this.dekoContext = "adding"
         } else if (textOnChip === "add to dek") {
           this.dekoContext = "add to dek"
-          this.chips = ['Offers','Admin']
+          this.chips = this.profileDeks || ['Offers','Admin']
         } else if (textOnChip === "take as new card") {
           this.new(this.getDekValues(this.items[selectedItem]))
         } else if (textOnChip === 'give') {
