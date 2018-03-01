@@ -632,8 +632,7 @@
       var text = e.target.innerText.replace("","\n").trim()
       if (card.dek && card.dek.deks && card.dek.deks[text]) {
         delete(card.dek.deks[text])
-        console.log(card)
-        saveCard(card)
+        this.saveCard(card)
       }
     },
     deal: function(cols) {
