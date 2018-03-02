@@ -1248,7 +1248,7 @@
     saveCard: function (card) {
       var toSave = {}
       Object.keys(card).forEach(function (key) {
-        if (card[key] && !key.startsWith('_') && typeof card[key] !== "function" && key === "ref" && key === "quill") {
+        if (card[key] && !key.startsWith('_') && typeof card[key] !== "function" && key !== "ref" && key !== "quill") {
           toSave[key] = card[key]
         }
       })
