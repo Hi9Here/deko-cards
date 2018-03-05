@@ -41,7 +41,7 @@
     <div id="card-view">
       <div class="col 0" style$="width: calc(95%/[[cols]])">
         <template is="dom-repeat" items="[[items]]" id="list0" filter="col_1" sort="sortRow">
-          <deko-card cols="[[cols]]" on-tap="selectOpen" tabindex$="[[index]]" id="[[item.ref.id]]" card="[[item]]" ondragover="dragover_(event)" >
+          <deko-card cols="[[cols]]" on-focus="selectCard" on-tap="selectOpen" tabindex$="[[index]]" id="[[item.ref.id]]" card="[[item]]" ondragover="dragover_(event)" >
             <div inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
         </template>
@@ -217,8 +217,8 @@
               var regex = /([12]\d{3}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01]))/g
               docAsElement.querySelectorAll("p").forEach(function (p,i) {
                 if (regex.test(p.innerHTML)) {
-                  p.innerHTML = p.innerHTML.replace(regex, `<date-display format="ll" drop-year value="$1"></date-display>`)
-                }
+									p.innerHTML = p.innerHTML.replace(regex, `<date-display format="ll" drop-year value="$1"></date-display>`)
+								}
               })
               return docAsElement.innerHTML
             },
@@ -2025,6 +2025,9 @@
       })
 
       return toReturn
+    },
+    selectCard: function (e,d) {
+     
     },
     selectOpen: function (e,d) {
       var cardEle
