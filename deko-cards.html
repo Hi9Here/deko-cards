@@ -209,6 +209,22 @@
               return docAsElement.innerHTML
             },
           },
+          dateDisplay: {
+            html: function (html, id) {
+              var docAsElement = document.createElement("div")
+              docAsElement.innerHTML = html
+              var regex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/g
+              docAsElement.querySelectorAll("p").forEach(function (p,i) {
+                if (regex.test(p.innerHTML)) {
+                  var inputID = `card`+id+`field`+i+`label`
+                  var value = localStorage.getItem(inputID) || ""
+                  p.innerHTML = p.innerHTML.replace(regex, `<date-display drop-year value="`+ value +`"></date-display>`)
+                }
+              })
+              return docAsElement.innerHTML
+            },
+            done: {},
+          },
           imageSearch: {
             chip: "add image ",
             intent: "^add image ((?!https?|data).*)",
