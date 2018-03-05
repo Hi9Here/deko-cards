@@ -217,7 +217,7 @@
               var regex = /([12]\d{3}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01]))/g
               docAsElement.querySelectorAll("p").forEach(function (p,i) {
                 if (regex.test(p.innerHTML)) {
-                  p.innerHTML = p.innerHTML.replace(regex, `<date-display drop-year value="$1"></date-display>`)
+                  p.innerHTML = p.innerHTML.replace(regex, `<date-display format="ll" drop-year value="$1"></date-display>`)
                 }
               })
               return docAsElement.innerHTML
