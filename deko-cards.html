@@ -41,7 +41,7 @@
     <div id="card-view">
       <div class="col 0" style$="width: calc(95%/[[cols]])">
         <template is="dom-repeat" items="[[items]]" id="list0" filter="col_1" sort="sortRow">
-          <deko-card cols="[[cols]]" on-focus="selectCard" on-tap="selectOpen" tabindex$="[[index]]" id="[[item.ref.id]]" card="[[item]]" ondragover="dragover_(event)" >
+          <deko-card cols="[[cols]]" onfocus="selectCard(event)" on-tap="selectOpen" tabindex$="[[index]]" id="[[item.ref.id]]" card="[[item]]" ondragover="dragover_(event)" >
             <div inner-h-t-m-l="[[item.html]]"></div>
           </deko-card>
         </template>
@@ -2077,6 +2077,7 @@
     },
     ready: function () {
       var that = this
+      cardsEl = this
       fetch(this.apiURL + 'profiles').then(function (response) {
         return response.json()
       }).then(function (response) {
@@ -2245,5 +2246,11 @@
     ev.preventDefault();
     // Set the dropEffect to move
     ev.dataTransfer.dropEffect = "move"
+  }
+  var cardsEl
+  function selectCard(ev) {
+    if (cardsEl) {
+      cardsEl.selectCard(ev)
+    }
   }
 </script>
