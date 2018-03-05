@@ -656,6 +656,7 @@
       var fillCols = {}
       var index = 1
       var cardHeight = 200
+      var that = this 
       function findNextPlace() {
         if (!fillCols[1] || cols === 1) {return 1}
 
@@ -706,6 +707,8 @@
         fillCols[col].push(+el.card.place[cols].row)
         fillCols[col].sort(function(a, b) {return a - b})
         row = fillCols[col].indexOf(+el.card.place[cols].row)
+        el.setAttribute("draggable", true)
+        el.ondragend = that.dropcard
       })
 
       this.$.list0.render()
