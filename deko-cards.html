@@ -949,7 +949,9 @@
               }
             }
           }
-          this.set(['items',card,'html'], html)
+          if (this.items[card].ref.id === this.routeData.data && this.routeData.data.length === 20) {
+            this.set(['items',card,'html'], html)
+          }
         }
         if (!this.editing && this.quill && this.items[card] && this.items[card].quill && this.items[card].quill.length) {
           this.quill.setContents(this.items[card].quill)
