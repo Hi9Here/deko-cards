@@ -1000,7 +1000,7 @@
             }
           }
         }
-        if (html !== show.innerHTML) {
+        if (html !== show.innerHTML && this.items[card].ref.id === this.routeData.data && this.routeData.data.length === 20) {
           this.set(['items',card,'html'], html)
           show.innerHTML = html
           this.deal(this.cols)
