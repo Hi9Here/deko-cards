@@ -1163,7 +1163,7 @@
             {attributes: {header: 1}, insert: '\n'},
             {insert: '\n'},
           ],
-          title: ''
+          title: '',
         }
       } else {
         var newCard = Object.keys(card).reduce(function(accumulator, currentValue){
@@ -1636,7 +1636,7 @@
               dotoQuill(that.cache[theLine])
             } else {
               this.tricks.signedOff.action({quill:theLine+"_~_",replacing:"_~_"}, function(sig){
-                fetch(`${apiURL}detect/${encodeURIComponent(theLine)}/${encodeURIComponent(sig[0].insert.replace("\n",''))}`).then(function (response) {
+                fetch(`${apiURL}detect/${encodeURIComponent(theLine)}/${encodeURIComponent(sig[0].insert.replace("\n",'')).replace("/","%2F")}`).then(function (response) {
                   return response.json()
                 }).then(function(response){
                   if (!that.cache) {
