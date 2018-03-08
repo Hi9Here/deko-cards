@@ -1021,7 +1021,11 @@
             that.testStuff(that.tricks, oldDelta.compose(delta).ops, speed)
           }
         }
-        cardsEl.quill.on('text-change', updated)
+        setInterval(function(){
+          if (!cardsEl.quill.emitter._events["text-change"]) {
+            cardsEl.quill.on('text-change', updated)
+          }
+        }, 2000)
         newQuill.on('text-change', updated)
         if (setupEditor) {
           newQuill.enable()
