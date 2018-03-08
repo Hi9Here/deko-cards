@@ -1001,7 +1001,7 @@
           }
         }
         this.set(['items',card,'html'], html)
-        if (html !== show.innerHTML && (this.items[card].selected || this.items[card].ref && this.items[card].ref.id === this.routeData.data && this.routeData.data.length === 20)) {
+        if (show && html !== show.innerHTML && (this.items[card].selected || this.items[card].ref && this.items[card].ref.id === this.routeData.data && this.routeData.data.length === 20)) {
           show.innerHTML = html
           this.deal(this.cols)
         }
