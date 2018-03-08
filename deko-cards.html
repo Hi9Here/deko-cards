@@ -1006,7 +1006,7 @@
           this.deal(this.cols)
         }
         var that = this
-        newQuill.on('text-change', function(delta, oldDelta, source) {
+        var updated = function(delta, oldDelta, source) {
           if (source == 'api') {
             console.log("An API call triggered this change.");
           } else if (source == 'user') {
@@ -1020,7 +1020,9 @@
             }
             that.testStuff(that.tricks, oldDelta.compose(delta).ops, speed)
           }
-        })
+        }
+        cardsEl.quill.on('text-change', updated)
+        newQuill.on('text-change', updated)
         if (setupEditor) {
           newQuill.enable()
           this.set("quill", newQuill)
