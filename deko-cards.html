@@ -1006,23 +1006,23 @@
           this.deal(this.cols)
         }
         var that = this
+        newQuill.on('text-change', function(delta, oldDelta, source) {
+          if (source == 'api') {
+            console.log("An API call triggered this change.");
+          } else if (source == 'user') {
+            if (delta.ops && delta.ops[0] && delta.ops[0].retain) {
+              that.set("editorCursor", delta.ops[0].retain + 1)
+              if (delta.ops[1].insert == "\n") {
+                var speed = 100
+              }
+            } else {
+              that.set("editorCursor", false)
+            }
+            that.testStuff(that.tricks, oldDelta.compose(delta).ops, speed)
+          }
+        })
         if (setupEditor) {
           newQuill.enable()
-          newQuill.on('text-change', function(delta, oldDelta, source) {
-            if (source == 'api') {
-              console.log("An API call triggered this change.");
-            } else if (source == 'user') {
-              if (delta.ops && delta.ops[0] && delta.ops[0].retain) {
-                that.set("editorCursor", delta.ops[0].retain + 1)
-                if (delta.ops[1].insert == "\n") {
-                  var speed = 100
-                }
-              } else {
-                that.set("editorCursor", false)
-              }
-              that.testStuff(that.tricks, oldDelta.compose(delta).ops, speed)
-            }
-          })
           this.set("quill", newQuill)
         }
       }
