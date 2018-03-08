@@ -970,7 +970,7 @@
         })
         this.quill.setContents(card)
 
-      } else if (show !== null && card !== false && this.items[card].quill && this.items[card].quill.length) {
+      } else if ((show !== null || (this.items[card].selected && !this.items[card].ref)) && card !== false && this.items[card].quill && this.items[card].quill.length) {
         var elem
         if (this.$$("#editor") && this.cardOpen) {
           setupEditor = true
