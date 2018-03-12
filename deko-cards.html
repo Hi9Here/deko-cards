@@ -103,13 +103,7 @@
     <!-- <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
     -->
     <div style="max-width: 500px">
-      <div style="position: fixed;bottom: 92px;justify-content: space-evenly;flex: auto;width: 100%;display: flex;flex-wrap: wrap">
-        <template is="dom-repeat" items="[[tableCommands]]">
-          <paper-chip on-tap="fireChip" single-line value="[[index]]" style="z-index: 400;">
-            <div class="label">[[item]]</div>
-          </paper-chip>
-        </template>
-      </div>
+      <deko-display-chips on-tap="fireChip" items="[[tableCommands]]" ></deko-display-chips>
     </div>
     <img on-tap="new" style="z-index: 2;position: fixed;bottom: 30px;margin-left: -39px;left: 50%;height: 80px;cursor:pointer;" src="/images/deko.svg" autofocus/>
     <deko-card-container>
