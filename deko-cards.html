@@ -817,37 +817,10 @@
     fireChip: function (e, d) {
       var that = this
       var chipText = encodeURIComponent(e.currentTarget.innerText.replace('\n', ''))
-      if (chipText === 'Getting') {
-        that.tableCommands = ['Still Getting']
+      if (chipText) {
+        debugger
         return
       }
-      if (chipText === 'Still%20Getting') {
-        that.tableCommands = []
-        return
-      }
-
-      this.set('tableCommands', ['Getting'])
-
-      fetch(this.apiURL + 'pik/deko/' + chipText).then(function (response) {
-        return response.json()
-      }).then(function (response) {
-        that.tableCommands = ['Got it']
-        if (response.add) {
-          response.add.selected = true
-          that.set('items', that.items.map(function (x) {
-            x.selected = false
-            return x
-          }).concat([response.add]))
-
-          that.set('cardPart', 1)
-
-          that.newCard({
-            value: response.add.quill,
-            time: +Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-            user: firebase.auth().currentUser.uid
-          })
-        }
-      })
     },
     getDekValues: function (card){
       var inputs = Polymer.dom(this.root).querySelectorAll("open-card input[value]")
