@@ -539,7 +539,7 @@
     getAddChips: function(items) {
       var card = this._items(items)
       if (card && items[card].dek && items[card].dek.deks) {
-        this.addChips = this.toArray(items[card].dek.deks)
+        return this.toArray(items[card].dek.deks)
       }
     },
     toId: function (i) {
