@@ -537,7 +537,10 @@
       },
     },
     getAddChips: function(items) {
-
+      var card = this._items(items)
+      if (items[card].dek && items[card].dek.deks) {
+        this.addChips = this.toArray(items[card].dek.deks)
+      }
       debugger
     },
     toId: function (i) {
