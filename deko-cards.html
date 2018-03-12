@@ -92,13 +92,6 @@
             <q-card files="[[imageResults]]" part="[[cardPart]]" line="[[line]]" editor="[[quill]]" meta="[[meta]]" tricks="[[tricks]]" card="{{item}}" prompt="{{prompt}}" chips="{{chips}}"></q-card>
           </div>
           <div style="margin: auto;max-width:100%;width:1000px;">
-            <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="cardsDek">
-              <a href$="/[[profileId]]/[[cardsDek]]">
-                <paper-chip single-line>
-                  <div class="label">[[cardsDek]]</div>
-                </paper-chip>
-              </a>
-            </template>
             <deko-card style="margin: auto;min-width: 365px;display: block;width: 80%;" card="[[item]]" display="open">
               <div id="show" inner-h-t-m-l="[[item.html]]"></div>
             </deko-card>
@@ -168,6 +161,9 @@
       pageing: {
         type: Boolean,
         value: false
+      },
+      addChips: {
+        computed: 'getAddChips(items, items.*)'
       },
       cardPart: {
         observer: 'changingPart',
@@ -539,6 +535,10 @@
         type: Array,
         value: [],
       },
+    },
+    getAddChips: function(items) {
+
+      debugger
     },
     toId: function (i) {
       return i.replace(/[0-9+/\=]/g, '')
