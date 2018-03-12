@@ -541,6 +541,7 @@
       if (card && items[card].dek && items[card].dek.deks) {
         return this.toArray(items[card].dek.deks)
       }
+      return []
     },
     toId: function (i) {
       return i.replace(/[0-9+/\=]/g, '')
