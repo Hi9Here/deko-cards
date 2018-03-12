@@ -624,7 +624,7 @@
             }
           }
         } else {
-          this.set("addChips", [a.data])
+          this.set("tableCommands", [a.data])
           this.set("dek", a.data)
           if (this.$$('open-card') !== null) {
             this.$$('open-card').close()
@@ -634,7 +634,7 @@
         }
       } else {
         this.set("dek", "")
-        this.set("addChips", [a.data])
+        this.set("tableCommands", [a.data])
       }
     },
     removeDek: function(e) {
