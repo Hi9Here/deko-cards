@@ -537,9 +537,21 @@
       },
     },
     getAddChips: function(items) {
+      var that = this
       var card = this._items(items)
       if (card && items[card].dek && items[card].dek.deks) {
-        return this.toArray(items[card].dek.deks)
+        return this.toArray(items[card].dek.deks).maps(function(dek) {
+          return {
+            text: dek,
+            removable: true,
+            action: function() {
+              debugger
+            },
+            removableAction: function() {
+              debugger
+            },
+          }
+        })
       }
       return []
     },
