@@ -33,11 +33,6 @@
       }
     </style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
-    <template is="dom-if" if="[[dek]]">
-      <paper-chip single-line on-tap="noDek">
-        <div class="label">[[dek]]</div>
-      </paper-chip>
-    </template>
     <div id="card-view">
       <div class="col 0" style$="width: calc(95%/[[cols]])">
         <template is="dom-repeat" items="[[items]]" id="list0" filter="col_1" sort="sortRow">
@@ -84,7 +79,7 @@
     </div>
     <template is="dom-repeat" items="[[items]]" id="opencard" filter="selected">
       <template is="dom-if" if="![[index]]" restamp><template is="dom-if" if="[[cardOpen]]" restamp>
-        <open-card svg="/images/deko.svg" opened="{{cardOpen}}" prompt="[[prompt]]" on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="noDek" on-new="new">
+        <open-card svg="/images/deko.svg" opened="{{cardOpen}}" prompt="[[prompt]]" add-chips="[[addChips]]"  on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="noDek" on-new="new">
           <div>
             <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="cardsDek">
               <paper-chip removable single-line on-remove="removeDek" >
@@ -629,6 +624,7 @@
             }
           }
         } else {
+          this.set("addChips", [a.data])
           this.set("dek", a.data)
           if (this.$$('open-card') !== null) {
             this.$$('open-card').close()
@@ -638,6 +634,7 @@
         }
       } else {
         this.set("dek", "")
+        this.set("addChips", [a.data])
       }
     },
     removeDek: function(e) {
