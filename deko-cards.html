@@ -816,11 +816,9 @@
       }
     },
     fireChip: function (e, d) {
-      var that = this
       var chipText = encodeURIComponent(e.currentTarget.innerText.replace('\n', ''))
-      if (chipText) {
-        debugger
-        return
+      if (chipText === this.routeData.data) {
+        this.routeData.data = ""
       }
     },
     getDekValues: function (card){
