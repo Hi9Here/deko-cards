@@ -1,5 +1,6 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../deko-card-container/deko-card-container.html">
+<link rel="import" href="../deko-display-chips/deko-display-chips.html">
 <link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../deko-opened-card/deko-opened-card.html">
 <link rel="import" href="../deko-signature/deko-signature.html">
@@ -81,11 +82,6 @@
       <template is="dom-if" if="![[index]]" restamp><template is="dom-if" if="[[cardOpen]]" restamp>
         <open-card svg="/images/deko.svg" opened="{{cardOpen}}" prompt="[[prompt]]" add-chips="[[addChips]]"  on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="noDek" on-new="new">
           <div>
-            <template is="dom-repeat" items="[[toArray(item.dek.deks)]]" as="cardsDek">
-              <paper-chip removable single-line on-remove="removeDek" >
-                <div class="label">[[cardsDek]]</div>
-              </paper-chip>
-            </template>
             <deko-card style="margin: auto;min-width: 330px;display: block;width: 80%;" card="[[item]]" display="open">
               <div id="editor" ></div>
             </deko-card>
