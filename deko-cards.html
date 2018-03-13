@@ -886,6 +886,13 @@
               that.set("cardPart", 0)
             },
           }
+          var returnOp = {
+            text: 'Return',
+            onTap: function () {
+              that.set("routeData.data", that.openedFrom || "")
+              that.set("dek", that.openedFrom ||"")
+            },
+          }
           var giveOp = {
             text: 'Give',
             onTap: function () {
@@ -923,12 +930,12 @@
             chips = [editOp, giveOp]
           }
           if (this.getDekValues(this.items[selectedCard])) {
-            chips = chips.concat(['Take as new card', 'Add to dek'])
+            chips = chips.concat(['Take as new card'])
           }
           if (selectedCard && this.items[selectedCard].setsReps) {
             chips = chips.concat(['Next'])
           }
-          return chips.concat(['Add to dek','Return'])
+          return chips.concat(['Add to dek', returnOp])
         } else {
         // get tricks
         }
