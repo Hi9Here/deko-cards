@@ -1324,7 +1324,7 @@
         return
       }
       var elem
-      if (this.$$("#editor")) {
+      if (this.$$("#editor") && !noSideEffects) {
         elem = this.$$("#editor")
       } else {
         elem = document.createElement('div')
@@ -1335,10 +1335,10 @@
         },
         placeholder: "",
       })
-      
-      newQuill.disable()
+       
       if (!that.editing && data && Array.isArray(data.docs) && data.docs[0] && data.docs[0].data) {
         noSideEffects = true
+        newQuill.disable()
         newQuill.setContents(data.docs[0].data().value)
       } else if (that.editing && data && Array.isArray(data)) {
         newQuill.setContents(data)
@@ -1625,7 +1625,7 @@
       }
       var cursor = that.editorCursor
       if (add || head && !noSideEffects) {
-      //  updateCard(that.stuffTest(stuff))
+        updateCard(stuff)
       } else if (cursor && that.quill.getLine(cursor)[0] !== null && !noSideEffects) {
         var onLine = that.quill.getLine(cursor)[0].domNode.outerText.replace("\n","").trim()
         if (onLine === "") {
