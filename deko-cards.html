@@ -580,6 +580,7 @@
     setDek: function(a) {
       this.cardOpen = false
       this.set("tableCommands", [])
+      var that = this
       if (a.data) {
         if (/^[a-z0-9]{20}$/i.test(a.data)) {
           // select and open card
@@ -629,7 +630,17 @@
             }
           }
         } else {
-          this.set("tableCommands", [{text:a.data}])
+
+          this.set("tableCommands", [{
+            text:a.data,
+            onTap: function () {
+              that.set("dek", a.data)
+            },
+            onRemove: function () {
++             that.set("dek", a.data)
++           },
+            removable: true,
+          }])
           this.set("dek", a.data)
           if (this.$$('open-card') !== null) {
             this.$$('open-card').close()
