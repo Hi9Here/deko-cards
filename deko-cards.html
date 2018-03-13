@@ -534,7 +534,7 @@
       var that = this
       var card = this._items(items)
       if (card && items[card].dek && items[card].dek.deks) {
-        return this.toArray(items[card].dek.deks).maps(function(dek) {
+        return this.toArray(items[card].dek.deks).map(function(dek) {
           return {
             text: dek,
             removable: true,
