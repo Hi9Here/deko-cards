@@ -917,15 +917,15 @@
             },
           }
           if (this.getDekValues(this.items[selectedCard])) {
-            return [editOp, 'Give', 'Take as new card', 'Add to dek', 'Return' ]
+            return [editOp, giveOp, 'Take as new card', 'Add to dek', 'Return' ]
           }
           if (selectedCard && this.items[selectedCard].setsReps) {
-            return [editOp, 'Next', 'Give', 'Return' ]
+            return [editOp, 'Next', giveOp, 'Return' ]
           }
           if (!this.items[selectedCard].dek) {
-            return [editOp, 'Give', 'Add to dek', 'Return' ]
+            return [editOp, giveOp, 'Add to dek', 'Return' ]
           }
-          return [editOp, 'Give', 'Return']
+          return [editOp, giveOp, 'Return']
         } else {
         // get tricks
         }
