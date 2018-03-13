@@ -858,29 +858,42 @@
       this.showQuill()
       if (selectedCard !== false) {
         if (cardPart === 0) {
+          var deleteOp = {
+            text: 'Delete',
+            onTap: function () {
+              that.deleteCard()
+            },
+          }
+          var showOp = {
+            text: 'Show it',
+            onTap: function () {
+              that.set("cardPart", 1)
+            },
+          }
+          
           if (selectedCard !== false && this.items[selectedCard] && this.items[selectedCard].ref) {
-            return ['Delete', 'Show it']
+            return [deleteOp, showOp]
           } else {
             return ['Disregard', 'Save']
           }
         } else if (cardPart === 1) {
           this.prompt = ''
-          var edit = {
+          var editOp = {
             text: 'Edit',
             onTap: function () {
-              that.cardPart = 0
+              that.set("cardPart", 0)
             },
           }
           if (this.getDekValues(this.items[selectedCard])) {
-            return [edit, 'Give', 'Take as new card', 'Add to dek', 'Return' ]
+            return [editOp, 'Give', 'Take as new card', 'Add to dek', 'Return' ]
           }
           if (selectedCard && this.items[selectedCard].setsReps) {
-            return [edit, 'Next', 'Give', 'Return' ]
+            return [editOp, 'Next', 'Give', 'Return' ]
           }
           if (!this.items[selectedCard].dek) {
-            return [edit, 'Give', 'Add to dek', 'Return' ]
+            return [editOp, 'Give', 'Add to dek', 'Return' ]
           }
-          return [edit, 'Give', 'Return']
+          return [editOp, 'Give', 'Return']
         } else {
         // get tricks
         }
