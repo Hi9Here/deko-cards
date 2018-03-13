@@ -1290,7 +1290,7 @@
           toSave[key] = card[key]
         }
       })
-      card.ref.set(toSave)
+      card.ref.set(JSON.parse(JSON.stringify(toSave)))
     },
     deleteCard: function (e, d) {
       var that = this
