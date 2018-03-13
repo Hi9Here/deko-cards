@@ -512,7 +512,7 @@
         computed: 'getIconTricks(tricks)'
       },
       commands: {
-        computed: 'getCommands(cardPart,items)'
+        computed: 'getCommands(cardPart,items,profileList)'
       },
       _setListOfDeks:{computed: 'setListOfDeks(profileId, items)'},
       apiURL: {
@@ -525,6 +525,10 @@
         type: Array,
         value: [],
       },
+      profileList: {
+        type: Array,
+        value: [], 
+      }
     },
     getAddChips: function(items) {
       var that = this
@@ -852,7 +856,7 @@
         return false
       }
     },
-    getCommands:function (cardPart, items) {
+    getCommands:function (cardPart, items, profileList) {
       var selectedCard = this._items(this.items)
       var that = this
       this.showQuill()
