@@ -538,8 +538,8 @@
           return {
             text: dek,
             removable: true,
-            onTap: function() {
-              debugger
+            onTap: function(e,d) {
+              that.set("routeData.data", d.text)
             },
             onRemove: function() {
               debugger
