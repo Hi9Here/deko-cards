@@ -920,16 +920,17 @@
               })
             },
           }
+          var chips = [editOp]
+          if (profileList.length) {
+            chips = [editOp, giveOp]
+          }
           if (this.getDekValues(this.items[selectedCard])) {
-            return [editOp, giveOp, 'Take as new card', 'Add to dek', 'Return' ]
+            chips = chips.concat(['Take as new card', 'Add to dek'])
           }
           if (selectedCard && this.items[selectedCard].setsReps) {
-            return [editOp, 'Next', giveOp, 'Return' ]
+            chips = chips.concat(['Next'])
           }
-          if (!this.items[selectedCard].dek) {
-            return [editOp, giveOp, 'Add to dek', 'Return' ]
-          }
-          return [editOp, giveOp, 'Return']
+          return chips.concat(['Add to dek','Return'])
         } else {
         // get tricks
         }
