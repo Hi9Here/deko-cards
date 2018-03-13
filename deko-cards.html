@@ -634,7 +634,7 @@
             }
           }
         } else {
-
+          this.openedFrom = a.data
           this.set("tableCommands", [{
             text:"Showing "+ a.data,
             onTap: function () {
@@ -655,6 +655,7 @@
       } else {
         this.set("dek", "")
         this.set("tableCommands", [])
+        this.openedFrom = ""
       }
     },
     removeDek: function(e) {
@@ -835,7 +836,7 @@
         return 'Error'
       }
     },
-    getDekValues: function (card){
+    getDekValues: function (card){ //TODO PAK not Dek
       var inputs = Polymer.dom(this.root).querySelectorAll("open-card input[value]")
       if (inputs !== null) {
         var dek = false
@@ -896,7 +897,7 @@
           var giveOp = {
             text: 'Give',
             onTap: function () {
-              that.chips = that.profileList.filter(function (profile) {
+              that.chips = profileList.filter(function (profile) {
                 return profile.name
               }).map(function (profile) {
                 return {
