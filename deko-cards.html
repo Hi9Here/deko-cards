@@ -833,12 +833,6 @@
         return 'Error'
       }
     },
-    fireChip: function (e, d) {
-      var chipText = encodeURIComponent(e.currentTarget.innerText.replace('\n', ''))
-      if (chipText === this.routeData.data) {
-        this.routeData.data = ""
-      }
-    },
     getDekValues: function (card){
       var inputs = Polymer.dom(this.root).querySelectorAll("open-card input[value]")
       if (inputs !== null) {
@@ -860,6 +854,7 @@
     },
     getCommands:function (cardPart, items) {
       var selectedCard = this._items(this.items)
+      var that = this
       this.showQuill()
       if (selectedCard !== false) {
         if (cardPart === 0) {
@@ -870,16 +865,22 @@
           }
         } else if (cardPart === 1) {
           this.prompt = ''
+          var edit = {
+            text: 'Edit',
+            ontap: function () {
+              that.cardPart = 0
+            },
+          }
           if (this.getDekValues(this.items[selectedCard])) {
-            return ['Edit', 'Give', 'Take as new card', 'Add to dek', 'Return' ]
+            return [edit, 'Give', 'Take as new card', 'Add to dek', 'Return' ]
           }
           if (selectedCard && this.items[selectedCard].setsReps) {
-            return ['Edit', 'Next', 'Give', 'Return' ]
+            return [edit, 'Next', 'Give', 'Return' ]
           }
           if (!this.items[selectedCard].dek) {
-            return ['Edit', 'Give', 'Add to dek', 'Return' ]
+            return [edit, 'Give', 'Add to dek', 'Return' ]
           }
-          return ['Edit', 'Give', 'Return']
+          return [edit, 'Give', 'Return']
         } else {
         // get tricks
         }
