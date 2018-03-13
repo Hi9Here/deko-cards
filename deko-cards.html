@@ -103,7 +103,7 @@
     <!-- <image-base64 url="[[selectedItem.image]]" max-height="200" max-width="200" base64="{{addingImage}}"></image-base64>
     -->
     <div style="max-width: 500px">
-      <deko-display-chips on-tap="fireChip" items="[[tableCommands]]" ></deko-display-chips>
+      <deko-display-chips items="[[tableCommands]]" ></deko-display-chips>
     </div>
     <img on-tap="new" style="z-index: 2;position: fixed;bottom: 30px;margin-left: -39px;left: 50%;height: 80px;cursor:pointer;" src="/images/deko.svg" autofocus/>
     <deko-card-container>
@@ -629,7 +629,7 @@
             }
           }
         } else {
-          this.set("tableCommands", [a.data])
+          this.set("tableCommands", [{text:a.data}])
           this.set("dek", a.data)
           if (this.$$('open-card') !== null) {
             this.$$('open-card').close()
@@ -639,7 +639,7 @@
         }
       } else {
         this.set("dek", "")
-        this.set("tableCommands", [a.data])
+        this.set("tableCommands", [{text:a.data}])
       }
     },
     removeDek: function(e) {
