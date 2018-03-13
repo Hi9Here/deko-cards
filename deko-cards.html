@@ -1625,7 +1625,7 @@
       }
       var cursor = that.editorCursor
       if (add || head && !noSideEffects) {
-        updateCard(that.stuffTest(stuff))
+      //  updateCard(that.stuffTest(stuff))
       } else if (cursor && that.quill.getLine(cursor)[0] !== null && !noSideEffects) {
         var onLine = that.quill.getLine(cursor)[0].domNode.outerText.replace("\n","").trim()
         if (onLine === "") {
