@@ -870,6 +870,8 @@
           var showOp = {
             text: 'Show it',
             onTap: function () {
+              that.saveCard()
+              that.showQuill()
               that.set("cardPart", 1)
             },
           }
@@ -1279,6 +1281,9 @@
       }
     },
     saveCard: function (card) {
+      if (!card) {
+        card = that.items[this._items(this.items)]
+      }
       var toSave = {}
       Object.keys(card).forEach(function (key) {
         if (card[key] && !key.startsWith('_') && typeof card[key] !== "function" && key !== "ref" && key !== "quill" && key !== "selected") {
