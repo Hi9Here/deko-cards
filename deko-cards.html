@@ -1282,7 +1282,7 @@
     },
     saveCard: function (card) {
       if (!card) {
-        card = that.items[this._items(this.items)]
+        card = this.items[this._items(this.items)]
       }
       var toSave = {}
       Object.keys(card).forEach(function (key) {
