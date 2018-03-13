@@ -884,6 +884,38 @@
               that.set("cardPart", 0)
             },
           }
+          var giveOp = {
+            text: 'Give',
+            onTap: function () {
+              that.chips = that.profileList.filter(function (profile) {
+                return profile.name
+              }).map(function (profile) {
+                return {
+                  text: profile.name,
+                  onTap: function () {
+                    var id = profile.id
+                    if (that.items[selectedCard].ref) { 
+                      var given = {}
+                      given[id] = true
+                      that.items[selectedCard].ref.set({given: given}, {merge: true}).then(function () {
+                        that.$$('open-card').close()
+                        that.set("cardOpen", false)
+                        that.chips = []
+                        if (that.unsub) {
+                          that.unsub()
+                        }
+                        if (that.resub) {
+                          that.resub()
+                        }
+                      }).catch(function (e) {
+                        console.error(e)
+                      })
+                    }
+                  }
+                }
+              })
+            },
+          }
           if (this.getDekValues(this.items[selectedCard])) {
             return [editOp, 'Give', 'Take as new card', 'Add to dek', 'Return' ]
           }
@@ -1065,12 +1097,6 @@
           this.chips = this.profileDeks || ["new dek"]
         } else if (textOnChip === "take as new card") {
           this.new(this.getDekValues(this.items[selectedItem]))
-        } else if (textOnChip === 'give') {
-          this.chips = that.profileList.map(function (profile) {
-            return profile.name
-          }).filter(function (name) {
-            return name
-          })
         } else if (testForFunction(textOnChip)) {
           if (typeof that.tricks[testForFunction(textOnChip)].chips[textOnChip] === 'function' && that.items[selectedItem].quill) {
             function update (newQuill) {
@@ -1099,30 +1125,6 @@
             return profile.name.toLowerCase() === textOnChip
           }
         })[0]) {
-          var id = this.profileList.filter(function (profile) {
-            if (profile.name) {
-              return profile.name.toLowerCase() === textOnChip
-            }
-          })[0].id
-
-          if (this.items[selectedItem].ref) { 
-            that.chips = ['giving']
-            var given = {}
-            given[id] = true
-            this.items[selectedItem].ref.set({given: given}, {merge: true}).then(function () {
-              that.$$('open-card').close()
-              that.set("cardOpen", false)
-              that.chips = []
-              if (that.unsub) {
-                that.unsub()
-              }
-              if (that.resub) {
-                that.resub()
-              }
-            }).catch(function (e) {
-              console.error(e)
-            })
-          }
         }
       }
     },
