@@ -940,7 +940,7 @@
               if (that.profileDeks) {
                 that.chips = that.profileDeks.filter(function(dek) {
                   var card = that._items(that.items)
-                  if (card && that.items[card] && that.items[card].dek && that.items[card].dek.deks[dek]) {
+                  if (card !== false && that.items[card] && that.items[card].dek && that.items[card].dek.deks[dek]) {
                     return false
                   } else {
                     return true
