@@ -534,7 +534,7 @@
     getAddChips: function(items) {
       var that = this
       var card = this._items(items)
-      if (card && items[card].dek && items[card].dek.deks) {
+      if (card !== false && items[card].dek && items[card].dek.deks) {
         return this.toArray(items[card].dek.deks).map(function(dek) {
           return {
             text: dek,
