@@ -1332,13 +1332,14 @@
           time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
           user: firebase.auth().currentUser.uid
         })
+      } else {
+        Object.keys(card).forEach(function (key) {
+          if (card[key] && !key.startsWith('_') && typeof card[key] !== "function" && key !== "ref" && key !== "quill" && key !== "selected") {
+            toSave[key] = card[key]
+          }
+        })
+        card.ref.set(JSON.parse(JSON.stringify(toSave)))
       }
-      Object.keys(card).forEach(function (key) {
-        if (card[key] && !key.startsWith('_') && typeof card[key] !== "function" && key !== "ref" && key !== "quill" && key !== "selected") {
-          toSave[key] = card[key]
-        }
-      })
-      card.ref.set(JSON.parse(JSON.stringify(toSave)))
     },
     deleteCard: function (e, d) {
       var that = this
