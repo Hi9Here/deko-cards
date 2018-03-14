@@ -934,7 +934,14 @@
             text: 'Add to dek',
             onTap: function () {
               if (that.profileDeks) {
-                that.chips = that.profileDeks.map(function(dek) {
+                that.chips = that.profileDeks.filter(function(dek)
+                  var card = that._items(that.items)
+                  if (card && that.items[card] && that.items[card].dek && that.items[card].dek.deks[dek]) {
+                    return false
+                  } else {
+                    return true
+                  }
+                }).map(function(dek) {
                   return {
                     text: dek,
                     onTap: function () {
