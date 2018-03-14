@@ -1809,25 +1809,8 @@
           })
         }
       }
-      if (part == 1 && partFrom == 0 && this.quill && this.items[selectedItem].quill && JSON.stringify(this.items[selectedItem].quill) != JSON.stringify([{'insert': '\n'}])) {
-        var quill = {
-          value: this.quill.getContents().ops,
-          time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
-          user: firebase.auth().currentUser.uid
-        }
-        if (this.items[selectedItem].quill !== quill.value) {
-          if (ref && this.editing) {
-            this.items[selectedItem].quill = quill.value
-            ref.collection('quill').add(quill).then(function (data) {
-              that.set('savedQuill', true)
-              that.clearTrick()
-            })
-          }
-        }
+      if (part == 1 && partFrom == 0) {
         this.editing = false
-        if (!ref) {
-          that.newCard(quill)
-        }
       }
     },
     addToCard: function (cardRef) {
