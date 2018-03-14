@@ -544,8 +544,10 @@
             onRemove: function(e,d) {
               setTimeout(function() {
                 that.removeDek(d.text)
-                that.set("go", !that.go)
-              },100)
+                setTimeout(function() {
+                  that.set("go", !that.go)
+                },10)
+              },10)
             },
           }
         })
