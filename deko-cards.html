@@ -544,6 +544,9 @@
             onRemove: function(e,d) {
               setTimeout(function() {
                 that.removeDek(d.text)
+                that.set("items", that.items.map(function(card) {
+                  return card
+                }))
               },100)
             },
           }
