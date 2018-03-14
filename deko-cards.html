@@ -1327,7 +1327,11 @@
       }
       var toSave = {}
       if (!card.ref) {
-        await this.newCard(this.quill.getContents().ops)
+        await this.newCard({
+          value: this.quill.getContents().ops,
+          time: Date.now(), // firebase.database.ServerValue.TIMESTAMP,
+          user: firebase.auth().currentUser.uid
+        })
       }
       Object.keys(card).forEach(function (key) {
         if (card[key] && !key.startsWith('_') && typeof card[key] !== "function" && key !== "ref" && key !== "quill" && key !== "selected") {
