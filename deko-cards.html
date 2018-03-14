@@ -80,7 +80,7 @@
     </div>
     <template is="dom-repeat" items="[[items]]" id="opencard" filter="selected">
       <template is="dom-if" if="![[index]]" restamp><template is="dom-if" if="[[cardOpen]]" restamp>
-        <open-card svg="/images/deko.svg" opened="{{cardOpen}}" prompt="[[prompt]]" add-chips="[[addChips]]"  on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="noDek" on-new="new">
+          <open-card svg="/images/deko.svg" flipped-chips="[[flippedChips]]" opened="{{cardOpen}}" prompt="[[prompt]]" add-chips="[[addChips]]"  on-chip="addTextSetPrompt" chips="[[chips]]" other-chips="[[commands]]" selected="{{cardPart}}" on-cancel="deleteCard" on-done="noDek" on-new="new">
           <div>
             <deko-card style="margin: auto;min-width: 330px;display: block;width: 80%;" card="[[item]]" display="open">
               <div id="editor" ></div>
@@ -937,6 +937,7 @@
           var dekOp = {
             text: 'Add to dek',
             onTap: function () {
+              that.set("flippedChips", true)
               that.chips = []
               if (that.profileDeks) {
                 that.chips = that.profileDeks.filter(function(dek) {
@@ -956,6 +957,7 @@
                       that.chips = []
                       setTimeout(function() {
                         that.set("go", !that.go)
+                        that.set("flippedChips", true)
                       },300)
                     }
                   }
@@ -1138,20 +1140,7 @@
           )[0]
         }
 
-        if (this.dekoContext === "add to dek" && that.profileDeks && that.profileDeks.indexOf(textOnChip)) {
-          console.log(textOnChip)
-          var deks = {}
-          deks[textOnChip] = true
-
-          this.items[selectedItem].ref.set({dek: {deks: deks}},{merge: true})
-          this.dekoContext = "adding"
-          this.chips = []
-        } else if (textOnChip === "add to dek") {
-          this.dekoContext = "add to dek"
-          this.chips = this.profileDeks || ["new dek"]
-        } else if (textOnChip === "take as new card") {
-          this.new(this.getDekValues(this.items[selectedItem]))
-        } else if (testForFunction(textOnChip)) {
+        if (testForFunction(textOnChip)) {
           if (typeof that.tricks[testForFunction(textOnChip)].chips[textOnChip] === 'function' && that.items[selectedItem].quill) {
             function update (newQuill) {
               that.set('items.' + selectedItem + '.quill', newQuill)
