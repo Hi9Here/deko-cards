@@ -954,7 +954,9 @@
                       deks[dek] = true
                       that.items[that._items(that.items)].ref.set({dek: {deks: deks}},{merge: true})
                       that.chips = []
-                      that.set("go", !that.go)
+                      setTimeout(function() {
+                        that.set("go", !that.go)
+                      },300)
                     }
                   }
                 })
