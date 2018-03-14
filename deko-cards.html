@@ -937,6 +937,7 @@
           var dekOp = {
             text: 'Add to dek',
             onTap: function () {
+              that.chips = []
               if (that.profileDeks) {
                 that.chips = that.profileDeks.filter(function(dek) {
                   var card = that._items(that.items)
@@ -957,14 +958,13 @@
                     }
                   }
                 })
-              } else {
-                that.chips = [{
-                  text: "",
-                  onTap: function () {
-                    debugger
-                  }
-                }]
-              }
+              } 
+              that.chips.push({
+                text: "New Dek",
+                onTap: function () {
+                  debugger
+                },
+              })
             },
           }
           var chips = [editOp]
