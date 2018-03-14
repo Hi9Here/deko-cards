@@ -957,8 +957,13 @@
                       that.chips = []
                       setTimeout(function() {
                         that.set("go", !that.go)
-                        that.set("flippedChips", true)
                       },300)
+                      setTimeout(function() {
+                        that.set("go", !that.go)
+                      },3000)
+                      setTimeout(function() {
+                        that.set("go", !that.go)
+                      },6000)
                     }
                   }
                 })
