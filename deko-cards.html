@@ -1325,7 +1325,7 @@
       }
       var toSave = {}
       if (!card.ref) {
-        this.newCard(this.quill.getContents().op)
+        this.newCard(this.quill.getContents().ops)
       }
       Object.keys(card).forEach(function (key) {
         if (card[key] && !key.startsWith('_') && typeof card[key] !== "function" && key !== "ref" && key !== "quill" && key !== "selected") {
