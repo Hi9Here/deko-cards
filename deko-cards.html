@@ -542,6 +542,7 @@
               that.set("routeData.data", d.text)
             },
             onRemove: function() {
+              that.removeDek()
               debugger
             },
           }
@@ -661,7 +662,12 @@
     removeDek: function(e) {
       console.log(e)
       var card = this.items[this._items(this.items)]
-      var text = e.target.innerText.replace("","\n").trim()
+      var text
+      if (e.target) {
+        text = e.target.innerText.replace("","\n").trim()
+      } else {
+        text = e
+      }
       if (card.dek && card.dek.deks && card.dek.deks[text]) {
         delete(card.dek.deks[text])
         this.set(["items",this._items(this.items)],card)
