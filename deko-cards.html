@@ -1306,9 +1306,9 @@
       }
       save["added"] = +Date.now()
       if (that.cards.add) {
-        that.cards.add(JSON.parse(JSON.stringify(save))).then(function (doc) {
-          that.set('routeData',{data: doc.id})
-          console.log("new card id", doc.id)
+        return that.cards.add(JSON.parse(JSON.stringify(save))).then(function (doc) {
+          that.set('routeData', {data: doc.id})
+          that.set("items." + selectedItem + ".ref", doc)
           if (toAddQuill) {
             return doc.collection('quill').add(toAddQuill)
           } else {
@@ -1317,15 +1317,17 @@
         }).catch(function (e) {
           console.error('Error adding card: ', e)
         })
+      } else {
+        console.error('Error adding card: no data ref')
       }
     },
-    saveCard: function (card) {
+    saveCard: async function (card) {
       if (!card) {
         card = this.items[this._items(this.items)]
       }
       var toSave = {}
       if (!card.ref) {
-        this.newCard(this.quill.getContents().ops)
+        await this.newCard(this.quill.getContents().ops)
       }
       Object.keys(card).forEach(function (key) {
         if (card[key] && !key.startsWith('_') && typeof card[key] !== "function" && key !== "ref" && key !== "quill" && key !== "selected") {
