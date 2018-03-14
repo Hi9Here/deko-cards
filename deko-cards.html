@@ -1324,6 +1324,9 @@
         card = this.items[this._items(this.items)]
       }
       var toSave = {}
+      if (!card.ref) {
+        this.newCard(this.quill.getContents().op)
+      }
       Object.keys(card).forEach(function (key) {
         if (card[key] && !key.startsWith('_') && typeof card[key] !== "function" && key !== "ref" && key !== "quill" && key !== "selected") {
           toSave[key] = card[key]
