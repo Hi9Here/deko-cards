@@ -928,6 +928,31 @@
               })
             },
           }
+          var dekOp = {
+            text: 'Add to dek',
+            onTap: function () {
+              if (that.profileDeks) {
+                that.chips = that.profileDeks.map(function(dek) {
+                  return {
+                    text: dek,
+                    onTap: function () {
+                      var deks = {}
+                      deks[dek] = true
+                      that.items[selectedItem].ref.set({dek: {deks: deks}},{merge: true})
+                    }
+                  }
+                })
+              } else {
+                that.chips = [{
+                  text: "",
+                  onTap: function () {
+                    debugger
+                  }
+                }]
+              }
+              that.set("cardPart", 0)
+            },
+          }
           var chips = [editOp]
           if (profileList.length) {
             chips = [editOp, giveOp]
