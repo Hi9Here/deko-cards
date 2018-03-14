@@ -882,12 +882,7 @@
               that.set("cardPart", 1)
             },
           }
-          
-          if (selectedCard !== false && this.items[selectedCard] && this.items[selectedCard].ref) {
-            return [deleteOp, showOp]
-          } else {
-            return ['Disregard', 'Save']
-          }
+          return [deleteOp, showOp]
         } else if (cardPart === 1) {
           this.prompt = ''
           var editOp = {
