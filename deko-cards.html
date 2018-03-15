@@ -937,6 +937,7 @@
           var dekOp = {
             text: 'Add to dek',
             onTap: function () {
+              that.flippedChips = true
               that.set("flippedChips", false)
               that.chips = []
               if (that.profileDeks) {
