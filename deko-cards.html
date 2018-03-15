@@ -952,18 +952,22 @@
                     text: dek,
                     onTap: function () {
                       var deks = {}
+                      var card = that._items(that.items)
                       deks[dek] = true
-                      that.items[that._items(that.items)].ref.set({dek: {deks: deks}},{merge: true})
+
+                      if (!that.items[card].dek) {
+                        that.set("items." + card + ".dek" , {deks: deks})
+                      } else if (!that.items[card].dek.deks) {
+                        that.set("items." + card + ".dek.deks", deks)
+                      } else if (!that.items[card].dek.deks[dek]) {
+                        that.set("items." + card + ".dek.deks." + dek, true)
+                      }
+
+                      that.items[card].ref.set({dek: {deks: deks}},{merge: true})
                       that.chips = []
                       setTimeout(function() {
                         that.set("go", !that.go)
                       },300)
-                      setTimeout(function() {
-                        that.set("go", !that.go)
-                      },3000)
-                      setTimeout(function() {
-                        that.set("go", !that.go)
-                      },6000)
                     }
                   }
                 })
