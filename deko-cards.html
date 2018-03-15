@@ -1109,7 +1109,7 @@
             console.log("An API call triggered this change.");
           } else if (source == 'user') {
             if (delta.ops && delta.ops[0] && delta.ops[0].retain) {
-              that.set("line", that.quill.getLine(delta.ops[0].retain + 1)[0].domNode.outerText.replace("\n","").trim())
+              that.set("line", that.quill.getLine(delta.ops[0].retain + 1)[0].domNode.outerText.replace("\n","").trim() + "")
               that.set("editorCursor", delta.ops[0].retain + 1)
               if (delta.ops[1].insert == "\n") {
                 var speed = 100
