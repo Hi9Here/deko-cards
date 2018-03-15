@@ -1698,6 +1698,7 @@
                 var onLine = that.quill.getLine(cur)[0].domNode.outerText
                 var cur = cur + ((response+" ").length - onLine.length)
                 that.quill.setContents(JSON.parse(JSON.stringify(that.quill.getContents()).split(onLine).join(response+" ")))
+                updateCard(that.quill.getContents())
                 that.quill.setSelection(cur)
                 that.set("line",response+" ")
               } 
