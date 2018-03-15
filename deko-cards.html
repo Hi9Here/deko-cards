@@ -979,18 +979,23 @@
                 onTap: function () {
                   that.set("cardPart", 0)
                   that.quill.setContents(that.quill.getContents().ops.concat([{insert: "add to dek  \n"}]))
-                  console.log(that.quill.getLength())
                   that.quill.setSelection(that.quill.getLength(), 0)
                 },
               }])
             },
+          }
+          var takeOp = {
+            text: "Take as new card",
+            onTap: function() {
+              this.new(this.getDekValues(this.items[selectedItem]))
+            }
           }
           var chips = [editOp]
           if (profileList.length) {
             chips = [editOp, giveOp]
           }
           if (this.getDekValues(this.items[selectedCard])) {
-            chips = chips.concat(['Take as new card'])
+            chips = chips.concat([takeOp])
           }
           if (selectedCard && this.items[selectedCard].setsReps) {
             chips = chips.concat(['Next'])
