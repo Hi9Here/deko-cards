@@ -1108,6 +1108,7 @@
           if (source == 'api') {
             console.log("An API call triggered this change.");
           } else if (source == 'user') {
+            that.set("line",that.quill.getLine(that.editorCursor)[0].domNode.outerText.replace("\n","").trim())
             if (delta.ops && delta.ops[0] && delta.ops[0].retain) {
               that.set("editorCursor", delta.ops[0].retain + 1)
               if (delta.ops[1].insert == "\n") {
