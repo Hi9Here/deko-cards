@@ -940,51 +940,49 @@
               that.flippedChips = true
               that.set("flippedChips", false)
               that.chips = []
-              if (that.profileDeks) {
-                that.chips = that.profileDeks.filter(function(dek) {
-                  var card = that._items(that.items)
-                  if (card !== false && that.items[card] && that.items[card].dek && that.items[card].dek.deks[dek]) {
-                    return false
-                  } else {
-                    return true
-                  }
-                }).map(function(dek) {
-                  return {
-                    text: dek,
-                    onTap: function () {
-                      var deks = {}
-                      var card = that._items(that.items)
-                      deks[dek] = true
+              if (!that.profileDeks) {
+                that.profileDeks = []
+              }
+              that.chips = that.profileDeks.filter(function(dek) {
+                var card = that._items(that.items)
+                if (card !== false && that.items[card] && that.items[card].dek && that.items[card].dek.deks[dek]) {
+                  return false
+                } else {
+                  return true
+                }
+              }).map(function(dek) {
+                return {
+                  text: dek,
+                  onTap: function () {
+                    var deks = {}
+                    var card = that._items(that.items)
+                    deks[dek] = true
 
-                      if (!that.items[card].dek) {
-                        that.set("items." + card + ".dek" , {deks: deks})
-                      } else if (!that.items[card].dek.deks) {
-                        that.set("items." + card + ".dek.deks", deks)
-                      } else if (!that.items[card].dek.deks[dek]) {
-                        that.set("items." + card + ".dek.deks." + dek, true)
-                      }
-
-                      that.items[card].ref.set({dek: {deks: deks}},{merge: true})
-                      that.chips = []
-                      setTimeout(function() {
-                        that.set("go", !that.go)
-                        dekOp.onTap()
-                      },300)
+                    if (!that.items[card].dek) {
+                      that.set("items." + card + ".dek" , {deks: deks})
+                    } else if (!that.items[card].dek.deks) {
+                      that.set("items." + card + ".dek.deks", deks)
+                    } else if (!that.items[card].dek.deks[dek]) {
+                      that.set("items." + card + ".dek.deks." + dek, true)
                     }
+
+                    that.items[card].ref.set({dek: {deks: deks}},{merge: true})
+                    that.chips = []
+                    setTimeout(function() {
+                      that.set("go", !that.go)
+                      dekOp.onTap()
+                    },300)
                   }
-                })
-              } 
-              that.set("chips" ,that.chips.concat([{
+                }
+              }).concat([{
                 text: "New Dek",
                 onTap: function () {
-
                   that.set("cardPart", 0)
                   that.quill.setContents(that.quill.getContents().ops.concat([{insert: "add to dek  \n"}]))
                   console.log(that.quill.getLength())
                   that.quill.setSelection(that.quill.getLength(), 0)
-
                 },
-              }]))
+              }])
             },
           }
           var chips = [editOp]
