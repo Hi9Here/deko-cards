@@ -1448,7 +1448,7 @@
             that.items[selectedItem].ref.collection('quill').add(quillSave).then(function (data) {
               that.set('savedQuill', true)
             })
-          } else {
+          } else if (!that.items[selectedItem].ref) {
             that.newCard(quillSave)
           }
 
