@@ -974,7 +974,7 @@
                   }
                 })
               } 
-              that.push("chips" ,{
+              that.set("chips" ,that.chips.concat([{
                 text: "New Dek",
                 onTap: function () {
 
@@ -984,7 +984,7 @@
                   that.quill.setSelection(that.quill.getLength(), 0)
 
                 },
-              })
+              }]))
             },
           }
           var chips = [editOp]
